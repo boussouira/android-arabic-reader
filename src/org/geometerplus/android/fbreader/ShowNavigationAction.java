@@ -25,7 +25,7 @@ import org.geometerplus.zlibrary.text.view.ZLTextView;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 
 class ShowNavigationAction extends FBAndroidAction {
-	ShowNavigationAction(FBReader baseActivity, FBReaderApp fbreader) {
+	ShowNavigationAction(ArabicReader baseActivity, FBReaderApp fbreader) {
 		super(baseActivity, fbreader);
 	}
 

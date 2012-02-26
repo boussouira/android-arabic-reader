@@ -27,7 +27,7 @@ import org.geometerplus.fbreader.bookmodel.BookModel;
 import org.geometerplus.android.fbreader.library.LibraryActivity;
 
 class ShowLibraryAction extends FBAndroidAction {
-	ShowLibraryAction(FBReader baseActivity, FBReaderApp fbreader) {
+	ShowLibraryAction(ArabicReader baseActivity, FBReaderApp fbreader) {
 		super(baseActivity, fbreader);
 	}
 

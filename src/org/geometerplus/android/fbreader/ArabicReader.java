@@ -52,7 +52,7 @@ import org.geometerplus.android.fbreader.tips.TipsActivity;
 
 import org.geometerplus.android.util.UIUtil;
 
-public final class FBReader extends ZLAndroidActivity {
+public final class ArabicReader extends ZLAndroidActivity {
 	public static final String BOOK_PATH_KEY = "BookPath";
 
 	public static final int REQUEST_PREFERENCES = 1;
@@ -84,7 +84,7 @@ public final class FBReader extends ZLAndroidActivity {
 					for (PluginApi.ActionInfo info : myPluginActions) {
 						fbReader.addAction(
 							PLUGIN_ACTION_PREFIX + index++,
-							new RunPluginAction(FBReader.this, fbReader, info.getId())
+							new RunPluginAction(ArabicReader.this, fbReader, info.getId())
 						);
 					}
 				}
@@ -212,7 +212,7 @@ public final class FBReader extends ZLAndroidActivity {
 					} else {
 						runOnUiThread(new Runnable() {
 							public void run() {
-								UIUtil.showErrorMessage(FBReader.this, "textNotFound");
+								UIUtil.showErrorMessage(ArabicReader.this, "textNotFound");
 								popup.StartPosition = null;
 							}
 						});

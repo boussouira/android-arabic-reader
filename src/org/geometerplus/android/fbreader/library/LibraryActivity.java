@@ -36,7 +36,7 @@ import org.geometerplus.fbreader.library.*;
 import org.geometerplus.fbreader.tree.FBTree;
 
 import org.geometerplus.android.util.UIUtil;
-import org.geometerplus.android.fbreader.FBReader;
+import org.geometerplus.android.fbreader.ArabicReader;
 import org.geometerplus.android.fbreader.tree.TreeActivity;
 
 public class LibraryActivity extends TreeActivity implements MenuItem.OnMenuItemClickListener, View.OnCreateContextMenuListener, Library.ChangeListener {
@@ -226,9 +226,9 @@ public class LibraryActivity extends TreeActivity implements MenuItem.OnMenuItem
 
 	private void openBook(Book book) {
 		startActivity(
-			new Intent(getApplicationContext(), FBReader.class)
+			new Intent(getApplicationContext(), ArabicReader.class)
 				.setAction(Intent.ACTION_VIEW)
-				.putExtra(FBReader.BOOK_PATH_KEY, book.File.getPath())
+				.putExtra(ArabicReader.BOOK_PATH_KEY, book.File.getPath())
 				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 		);
 	}

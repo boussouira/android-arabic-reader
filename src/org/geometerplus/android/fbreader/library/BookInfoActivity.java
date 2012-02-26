@@ -47,7 +47,7 @@ import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageManager;
 import org.geometerplus.fbreader.library.*;
 import org.geometerplus.fbreader.network.HtmlUtil;
 
-import org.geometerplus.android.fbreader.FBReader;
+import org.geometerplus.android.fbreader.ArabicReader;
 import org.geometerplus.android.fbreader.preferences.EditBookInfoActivity;
 
 public class BookInfoActivity extends Activity {
@@ -79,7 +79,7 @@ public class BookInfoActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.book_info);
 
-		myResult = FBReader.RESULT_DO_NOTHING;
+		myResult = ArabicReader.RESULT_DO_NOTHING;
 		setResult(myResult, getIntent());
 	}
 
@@ -102,9 +102,9 @@ public class BookInfoActivity extends Activity {
 					finish();
 				} else {
 					startActivity(
-						new Intent(getApplicationContext(), FBReader.class)
+						new Intent(getApplicationContext(), ArabicReader.class)
 							.setAction(Intent.ACTION_VIEW)
-							.putExtra(FBReader.BOOK_PATH_KEY, myFile.getPath())
+							.putExtra(ArabicReader.BOOK_PATH_KEY, myFile.getPath())
 							.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 					);
 				}

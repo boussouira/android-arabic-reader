@@ -32,7 +32,7 @@ import org.geometerplus.zlibrary.text.hyphenation.ZLTextHyphenator;
 
 import org.geometerplus.fbreader.library.Book;
 
-import org.geometerplus.android.fbreader.FBReader;
+import org.geometerplus.android.fbreader.ArabicReader;
 import org.geometerplus.android.fbreader.library.BookInfoActivity;
 import org.geometerplus.android.fbreader.library.SQLiteBooksDatabase;
 
@@ -107,7 +107,7 @@ public class EditBookInfoActivity extends ZLPreferenceActivity {
 		final String path = intent.getStringExtra(BookInfoActivity.CURRENT_BOOK_PATH_KEY);
 		final ZLFile file = ZLFile.createFileByPath(path);
 		myBook = Book.getByFile(file);
-		setResult(FBReader.RESULT_REPAINT);
+		setResult(ArabicReader.RESULT_REPAINT);
 
 		if (myBook == null) {
 			finish();

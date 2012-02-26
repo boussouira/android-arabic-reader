@@ -23,7 +23,7 @@ import org.geometerplus.fbreader.fbreader.FBReaderApp;
 import org.geometerplus.fbreader.fbreader.FBView;
 
 public class SelectionTranslateAction extends FBAndroidAction {
-    SelectionTranslateAction(FBReader baseActivity, FBReaderApp fbreader) {
+    SelectionTranslateAction(ArabicReader baseActivity, FBReaderApp fbreader) {
         super(baseActivity, fbreader);
     }
 
