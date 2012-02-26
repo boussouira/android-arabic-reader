@@ -1061,21 +1061,22 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		boolean wordOccurred = false;
 		boolean changeStyle = true;
 
-		int x = getLeftMargin() + info.LeftIndent;
 		final int maxWidth = getTextAreaWidth();
+		int x = maxWidth - getTextStyle().getRightIndent();
+		
 		switch (getTextStyle().getAlignment()) {
-			case ZLTextAlignmentType.ALIGN_RIGHT:
-				x += maxWidth - getTextStyle().getRightIndent() - info.Width;
+			case ZLTextAlignmentType.ALIGN_LEFT:
+				x =  info.Width + getTextStyle().getLeftIndent();
 				break;
 			case ZLTextAlignmentType.ALIGN_CENTER:
-				x += (maxWidth - getTextStyle().getRightIndent() - info.Width) / 2;
+				x -= (maxWidth - getTextStyle().getRightIndent() - info.Width) / 2;
 				break;
 			case ZLTextAlignmentType.ALIGN_JUSTIFY:
 				if (!endOfParagraph && (paragraphCursor.getElement(info.EndElementIndex) != ZLTextElement.AfterParagraph)) {
 					fullCorrection = maxWidth - getTextStyle().getRightIndent() - info.Width;
 				}
 				break;
-			case ZLTextAlignmentType.ALIGN_LEFT:
+			case ZLTextAlignmentType.ALIGN_RIGHT:
 			case ZLTextAlignmentType.ALIGN_UNDEFINED:
 				break;
 		}
@@ -1099,12 +1100,12 @@ public abstract class ZLTextView extends ZLTextViewBase {
 							true, // is last in element
 							false, // add hyphenation sign
 							false, // changed style
-							getTextStyle(), element, x, x + spaceLength, y, y
+							getTextStyle(), element, x-spaceLength, x, y, y
 						);
 					} else {
 						spaceElement = null;
 					}
-					x += spaceLength;
+					x -= spaceLength;
 					fullCorrection -= correction;
 					wordOccurred = false;
 					--spaceCounter;
@@ -1123,7 +1124,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 					true, // is last in element
 					false, // add hyphenation sign
 					changeStyle, getTextStyle(), element,
-					x, x + width - 1, y - height + 1, y + descent
+					x-width, x - 1, y - height + 1, y + descent
 				));
 				changeStyle = false;
 				wordOccurred = true;
@@ -1131,7 +1132,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 				applyControl((ZLTextControlElement)element);
 				changeStyle = true;
 			}
-			x += width;
+			x -= width;
 		}
 		if (!endOfParagraph) {
 			final int len = info.EndCharIndex;
@@ -1149,7 +1150,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 						false, // is last in element
 						addHyphenationSign,
 						changeStyle, getTextStyle(), word,
-						x, x + width - 1, y - height + 1, y + descent
+						x-width, x + 1, y - height + 1, y + descent
 					)
 				);
 			}

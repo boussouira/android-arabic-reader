@@ -263,35 +263,6 @@ public final class FBReader extends ZLAndroidActivity {
 			null,
 			null
 		);
-
-		new TipRunner().start();
-	}
-
-	private class TipRunner extends Thread {
-		TipRunner() {
-			setPriority(MIN_PRIORITY);
-		}
-
-		public void run() {
-			final TipsManager manager = TipsManager.Instance();
-			switch (manager.requiredAction()) {
-				case Initialize:
-					startActivity(new Intent(
-						TipsActivity.INITIALIZE_ACTION, null, FBReader.this, TipsActivity.class
-					));
-					break;
-				case Show:
-					startActivity(new Intent(
-						TipsActivity.SHOW_TIP_ACTION, null, FBReader.this, TipsActivity.class
-					));
-					break;
-				case Download:
-					manager.startDownloading();
-					break;
-				case None:
-					break;
-			}
-		}
 	}
 
 	@Override
@@ -420,12 +391,11 @@ public final class FBReader extends ZLAndroidActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		addMenuItem(menu, ActionCode.SHOW_LIBRARY, R.drawable.ic_menu_library);
-		addMenuItem(menu, ActionCode.SHOW_NETWORK_LIBRARY, R.drawable.ic_menu_networklibrary);
 		addMenuItem(menu, ActionCode.SHOW_TOC, R.drawable.ic_menu_toc);
 		addMenuItem(menu, ActionCode.SHOW_BOOKMARKS, R.drawable.ic_menu_bookmarks);
+		addMenuItem(menu, ActionCode.SEARCH, R.drawable.ic_menu_search);
 		addMenuItem(menu, ActionCode.SWITCH_TO_NIGHT_PROFILE, R.drawable.ic_menu_night);
 		addMenuItem(menu, ActionCode.SWITCH_TO_DAY_PROFILE, R.drawable.ic_menu_day);
-		addMenuItem(menu, ActionCode.SEARCH, R.drawable.ic_menu_search);
 		addMenuItem(menu, ActionCode.SHOW_PREFERENCES);
 		addMenuItem(menu, ActionCode.SHOW_BOOK_INFO);
 		final Menu subMenu = addSubMenu(menu, "screenOrientation");
@@ -437,6 +407,9 @@ public final class FBReader extends ZLAndroidActivity {
 			addMenuItem(subMenu, ActionCode.SET_SCREEN_ORIENTATION_REVERSE_PORTRAIT);
 			addMenuItem(subMenu, ActionCode.SET_SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
 		}
+
+		addMenuItem(menu, ActionCode.SHOW_NETWORK_LIBRARY, R.drawable.ic_menu_networklibrary);
+
 		addMenuItem(menu, ActionCode.INCREASE_FONT);
 		addMenuItem(menu, ActionCode.DECREASE_FONT);
 		addMenuItem(menu, ActionCode.SHOW_NAVIGATION);

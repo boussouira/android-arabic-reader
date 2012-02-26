@@ -19,6 +19,7 @@
 
 package org.geometerplus.zlibrary.text.view;
 
+import org.geometerplus.zlibrary.core.util.ZLArabicUtils;
 import org.geometerplus.zlibrary.core.view.ZLPaintContext;
 
 public final class ZLTextWord extends ZLTextElement { 
@@ -54,6 +55,21 @@ public final class ZLTextWord extends ZLTextElement {
 		Offset = offset;
 		Length = length;
 		myParagraphOffset = paragraphOffset;
+		
+		int arabicCount = 0;
+		for(int i=offset; i<offset+length; i++) {
+			if(ZLArabicUtils.isArabic(Data[i])) {
+				++arabicCount;
+			}
+		}
+		
+		if(arabicCount > 0 && arabicCount != length) {
+			for(int i=offset; i<offset+length; i++) {
+				if(!ZLArabicUtils.isArabic(Data[i])) {
+					Data[i] = ZLArabicUtils.reverseForArabic(Data[i]);
+				}
+			}
+		}
 	}
 
 	public boolean isASpace() {
@@ -74,6 +90,31 @@ public final class ZLTextWord extends ZLTextElement {
 	}
 	
 	public void addMark(int start, int length) {
+		/*
+		int i = 0;
+		for(i=start; i>= 0; i--) {
+			if(!ZLArabicUtils.isArabic(Data[Offset + i])) {
+				break;
+			}
+		}
+
+		length += start - Math.max(0, i);
+		start = Math.max(0, i);
+
+		int j = Length;
+		for(j=length; j<Data.length; j++) {
+			if(!ZLArabicUtils.isArabic(Data[Offset + j])) {
+				break;
+			}
+		}
+
+		length = Math.min(j, length);
+		*/
+
+		// Mark the hole word
+		start = 0;
+		length = Data.length;
+
 		Mark existingMark = myMark;
 		Mark mark = new Mark(start, length);
 		if ((existingMark == null) || (existingMark.Start > start)) {
