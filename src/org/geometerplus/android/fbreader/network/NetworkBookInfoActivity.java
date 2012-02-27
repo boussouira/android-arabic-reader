@@ -32,7 +32,7 @@ import android.util.DisplayMetrics;
 import android.view.*;
 import android.widget.*;
 
-import org.geometerplus.zlibrary.ui.android.R;
+import com.ahlalhdeeth.arabicReader.R;
 
 import org.geometerplus.zlibrary.core.image.ZLImage;
 import org.geometerplus.zlibrary.core.image.ZLLoadableImage;

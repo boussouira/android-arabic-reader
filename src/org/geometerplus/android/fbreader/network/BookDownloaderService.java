@@ -34,7 +34,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import org.geometerplus.zlibrary.ui.android.R;
+import com.ahlalhdeeth.arabicReader.R;
 
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.network.*;

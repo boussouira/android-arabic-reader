@@ -37,7 +37,7 @@ import android.widget.CheckBox;
 import org.geometerplus.zlibrary.core.options.ZLBooleanOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
-import org.geometerplus.zlibrary.ui.android.R;
+import com.ahlalhdeeth.arabicReader.R;
 
 public abstract class PackageUtil {
 	private static Uri marketUri(String pkg) {
