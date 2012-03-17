@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FictionBook xmlns="http://www.gribuser.ru/xml/fictionbook/2.0" xmlns:l="http://www.w3.org/1999/xlink">
+            <description>
+                <title-info>
+                    <author>
+                        <last-name>القارئ العربي</last-name>
+                    </author>
+                    <book-title>حول البرنامج</book-title>
+                    <lang>ar</lang>
+                </title-info>
+            </description>
+<body>
+<title><p>القارئ العربي &FBReaderVersion;</p></title>
+<p>القارئ العربي هو برنامج لقراءة الكتب الالكترونية على الجوال. يدعم هذا البرنامج صيغة <code>ePub</code> و <code>fb2</code>.
+اذا كنت تريد قراءة كتاب ما فضعه في مجلد المكتب <code>Books</code> على بطاقة الذاكرة، بعدها يمكنك ايجاده في <a l:href="fbreader-action:library">المكتبة</a>
+.</p>
+<p>لقلب الصفحة قم بتحرك الصفحة افقيا او استخدم ازرار تعديل الصوت.</p>
+<p><a l:href="fbreader-action:preferences">نافذة الاعدادات</a> تمكنك من تغيير اعدادات البرنامج لتغيير حجم الخط أو لونه او غيرها من الاشياء.</p>
+<empty-line/>
+<subtitle><p>روابط</p></subtitle>
+<p>يمكنك العثور على نسخ جديدة من البرنامج على <a l:href="http://www.ahlalhdeeth.com/vb/forumdisplay.php?f=81">منتدى اهل الحديث</a>.</p>
+<p>صفحتنا على تويتر <a l:href="http://twitter.com/fbreader">twitter</a> لمعرفة اخر اخبار البرنامج.</p>
+<p>هذا البرنامج نسخة معدلة من البرنامج الاصلي <a l:href="http://www.fbreader.org/FBReaderJ">FBReader</a>، وقد تم تعديله ليقوم بعرض الكتب العربية بشكل صحيح.</p>
+</body>
+</FictionBook>

@@ -107,7 +107,7 @@ public final class Library extends AbstractLibrary {
 			return file;
 		}
 
-		return ZLResourceFile.createResourceFile("data/help/MiniHelp.en.fb2");
+		return ZLResourceFile.createResourceFile("data/help/MiniHelp.ar.fb2");
 	}
 
 	private void collectBooks(
