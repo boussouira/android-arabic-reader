@@ -105,8 +105,7 @@ final class ZLTreeResource extends ZLResource {
 		synchronized (ourLock) {
 			if (ourRoot == null) {
 				ourRoot = new ZLTreeResource("", null);
-				ourLanguage = "en";
-				ourCountry = "UK";
+				ourLanguage = "ar";
 				loadData();
 			}
 		}
