@@ -19,6 +19,7 @@
 
 package org.geometerplus.zlibrary.text.view;
 
+import org.geometerplus.android.fbreader.ArabicReader;
 import org.geometerplus.zlibrary.core.util.ZLArabicUtils;
 import org.geometerplus.zlibrary.core.view.ZLPaintContext;
 
@@ -58,16 +59,21 @@ public final class ZLTextWord extends ZLTextElement {
 		
 		int arabicCount = 0;
 		int numberCount = 0;
+		boolean haveMark = false;
+		
 		for(int i=offset; i<offset+length; i++) {
 			if(ZLArabicUtils.isArabic(Data[i])) {
 				++arabicCount;
 			} else if(ZLArabicUtils.isNumber(Data[i])) {
 				++numberCount;
 			}
+			
+			if(!haveMark)
+				haveMark = (ZLArabicUtils.markNum(Data[i]) != 0);
 		}
 		
 		boolean wordIsArabic = (arabicCount == length); // The word contains only Arabic chars
-		if(!wordIsArabic && numberCount > 0) {
+		if(!wordIsArabic && numberCount > 0 && (haveMark || arabicCount < 0)) {
 			ZLArabicUtils.reshape(Data, offset, length);
 		} else {
 			for(int i=offset; i<offset+length; i++) {

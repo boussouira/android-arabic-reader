@@ -58,7 +58,7 @@ public class ZLArabicUtils {
 		case '}':
 		case ']':
 		case '»':
-			ret = 1;
+			ret = -1;
 			break;
 
 		default:
