@@ -57,17 +57,21 @@ public final class ZLTextWord extends ZLTextElement {
 		myParagraphOffset = paragraphOffset;
 		
 		int arabicCount = 0;
+		int numberCount = 0;
 		for(int i=offset; i<offset+length; i++) {
 			if(ZLArabicUtils.isArabic(Data[i])) {
 				++arabicCount;
+			} else if(ZLArabicUtils.isNumber(Data[i])) {
+				++numberCount;
 			}
 		}
 		
-		if(arabicCount > 0 && arabicCount != length) {
+		boolean wordIsArabic = (arabicCount == length); // The word contains only Arabic chars
+		if(!wordIsArabic && numberCount > 0) {
+			ZLArabicUtils.reshape(Data, offset, length);
+		} else {
 			for(int i=offset; i<offset+length; i++) {
-				if(!ZLArabicUtils.isArabic(Data[i])) {
-					Data[i] = ZLArabicUtils.reverseForArabic(Data[i]);
-				}
+				Data[i] = ZLArabicUtils.reverseForArabic(Data[i]);
 			}
 		}
 	}
