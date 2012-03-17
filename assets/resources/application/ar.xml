@@ -267,17 +267,17 @@
 	</node>
 	<node name="dialog">
 		<node name="button">
-			<node name="install" value="Install"/>
-			<node name="update" value="Update"/>
-			<node name="skip" value="Skip"/>
+			<node name="install" value="تنصيب"/>
+			<node name="update" value="تحديث"/>
+			<node name="skip" value="الغاء"/>
 			<node name="buy" value="Buy"/>
 			<node name="buyAndDownload" value="Buy and download"/>
-			<node name="continue" value="Continue"/>
-			<node name="editUrl" value="Edit URL"/>
-			<node name="tryAgain" value="Try again"/>
-			<node name="openBook" value="Read"/>
-			<node name="editInfo" value="Edit"/>
-			<node name="reloadInfo" value="Reload"/>
+			<node name="continue" value="متابعة"/>
+			<node name="editUrl" value="تعديل الرابط"/>
+			<node name="tryAgain" value="اعادة المحاولة"/>
+			<node name="openBook" value="قراءة"/>
+			<node name="editInfo" value="تعديل"/>
+			<node name="reloadInfo" value="اعادة التحميل"/>
 			<node name="topup" value="Top up"/>
 			<node name="pay" value="Pay"/>
 			<node name="refresh" value="Refresh"/>
@@ -298,10 +298,17 @@
 		<node name="BookInfo">
 			<node name="fileName" value="File name"/>
 			<node name="title" value="Title"/>
-			<node name="language" value="Language"/>
+			<node name="language" value="اللغة"/>
 			<node name="encoding" value="Encoding"/>
 		</node>
 		<node name="Preferences">
+			<node name="language" value="اللغات">
+				<node name="summary" value="تعديل لغة البرنامج"/>
+				<node name="arabicLangugeMode" value="اجعل لغة البرنامج العربية">
+					<node name="summaryOn" value="لغة البرنامج الافتراضية هي العربية"/>
+					<node name="summaryOff" value="لغة البرنامج هي لغة النظام"/>
+				</node>
+			</node>
 			<node name="directories" value="Directories">
 				<node name="summary" value="Directories to seek for files"/>
 				<node name="books" value="Books directory"/>
@@ -779,16 +786,16 @@
 	</node>
 	<node name="errorMessage">
 		<node name="cannotRunAndroidMarket" value="Cannot access Android Market. Please, install %s manually"/>
-		<node name="textNotFound" value="There is no suitable text in the book, sorry"/>
-		<node name="bookNotFound" value="There are no suitable books in the library, sorry"/>
-		<node name="bookmarkNotFound" value="There are no suitable bookmarks, sorry"/>
-		<node name="cannotOpenBook" value="Cannot open this book at the moment, sorry"/>
+		<node name="textNotFound" value="لم يتم العثور على ما يطبق بحثك"/>
+		<node name="bookNotFound" value="لم يتم العثور على الكتاب الذي تبحث عنه"/>
+		<node name="bookmarkNotFound" value="لم يتم العثور على العلامة المرجعية التي تبحث عنها"/>
+		<node name="cannotOpenBook" value="لا يمكن فتح هذا الكتاب في الوقت الحالي"/>
 		<node name="dictionaryIsNotInstalled" value="Dictionary is not installed, sorry"/>
 		<node name="permissionDenied" value="Permission denied, sorry"/>
-		<node name="noFavorites" value="Your favorites list is empty, sorry"/>
+		<node name="noFavorites" value="قائمة الكتب المفضلة لديك فارغة"/>
 		<node name="emptyCatalog" value="Catalog is empty, sorry"/>
 		<node name="emptyBasket" value="Your basket is empty, sorry"/>
-		<node name="emptyNetworkSearchResults" value="No books found, sorry"/>
+		<node name="emptyNetworkSearchResults" value="لم يتم العثور على الكتاب الذي تبحث عنه"/>
 	</node>
 	<node name="external">
 		<node name="browser" value="Browser"/>
