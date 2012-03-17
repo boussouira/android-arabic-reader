@@ -42,7 +42,7 @@ public class ZLTextBaseStyle extends ZLTextStyle {
 	public final ZLBooleanOption StrikeThroughOption =
 		new ZLBooleanOption(GROUP, "Base:strikeThrough", false);
 	public final ZLIntegerRangeOption AlignmentOption =
-		new ZLIntegerRangeOption(GROUP, "Base:alignment", 1, 4, ZLTextAlignmentType.ALIGN_JUSTIFY);
+		new ZLIntegerRangeOption(GROUP, "Base:alignment", 1, 4, ZLTextAlignmentType.ALIGN_RIGHT);
 	public final ZLIntegerRangeOption LineSpaceOption =
 		new ZLIntegerRangeOption(GROUP, "Base:lineSpacing", 5, 20, 12);
 
