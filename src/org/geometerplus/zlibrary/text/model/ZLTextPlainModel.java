@@ -21,10 +21,10 @@ package org.geometerplus.zlibrary.text.model;
 
 import java.util.*;
 
+import org.geometerplus.zlibrary.core.image.ZLImage;
 import org.geometerplus.zlibrary.core.util.*;
-import org.geometerplus.zlibrary.core.image.ZLImageMap;
 
-public class ZLTextPlainModel implements ZLTextModel {
+public class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Feature {
 	private final String myId;
 	private final String myLanguage;
 
@@ -37,7 +37,7 @@ public class ZLTextPlainModel implements ZLTextModel {
 	protected int myParagraphsNumber;
 
 	protected final CharStorage myStorage;
-	protected final ZLImageMap myImageMap;
+	protected final Map<String,ZLImage> myImageMap;
 
 	private ArrayList<ZLTextMark> myMarks;
 
@@ -184,24 +184,37 @@ public class ZLTextPlainModel implements ZLTextModel {
 					break;
 				case ZLTextParagraph.Entry.STYLE:
 				{
-					final int mask = (int)data[dataOffset++];
 					final ZLTextStyleEntry entry = new ZLTextStyleEntry();
-					if ((mask & ZLTextStyleEntry.SUPPORTS_LEFT_INDENT) ==
-								ZLTextStyleEntry.SUPPORTS_LEFT_INDENT) {
-						entry.setLeftIndent((short)data[dataOffset++]);
+
+					final short mask = (short)data[dataOffset++];
+					for (int i = 0; i < NUMBER_OF_LENGTHS; ++i) {
+						if (ZLTextStyleEntry.isFeatureSupported(mask, i)) {
+							final short size = (short)data[dataOffset++];
+							final byte unit = (byte)data[dataOffset++];
+							entry.setLength(i, size, unit);
+						}
 					}
-					if ((mask & ZLTextStyleEntry.SUPPORTS_RIGHT_INDENT) ==
-								ZLTextStyleEntry.SUPPORTS_RIGHT_INDENT) {
-						entry.setRightIndent((short)data[dataOffset++]);
+					if (ZLTextStyleEntry.isFeatureSupported(mask, ALIGNMENT_TYPE)) {
+						final short value = (short)data[dataOffset++];
+						entry.setAlignmentType((byte)(value & 0xFF));
 					}
-					if ((mask & ZLTextStyleEntry.SUPPORTS_ALIGNMENT_TYPE) ==
-								ZLTextStyleEntry.SUPPORTS_ALIGNMENT_TYPE) {
-						entry.setAlignmentType((byte)data[dataOffset++]);
+					if (ZLTextStyleEntry.isFeatureSupported(mask, FONT_FAMILY)) {
+						final short familyLength = (short)data[dataOffset++];
+						entry.setFontFamily(new String(data, dataOffset, familyLength));
+						dataOffset += familyLength;
 					}
+					if (ZLTextStyleEntry.isFeatureSupported(mask, FONT_STYLE_MODIFIER)) {
+						final short value = (short)data[dataOffset++];
+						entry.setFontModifiers((byte)(value & 0xFF), (byte)((value >> 8) & 0xFF));
+					}
+
 					myStyleEntry = entry;
 				}
+				case ZLTextParagraph.Entry.STYLE_CLOSE:
+					// No data
+					break;
 				case ZLTextParagraph.Entry.RESET_BIDI:
-					// No data => skip
+					// No data
 					break;
 			}
 			++myCounter;
@@ -218,7 +231,7 @@ public class ZLTextPlainModel implements ZLTextModel {
 		int[] textSizes,
 		byte[] paragraphKinds,
 		CharStorage storage,
-		ZLImageMap imageMap
+		Map<String,ZLImage> imageMap
 	) {
 		myId = id;
 		myLanguage = language;

@@ -19,6 +19,8 @@
 
 package org.geometerplus.fbreader.filetype;
 
+import java.util.List;
+
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.util.MimeType;
 
@@ -36,13 +38,35 @@ class FileTypeEpub extends FileType {
 			"opf".equalsIgnoreCase(extension);
 	}
 
+	/*
 	@Override
 	public String extension() {
 		return "epub";
 	}
+	*/
 
 	@Override
-	public MimeType mimeType() {
-		return MimeType.APP_EPUB;
+	public List<MimeType> mimeTypes() {
+		return MimeType.TYPES_EPUB;
+	}
+
+	@Override
+	public MimeType mimeType(ZLFile file) {
+		final String extension = file.getExtension();
+		if ("epub".equalsIgnoreCase(extension)) {
+			return MimeType.APP_EPUB_ZIP;
+		}
+		// TODO: process other extensions (?)
+		return MimeType.NULL;
+	}
+
+	@Override
+	public MimeType simplifiedMimeType(ZLFile file) {
+		final String extension = file.getExtension();
+		if ("epub".equalsIgnoreCase(extension)) {
+			return MimeType.APP_ZIP;
+		}
+		// TODO: process other extensions (?)
+		return MimeType.NULL;
 	}
 }

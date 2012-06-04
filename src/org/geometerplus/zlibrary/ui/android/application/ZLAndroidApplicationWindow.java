@@ -20,18 +20,23 @@
 package org.geometerplus.zlibrary.ui.android.application;
 
 import java.util.*;
+import java.io.*;
 
 import android.app.Activity;
-
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import org.geometerplus.zlibrary.core.application.ZLApplication;
 import org.geometerplus.zlibrary.core.application.ZLApplicationWindow;
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.view.ZLViewWidget;
 
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
+import org.geometerplus.zlibrary.ui.android.error.ErrorKeys;
 
 import org.geometerplus.android.util.UIUtil;
 
@@ -41,7 +46,7 @@ public final class ZLAndroidApplicationWindow extends ZLApplicationWindow {
 	private final MenuItem.OnMenuItemClickListener myMenuListener =
 		new MenuItem.OnMenuItemClickListener() {
 			public boolean onMenuItemClick(MenuItem item) {
-				getApplication().doAction(myMenuItemMap.get(item));
+				getApplication().runAction(myMenuItemMap.get(item));
 				return true;
 			}
 		};
@@ -90,13 +95,43 @@ public final class ZLAndroidApplicationWindow extends ZLApplicationWindow {
 	}
 	
 	@Override
-	public void runWithMessage(String key, Runnable action) {
+	public void runWithMessage(String key, Runnable action, Runnable postAction) {
 		final Activity activity = 
 			((ZLAndroidLibrary)ZLAndroidLibrary.Instance()).getActivity();
 		if (activity != null) {
-			UIUtil.runWithMessage(activity, key, action, null, false);
+			UIUtil.runWithMessage(activity, key, action, postAction, false);
 		} else {
 			action.run();
+		}
+	}
+
+	@Override
+	protected void processException(Exception exception) {
+		exception.printStackTrace();
+
+		final Activity activity = 
+			((ZLAndroidLibrary)ZLAndroidLibrary.Instance()).getActivity();
+		final Intent intent = new Intent(
+			"android.fbreader.action.ERROR",
+			new Uri.Builder().scheme(exception.getClass().getSimpleName()).build()
+		);
+		intent.putExtra(ErrorKeys.MESSAGE, exception.getMessage());
+		final StringWriter stackTrace = new StringWriter();
+		exception.printStackTrace(new PrintWriter(stackTrace));
+		intent.putExtra(ErrorKeys.STACKTRACE, stackTrace.toString());
+		/*
+		if (exception instanceof BookReadingException) {
+			final ZLFile file = ((BookReadingException)exception).File;
+			if (file != null) {
+				intent.putExtra("file", file.getPath());
+			}
+		}
+		*/
+		try {
+			activity.startActivity(intent);
+		} catch (ActivityNotFoundException e) {
+			// ignore
+			e.printStackTrace();
 		}
 	}
 

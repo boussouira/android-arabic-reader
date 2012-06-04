@@ -20,7 +20,6 @@
 package org.geometerplus.zlibrary.ui.android.view;
 
 import java.util.*;
-import java.io.File;
 
 import android.graphics.*;
 
@@ -50,8 +49,6 @@ public final class ZLAndroidPaintContext extends ZLPaintContext {
 	private final int myScrollbarWidth;
 
 	private ZLColor myBackgroundColor = new ZLColor(0, 0, 0);
-
-	private HashMap<String,Typeface[]> myTypefaces = new HashMap<String,Typeface[]>();
 
 	ZLAndroidPaintContext(Canvas canvas, int width, int height, int scrollbarWidth) {
 		myCanvas = canvas;
@@ -83,29 +80,39 @@ public final class ZLAndroidPaintContext extends ZLPaintContext {
 	private static ZLFile ourWallpaperFile;
 	private static Bitmap ourWallpaper;
 	@Override
-	public void clear(ZLFile wallpaperFile, boolean doMirror) {
+	public void clear(ZLFile wallpaperFile, WallpaperMode mode) {
 		if (!wallpaperFile.equals(ourWallpaperFile)) {
 			ourWallpaperFile = wallpaperFile;
 			ourWallpaper = null;
 			try {
 				final Bitmap fileBitmap =
 					BitmapFactory.decodeStream(wallpaperFile.getInputStream());
-				if (doMirror) {
-					final int w = fileBitmap.getWidth();
-					final int h = fileBitmap.getHeight();
-					final Bitmap wallpaper = Bitmap.createBitmap(2 * w, 2 * h, fileBitmap.getConfig());
-					for (int i = 0; i < w; ++i) {
-						for (int j = 0; j < h; ++j) {
-							int color = fileBitmap.getPixel(i, j);
-							wallpaper.setPixel(i, j, color);
-							wallpaper.setPixel(i, 2 * h - j - 1, color);
-							wallpaper.setPixel(2 * w - i - 1, j, color);
-							wallpaper.setPixel(2 * w - i - 1, 2 * h - j - 1, color);
-						}
+				switch (mode) {
+					case TILE_MIRROR:
+					{
+						final int w = fileBitmap.getWidth();
+						final int h = fileBitmap.getHeight();
+						final Bitmap wallpaper = Bitmap.createBitmap(2 * w, 2 * h, fileBitmap.getConfig());
+						final Canvas wallpaperCanvas = new Canvas(wallpaper);
+						final Paint wallpaperPaint = new Paint();
+                    
+						Matrix m = new Matrix();
+						wallpaperCanvas.drawBitmap(fileBitmap, m, wallpaperPaint);
+						m.preScale(-1, 1);
+						m.postTranslate(2 * w, 0);
+						wallpaperCanvas.drawBitmap(fileBitmap, m, wallpaperPaint);
+						m.preScale(1, -1);
+						m.postTranslate(0, 2 * h);
+						wallpaperCanvas.drawBitmap(fileBitmap, m, wallpaperPaint);
+						m.preScale(-1, 1);
+						m.postTranslate(- 2 * w, 0);
+						wallpaperCanvas.drawBitmap(fileBitmap, m, wallpaperPaint);
+						ourWallpaper = wallpaper;
+						break;
 					}
-					ourWallpaper = wallpaper;
-				} else {
-					ourWallpaper = fileBitmap;
+					case TILE:
+						ourWallpaper = fileBitmap;
+						break;
 				}
 			} catch (Throwable t) {
 				t.printStackTrace();
@@ -190,40 +197,9 @@ public final class ZLAndroidPaintContext extends ZLPaintContext {
 		myCanvas.drawPath(path, myOutlinePaint);
 	}
 
+	@Override
 	protected void setFontInternal(String family, int size, boolean bold, boolean italic, boolean underline, boolean strikeThrought) {
-		family = realFontFamilyName(family);
-		final int style = (bold ? Typeface.BOLD : 0) | (italic ? Typeface.ITALIC : 0);
-		Typeface[] typefaces = myTypefaces.get(family);
-		if (typefaces == null) {
-			typefaces = new Typeface[4];
-			myTypefaces.put(family, typefaces);
-		}
-		Typeface tf = typefaces[style];
-		if (tf == null) {
-			File[] files = AndroidFontUtil.getFontMap(false).get(family);
-			if (files != null) {
-				try {
-					if (files[style] != null) {
-						tf = AndroidFontUtil.createFontFromFile(files[style]);
-					} else {
-						for (int i = 0; i < 4; ++i) {
-							if (files[i] != null) {
-								tf = (typefaces[i] != null) ?
-									typefaces[i] : AndroidFontUtil.createFontFromFile(files[i]);
-								typefaces[i] = tf;
-								break;
-							}
-						}
-					}
-				} catch (Throwable e) {
-				}
-			}
-			if (tf == null) {
-				tf = Typeface.create(family, style);
-			}
-			typefaces[style] = tf;
-		}
-		myTextPaint.setTypeface(tf);
+		myTextPaint.setTypeface(AndroidFontUtil.typeface(family, bold, italic));
 		myTextPaint.setTextSize(size);
 		myTextPaint.setUnderlineText(underline);
 		myTextPaint.setStrikeThruText(strikeThrought);
@@ -235,8 +211,7 @@ public final class ZLAndroidPaintContext extends ZLPaintContext {
 	}
 
 	@Override
-	public void setLineColor(ZLColor color, int style) {
-		// TODO: use style
+	public void setLineColor(ZLColor color) {
 		myLinePaint.setColor(ZLAndroidColorUtil.rgb(color));
 	}
 	@Override
@@ -245,8 +220,7 @@ public final class ZLAndroidPaintContext extends ZLPaintContext {
 	}
 
 	@Override
-	public void setFillColor(ZLColor color, int alpha, int style) {
-		// TODO: use style
+	public void setFillColor(ZLColor color, int alpha) {
 		myFillPaint.setColor(ZLAndroidColorUtil.rgba(color, alpha));
 	}
 
@@ -355,19 +329,5 @@ public final class ZLAndroidPaintContext extends ZLPaintContext {
 			y0 = swap;
 		}
 		myCanvas.drawRect(x0, y0, x1 + 1, y1 + 1, myFillPaint);
-	}
-	@Override
-	public void drawFilledCircle(int x, int y, int r) {
-		// TODO: implement
-	}
-
-	@Override
-	public String realFontFamilyName(String fontFamily) {
-		return AndroidFontUtil.realFontFamilyName(fontFamily);
-	}
-
-	@Override
-	protected void fillFamiliesList(ArrayList<String> families) {
-		AndroidFontUtil.fillFamiliesList(families, false);
 	}
 }

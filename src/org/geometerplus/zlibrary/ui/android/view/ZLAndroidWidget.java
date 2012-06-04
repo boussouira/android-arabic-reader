@@ -277,13 +277,13 @@ public class ZLAndroidWidget extends View implements ZLViewWidget, View.OnLongCl
 	private volatile boolean myLongClickPerformed;
 
 	private void postLongClickRunnable() {
-        myLongClickPerformed = false;
+		myLongClickPerformed = false;
 		myPendingPress = false;
-        if (myPendingLongClickRunnable == null) {
-            myPendingLongClickRunnable = new LongClickRunnable();
-        }
-        postDelayed(myPendingLongClickRunnable, 2 * ViewConfiguration.getLongPressTimeout());
-    }
+		if (myPendingLongClickRunnable == null) {
+			myPendingLongClickRunnable = new LongClickRunnable();
+		}
+		postDelayed(myPendingLongClickRunnable, 2 * ViewConfiguration.getLongPressTimeout());
+	}
 
 	private class ShortClickRunnable implements Runnable {
 		public void run() {
@@ -318,10 +318,10 @@ public class ZLAndroidWidget extends View implements ZLViewWidget, View.OnLongCl
 					}
 					if (myPendingPress) {
 						if (view.isDoubleTapSupported()) {
-        					if (myPendingShortClickRunnable == null) {
-            					myPendingShortClickRunnable = new ShortClickRunnable();
-        					}
-        					postDelayed(myPendingShortClickRunnable, ViewConfiguration.getDoubleTapTimeout());
+							if (myPendingShortClickRunnable == null) {
+								myPendingShortClickRunnable = new ShortClickRunnable();
+							}
+							postDelayed(myPendingShortClickRunnable, ViewConfiguration.getDoubleTapTimeout());
 						} else {
 							view.onFingerSingleTap(x, y);
 						}
@@ -406,7 +406,7 @@ public class ZLAndroidWidget extends View implements ZLViewWidget, View.OnLongCl
 				myTrackingStartTime = System.currentTimeMillis();
 				return true;
 			} else {
-				return application.doActionByKey(keyCode, false);
+				return application.runActionByKey(keyCode, false);
 			}
 		} else {
 			return false;
@@ -418,7 +418,7 @@ public class ZLAndroidWidget extends View implements ZLViewWidget, View.OnLongCl
 			if (myKeyUnderTracking == keyCode) {
 				final boolean longPress = System.currentTimeMillis() >
 					myTrackingStartTime + ViewConfiguration.getLongPressTimeout();
-				ZLApplication.Instance().doActionByKey(keyCode, longPress);
+				ZLApplication.Instance().runActionByKey(keyCode, longPress);
 			}
 			myKeyUnderTracking = -1;
 			return true;

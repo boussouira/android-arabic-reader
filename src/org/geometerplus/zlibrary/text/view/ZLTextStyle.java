@@ -19,17 +19,19 @@
 
 package org.geometerplus.zlibrary.text.view;
 
+import org.geometerplus.zlibrary.text.model.ZLTextMetrics;
+
 public abstract class ZLTextStyle {
 	public final ZLTextStyle Base;
 	public final ZLTextHyperlink Hyperlink;
 
 	protected ZLTextStyle(ZLTextStyle base, ZLTextHyperlink hyperlink) {
-		Base = (base != null) ? base : this;
+		Base = base != null ? base : this;
 		Hyperlink = hyperlink;
 	}
 
 	public abstract String getFontFamily();
-	public abstract int getFontSize();
+	public abstract int getFontSize(ZLTextMetrics metrics);
 
 	public abstract boolean isBold();
 	public abstract boolean isItalic();

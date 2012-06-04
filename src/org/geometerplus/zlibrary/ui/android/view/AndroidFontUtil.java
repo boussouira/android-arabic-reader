@@ -45,7 +45,7 @@ public final class AndroidFontUtil {
 		return ourFontCreationMethod != null;
 	}
 
-	public static Typeface createFontFromFile(File file) {
+	private static Typeface createFontFromFile(File file) {
 		if (ourFontCreationMethod == null) {
 			return null;
 		}
@@ -59,45 +59,37 @@ public final class AndroidFontUtil {
 	}
 
 	private static Map<String,File[]> ourFontMap;
-	private static File[] ourFileList;
-	private static long myTimeStamp;
-	public static Map<String,File[]> getFontMap(boolean forceReload) {
+	private static Set<File> ourFileSet;
+	private static long ourTimeStamp;
+
+	private static Map<String,File[]> getFontMap(boolean forceReload) {
+		if (ourFontCreationMethod == null) {
+			return Collections.emptyMap();
+		}
+
 		final long timeStamp = System.currentTimeMillis();
-		if (forceReload && timeStamp < myTimeStamp + 1000) {
+		if (forceReload && timeStamp < ourTimeStamp + 1000) {
 			forceReload = false;
 		}
-		myTimeStamp = timeStamp;
-		if (ourFontMap == null || forceReload) {
-			boolean rebuildMap = ourFontMap == null;
-			if (ourFontCreationMethod == null) {
-				if (rebuildMap) {
-					ourFontMap = new HashMap<String,File[]>();
-				}
-			} else {
-				final File[] fileList = new File(Paths.FontsDirectoryOption().getValue()).listFiles(
-					new FilenameFilter() {
-						public boolean accept(File dir, String name) {
-							if (name.startsWith(".")) {
-								return false;
-							}
-							final String lcName = name.toLowerCase();
-							return lcName.endsWith(".ttf") || lcName.endsWith(".otf");
-						}
+		ourTimeStamp = timeStamp;
+		if (ourFileSet == null || forceReload) {
+			final HashSet<File> fileSet = new HashSet<File>();
+			final FilenameFilter filter = new FilenameFilter() {
+				public boolean accept(File dir, String name) {
+					if (name.startsWith(".")) {
+						return false;
 					}
-				);
-				if (fileList == null) {
-					if (ourFileList != null) {
-						ourFileList = null;
-						rebuildMap = true;
-					}
+					final String lcName = name.toLowerCase();
+					return lcName.endsWith(".ttf") || lcName.endsWith(".otf");
 				}
-				if (fileList != null && !fileList.equals(ourFileList)) {
-					ourFileList = fileList;
-					rebuildMap = true;
-				}
-				if (rebuildMap) {
-					ourFontMap = new ZLTTFInfoDetector().collectFonts(fileList);
-				}
+			};
+			final File[] fileList = new File(Paths.FontsDirectoryOption().getValue()).listFiles(filter);
+			if (fileList != null) {
+				fileSet.addAll(Arrays.asList(fileList));
+			}
+			if (!fileSet.equals(ourFileSet)) {
+				ourFileSet = fileSet;
+				ourFontMap = new ZLTTFInfoDetector().collectFonts(fileSet);
 			}
 		}
 		return ourFontMap;
@@ -121,11 +113,54 @@ public final class AndroidFontUtil {
 		return "sans-serif";
 	}
 
-	public static void fillFamiliesList(ArrayList<String> families, boolean forceReload) {
-		final TreeSet<String> familySet = new TreeSet<String>(getFontMap(forceReload).keySet());
+	public static void fillFamiliesList(ArrayList<String> families) {
+		final TreeSet<String> familySet = new TreeSet<String>(getFontMap(true).keySet());
 		familySet.add("Droid Sans");
 		familySet.add("Droid Serif");
 		familySet.add("Droid Mono");
 		families.addAll(familySet);
+	}
+
+	private static final HashMap<String,Typeface[]> ourTypefaces = new HashMap<String,Typeface[]>();
+
+	public static Typeface typeface(String family, boolean bold, boolean italic) {
+		family = realFontFamilyName(family);
+		final int style = (bold ? Typeface.BOLD : 0) | (italic ? Typeface.ITALIC : 0);
+		Typeface[] typefaces = ourTypefaces.get(family);
+		if (typefaces == null) {
+			typefaces = new Typeface[4];
+			ourTypefaces.put(family, typefaces);
+		}
+		Typeface tf = typefaces[style];
+		if (tf == null) {
+			File[] files = getFontMap(false).get(family);
+			if (files != null) {
+				try {
+					if (files[style] != null) {
+						tf = createFontFromFile(files[style]);
+					} else {
+						for (int i = 0; i < 4; ++i) {
+							if (files[i] != null) {
+								tf = (typefaces[i] != null) ?
+									typefaces[i] : createFontFromFile(files[i]);
+								typefaces[i] = tf;
+								break;
+							}
+						}
+					}
+				} catch (Throwable e) {
+				}
+			}
+			if (tf == null) {
+				tf = Typeface.create(family, style);
+			}
+			typefaces[style] = tf;
+		}
+		return tf;
+	}
+
+	public static void clearFontCache() {
+		ourTypefaces.clear();
+		ourFileSet = null;
 	}
 }

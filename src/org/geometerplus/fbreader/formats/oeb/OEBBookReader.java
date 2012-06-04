@@ -20,6 +20,7 @@
 package org.geometerplus.fbreader.formats.oeb;
 
 import java.util.*;
+import java.io.IOException;
 
 import org.geometerplus.zlibrary.core.constants.XMLNamespaces;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
@@ -67,10 +68,10 @@ class OEBBookReader extends ZLXMLReaderAdapter implements XMLNamespaces {
 		});
 	}
 
-	private TreeMap<String,Integer> myFileNumbers = new TreeMap<String,Integer>();
-	private TreeMap<String,Integer> myTOCLabels = new TreeMap<String,Integer>();
+	private HashMap<String,String> myFileNumbers = new HashMap<String,String>();
+	private HashMap<String,Integer> myTOCLabels = new HashMap<String,Integer>();
 
-	boolean readBook(ZLFile file) {
+	void readBook(ZLFile file) throws BookReadingException {
 		myFilePrefix = MiscUtil.htmlDirectoryPrefix(file);
 
 		myIdToHref.clear();
@@ -80,8 +81,10 @@ class OEBBookReader extends ZLXMLReaderAdapter implements XMLNamespaces {
 		myGuideTOC.clear();
 		myState = READ_NONE;
 
-		if (!read(file)) {
-			return false;
+		try {
+			read(file);
+		} catch (IOException e) {
+			throw new BookReadingException(e, file);
 		}
 
 		myModelReader.setMainTextModel();
@@ -90,9 +93,8 @@ class OEBBookReader extends ZLXMLReaderAdapter implements XMLNamespaces {
 		int count = 0;
 		for (String name : myHtmlFileNames) {
 			final ZLFile xhtmlFile = ZLFile.createFileByPath(myFilePrefix + name);
-			if (xhtmlFile == null) {
-				// NPE fix: null for bad attributes in .opf XML file
-				return false;
+			if (xhtmlFile == null || !xhtmlFile.exists()) {
+				continue;
 			}
 			if (count++ == 0 && xhtmlFile.getPath().equals(myCoverFileName)) {
 				continue;
@@ -102,24 +104,26 @@ class OEBBookReader extends ZLXMLReaderAdapter implements XMLNamespaces {
 
 			myModelReader.addHyperlinkLabel(referenceName);
 			myTOCLabels.put(referenceName, myModelReader.Model.BookTextModel.getParagraphsNumber());
-			reader.readFile(xhtmlFile, referenceName + '#');
+			try {
+				reader.readFile(xhtmlFile, referenceName + '#');
+			} catch (IOException e) {
+				throw new BookReadingException(e, xhtmlFile);
+			}
 			myModelReader.insertEndOfSectionParagraph();
 		}
 
 		generateTOC();
-
-		return true;
 	}
 
 	private BookModel.Label getTOCLabel(String id) {
 		final int index = id.indexOf('#');
 		final String path = (index >= 0) ? id.substring(0, index) : id;
-		Integer num = myFileNumbers.get(path);
+		final String num = myFileNumbers.get(path);
 		if (num == null) {
 			return null;
 		}
 		if (index == -1) {
-			final Integer para = myTOCLabels.get(num.toString());
+			final Integer para = myTOCLabels.get(num);
 			if (para == null) {
 				return null;
 			}
@@ -128,36 +132,50 @@ class OEBBookReader extends ZLXMLReaderAdapter implements XMLNamespaces {
 		return myModelReader.Model.getLabel(num + id.substring(index));
 	}
 
-	private void generateTOC() {
-		if (myNCXTOCFileName != null) {
-			final NCXReader ncxReader = new NCXReader(myModelReader);
-			if (ncxReader.readFile(myFilePrefix + myNCXTOCFileName)) {
-				final Map<Integer,NCXReader.NavPoint> navigationMap = ncxReader.navigationMap();
-				if (!navigationMap.isEmpty()) {
-					int level = 0;
-					for (NCXReader.NavPoint point : navigationMap.values()) {
-						final BookModel.Label label = getTOCLabel(point.ContentHRef);
-						int index = (label != null) ? label.ParagraphIndex : -1;
-						while (level > point.Level) {
-							myModelReader.endContentsParagraph();
-							--level;
-						}
-						while (++level <= point.Level) {
-							myModelReader.beginContentsParagraph(-2);
-							myModelReader.addContentsData(Dots);
-						}
-						myModelReader.beginContentsParagraph(index);
-						myModelReader.addContentsData(point.Text.toCharArray());
-					}
-					while (level > 0) {
-						myModelReader.endContentsParagraph();
-						--level;
-					}
-					return;
-				}
-			}
+	private boolean readNCX() throws BookReadingException {
+		if (myNCXTOCFileName == null) {
+			return false;
 		}
 
+		final ZLFile ncxFile = ZLFile.createFileByPath(myFilePrefix + myNCXTOCFileName);
+		if (ncxFile == null || !ncxFile.exists()) {
+			return false;
+		}
+
+		final NCXReader ncxReader = new NCXReader(myModelReader);
+		ncxReader.readFile(ncxFile);
+		final Map<Integer,NCXReader.NavPoint> navigationMap = ncxReader.navigationMap();
+		if (navigationMap.isEmpty()) {
+			return false;
+		}
+
+		int level = 0;
+		for (NCXReader.NavPoint point : navigationMap.values()) {
+			final BookModel.Label label = getTOCLabel(point.ContentHRef);
+			int index = (label != null) ? label.ParagraphIndex : -1;
+			while (level > point.Level) {
+				myModelReader.endContentsParagraph();
+				--level;
+			}
+			while (++level <= point.Level) {
+				myModelReader.beginContentsParagraph(-2);
+				myModelReader.addContentsData(Dots);
+			}
+			myModelReader.beginContentsParagraph(index);
+			myModelReader.addContentsData(point.Text.toCharArray());
+		}
+		while (level > 0) {
+			myModelReader.endContentsParagraph();
+			--level;
+		}
+
+		return true;
+	}
+
+	private void generateTOC() throws BookReadingException {
+		if (readNCX()) {
+			return;
+		}
 		for (Reference ref : myTourTOC.isEmpty() ? myGuideTOC : myTourTOC) {
 			final BookModel.Label label = getTOCLabel(ref.HRef);
 			if (label != null) {

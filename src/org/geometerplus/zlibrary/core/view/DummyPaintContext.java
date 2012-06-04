@@ -30,7 +30,7 @@ final class DummyPaintContext extends ZLPaintContext {
 	}
 
 	@Override
-	public void clear(ZLFile wallpaperFile, boolean doMirror) {
+	public void clear(ZLFile wallpaperFile, WallpaperMode mode) {
 	}
 
 	@Override
@@ -51,14 +51,14 @@ final class DummyPaintContext extends ZLPaintContext {
 	}
 
 	@Override
-	public void setLineColor(ZLColor color, int style) {
+	public void setLineColor(ZLColor color) {
 	}
 	@Override
 	public void setLineWidth(int width) {
 	}
 
 	@Override
-	public void setFillColor(ZLColor color, int alpha, int style) {
+	public void setFillColor(ZLColor color, int alpha) {
 	}
 
 	@Override
@@ -108,9 +108,6 @@ final class DummyPaintContext extends ZLPaintContext {
 	@Override
 	public void fillRectangle(int x0, int y0, int x1, int y1) {
 	}
-	@Override
-	public void drawFilledCircle(int x, int y, int r) {
-	}
 
 	@Override
 	public void fillPolygon(int[] xs, int ys[]) {
@@ -120,13 +117,5 @@ final class DummyPaintContext extends ZLPaintContext {
 	}
 	@Override
 	public void drawOutline(int[] xs, int ys[]) {
-	}
-
-	@Override
-	public String realFontFamilyName(String fontFamily) {
-		return fontFamily;
-	}
-	@Override
-	protected void fillFamiliesList(ArrayList<String> families) {
 	}
 }

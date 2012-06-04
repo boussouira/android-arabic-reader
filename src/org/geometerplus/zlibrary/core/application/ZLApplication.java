@@ -74,9 +74,15 @@ public abstract class ZLApplication {
 		}
 	}
 
-	protected void runWithMessage(String key, Runnable runnable) {
+	protected void runWithMessage(String key, Runnable runnable, Runnable postAction) {
 		if (myWindow != null) {
-			myWindow.runWithMessage(key, runnable);
+			myWindow.runWithMessage(key, runnable, postAction);
+		}
+	}
+
+	protected void processException(Exception e) {
+		if (myWindow != null) {
+			myWindow.processException(e);
 		}
 	}
 
@@ -135,7 +141,7 @@ public abstract class ZLApplication {
 		return action != null ? action.isChecked() : ZLBoolean3.B3_UNDEFINED;
 	}
 
-	public final void doAction(String actionId, Object ... params) {
+	public final void runAction(String actionId, Object ... params) {
 		final ZLAction action = myIdToActionMap.get(actionId);
 		if (action != null) {
 			action.checkAndRun(params);
@@ -150,7 +156,7 @@ public abstract class ZLApplication {
 		return actionId != null && !NoAction.equals(actionId);	
 	}
 
-	public final boolean doActionByKey(int key, boolean longPress) {
+	public final boolean runActionByKey(int key, boolean longPress) {
 		final String actionId = keyBindings().getBinding(key, longPress);
 		if (actionId != null) {
 			final ZLAction action = myIdToActionMap.get(actionId);
@@ -170,7 +176,7 @@ public abstract class ZLApplication {
 	public void onWindowClosing() {
 	}
 
-	public abstract void openFile(ZLFile file);
+	public abstract void openFile(ZLFile file, Runnable postAction);
 
 	//Action
 	static abstract public class ZLAction {

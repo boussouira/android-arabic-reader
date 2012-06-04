@@ -19,6 +19,7 @@
 
 package org.geometerplus.zlibrary.text.view.style;
 
+import org.geometerplus.zlibrary.core.library.ZLibrary;
 import org.geometerplus.zlibrary.core.util.ZLBoolean3;
 import org.geometerplus.zlibrary.core.xml.*;
 import org.geometerplus.zlibrary.text.model.ZLTextAlignmentType;
@@ -27,11 +28,12 @@ import org.geometerplus.zlibrary.core.filesystem.ZLResourceFile;
 public class ZLTextStyleCollection {
 	private static ZLTextStyleCollection ourInstance = null;
 
+	private int myDefaultFontSize;
 	private ZLTextBaseStyle myBaseStyle;
 	private final ZLTextStyleDecoration[] myDecorationMap = new ZLTextStyleDecoration[256];
 
 	private ZLTextStyleCollection() {
-		new TextStyleReader(this).read(ZLResourceFile.createResourceFile("default/styles.xml"));
+		new TextStyleReader(this).readQuietly(ZLResourceFile.createResourceFile("default/styles.xml"));
 	}
 
 	public static ZLTextStyleCollection Instance() {
@@ -45,6 +47,10 @@ public class ZLTextStyleCollection {
 		ourInstance = null;
 	}
 
+	public int getDefaultFontSize() {
+		return myDefaultFontSize;
+	}
+
 	public ZLTextBaseStyle getBaseStyle() {
 		return myBaseStyle;
 	}
@@ -54,19 +60,28 @@ public class ZLTextStyleCollection {
 	}
 
 	private static class TextStyleReader extends ZLXMLReaderAdapter {
+		private final int myDpi = ZLibrary.Instance().getDisplayDPI();
 		private ZLTextStyleCollection myCollection;
 
 		public boolean dontCacheAttributeValues() {
 			return true;
 		}
 
-		private static int intValue(ZLStringMap attributes, String name, int defaultValue) {
+		private int intValue(ZLStringMap attributes, String name, int defaultValue) {
 			int i = defaultValue;
 			String value = attributes.getValue(name);
 			if (value != null) {
-				try {
-					i = Integer.parseInt(value);
-				} catch (NumberFormatException e) {
+				if (value.startsWith("dpi*")) {
+					try {
+						final float coe = Float.parseFloat(value.substring(4));
+						i = (int)(coe * myDpi + .5f);
+					} catch (NumberFormatException e) {
+					}
+				} else {
+					try {
+						i = Integer.parseInt(value);
+					} catch (NumberFormatException e) {
+					}
 				}
 			}
 			return i;
@@ -89,7 +104,8 @@ public class ZLTextStyleCollection {
 			final String STYLE = "style";
 
 			if (BASE.equals(tag)) {
-				myCollection.myBaseStyle = new ZLTextBaseStyle(attributes.getValue("family"), intValue(attributes, "fontSize", 0));
+				myCollection.myDefaultFontSize = intValue(attributes, "fontSize", 0);
+				myCollection.myBaseStyle = new ZLTextBaseStyle(attributes.getValue("family"), myCollection.myDefaultFontSize);
 			} else if (STYLE.equals(tag)) {
 				String idString = attributes.getValue("id");
 				String name = attributes.getValue("name");

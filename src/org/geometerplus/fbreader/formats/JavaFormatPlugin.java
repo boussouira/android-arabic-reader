@@ -22,9 +22,8 @@ package org.geometerplus.fbreader.formats;
 import org.geometerplus.fbreader.library.Book;
 
 public abstract class JavaFormatPlugin extends FormatPlugin {
-	@Override
-	public boolean readLanguageAndEncoding(Book book) {
-		return true;
+	protected JavaFormatPlugin(String fileType) {
+		super(fileType);
 	}
 
 	@Override

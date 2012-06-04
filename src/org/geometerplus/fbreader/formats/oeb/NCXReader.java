@@ -20,6 +20,7 @@
 package org.geometerplus.fbreader.formats.oeb;
 
 import java.util.*;
+import java.io.IOException;
 
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.filesystem.ZLArchiveEntryFile;
@@ -57,10 +58,13 @@ class NCXReader extends ZLXMLReaderAdapter {
 	NCXReader(BookReader modelReader) {
 	}
 
-	boolean readFile(String filePath) {
-		final ZLFile file = ZLFile.createFileByPath(filePath);
+	void readFile(ZLFile file) throws BookReadingException {
 		myLocalPathPrefix = MiscUtil.archiveEntryName(MiscUtil.htmlDirectoryPrefix(file));
-		return read(file);
+		try {
+			read(file);
+		} catch (IOException e) {
+			throw new BookReadingException(e, file);
+		}
 	}
 
 	Map<Integer,NavPoint> navigationMap() {

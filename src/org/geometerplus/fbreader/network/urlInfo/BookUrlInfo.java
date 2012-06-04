@@ -20,7 +20,8 @@
 package org.geometerplus.fbreader.network.urlInfo;
 
 import java.io.File;
-import java.net.URI;
+
+import android.net.Uri;
 
 import org.geometerplus.fbreader.Paths;
 
@@ -47,16 +48,14 @@ public class BookUrlInfo extends UrlInfo {
 	private static final String TOESCAPE = "<>:\"|?*\\";
 
 	public static String makeBookFileName(String url, int format, Type resolvedReferenceType) {
-		URI uri;
-		try {
-			uri = new URI(url);
-		} catch (Throwable ex) {
-			return null;
-		}
+		final Uri uri = Uri.parse(url);
 
 		String host = uri.getHost();
+		if (host == null) {
+			host = "host.unknown";
+		}
 
-		StringBuilder path = new StringBuilder(host);
+		final StringBuilder path = new StringBuilder(host);
 		if (host.startsWith("www.")) {
 			path.delete(0, 4);
 		}
@@ -65,10 +64,13 @@ public class BookUrlInfo extends UrlInfo {
 			path.insert(0, "Demos");
 			path.insert(0, File.separator);
 		}
-		path.insert(0, Paths.BooksDirectoryOption().getValue());
+		path.insert(0, Paths.mainBookDirectory());
 
 		int index = path.length();
-		path.append(uri.getPath());
+		final String uriPath = uri.getPath();
+		if (uriPath != null) {
+			path.append(uriPath);
+		}
 		int nameIndex = index;
 		while (index < path.length()) {
 			char ch = path.charAt(index);

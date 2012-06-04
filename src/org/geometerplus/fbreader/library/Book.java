@@ -20,6 +20,7 @@
 package org.geometerplus.fbreader.library;
 
 import java.lang.ref.WeakReference;
+import java.math.BigDecimal;
 import java.util.*;
 import java.io.InputStream;
 import java.io.IOException;
@@ -33,6 +34,7 @@ import org.geometerplus.zlibrary.core.image.ZLImage;
 import org.geometerplus.zlibrary.text.view.ZLTextPosition;
 
 import org.geometerplus.fbreader.formats.*;
+import org.geometerplus.fbreader.bookmodel.BookReadingException;
 
 import org.geometerplus.fbreader.Paths;
 
@@ -59,7 +61,12 @@ public class Book {
 		}
 		fileInfos.save();
 
-		return book.readMetaInfo() ? book : null;
+		try {
+			book.readMetaInfo();
+			return book;
+		} catch (BookReadingException e) {
+			return null;
+		}
 	}
 
 	public static Book getByFile(ZLFile bookFile) {
@@ -84,28 +91,32 @@ public class Book {
 		}
 		fileInfos.save();
 
-		if (book == null) {
-			book = new Book(bookFile);
+		try {
+			if (book == null) {
+				book = new Book(bookFile);
+			} else {
+				book.readMetaInfo();
+			}
+		} catch (BookReadingException e) {
+			return null;
 		}
-		if (book.readMetaInfo()) {
-			book.save();
-			return book;
-		}
-		return null;
+
+		book.save();
+		return book;
 	}
 
 	public final ZLFile File;
 
-	private long myId;
+	private volatile long myId;
 
-	private String myEncoding;
-	private String myLanguage;
-	private String myTitle;
-	private List<Author> myAuthors;
-	private List<Tag> myTags;
-	private SeriesInfo mySeriesInfo;
+	private volatile String myEncoding;
+	private volatile String myLanguage;
+	private volatile String myTitle;
+	private volatile List<Author> myAuthors;
+	private volatile List<Tag> myTags;
+	private volatile SeriesInfo mySeriesInfo;
 
-	private boolean myIsSaved;
+	private volatile boolean myIsSaved;
 
 	private static final WeakReference<ZLImage> NULL_IMAGE = new WeakReference<ZLImage>(null);
 	private WeakReference<ZLImage> myCover;
@@ -119,14 +130,19 @@ public class Book {
 		myIsSaved = true;
 	}
 
-	Book(ZLFile file) {
+	Book(ZLFile file) throws BookReadingException {
 		myId = -1;
-		File = file;
+		final FormatPlugin plugin = getPlugin(file);
+		File = plugin.realBookFile(file);
+		readMetaInfo(plugin);
 	}
 
 	public void reloadInfoFromFile() {
-		if (readMetaInfo()) {
+		try {
+			readMetaInfo();
 			save();
+		} catch (BookReadingException e) {
+			// ignore
 		}
 	}
 
@@ -139,7 +155,23 @@ public class Book {
 		myIsSaved = true;
 	}
 
-	boolean readMetaInfo() {
+	private FormatPlugin getPlugin(ZLFile file) throws BookReadingException {
+		final FormatPlugin plugin = PluginCollection.Instance().getPlugin(file);
+		if (plugin == null) {
+			throw new BookReadingException("pluginNotFound", file);
+		}
+		return plugin;
+	}
+
+	public FormatPlugin getPlugin() throws BookReadingException {
+		return getPlugin(File);
+	}
+
+	void readMetaInfo() throws BookReadingException {
+		readMetaInfo(getPlugin());
+	}
+
+	private void readMetaInfo(FormatPlugin plugin) throws BookReadingException {
 		myEncoding = null;
 		myLanguage = null;
 		myTitle = null;
@@ -149,22 +181,19 @@ public class Book {
 
 		myIsSaved = false;
 
-		final FormatPlugin plugin = PluginCollection.Instance().getPlugin(File);
-		if (plugin == null || !plugin.readMetaInfo(this)) {
-			return false;
-		}
+		plugin.readMetaInfo(this);
+
 		if (myTitle == null || myTitle.length() == 0) {
 			final String fileName = File.getShortName();
 			final int index = fileName.lastIndexOf('.');
 			setTitle(index > 0 ? fileName.substring(0, index) : fileName);
 		}
-		final String demoPathPrefix = Paths.BooksDirectoryOption().getValue() + java.io.File.separator + "Demos" + java.io.File.separator;
+		final String demoPathPrefix = Paths.mainBookDirectory() + "/Demos/";
 		if (File.getPath().startsWith(demoPathPrefix)) {
 			final String demoTag = LibraryUtil.resource().getResource("demo").getValue();
 			setTitle(getTitle() + " (" + demoTag + ")");
 			addTag(demoTag);
 		}
-		return true;
 	}
 
 	private void loadLists() {
@@ -186,7 +215,14 @@ public class Book {
 		myAuthors.add(author);
 	}
 
-	private void addAuthor(Author author) {
+	public void removeAllAuthors() {
+		if (myAuthors != null) {
+			myAuthors = null;
+			myIsSaved = false;
+		}
+	}
+
+	public void addAuthor(Author author) {
 		if (author == null) {
 			return;
 		}
@@ -248,11 +284,15 @@ public class Book {
 		return mySeriesInfo;
 	}
 
-	void setSeriesInfoWithNoCheck(String name, float index) {
+	void setSeriesInfoWithNoCheck(String name, BigDecimal index) {
 		mySeriesInfo = new SeriesInfo(name, index);
 	}
 
-	public void setSeriesInfo(String name, float index) {
+	public void setSeriesInfo(String name, String index) {
+		setSeriesInfo(name, SeriesInfo.createIndex(index));
+	}
+
+	public void setSeriesInfo(String name, BigDecimal index) {
 		if (mySeriesInfo == null) {
 			if (name != null) {
 				mySeriesInfo = new SeriesInfo(name, index);
@@ -279,6 +319,19 @@ public class Book {
 	}
 
 	public String getEncoding() {
+		if (myEncoding == null) {
+			try {
+				getPlugin().detectLanguageAndEncoding(this);
+			} catch (BookReadingException e) {
+			}
+			if (myEncoding == null) {
+				setEncoding("utf-8");
+			}
+		}
+		return myEncoding;
+	}
+
+	public String getEncodingNoDetection() {
 		return myEncoding;
 	}
 
@@ -290,7 +343,7 @@ public class Book {
 	}
 
 	public List<Tag> tags() {
-		return (myTags != null) ? Collections.unmodifiableList(myTags) : Collections.<Tag>emptyList();
+		return myTags != null ? Collections.unmodifiableList(myTags) : Collections.<Tag>emptyList();
 	}
 
 	void addTagWithNoCheck(Tag tag) {
@@ -298,6 +351,13 @@ public class Book {
 			myTags = new ArrayList<Tag>();
 		}
 		myTags.add(tag);
+	}
+
+	public void removeAllTags() {
+		if (myTags != null) {
+			myTags = null;
+			myIsSaved = false;
+		}
 	}
 
 	public void addTag(Tag tag) {
@@ -469,9 +529,10 @@ public class Book {
 			}
 		}
 		ZLImage image = null;
-		final FormatPlugin plugin = PluginCollection.Instance().getPlugin(File);
-		if (plugin != null) {
-			image = plugin.readCover(File);
+		try {
+			image = getPlugin().readCover(File);
+		} catch (BookReadingException e) {
+			// ignore
 		}
 		myCover = image != null ? new WeakReference<ZLImage>(image) : NULL_IMAGE;
 		return image;

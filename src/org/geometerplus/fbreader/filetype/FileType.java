@@ -19,6 +19,8 @@
 
 package org.geometerplus.fbreader.filetype;
 
+import java.util.List;
+
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.util.MimeType;
 
@@ -31,6 +33,10 @@ public abstract class FileType {
 
 	public abstract boolean acceptsFile(ZLFile file);
 
-	public abstract String extension();
-	public abstract MimeType mimeType();
+	//public abstract String extension(MimeType mimeType);
+	public abstract List<MimeType> mimeTypes();
+	public abstract MimeType mimeType(ZLFile file);
+	public MimeType simplifiedMimeType(ZLFile file) {
+		return mimeType(file);
+	}
 }

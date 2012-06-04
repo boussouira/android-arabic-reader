@@ -85,7 +85,7 @@ public final class ZipFile {
 		myFileHeaders.clear();
 
 		try {
-			while (true) {
+			while (baseStream.available() > 0) {
 				readFileHeader(baseStream, null);
 			}
 		} finally {
@@ -97,7 +97,7 @@ public final class ZipFile {
 	 * Finds descriptor of the last header and installs sizes of files
 	 */
 	private void findAndReadDescriptor(MyBufferedInputStream baseStream, LocalFileHeader header) throws IOException {
-		Decompressor decompressor = Decompressor.init(baseStream, header);
+		final Decompressor decompressor = Decompressor.init(baseStream, header);
 		int uncompressedSize = 0;
 		while (true) {
 			int blockSize = decompressor.read(null, 0, 2048);
@@ -125,6 +125,14 @@ public final class ZipFile {
 		return new ZipInputStream(this, header);
 	}
 
+	public boolean entryExists(String entryName) {
+		try {
+			return getHeader(entryName) != null;
+		} catch (IOException e) {
+			return false;
+		}
+	}
+
 	public int getEntrySize(String entryName) throws IOException {
 		return getHeader(entryName).UncompressedSize;
 	}
@@ -147,9 +155,9 @@ public final class ZipFile {
 		MyBufferedInputStream baseStream = getBaseStream();
 		baseStream.setPosition(0);
 		try {
-			while (!readFileHeader(baseStream, entryName)) {
+			while (baseStream.available() > 0 && !readFileHeader(baseStream, entryName)) {
 			}
-			LocalFileHeader header = myFileHeaders.get(entryName);
+			final LocalFileHeader header = myFileHeaders.get(entryName);
 			if (header != null) {
 				return header;
 			}

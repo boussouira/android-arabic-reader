@@ -1,99 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="FBReaderJ" default="help">
-  <loadproperties srcFile="local.properties" />
-  <property file="ant.properties" />
-  <loadproperties srcFile="project.properties" />
+<project name="ArabicReader" default="help">
 
-  <!-- quick check on sdk.dir -->
-  <fail
-    message="sdk.dir is missing. Make sure to generate local.properties using 'android update project'"
-    unless="sdk.dir"
-  />
+    <!-- The local.properties file is created and updated by the 'android' tool.
+         It contains the path to the SDK. It should *NOT* be checked into
+         Version Control Systems. -->
+    <loadproperties srcFile="local.properties" />
 
-	<target name="init" description="Initialization...">
-		<fail message="Ant 1.7.0 or higher is required. Please upgrade your ant.">
-			<condition>
-				<not>
-					<antversion property="ant.version" atleast="1.7.0"/>
-				</not>
-			</condition>
-		</fail>
-	</target>
+    <!-- The ant.properties file can be created by you. It is only edited by the
+         'android' tool to add properties to it.
+         This is the place to change some Ant specific build properties.
+         Here are some properties you may want to change/update:
 
-	<target name="native" unless="native.libraries.are.uptodate">
-		<fail message="Native libraries are not up-to-date. Please run ndk-build manually.">
-			<condition>
-				<os family="windows" />
-			</condition>
-		</fail>
-		<echo message="Building native libraries..."/>
-		<exec executable="${ndk.dir}/ndk-build" />
-		<echo message="DONE (Building native libraries)"/>
-	</target>
+         source.dir
+             The name of the source directory. Default is 'src'.
+         out.dir
+             The name of the output directory. Default is 'bin'.
 
-	<target name="check.native.libraries" depends="init">
-		<echo message="Checking if native libraries are up-to-date..."/>
-		<condition property="native.libraries.are.uptodate" value="true">
-			<and>
-				<!-- Check if libDeflatingDecompressor exists and is up to date -->
-				<available file="./libs/armeabi/libDeflatingDecompressor-v2.so" />
-				<uptodate targetfile="libs/armeabi/libDeflatingDecompressor-v2.so">
-					<srcfiles dir="jni/DeflatingDecompressor" includes="**/*.cpp"/>
-				</uptodate>
-				<!-- Check if libLineBreak exists and is up to date -->
-				<available file="./libs/armeabi/libLineBreak-v2.so" />
-				<uptodate property="libLineBreak-build-is-not-required" targetfile="libs/armeabi/libLineBreak-v2.so">
-					<srcfiles dir="jni/LineBreak" includes="**/*.cpp,**/*.c,**/*.h"/>
-				</uptodate>
-			</and>
-		</condition>
-		<echo message="DONE (Checking if native libraries are up-to-date)"/>
-	</target>
+         For other overridable properties, look at the beginning of the rules
+         files in the SDK, at tools/ant/build.xml
 
-	<target name="resources" depends="init, check.native.libraries">
-		<echo message="Cleaning up the 'res/drawable' folder..." />
-		<delete dir="res/drawable/">
-			<files includes="**"/>
-		</delete>
-		<echo message="DONE (Cleaning up the 'res/drawable' folder)" />
+         Properties related to the SDK location or the project target should
+         be updated using the 'android' tool with the 'update' action.
 
-		<echo message="Copying icons files to 'res/drawable/' folder..." />
-		<copy todir="res/drawable" verbose="false" overwrite="true" flatten="true">
-			<fileset file="icons/fbreader.png" />
-			<fileset dir="icons/" includes="*/*" />
-		</copy>
-		<echo message="DONE (Copying icons files to 'res/drawable/' folder)" />
-	</target>
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems.
 
-  <target name="-pre-build" depends="init, resources, native">
-  </target>
+         -->
+    <property file="ant.properties" />
+
+    <!-- The project.properties file is created and updated by the 'android'
+         tool, as well as ADT.
+
+         This contains project specific properties such as project target, and library
+         dependencies. Lower level build properties are stored in ant.properties
+         (or in .classpath for Eclipse projects).
+
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems. -->
+    <loadproperties srcFile="project.properties" />
+
+    <!-- quick check on sdk.dir -->
+    <fail
+            message="sdk.dir is missing. Make sure to generate local.properties using 'android update project'"
+            unless="sdk.dir"
+    />
+
+
+<!-- extension targets. Uncomment the ones where you want to do custom work
+     in between standard targets -->
 <!--
-  <target name="-pre-compile">
-  </target>
+    <target name="-pre-build">
+    </target>
+    <target name="-pre-compile">
+    </target>
 
-  <target name="-post-compile">
-  </target>
+    /* This is typically used for code obfuscation.
+       Compiled code location: ${out.classes.absolute.dir}
+       If this is not done in place, override ${out.dex.input.absolute.dir} */
+    <target name="-post-compile">
+    </target>
 -->
-	<target name="clean">
-		<echo message="Deleting temporary files..." />
-		<delete dir="gen" />
-		<delete dir="bin" />
-		<delete dir="res/drawable" />
-		<delete dir="out" />
-		<delete dir="obj" />
-		<echo message="DONE (Deleting temporary files)" />
-	</target>
 
-	<target name="distclean" depends="clean">
-		<echo message="Deleting native libraries..." />
-		<delete dir="libs/armeabi" />
-		<delete dir="libs/armeabi-v7a" />
-		<delete dir="libs/x86" />
-		<delete dir="libs/mips" />
-		<delete dir="libs/mips-r2" />
-		<delete dir="libs/mips-r2-sf" />
-		<echo message="DONE (Deleting native libraries)" />
-	</target>
+    <!-- Import the actual build file.
 
-  <import file="${sdk.dir}/tools/ant/build.xml" />
+         To customize existing targets, there are two options:
+         - Customize only one target:
+             - copy/paste the target into this file, *before* the
+               <import> task.
+             - customize it to your needs.
+         - Customize the whole content of build.xml
+             - copy/paste the content of the rules files (minus the top node)
+               into this file, replacing the <import> task.
+             - customize to your needs.
+
+         ***********************
+         ****** IMPORTANT ******
+         ***********************
+         In all cases you must update the value of version-tag below to read 'custom' instead of an integer,
+         in order to avoid having your file be overridden by tools such as "android update project"
+    -->
+    <!-- version-tag: 1 -->
+    <import file="${sdk.dir}/tools/ant/build.xml" />
+
 </project>

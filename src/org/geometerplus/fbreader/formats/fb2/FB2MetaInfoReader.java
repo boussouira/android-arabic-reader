@@ -20,10 +20,12 @@
 package org.geometerplus.fbreader.formats.fb2;
 
 import java.util.*;
+import java.io.IOException;
 
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.xml.*;
 
+import org.geometerplus.fbreader.bookmodel.BookReadingException;
 import org.geometerplus.fbreader.library.Book;
 import org.geometerplus.fbreader.library.Tag;
 
@@ -49,18 +51,22 @@ public class FB2MetaInfoReader extends ZLXMLReaderAdapter {
 		myBook.setTitle(null);
 		myBook.setLanguage(null);
 	}
-	
+
 	public boolean dontCacheAttributeValues() {
 		return true;
 	}
-	
-	public boolean readMetaInfo() {
+
+	public void readMetaInfo() throws BookReadingException {
 		myReadState = READ_NOTHING;
 		myAuthorNames[0] = "";
 		myAuthorNames[1] = "";
 		myAuthorNames[2] = "";
 		myBuffer.delete(0, myBuffer.length());
-		return readDocument(myBook.File);
+		try {
+			ZLXMLProcessor.read(this, myBook.File, 512);
+		} catch (IOException e) {
+			throw new BookReadingException(e, myBook.File);
+		}
 	}
 
 	public boolean startElementHandler(String tagName, ZLStringMap attributes) {
@@ -111,15 +117,7 @@ public class FB2MetaInfoReader extends ZLXMLReaderAdapter {
 					if (name != null) {
 						name.trim();
 						if (name.length() != 0) {
-							int index = 0;
-							try {
-								final String sIndex = attributes.getValue("number");
-								if (sIndex != null) {
-									index = Integer.parseInt(sIndex);
-								}
-							} catch (NumberFormatException e) {
-							}
-							myBook.setSeriesInfo(name, index);
+							myBook.setSeriesInfo(name, attributes.getValue("number"));
 						}
 					}
 				}
@@ -127,7 +125,7 @@ public class FB2MetaInfoReader extends ZLXMLReaderAdapter {
 		}
 		return false;
 	}
-	
+
 	public boolean endElementHandler(String tag) {
 		switch (FB2Tag.getTagByName(tag)) {
 			case FB2Tag.TITLE_INFO:
@@ -199,11 +197,11 @@ public class FB2MetaInfoReader extends ZLXMLReaderAdapter {
 				break;
 			default:
 				break;
-		}	
+		}
 		myBuffer.delete(0, myBuffer.length());
 		return false;
 	}
-	
+
 	public void characterDataHandler(char[] data, int start, int length) {
 		switch (myReadState) {
 			case READ_AUTHOR_NAME_0:
@@ -221,9 +219,5 @@ public class FB2MetaInfoReader extends ZLXMLReaderAdapter {
 				myBuffer.append(data, start, length);
 				break;
 		}
-	}
-
-	public boolean readDocument(ZLFile file) {
-		return ZLXMLProcessor.read(this, file, 512);
 	}
 }

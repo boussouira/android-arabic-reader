@@ -58,6 +58,10 @@ public final class ZLPhysicalFile extends ZLFile {
 		return myFile.delete();
 	}
 
+	public File javaFile() {
+		return myFile;
+	}
+
 	@Override
 	public String getPath() {
 		return myFile.getPath();
@@ -77,7 +81,7 @@ public final class ZLPhysicalFile extends ZLFile {
 	public ZLPhysicalFile getPhysicalFile() {
 		return this;
 	}
- 
+
 	@Override
 	public InputStream getInputStream() throws IOException {
 		return new FileInputStream(myFile);
@@ -89,7 +93,7 @@ public final class ZLPhysicalFile extends ZLFile {
 			return Collections.emptyList();
 		}
 
-		ArrayList<ZLFile> entries  = new ArrayList<ZLFile>(subFiles.length);
+		ArrayList<ZLFile> entries = new ArrayList<ZLFile>(subFiles.length);
 		for (File f : subFiles) {
 			if (!f.getName().startsWith(".")) {
 				entries.add(new ZLPhysicalFile(f));

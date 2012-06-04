@@ -19,28 +19,37 @@
 
 package org.geometerplus.fbreader.formats;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.geometerplus.zlibrary.core.options.*;
-import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-
+import org.geometerplus.fbreader.filetype.FileType;
+import org.geometerplus.fbreader.filetype.FileTypeCollection;
 import org.geometerplus.fbreader.formats.fb2.FB2Plugin;
 import org.geometerplus.fbreader.formats.oeb.OEBPlugin;
 import org.geometerplus.fbreader.formats.pdb.MobipocketPlugin;
-import org.geometerplus.fbreader.filetype.*;
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 
 public class PluginCollection {
+	static {
+		System.loadLibrary("NativeFormats-v2");
+	}
+
 	private static PluginCollection ourInstance;
 
 	private final Map<FormatPlugin.Type,List<FormatPlugin>> myPlugins =
 		new HashMap<FormatPlugin.Type,List<FormatPlugin>>();
-	public ZLStringOption DefaultLanguageOption;
-	public ZLStringOption DefaultEncodingOption;
-	public ZLBooleanOption LanguageAutoDetectOption;
 
 	public static PluginCollection Instance() {
 		if (ourInstance == null) {
 			ourInstance = new PluginCollection();
+
+			// This code can not be moved to constructor because nativePlugins() is a native method
+			for (NativeFormatPlugin p : ourInstance.nativePlugins()) {
+				ourInstance.addPlugin(p);
+				System.err.println("native plugin: " + p);
+			}
 		}
 		return ourInstance;
 	}
@@ -52,10 +61,6 @@ public class PluginCollection {
 	}
 
 	private PluginCollection() {
-		LanguageAutoDetectOption = new ZLBooleanOption("Format", "AutoDetect", true);
-		DefaultLanguageOption = new ZLStringOption("Format", "DefaultLanguage", "en");
-		DefaultEncodingOption = new ZLStringOption("Format", "DefaultEncoding", "windows-1252");
-
 		addPlugin(new FB2Plugin());
 		addPlugin(new MobipocketPlugin());
 		addPlugin(new OEBPlugin());
@@ -86,9 +91,9 @@ public class PluginCollection {
 		}
 
 		if (formatType == FormatPlugin.Type.ANY) {
-			FormatPlugin p = getPlugin(fileType, FormatPlugin.Type.JAVA);
+			FormatPlugin p = getPlugin(fileType, FormatPlugin.Type.NATIVE);
 			if (p == null) {
-				p = getPlugin(fileType, FormatPlugin.Type.NATIVE);
+				p = getPlugin(fileType, FormatPlugin.Type.JAVA);
 			}
 			return p;
 		} else {
@@ -103,5 +108,13 @@ public class PluginCollection {
 			}
 			return null;
 		}
+	}
+
+	private native NativeFormatPlugin[] nativePlugins();
+	private native void free();
+
+	protected void finalize() throws Throwable {
+		free();
+		super.finalize();
 	}
 }

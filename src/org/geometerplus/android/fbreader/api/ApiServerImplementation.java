@@ -29,7 +29,7 @@ import org.geometerplus.zlibrary.core.config.ZLConfig;
 
 import org.geometerplus.zlibrary.text.view.*;
 
-import org.geometerplus.fbreader.fbreader.FBReaderApp;
+import org.geometerplus.fbreader.fbreader.*;
 
 public class ApiServerImplementation extends ApiInterface.Stub implements Api, ApiMethods {
 	public static void sendEvent(ContextWrapper context, String eventType) {
@@ -131,6 +131,57 @@ public class ApiServerImplementation extends ApiInterface.Stub implements Api, A
 				case CLEAR_HIGHLIGHTING:
 					clearHighlighting();
 					return ApiObject.Void.Instance;
+				case GET_KEY_ACTION:
+					return ApiObject.envelope(getKeyAction(
+						((ApiObject.Integer)parameters[0]).Value,
+						((ApiObject.Boolean)parameters[1]).Value
+					));
+				case SET_KEY_ACTION:
+					setKeyAction(
+						((ApiObject.Integer)parameters[0]).Value,
+						((ApiObject.Boolean)parameters[1]).Value,
+						((ApiObject.String)parameters[2]).Value
+					);
+					return ApiObject.Void.Instance;
+				case GET_ZONEMAP:
+				    return ApiObject.envelope(getZoneMap());
+				case SET_ZONEMAP:
+				    setZoneMap(((ApiObject.String)parameters[0]).Value);
+					return ApiObject.Void.Instance;
+				case GET_ZONEMAP_HEIGHT:
+					return ApiObject.envelope(getZoneMapHeight(((ApiObject.String)parameters[0]).Value));
+				case GET_ZONEMAP_WIDTH:
+					return ApiObject.envelope(getZoneMapWidth(((ApiObject.String)parameters[0]).Value));
+				case GET_TAPZONE_ACTION:
+					return ApiObject.envelope(getTapZoneAction(
+						((ApiObject.String)parameters[0]).Value,
+						((ApiObject.Integer)parameters[1]).Value,
+						((ApiObject.Integer)parameters[2]).Value,
+						((ApiObject.Boolean)parameters[3]).Value
+					));
+				case SET_TAPZONE_ACTION:
+					setTapZoneAction(
+						((ApiObject.String)parameters[0]).Value,
+						((ApiObject.Integer)parameters[1]).Value,
+						((ApiObject.Integer)parameters[2]).Value,
+						((ApiObject.Boolean)parameters[3]).Value,
+						((ApiObject.String)parameters[4]).Value
+					);
+					return ApiObject.Void.Instance;
+				case CREATE_ZONEMAP:
+					createZoneMap(
+						((ApiObject.String)parameters[0]).Value,
+						((ApiObject.Integer)parameters[1]).Value,
+						((ApiObject.Integer)parameters[2]).Value
+					);
+					return ApiObject.Void.Instance;
+				case IS_ZONEMAP_CUSTOM:
+					return ApiObject.envelope(isZoneMapCustom(
+						((ApiObject.String)parameters[0]).Value
+					));
+				case DELETE_ZONEMAP:
+					deleteZoneMap(((ApiObject.String)parameters[0]).Value);
+					return ApiObject.Void.Instance;
 				default:
 					return unsupportedMethodError(method);
 			}
@@ -142,14 +193,26 @@ public class ApiServerImplementation extends ApiInterface.Stub implements Api, A
 	public List<ApiObject> requestList(int method, ApiObject[] parameters) {
 		try {
 			switch (method) {
-				case GET_OPTION_GROUPS:
+				case LIST_OPTION_GROUPS:
 					return ApiObject.envelope(getOptionGroups());
-				case GET_OPTION_NAMES:
+				case LIST_OPTION_NAMES:
 					return ApiObject.envelope(getOptionNames(
 						((ApiObject.String)parameters[0]).Value
 					));
-				case GET_BOOK_TAGS:
+				case LIST_BOOK_TAGS:
 					return ApiObject.envelope(getBookTags());
+				case LIST_ACTIONS:
+					return ApiObject.envelope(listActions());
+				case LIST_ACTION_NAMES:
+				{
+					final ArrayList<String> actions = new ArrayList<String>(parameters.length);
+					for (ApiObject o : parameters) {
+					  	actions.add(((ApiObject.String)o).Value);
+					}
+					return ApiObject.envelope(listActionNames(actions));
+				}
+				case LIST_ZONEMAPS:
+					return ApiObject.envelope(listZoneMaps());
 				default:
 					return Collections.<ApiObject>singletonList(unsupportedMethodError(method));
 			}
@@ -337,5 +400,67 @@ public class ApiServerImplementation extends ApiInterface.Stub implements Api, A
 			cursor.nextWord();
 		}
 		return sb.toString();
+	}
+
+	// action control
+	public List<String> listActions() {
+		// TODO: implement
+		return Collections.emptyList();
+	}
+
+	public List<String> listActionNames(List<String> actions) {
+		// TODO: implement
+		return Collections.emptyList();
+	}
+
+	public String getKeyAction(int key, boolean longPress) {
+		// TODO: implement
+		return null;
+	}
+
+	public void setKeyAction(int key, boolean longPress, String action) {
+		// TODO: implement
+	}
+
+	public List<String> listZoneMaps() {
+		return TapZoneMap.zoneMapNames();
+	}
+
+	public String getZoneMap() {
+	  	return ScrollingPreferences.Instance().TapZoneMapOption.getValue();
+	}
+
+	public void setZoneMap(String name) {
+	  	ScrollingPreferences.Instance().TapZoneMapOption.setValue(name);
+	}
+
+	public int getZoneMapHeight(String name) {
+		return TapZoneMap.zoneMap(name).getHeight();
+	}
+
+	public int getZoneMapWidth(String name) {
+		return TapZoneMap.zoneMap(name).getWidth();
+	}
+
+	public void createZoneMap(String name, int width, int height) {
+		TapZoneMap.createZoneMap(name, width, height);
+	}
+
+	public boolean isZoneMapCustom(String name) throws ApiException {
+		return TapZoneMap.zoneMap(name).isCustom();
+	}
+
+	public void deleteZoneMap(String name) throws ApiException {
+		TapZoneMap.deleteZoneMap(name);
+	}
+
+	public String getTapZoneAction(String name, int h, int v, boolean singleTap) {
+		return TapZoneMap.zoneMap(name).getActionByZone(
+			h, v, singleTap ? TapZoneMap.Tap.singleNotDoubleTap : TapZoneMap.Tap.doubleTap
+		);
+	}
+
+	public void setTapZoneAction(String name, int h, int v, boolean singleTap, String action) {
+		TapZoneMap.zoneMap(name).setActionForZone(h, v, singleTap, action);
 	}
 }

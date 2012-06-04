@@ -28,20 +28,14 @@ import org.geometerplus.zlibrary.core.image.ZLImageData;
 abstract public class ZLPaintContext {
 	private final ArrayList<String> myFamilies = new ArrayList<String>();
 
-	public interface LineStyle {
-		int SOLID_LINE = 0;
-		int DASH_LINE = 1;
-	};
-
-	public interface FillStyle {
-		int SOLID_FILL = 0;
-		int HALF_FILL = 1;
-	};
-	
 	protected ZLPaintContext() {
 	}
 
-	abstract public void clear(ZLFile wallpaperFile, boolean doMirror);
+	public static enum WallpaperMode {
+		TILE,
+		TILE_MIRROR
+	}
+	abstract public void clear(ZLFile wallpaperFile, WallpaperMode mode);
 	abstract public void clear(ZLColor color);
 	abstract public ZLColor getBackgroundColor();
 
@@ -90,19 +84,13 @@ abstract public class ZLPaintContext {
 	abstract protected void setFontInternal(String family, int size, boolean bold, boolean italic, boolean underline, boolean strikeThrough);
 
 	abstract public void setTextColor(ZLColor color);
-	final public void setLineColor(ZLColor color) {
-		setLineColor(color, LineStyle.SOLID_LINE);
-	}
-	abstract public void setLineColor(ZLColor color, int style);
+	abstract public void setLineColor(ZLColor color);
 	abstract public void setLineWidth(int width);
 
-	final public void setFillColor(ZLColor color, int alpha) {
-		setFillColor(color, alpha, FillStyle.SOLID_FILL);
-	}
 	final public void setFillColor(ZLColor color) {
-		setFillColor(color, 0xFF, FillStyle.SOLID_FILL);
+		setFillColor(color, 0xFF);
 	}
-	abstract public void setFillColor(ZLColor color, int alpha, int style);
+	abstract public void setFillColor(ZLColor color, int alpha);
 
 	abstract public int getWidth();
 	abstract public int getHeight();
@@ -182,19 +170,8 @@ abstract public class ZLPaintContext {
 
 	abstract public void drawLine(int x0, int y0, int x1, int y1);
 	abstract public void fillRectangle(int x0, int y0, int x1, int y1);
-	abstract public void drawFilledCircle(int x, int y, int r);
 
 	abstract public void drawPolygonalLine(int[] xs, int ys[]);
 	abstract public void fillPolygon(int[] xs, int[] ys);
 	abstract public void drawOutline(int[] xs, int ys[]);
-
-	public ArrayList<String> fontFamilies() {
-		if (myFamilies.isEmpty()) {
-			fillFamiliesList(myFamilies);
-		}
-		return myFamilies;
-	}	
-
-	abstract public String realFontFamilyName(String fontFamily);
-	abstract protected void fillFamiliesList(ArrayList<String> families);
 }

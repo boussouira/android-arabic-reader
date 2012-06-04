@@ -38,6 +38,7 @@ import com.ahlalhdeeth.arabicReader.R;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidActivity;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidApplication;
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
+import org.geometerplus.zlibrary.ui.android.view.AndroidFontUtil;
 
 import org.geometerplus.fbreader.fbreader.ActionCode;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
@@ -105,10 +106,22 @@ public final class ArabicReader extends ZLAndroidActivity {
 	}
 
 	@Override
+	protected Runnable getPostponedInitAction() {
+		return new Runnable() {
+			public void run() {
+				runOnUiThread(new Runnable() {
+					public void run() {
+						//new TipRunner().start();
+						DictionaryUtil.init(ArabicReader.this);
+					}
+				});
+			}
+		};
+	}
+
+	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-
-		DictionaryUtil.init(this);
 
 		final FBReaderApp fbReader = (FBReaderApp)FBReaderApp.Instance();
 		final ZLAndroidLibrary zlibrary = (ZLAndroidLibrary)ZLibrary.Instance();
@@ -138,6 +151,7 @@ public final class ArabicReader extends ZLAndroidActivity {
 		fbReader.addAction(ActionCode.SHOW_MENU, new ShowMenuAction(this, fbReader));
 		fbReader.addAction(ActionCode.SHOW_NAVIGATION, new ShowNavigationAction(this, fbReader));
 		fbReader.addAction(ActionCode.SEARCH, new SearchAction(this, fbReader));
+		fbReader.addAction(ActionCode.SHARE_BOOK, new ShareBookAction(this, fbReader));
 
 		fbReader.addAction(ActionCode.SELECTION_SHOW_PANEL, new SelectionShowPanelAction(this, fbReader));
 		fbReader.addAction(ActionCode.SELECTION_HIDE_PANEL, new SelectionHidePanelAction(this, fbReader));
@@ -195,7 +209,7 @@ public final class ArabicReader extends ZLAndroidActivity {
 			super.onNewIntent(intent);
 		} else if (Intent.ACTION_VIEW.equals(intent.getAction())
 					&& data != null && "fbreader-action".equals(data.getScheme())) {
-			fbReader.doAction(data.getEncodedSchemeSpecificPart(), data.getFragment());
+			fbReader.runAction(data.getEncodedSchemeSpecificPart(), data.getFragment());
 		} else if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
 			final String pattern = intent.getStringExtra(SearchManager.QUERY);
 			final Runnable runnable = new Runnable() {
@@ -229,6 +243,8 @@ public final class ArabicReader extends ZLAndroidActivity {
 	public void onStart() {
 		super.onStart();
 
+		initPluginActions();
+
 		final ZLAndroidLibrary zlibrary = (ZLAndroidLibrary)ZLibrary.Instance();
 
 		final int fullScreenFlag =
@@ -245,7 +261,10 @@ public final class ArabicReader extends ZLAndroidActivity {
 		((PopupPanel)fbReader.getPopupById(TextSearchPopup.ID)).setPanelInfo(this, root);
 		((PopupPanel)fbReader.getPopupById(NavigationPopup.ID)).setPanelInfo(this, root);
 		((PopupPanel)fbReader.getPopupById(SelectionPopup.ID)).setPanelInfo(this, root);
+	}
 
+	private void initPluginActions() {
+		final FBReaderApp fbReader = (FBReaderApp)FBReaderApp.Instance();
 		synchronized (myPluginActions) {
 			int index = 0;
 			while (index < myPluginActions.size()) {
@@ -332,6 +351,7 @@ public final class ArabicReader extends ZLAndroidActivity {
 				break;
 			case RESULT_REPAINT:
 			{
+				AndroidFontUtil.clearFontCache();
 				final BookModel model = fbReader.Model;
 				if (model != null) {
 					final Book book = model.Book;

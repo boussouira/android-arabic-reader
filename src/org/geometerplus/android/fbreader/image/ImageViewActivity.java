@@ -68,14 +68,12 @@ public class ImageViewActivity extends Activity {
 
 		final Uri uri = intent.getData();
 		if (ZLFileImage.SCHEME.equals(uri.getScheme())) {
+			final ZLFileImage image = ZLFileImage.byUrlPath(uri.getPath());
+			if (image == null) {
+				// TODO: error message (?)
+				finish();
+			}
 			try {
-				final String[] data = uri.getPath().split("\000");
-				final ZLFileImage image = new ZLFileImage(
-					MimeType.IMAGE_AUTO,
-					ZLFile.createFileByPath(data[0]),
-					Integer.parseInt(data[1]),
-					Integer.parseInt(data[2])
-				);
 				final ZLImageData imageData = ZLImageManager.Instance().getImageData(image);
 				myBitmap = ((ZLAndroidImageData)imageData).getFullSizeBitmap();
 			} catch (Exception e) {
@@ -121,7 +119,7 @@ public class ImageViewActivity extends Activity {
 
 			final int bw = (int)(myBitmap.getWidth() * myZoomFactor);
 			final int bh = (int)(myBitmap.getHeight() * myZoomFactor);
-			
+
 			final Rect src = new Rect(0, 0, (int)(w / myZoomFactor), (int)(h / myZoomFactor));
 			final Rect dst = new Rect(0, 0, w, h);
 			if (bw <= w) {
@@ -233,16 +231,16 @@ public class ImageViewActivity extends Activity {
 					break;
 				case MotionEvent.ACTION_POINTER_DOWN:
 				{
-					final float diffX = event.getX(0) - event.getX(1); 
-					final float diffY = event.getY(0) - event.getY(1); 
+					final float diffX = event.getX(0) - event.getX(1);
+					final float diffY = event.getY(0) - event.getY(1);
 					myStartPinchDistance2 = Math.max(diffX * diffX + diffY * diffY, 10f);
 					myStartZoomFactor = myZoomFactor;
 					break;
 				}
 				case MotionEvent.ACTION_MOVE:
 				{
-					final float diffX = event.getX(0) - event.getX(1); 
-					final float diffY = event.getY(0) - event.getY(1); 
+					final float diffX = event.getX(0) - event.getX(1);
+					final float diffY = event.getY(0) - event.getY(1);
 					final float distance2 = Math.max(diffX * diffX + diffY * diffY, 10f);
 					if (myStartPinchDistance2 < 0) {
 						myStartPinchDistance2 = distance2;

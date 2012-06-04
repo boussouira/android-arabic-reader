@@ -1,9 +1,91 @@
-===== 1.3.8 (Feb ??, 2012) =====
+===== 1.5.6 (Jun ??, 2012) =====
+* Can add custom catalogs even if opensearch links are not fully correct
+* More API methods
+
+===== 1.5.5 (Jun 03, 2012) =====
+* Fixed zip decompression (issue introduced in 1.5.4)
+
+===== 1.5.4 (Jun 03, 2012) =====
+* Minor issues in zip/ePub files
+* fixed file opening from the library
+
+===== 1.5.3 (May 25, 2012) =====
+* Fixed book downloading for hosts containing '_' in name (e.g. for epubbud.com catalogue)
+* Fixed ePub series info reading for books where calibre namespace is not defined
+* Fixed CSS processing if attribute value is not finished by ';' symbol (e.g. for Gutenberg books)
+* fb2: <empty-line/> inside <p> tag processing has been fixed
+
+===== 1.5.2 (May 19, 2012) =====
+* Fixed reading of zip archives with 0x08 bit in entry flag
+* Fixed reading of zip entry names on MIPS devices
+* Fixed reading of opf files with defined :opf prefix
+* No book duplicates in library
+* Updated Czech localization (by Marek Pavelka)
+
+===== 1.5.1 (May 15, 2012) =====
+* Fixed pt/px measured font size processing for CSS's
+* Fixed ToC in some ePubs (e.g. for ePubs from project Gutenberg)
+* Fixed crash on incorrect *.fb2.zip files
+
+===== 1.5 (May 13, 2012) =====
+* New faster engine got ePub files
+* Improved cover support for ePubs
+* Improved series information support for ePubs
+* Some CSS support for ePubs:
+  ** alignments
+  ** font styles (bold/italic/underline/line-through)
+  ** font size
+  ** page breaks
+* Portuguese translation by http://www.gototranslation.com, sponsored by Panacea Supplies
+* ICS: old style navigation bar
+* Fixed multibyte (UTF16, GB18030, etc.) encodings support
+* Experimental html support
+
+===== 1.4.5 (Apr 08, 2012) =====
+* book sharing via e-mail, skype, etc
+* 'Open library' and 'Open network library' items in back button menu 
+* ePub reader does not fail if NCX file in referenced but missing
+* native plugin does not crash if cache file cannot be created
+* right and left margind depend on screen size
+* fixed 'no catalog title' issue in 'add custom catalog' dialog
+
+===== 1.4.4 (Apr 01, 2012) =====
+* introduced jni C++ wrappers (this avoids incorrect method calls)
+* fixed repeated book opening issue
+* max margin value changed to 100
+* first line indent depends on screen DPI
+* all footnotes in single file
+
+===== 1.4.3 (Mar 29, 2012) =====
+* fixed fb2 books opening issue
+* fixed fb2 genres detection issue
+
+===== 1.4.2 (Mar 27, 2012) =====
+* Supported embedded images in RTF files
+* New fb2 engine
+* Fixed plugin items in main menu
+
+===== 1.4.1 (Mar 23, 2012) =====
+* RTF support (images are not supported at this moment)
+* Fixed Dutch language detection
+
+===== 1.4 (Mar 18, 2012) =====
+* *.txt support
+* Changed "Back" button behaviour: FBReader tries to jump back before showing Cancel menu
+* Updated Czech localization (by Marek Pavelka)
+* Smoother scrolling in local and network libraries
+* Uses current device language for hyphenations if book language is not set
+
+===== 1.3.9 (Feb 26, 2012) =====
+* FBReader reads Mobipocket files with PDB/PRC extensions
+
+===== 1.3.8 (Feb 26, 2012) =====
 * Striked through/underlined text support
 * Asynchronous bonjour scanning: user can select any found network even if scanning is still in progress
 * Better support for "related" catalogs in book descriptions
 * Updated Hungarian localization (by Szabó Lajos Balázs)
 * Local network scanning has been moved to a separate plugin; WiFi permissions are not required more
+* "Old" package works on new devices
 
 ===== 1.3.7 (Feb 9, 2012) =====
 * Font smoothing settings (Settings -> Text -> Font properties)

@@ -24,14 +24,13 @@ import java.util.List;
 import org.geometerplus.zlibrary.text.model.*;
 
 import org.geometerplus.fbreader.library.Book;
-import org.geometerplus.fbreader.formats.*;
+import org.geometerplus.fbreader.formats.FormatPlugin;
 
 public abstract class BookModel {
-	public static BookModel createModel(Book book) {
-		final FormatPlugin plugin = PluginCollection.Instance().getPlugin(book.File);
-		if (plugin == null) {
-			return null;
-		}
+	public static BookModel createModel(Book book) throws BookReadingException {
+		final FormatPlugin plugin = book.getPlugin();
+
+		System.err.println("using plugin: " + plugin.supportedFileType() + "/" + plugin.type());
 
 		final BookModel model;
 		switch (plugin.type()) {
@@ -42,13 +41,11 @@ public abstract class BookModel {
 				model = new JavaBookModel(book);
 				break;
 			default:
-				return null;
+				throw new BookReadingException("unknownPluginType", plugin.type().toString(), null);
 		}
 
-		if (plugin.readModel(model)) {
-			return model;
-		}
-		return null;
+		plugin.readModel(model);
+		return model;
 	}
 
 	public final Book Book;

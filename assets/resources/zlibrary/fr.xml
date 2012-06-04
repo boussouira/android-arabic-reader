@@ -24,30 +24,16 @@
 			<node name="couldntConnectMessage" value="Impossible de se connecter à l'hôte %s"/>
 			<node name="couldntResolveHostMessage" value="Résolution du nom %s impossible"/>
 			<node name="authenticationFailed" value="Authentification échouée"/>
-			<node name="unsupportedProtocol" value="Protocole non supporté" />
-			<node name="invalidURL" value="URL invalide" />
-			<node name="hostCantBeReached" value="L'hôte %s&#10;ne peut être joint" />
-			<node name="connectionRefused" value="La connexion a été refusée par&#10;%s" />
+			<node name="unsupportedProtocol" value="Protocole non supporté"/>
+			<node name="invalidURL" value="URL invalide"/>
+			<node name="hostCantBeReached" value="L'hôte %s&#10;ne peut être joint"/>
+			<node name="connectionRefused" value="La connexion a été refusée par&#10;%s"/>
 		</node>
 	</node>
 	<node name="color">
 		<node name="red" value="Rouge"/>
 		<node name="green" value="Vert"/>
 		<node name="blue" value="Bleu"/>
-		<node name="black" value="Noir"/>
-		<node name="white" value="Blanc"/>
-		<node name="maroon" value="Marron"/>
-		<node name="olive" value="Vert olive"/>
-		<node name="navy" value="Bleu marine"/>
-		<node name="purple" value="Violet"/>
-		<node name="teal" value="Bleu canard"/>
-		<node name="silver" value="Argent"/>
-		<node name="gray" value="Gris"/>
-		<node name="lime" value="Vert clair"/>
-		<node name="yellow" value="Jaune"/>
-		<node name="magenta" value="Magenta"/>
-		<node name="cyan" value="Cyan"/>
-		<node name="custom..." value="Personnalisé..."/>
 	</node>
 	<node name="language">
 		<node name="ar" value="Arabe"/>
@@ -62,21 +48,22 @@
 		<node name="fr" value="Français"/>
 		<node name="gl" value="Galique"/>
 		<node name="he" value="Hébreu"/>
-		<node name="hu" value="Hongrois" />
+		<node name="hu" value="Hongrois"/>
 		<node name="id" value="Indonésien"/>
 		<node name="it" value="Italien"/>
 		<node name="lt" value="Lithuanien"/>
 		<node name="nl" value="Néerlandais"/>
 		<node name="no" value="Norvégien"/>
-		<node name="pl" value="Polonais" />
+		<node name="pl" value="Polonais"/>
 		<node name="pt" value="Portugais"/>
 		<node name="ro" value="Roumain"/>
 		<node name="ru" value="Russe"/>
 		<node name="sv" value="Suédois"/>
+		<node name="ta" value="Tamil" toBeTranslated="true"/>
 		<node name="th" value="Thailandais"/>
 		<node name="tr" value="Turc"/>
 		<node name="uk" value="Ukrainien"/>
-		<node name="vi" value="Vietnamien" />
+		<node name="vi" value="Vietnamien"/>
 		<node name="zh" value="Chinois"/>
 		<node name="other" value="Autre"/>
 		<node name="multi" value="Multi-langage"/>

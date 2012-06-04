@@ -88,7 +88,7 @@ public class OPDSCustomNetworkLink extends OPDSNetworkLink implements ICustomNet
 
 	public boolean isObsolete(long milliSeconds) {
 		final long old = System.currentTimeMillis() - milliSeconds;
-		
+
 		Date updateDate = getUrlInfo(UrlInfo.Type.Search).Updated;
 		if (updateDate == null || updateDate.getTime() < old) {
 			return true;
@@ -113,7 +113,7 @@ public class OPDSCustomNetworkLink extends OPDSNetworkLink implements ICustomNet
 				public void handleStream(InputStream inputStream, int length) throws IOException, ZLNetworkException {
 					final OPDSCatalogInfoHandler info = new OPDSCatalogInfoHandler(getURL(), OPDSCustomNetworkLink.this, opensearchDescriptionURLs);
 					new OPDSXMLReader(info, false).read(inputStream);
-        
+
 					if (!info.FeedStarted) {
 						throw new ZLNetworkException(NetworkException.ERROR_NOT_AN_OPDS);
 					}
@@ -147,9 +147,8 @@ public class OPDSCustomNetworkLink extends OPDSNetworkLink implements ICustomNet
 			try {
 				ZLNetworkManager.Instance().perform(requests);
 			} catch (ZLNetworkException e) {
-				if (error == null) {
-					error = e;
-				}
+				// we do ignore errors in opensearch description loading/parsing
+				e.printStackTrace();
 			}
 		}
 

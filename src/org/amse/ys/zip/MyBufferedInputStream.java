@@ -66,7 +66,7 @@ final class MyBufferedInputStream extends InputStream {
 		int low = read();
 		int high = read();
 		if (high < 0) {
-			throw new IOException("unexpected end of file at position " + offset());
+			throw new ZipException("unexpected end of file at position " + offset());
 		}
 		return (high << 8) + low;
 	}
@@ -77,7 +77,7 @@ final class MyBufferedInputStream extends InputStream {
 		int thirdByte = read();
 		int fourthByte = read();
 		if (fourthByte < 0) {
-			throw new IOException("unexpected end of file at position " + offset());
+			throw new ZipException("unexpected end of file at position " + offset());
 		}
 		return (fourthByte << 24) + (thirdByte << 16) + (secondByte << 8) + firstByte;
 	}
@@ -90,26 +90,27 @@ final class MyBufferedInputStream extends InputStream {
 		return new String(array);
 	}
 
-	public void skip(int n) throws IOException {
-		myCurrentPosition += n;
+	@Override
+	public long skip(long n) throws IOException {
 		if (myBytesReady >= n) {
 			myBytesReady -= n;
 			myPositionInBuffer += n;
+			myCurrentPosition += n;
+			return n;
 		} else {
-			n -= myBytesReady;
+			long left = n - myBytesReady;
 			myBytesReady = 0;
 
-			if (n > myFileInputStream.available()) {
-				throw new IOException("Not enough bytes to read");
-			}
-			n -= myFileInputStream.skip(n);
-			while (n > 0) {
-				int skipped = myFileInputStream.read(myBuffer, 0, Math.min(n, myBuffer.length));
+			left -= myFileInputStream.skip(left);
+			while (left > 0) {
+				int skipped = myFileInputStream.read(myBuffer, 0, Math.min((int)left, myBuffer.length));
 				if (skipped <= 0) {
-					throw new IOException("Not enough bytes to read");
+					break;
 				}
-				n -= skipped;
+				left -= skipped;
 			}
+			myCurrentPosition += n - left;
+			return n - left;
 		}
 	}
 
