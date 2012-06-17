@@ -73,7 +73,7 @@ public abstract class ZLSearchUtil {
 		return -1;
 	}
 
-    public static int arbicFind(char[] text, int offset, int length, final ZLSearchPattern pattern, int pos) {
+    public static int arabicFind(char[] text, int offset, int length, final ZLSearchPattern pattern, int pos) {
         if (pos < 0) {
             pos = 0;
         }
@@ -84,7 +84,7 @@ public abstract class ZLSearchUtil {
         final char firstChar = lower[0];
 
         for (int i = offset + pos; i <= last; i++) {
-            if (text[i] == firstChar) {
+        	if (ZLArabicUtils.compare(text[i], firstChar)) {
                 int j = 1;
                 for (int k = i + 1; j < patternLength; ++j, ++k) {
                     if(ZLArabicUtils.isTashekil(lower[j])) {
@@ -97,13 +97,11 @@ public abstract class ZLSearchUtil {
                         continue;
                     }
 
-                    if (lower[j] != text[k]
-                        && (!ZLArabicUtils.isAlef(lower[j]) || !ZLArabicUtils.isAlef(lower[j]))
-                        && (!ZLArabicUtils.isHah(lower[j]) || !ZLArabicUtils.isHah(lower[j]))
-                        && (!ZLArabicUtils.isYeh(lower[j]) || !ZLArabicUtils.isYeh(lower[j]))) {
-                        break;
-                    }
-                }
+					if (!ZLArabicUtils.compare(lower[j], text[k])) {
+						break;
+					}
+				}
+
                 if (j >= patternLength) {
                     return i - offset;
                 }

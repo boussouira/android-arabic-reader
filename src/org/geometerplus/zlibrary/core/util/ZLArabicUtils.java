@@ -109,10 +109,14 @@ public class ZLArabicUtils {
 		
 		return ret;
 	}
-    /*
-     * 159).
-     * .)159
-     */
+
+	public static boolean compare(char firstChar, char secondChar) {
+		return ((firstChar == secondChar)
+				|| (isAlef(firstChar) && isAlef(secondChar))
+				|| (isHah(firstChar) && isHah(secondChar))
+				|| (isYeh(firstChar) && isYeh(secondChar)));
+	}
+
     public static int getCharType(char c) {
 		if (isArabic(c))
 			return ArabicChar;
