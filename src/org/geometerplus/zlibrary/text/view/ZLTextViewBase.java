@@ -169,8 +169,6 @@ abstract class ZLTextViewBase extends ZLView {
 
 	private void applyStyleClose() {
 		setTextStyle(myTextStyle.Base);
-<<<<<<< HEAD
-=======
 	}
 
 	protected final ZLPaintContext.ScalingType getScalingType(ZLTextImageElement imageElement) {

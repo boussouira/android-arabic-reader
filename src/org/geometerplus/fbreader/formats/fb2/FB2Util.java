@@ -17,39 +17,33 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.fbreader.filetype;
+package org.geometerplus.fbreader.formats.fb2;
 
 import java.util.List;
 
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-import org.geometerplus.zlibrary.core.filetypes.FileType;
-import org.geometerplus.zlibrary.core.util.MimeType;
 
-class FileTypeDjVu extends FileType {
-	FileTypeDjVu() {
-		super("DjVu");
-	}
-
-	@Override
-	public boolean acceptsFile(ZLFile file) {
-		final String extension = file.getExtension();
-		return "djvu".equalsIgnoreCase(extension) || "djv".equalsIgnoreCase(extension);
-	}
-
-	/*
-	@Override
-	public String extension() {
-		return "djvu";
-	}
-	*/
-
-	@Override
-	public List<MimeType> mimeTypes() {
-		return MimeType.TYPES_DJVU;
-	}
-
-	@Override
-	public MimeType mimeType(ZLFile file) {
-		return acceptsFile(file) ? MimeType.IMAGE_VND_DJVU : MimeType.NULL;
+abstract class FB2Util {
+	static ZLFile getRealFB2File(ZLFile file) {
+		final String name = file.getShortName().toLowerCase();
+		if (name.endsWith(".fb2.zip") && file.isArchive()) {
+			final List<ZLFile> children = file.children();
+			if (children == null) {
+				return null;
+			}
+			ZLFile candidate = null;
+			for (ZLFile item : children) {
+				if ("fb2".equals(item.getExtension())) {
+					if (candidate == null) {
+						candidate = item;
+					} else {
+						return null;
+					}
+				}
+			}
+			return candidate;
+		} else {
+			return file;
+		}
 	}
 }

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.filetypes.FileType;
 import org.geometerplus.zlibrary.core.util.MimeType;
 
 class FileTypeFB2 extends FileType {

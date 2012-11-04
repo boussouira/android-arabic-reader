@@ -292,12 +292,12 @@ public final class ArabicReader extends ZLAndroidActivity {
 			switch (manager.requiredAction()) {
 				case Initialize:
 					startActivity(new Intent(
-						TipsActivity.INITIALIZE_ACTION, null, FBReader.this, TipsActivity.class
+						TipsActivity.INITIALIZE_ACTION, null, ArabicReader.this, TipsActivity.class
 					));
 					break;
 				case Show:
 					startActivity(new Intent(
-						TipsActivity.SHOW_TIP_ACTION, null, FBReader.this, TipsActivity.class
+						TipsActivity.SHOW_TIP_ACTION, null, ArabicReader.this, TipsActivity.class
 					));
 					break;
 				case Download:

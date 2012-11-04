@@ -637,14 +637,11 @@
 				<node name="selectImage" value="Long tapping selects the image"/>
 				<node name="openImageView" value="Long tapping opens image view"/>
 			</node>
-<<<<<<< HEAD
-=======
 			<node name="fitImagesToScreen" value="Fit images to screen">
 				<node name="none" value="None"/>
 				<node name="covers" value="Covers only"/>
 				<node name="all" value="All"/>
 			</node>
->>>>>>> a3246a3b98bd86f9d2c3c260a2ce47bf21b0bdff
 		</node>
 		<node name="cancelMenu" value="Cancel menu">
 			<node name="summary" value="Back button action list"/>
