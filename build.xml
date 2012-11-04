@@ -60,26 +60,26 @@
     <target name="-post-compile">
     </target>
 -->
+	<target name="clean">
+		<echo message="Deleting temporary files..." />
+		<delete dir="gen" />
+		<delete dir="bin" />
+		<delete dir="res/drawable" />
+		<delete dir="out" />
+		<delete dir="obj" />
+		<echo message="DONE (Deleting temporary files)" />
+	</target>
 
-    <!-- Import the actual build file.
+	<target name="distclean" depends="clean">
+		<echo message="Deleting native libraries..." />
+		<delete dir="libs/armeabi" />
+		<delete dir="libs/armeabi-v7a" />
+		<delete dir="libs/x86" />
+		<delete dir="libs/mips" />
+		<delete dir="libs/mips-r2" />
+		<delete dir="libs/mips-r2-sf" />
+		<echo message="DONE (Deleting native libraries)" />
+	</target>
 
-         To customize existing targets, there are two options:
-         - Customize only one target:
-             - copy/paste the target into this file, *before* the
-               <import> task.
-             - customize it to your needs.
-         - Customize the whole content of build.xml
-             - copy/paste the content of the rules files (minus the top node)
-               into this file, replacing the <import> task.
-             - customize to your needs.
-
-         ***********************
-         ****** IMPORTANT ******
-         ***********************
-         In all cases you must update the value of version-tag below to read 'custom' instead of an integer,
-         in order to avoid having your file be overridden by tools such as "android update project"
-    -->
-    <!-- version-tag: 1 -->
-    <import file="${sdk.dir}/tools/ant/build.xml" />
-
+  <import file="${sdk.dir}/tools/ant/build.xml" />
 </project>

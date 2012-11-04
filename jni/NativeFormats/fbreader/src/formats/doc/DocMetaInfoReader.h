@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2012 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,26 +17,30 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.fbreader.filetype;
+#ifndef __DOCMETAINFOREADER_H__
+#define __DOCMETAINFOREADER_H__
 
-import java.util.List;
+#include <string>
 
-import org.geometerplus.zlibrary.core.filesystem.ZLFile;
-import org.geometerplus.zlibrary.core.util.MimeType;
+class Book;
 
-public abstract class FileType {
-	public final String Id;
+class DocMetaInfoReader {
 
-	protected FileType(String id) {
-		Id = id;
-	}
+public:
+	DocMetaInfoReader(Book &book);
+	~DocMetaInfoReader();
+	bool readMetaInfo();
 
-	public abstract boolean acceptsFile(ZLFile file);
+	/*
+	void startElementHandler(int tag, const char **attributes);
+	void endElementHandler(int tag);
+	void characterDataHandler(const char *text, size_t len);
+	*/
 
-	//public abstract String extension(MimeType mimeType);
-	public abstract List<MimeType> mimeTypes();
-	public abstract MimeType mimeType(ZLFile file);
-	public MimeType simplifiedMimeType(ZLFile file) {
-		return mimeType(file);
-	}
-}
+private:
+	Book &myBook;
+};
+
+inline DocMetaInfoReader::~DocMetaInfoReader() {}
+
+#endif /* __DOCMETAINFOREADER_H__ */

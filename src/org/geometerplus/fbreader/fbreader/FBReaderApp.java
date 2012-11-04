@@ -58,6 +58,8 @@ public final class FBReaderApp extends ZLApplication {
 
 	public final ZLColorOption ImageViewBackgroundOption =
 		new ZLColorOption("Colors", "ImageViewBackground", new ZLColor(255, 255, 255));
+	public final ZLEnumOption<FBView.ImageFitting> FitImagesToScreenOption =
+		new ZLEnumOption<FBView.ImageFitting>("Options", "FitImagesToScreen", FBView.ImageFitting.covers);
 	public static enum ImageTappingAction {
 		doNothing, selectImage, openImageView
 	}
@@ -152,7 +154,7 @@ public final class FBReaderApp extends ZLApplication {
 		if (book != null || Model == null) {
 			runWithMessage("loadingBook", new Runnable() {
 				public void run() {
-					openBookInternal(book, bookmark);
+					openBookInternal(book, bookmark, false);
 				}
 			}, postAction);
 		}
@@ -163,7 +165,7 @@ public final class FBReaderApp extends ZLApplication {
 			Model.Book.reloadInfoFromDatabase();
 			runWithMessage("loadingBook", new Runnable() {
 				public void run() {
-					openBookInternal(Model.Book, null);
+					openBookInternal(Model.Book, null, true);
 				}
 			}, null);
 		}
@@ -224,7 +226,7 @@ public final class FBReaderApp extends ZLApplication {
 		FootnoteView.clearCaches();
 	}
 
-	synchronized void openBookInternal(Book book, Bookmark bookmark) {
+	synchronized void openBookInternal(Book book, Bookmark bookmark, boolean force) {
 		if (book == null) {
 			book = Library.Instance().getRecentBook();
 			if (book == null || !book.File.exists()) {
@@ -234,18 +236,15 @@ public final class FBReaderApp extends ZLApplication {
 				return;
 			}
 		}
-		if (Model != null) {
-			if (bookmark == null & book.File.getPath().equals(Model.Book.File.getPath())) {
-				return;
-			}
+		if (!force && Model != null && bookmark == null
+			&& book.File.getPath().equals(Model.Book.File.getPath())) {
+			return;
 		}
 
 		if (book != null) {
 			onViewChanged();
 
-			if (Model != null) {
-				Model.Book.storePosition(BookTextView.getStartCursor());
-			}
+			storePosition();
 			BookTextView.setModel(null);
 			FootnoteView.setModel(null);
 			clearTextCaches();
@@ -360,6 +359,10 @@ public final class FBReaderApp extends ZLApplication {
 	}
 
 	public void onWindowClosing() {
+		storePosition();
+	}
+
+	public void storePosition() {
 		if (Model != null && BookTextView != null) {
 			Model.Book.storePosition(BookTextView.getStartCursor());
 		}

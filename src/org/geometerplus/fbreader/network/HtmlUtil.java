@@ -19,6 +19,8 @@
 
 package org.geometerplus.fbreader.network;
 
+import java.util.HashMap;
+
 import android.text.*;
 import android.text.style.URLSpan;
 

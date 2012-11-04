@@ -143,13 +143,19 @@ public class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Feature {
 			++dataOffset;
 			switch (type) {
 				case ZLTextParagraph.Entry.TEXT:
-					myTextLength =
+				{
+					int textLength =
 						(int)data[dataOffset++] +
 						(((int)data[dataOffset++]) << 16);
+					if (textLength > data.length - dataOffset) {
+						textLength = data.length - dataOffset;
+					}
+					myTextLength = textLength;
 					myTextData = data;
 					myTextOffset = dataOffset;
-					dataOffset += myTextLength;
+					dataOffset += textLength;
 					break;
+				}
 				case ZLTextParagraph.Entry.CONTROL:
 				{
 					short kind = (short)data[dataOffset++];
@@ -182,9 +188,13 @@ public class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Feature {
 				case ZLTextParagraph.Entry.FIXED_HSPACE:
 					myFixedHSpaceLength = (short)data[dataOffset++];
 					break;
-				case ZLTextParagraph.Entry.STYLE:
+				case ZLTextParagraph.Entry.STYLE_CSS:
+				case ZLTextParagraph.Entry.STYLE_OTHER:
 				{
-					final ZLTextStyleEntry entry = new ZLTextStyleEntry();
+					final ZLTextStyleEntry entry =
+						type == ZLTextParagraph.Entry.STYLE_CSS
+							? new ZLTextCSSStyleEntry()
+							: new ZLTextOtherStyleEntry();
 
 					final short mask = (short)data[dataOffset++];
 					for (int i = 0; i < NUMBER_OF_LENGTHS; ++i) {

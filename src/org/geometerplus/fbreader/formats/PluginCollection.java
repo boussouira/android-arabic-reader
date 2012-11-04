@@ -19,10 +19,10 @@
 
 package org.geometerplus.fbreader.formats;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.filetypes.*;
 
 import org.geometerplus.fbreader.filetype.FileType;
 import org.geometerplus.fbreader.filetype.FileTypeCollection;

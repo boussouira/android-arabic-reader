@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2012 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2012 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,14 +17,22 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.zlibrary.text.view;
+#include <ZLInputStream.h>
 
-import org.geometerplus.zlibrary.text.model.ZLTextStyleEntry;
+#include "../../library/Book.h"
 
-public class ZLTextStyleElement extends ZLTextElement {
-	public final ZLTextStyleEntry Entry;
+#include "DocMetaInfoReader.h"
 
-	ZLTextStyleElement(ZLTextStyleEntry entry) {
-		Entry = entry;
-	}
+DocMetaInfoReader::DocMetaInfoReader(Book &book) : myBook(book) {
+	myBook.removeAllAuthors();
+	myBook.setTitle(std::string());
+	myBook.setLanguage(std::string());
+	myBook.removeAllTags();
+}
+
+bool DocMetaInfoReader::readMetaInfo() {
+	myBook.removeAllAuthors();
+	myBook.setTitle(myBook.file().name(true));
+	myBook.removeAllTags();
+	return true;
 }

@@ -17,38 +17,47 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.fbreader.filetype;
+package org.geometerplus.zlibrary.core.filetypes;
 
 import java.util.List;
 
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.util.MimeType;
 
-class FileTypeHtml extends FileType {
-	FileTypeHtml() {
-		super("HTML");
+class SimpleFileType extends FileType {
+	private final String myExtension;
+	private final List<MimeType> myMimeTypes;
+
+	SimpleFileType(String id, String extension, List<MimeType> mimeTypes) {
+		super(id);
+		myExtension = extension;
+		myMimeTypes = mimeTypes;
 	}
 
 	@Override
 	public boolean acceptsFile(ZLFile file) {
-		final String extension = file.getExtension().toLowerCase();
-		return extension.endsWith("html") || "htm".equals(extension);
+		return myExtension.equalsIgnoreCase(file.getExtension());
 	}
 
 	/*
 	@Override
 	public String extension() {
-		return "html";
+		return myExtension;
 	}
 	*/
 
 	@Override
 	public List<MimeType> mimeTypes() {
-		return MimeType.TYPES_HTML;
+		return myMimeTypes;
 	}
 
 	@Override
 	public MimeType mimeType(ZLFile file) {
-		return acceptsFile(file) ? MimeType.TEXT_HTML : MimeType.NULL;
+		return acceptsFile(file) ? myMimeTypes.get(0) : MimeType.NULL;
+	}
+
+	@Override
+	public String toString() {
+		return "SimpleFileType [" + Id + "]";
 	}
 }

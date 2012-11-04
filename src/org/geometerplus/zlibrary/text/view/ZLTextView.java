@@ -237,10 +237,16 @@ public abstract class ZLTextView extends ZLTextViewBase {
 				myCurrentPage = myNextPage;
 				myNextPage = swap;
 				myNextPage.reset();
-				if (myCurrentPage.PaintState == PaintStateEnum.NOTHING_TO_PAINT) {
-					preparePaintInfo(myPreviousPage);
-					myCurrentPage.StartCursor.setCursor(myPreviousPage.EndCursor);
-					myCurrentPage.PaintState = PaintStateEnum.START_IS_KNOWN;
+				switch (myCurrentPage.PaintState) {
+					case PaintStateEnum.NOTHING_TO_PAINT:
+						preparePaintInfo(myPreviousPage);
+						myCurrentPage.StartCursor.setCursor(myPreviousPage.EndCursor);
+						myCurrentPage.PaintState = PaintStateEnum.START_IS_KNOWN;
+						break;
+					case PaintStateEnum.READY:
+						myNextPage.StartCursor.setCursor(myCurrentPage.EndCursor);
+						myNextPage.PaintState = PaintStateEnum.START_IS_KNOWN;
+						break;
 				}
 				break;
 			}
@@ -372,6 +378,12 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		context.fillPolygon(xs, ys);
 		context.setLineColor(getTextColor(ZLTextHyperlink.NO_LINK));
 		context.drawPolygonalLine(xs, ys);
+	}
+
+	@Override
+	public synchronized void preparePage(ZLPaintContext context, PageIndex pageIndex) {
+		myContext = context;
+		preparePaintInfo(getPage(pageIndex));
 	}
 
 	@Override
@@ -784,9 +796,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 						areaX, areaY,
 						imageElement.ImageData,
 						getTextAreaSize(),
-						imageElement.IsCover
-							? ZLPaintContext.ScalingType.FitMaximum
-							: ZLPaintContext.ScalingType.IntegerCoefficient
+						getScalingType(imageElement)
 					);
 				} else if (element == ZLTextElement.HSpace) {
 					final int cw = context.getSpaceWidth();

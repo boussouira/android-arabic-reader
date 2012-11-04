@@ -509,6 +509,17 @@
 				</node>
 			</node>
 		</node>
+		<node name="css" value="CSS" toBeTranslated="true">
+			<node name="summary" value="Apply/ignore values defined in CSS" toBeTranslated="true"/>
+			<node name="fontSize" value="Font size" toBeTranslated="true">
+				<node name="summaryOn" value="Apply font size defined in CSS" toBeTranslated="true"/>
+				<node name="summaryOff" value="Ignore font size defined in CSS" toBeTranslated="true"/>
+			</node>
+			<node name="textAlignment" value="Text alignment" toBeTranslated="true">
+				<node name="summaryOn" value="Apply text alignment defined in CSS" toBeTranslated="true"/>
+				<node name="summaryOff" value="Ignore text alignment defined in CSS" toBeTranslated="true"/>
+			</node>
+		</node>
 		<node name="colors" value="Cores &amp; papéis de parede">
 			<node name="summary" value="Configurações de cor"/>
 			<node name="background" value="Fundo">
@@ -627,6 +638,11 @@
 				<node name="doNothing" value="Desabiltar a forma contínua"/>
 				<node name="selectImage" value="Toque contínuo seleciona a imagem"/>
 				<node name="openImageView" value="Toque contínuo abre visualização de imagem"/>
+			</node>
+			<node name="fitImagesToScreen" value="Fit images to screen" toBeTranslated="true">
+				<node name="none" value="None" toBeTranslated="true"/>
+				<node name="covers" value="Covers only" toBeTranslated="true"/>
+				<node name="all" value="All" toBeTranslated="true"/>
 			</node>
 		</node>
 		<node name="cancelMenu" value="Cancelar menu">

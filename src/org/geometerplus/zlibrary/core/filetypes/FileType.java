@@ -17,37 +17,28 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.fbreader.filetype;
+package org.geometerplus.zlibrary.core.filetypes;
+
+import java.util.List;
 
 import java.util.List;
 
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.util.MimeType;
 
-class FileTypeMobipocket extends FileTypePalm {
-	FileTypeMobipocket() {
-		super("Mobipocket", "BOOKMOBI");
+public abstract class FileType {
+	public final String Id;
+
+	protected FileType(String id) {
+		Id = id;
 	}
 
-	@Override
-	public boolean acceptsFile(ZLFile file) {
-		return "mobi".equalsIgnoreCase(file.getExtension()) || super.acceptsFile(file);
-	}
+	public abstract boolean acceptsFile(ZLFile file);
 
-	/*
-	@Override
-	public String extension() {
-		return "mobi";
-	}
-	*/
-
-	@Override
-	public List<MimeType> mimeTypes() {
-		return MimeType.TYPES_MOBIPOCKET;
-	}
-
-	@Override
-	public MimeType mimeType(ZLFile file) {
-		return acceptsFile(file) ? MimeType.APP_MOBIPOCKET : MimeType.NULL;
+	//public abstract String extension(MimeType mimeType);
+	public abstract List<MimeType> mimeTypes();
+	public abstract MimeType mimeType(ZLFile file);
+	public MimeType simplifiedMimeType(ZLFile file) {
+		return mimeType(file);
 	}
 }

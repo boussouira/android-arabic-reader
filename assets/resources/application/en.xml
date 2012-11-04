@@ -507,6 +507,17 @@
 				</node>
 			</node>
 		</node>
+		<node name="css" value="CSS">
+			<node name="summary" value="Apply/ignore values defined in CSS"/>
+			<node name="fontSize" value="Font size">
+				<node name="summaryOn" value="Apply font size defined in CSS"/>
+				<node name="summaryOff" value="Ignore font size defined in CSS"/>
+			</node>
+			<node name="textAlignment" value="Text alignment">
+				<node name="summaryOn" value="Apply text alignment defined in CSS"/>
+				<node name="summaryOff" value="Ignore text alignment defined in CSS"/>
+			</node>
+		</node>
 		<node name="colors" value="Colors &amp; wallpapers">
 			<node name="summary" value="Color settings"/>
 			<node name="background" value="Background">
@@ -626,6 +637,14 @@
 				<node name="selectImage" value="Long tapping selects the image"/>
 				<node name="openImageView" value="Long tapping opens image view"/>
 			</node>
+<<<<<<< HEAD
+=======
+			<node name="fitImagesToScreen" value="Fit images to screen">
+				<node name="none" value="None"/>
+				<node name="covers" value="Covers only"/>
+				<node name="all" value="All"/>
+			</node>
+>>>>>>> a3246a3b98bd86f9d2c3c260a2ce47bf21b0bdff
 		</node>
 		<node name="cancelMenu" value="Cancel menu">
 			<node name="summary" value="Back button action list"/>

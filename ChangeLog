@@ -1,6 +1,44 @@
-===== 1.5.6 (Jun ??, 2012) =====
+===== 1.6.6 (Nov ??, 2012) =====
+* Fixed 'extra paragraph break after each footnote mark' issue for RTFs (and may be some other formats)
+
+===== 1.6.5 (Nov 04, 2012) =====
+* Fixed footnotes processing in rtf's
+* Updated Czech localization (by Marek Pavelka)
+* Added Belarusian localization (by Uievaład Čorny)
+
+===== 1.6.4 (Oct 30, 2012) =====
+* Supported encoding & language detection for *.doc (ms-word) files
+* Fixed crash in book info dialogs on some epubs (on Jelly Bean devices), code taken from https://gist.github.com/3424004
+* Fixed some problems in interaction with TTS+ plugin (by Greg Kochaniak)
+
+===== 1.6.3 (Oct 22, 2012) =====
+* FBReader stores text position after setPageStart API method (useful for TTS plugin, code by Greg Kochaniak)
+* MSWord doc plugin synchronized with the main branch
+* New options: apply/ignore values defined in CSS
+* Fixed crash in settings on devices with German, Thai, Traditional Chinese and Vietnamese locales
+
+===== 1.6.2 (Oct 13, 2012) =====
+* Optimized animation speed
+* Fixes in database code
+* API changes for compatibility with TTS+ FBReader Plugin (by Greg Kochaniak)
+
+===== 1.6.0/1.6.1 (Oct 06, 2012) =====
+* MS Word (.doc) format support
+* Fixed library duplicates issue
+* Library speed optimization
+* Images fitting option
+* Fixed crash on some ePubs from Project Gutenberg
+* Fixed possible crash on book description displaying
 * Can add custom catalogs even if opensearch links are not fully correct
+* Fixed curl page turning animation on devices with Android 4.0.3/4.0.4
 * More API methods
+* Serbian localization by Rancher
+* Norwegian localization by Haakon Meland Eriksen
+* Turkish localization by SonySinger
+* Updated Chinese localization by Chris Yu
+* Updated French localization by Mathias Monnerville
+* Updated German localization by Ingolf Kübler
+* Updated Ukrainian localization by Nazariy Makarenko
 
 ===== 1.5.5 (Jun 03, 2012) =====
 * Fixed zip decompression (issue introduced in 1.5.4)

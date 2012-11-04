@@ -19,10 +19,6 @@
 
 package org.geometerplus.android.fbreader.error;
 
-import org.geometerplus.zlibrary.core.resources.ZLResource;
-import org.geometerplus.zlibrary.ui.android.error.ErrorKeys;
-import org.geometerplus.zlibrary.ui.android.error.ErrorUtil;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
