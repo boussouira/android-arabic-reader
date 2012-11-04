@@ -507,6 +507,17 @@
 				</node>
 			</node>
 		</node>
+		<node name="css" value="CSS">
+			<node name="summary" value="Apply/ignore values defined in CSS"/>
+			<node name="fontSize" value="Font size">
+				<node name="summaryOn" value="Apply font size defined in CSS"/>
+				<node name="summaryOff" value="Ignore font size defined in CSS"/>
+			</node>
+			<node name="textAlignment" value="Text alignment">
+				<node name="summaryOn" value="Apply text alignment defined in CSS"/>
+				<node name="summaryOff" value="Ignore text alignment defined in CSS"/>
+			</node>
+		</node>
 		<node name="colors" value="Colors &amp; wallpapers">
 			<node name="summary" value="Color settings"/>
 			<node name="background" value="Background">
@@ -626,6 +637,11 @@
 				<node name="selectImage" value="Long tapping selects the image"/>
 				<node name="openImageView" value="Long tapping opens image view"/>
 			</node>
+			<node name="fitImagesToScreen" value="Fit images to screen">
+				<node name="none" value="None"/>
+				<node name="covers" value="Covers only"/>
+				<node name="all" value="All"/>
+			</node>
 		</node>
 		<node name="cancelMenu" value="Cancel menu">
 			<node name="summary" value="Back button action list"/>
@@ -646,12 +662,12 @@
 				<node name="summaryOff" value="Don't show items for last 3 positions in the book"/>
 			</node>
 			<node name="backKeyAction" value="Back key action">
-				<node name="exit" value="Close FBReader"/>
+				<node name="exit" value="Close Arabic Reader"/>
 				<node name="goBack" value="Navigate back"/>
 				<node name="cancelMenu" value="Show cancel menu"/>
 			</node>
 			<node name="backKeyLongPressAction" value="Back key long press action">
-				<node name="exit" value="Close FBReader"/>
+				<node name="exit" value="Close Arabic Reader"/>
 				<node name="goBack" value="Navigate back"/>
 				<node name="cancelMenu" value="Show cancel menu"/>
 				<node name="none" value="No action"/>
@@ -664,17 +680,17 @@
 				<node name="summaryOff" value="Do not show"/>
 			</node>
 		</node>
-		<node name="about" value="About FBReader">
+		<node name="about" value="About Arabic Reader">
 			<node name="summary" value="Version info, contacts"/>
 			<node name="version" value="Version"/>
 			<node name="site" value="Visit our website">
-				<node name="url" value="http://www.fbreader.org/"/>
+				<node name="url" value="http://github.com/boussouira/android-arabic-reader"/>
 			</node>
 			<node name="email" value="Send us an e-mail">
 				<node name="url" value="mailto:contact@geometerplus.com"/>
 			</node>
 			<node name="twitter" value="Follow us at twitter">
-				<node name="url" value="http://twitter.com/fbreader"/>
+				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
 		</node>
 	</node>
@@ -714,23 +730,23 @@
 		<node name="redownloadFileBox">
 			<node name="message" value="File already exists. Redownload?"/>
 		</node>
-		<node name="waitMessage">
-			<node name="downloadingFile" value="تحميل كتاب %s"/>
-			<node name="search" value="جاري البحث&#8230;"/>
-			<node name="loadInfo" value="جاري حمع معلومات الكتاب&#8230;"/>
-			<node name="loadingBook" value="جاري فتح الكتاب&#8230;"/>
-			<node name="loadingBookList" value="جاري فتح المكتبة&#8230;"/>
-			<node name="creatingBooksDatabase" value="انشاء قاعدة بيانات الكتب&#8230;"/>
-			<node name="updatingBooksDatabase" value="تحديث قاعدة بيانات الكتب&#8230;"/>
-			<node name="loadingNetworkLibrary" value="فتح المكتبة&#8230;"/>
-			<node name="authentication" value="Authentication. Please, wait&#8230;"/>
-			<node name="signOut" value="Signing out. Please, wait&#8230;"/>
-			<node name="purchaseBook" value="Purchase book. Please, wait&#8230;"/>
-			<node name="loadingCatalogInfo" value="Loading catalog information. Please, wait&#8230;"/>
-			<node name="loadingNetworkBookInfo" value="Loading book information. Please, wait&#8230;"/>
-			<node name="updatingCatalogsList" value="Updating catalogs list. Please, wait&#8230;"/>
-			<node name="updatingAccountInformation" value="Updating account information. Please, wait&#8230;"/>
-		</node>
+        <node name="waitMessage">
+            <node name="downloadingFile" value="تحميل كتاب %s"/>
+            <node name="search" value="جاري البحث..."/>
+            <node name="loadInfo" value="جاري حمع معلومات الكتاب..."/>
+            <node name="loadingBook" value="جاري فتح الكتاب..."/>
+            <node name="loadingBookList" value="جاري فتح المكتبة..."/>
+            <node name="creatingBooksDatabase" value="انشاء قاعدة بيانات الكتب..."/>
+            <node name="updatingBooksDatabase" value="تحديث قاعدة بيانات الكتب..."/>
+            <node name="loadingNetworkLibrary" value="فتح المكتبة..."/>
+            <node name="authentication" value="Authentication. Please, wait..."/>
+            <node name="signOut" value="Signing out. Please, wait..."/>
+            <node name="purchaseBook" value="Purchase book. Please, wait..."/>
+            <node name="loadingCatalogInfo" value="Loading catalog information. Please, wait..."/>
+            <node name="loadingNetworkBookInfo" value="Loading book information. Please, wait..."/>
+            <node name="updatingCatalogsList" value="Updating catalogs list. Please, wait..."/>
+            <node name="updatingAccountInformation" value="Updating account information. Please, wait..."/>
+        </node>
 		<node name="networkError">
 			<node name="internalError" value="Internal server error"/>
 			<node name="purchaseNotEnoughMoney" value="Not enough money"/>

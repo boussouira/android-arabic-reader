@@ -209,7 +209,7 @@
 		<node name="returnTo" value="Retourner à …"/>
 		<node name="back" value="Retour"/>
 		<node name="forward" value="Suivant"/>
-		<node name="close" value="Fermer FBReader"/>
+		<node name="close" value="Fermer Arabic Reader"/>
 	</node>
 	<node name="selection" value="Sélection">
 		<node name="copyToClipboard" value="Copier dans le presse-papiers"/>
@@ -677,13 +677,13 @@
 			<node name="summary" value="Numéro de version, contact"/>
 			<node name="version" value="Version"/>
 			<node name="site" value="Site web">
-				<node name="url" value="http://www.fbreader.org/"/>
+				<node name="url" value="http://github.com/boussouira/android-arabic-reader"/>
 			</node>
 			<node name="email" value="Contact">
 				<node name="url" value="mailto:contact@geometerplus.com"/>
 			</node>
 			<node name="twitter" value="Suivez nous sur twitter !">
-				<node name="url" value="http://twitter.com/fbreader"/>
+				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
 		</node>
 	</node>
