@@ -30,7 +30,7 @@ import android.widget.SeekBar;
 import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 
 class AnimationSpeedPreference extends DialogPreference {
 	private final ZLIntegerRangeOption myOption;

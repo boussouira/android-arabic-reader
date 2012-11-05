@@ -31,7 +31,7 @@ import org.geometerplus.zlibrary.core.util.ZLMiscUtil;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 import org.geometerplus.fbreader.library.*;

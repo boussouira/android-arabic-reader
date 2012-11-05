@@ -25,7 +25,7 @@ import android.os.Bundle;
 import android.widget.*;
 import android.view.*;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 
 public class CancelActivity extends ListActivity {
 	static final String LIST_SIZE = "listSize";

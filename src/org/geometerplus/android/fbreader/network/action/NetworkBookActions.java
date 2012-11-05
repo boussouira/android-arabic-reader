@@ -31,7 +31,7 @@ import android.content.DialogInterface;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.network.ZLNetworkException;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 
 import org.geometerplus.android.fbreader.ArabicReader;
 

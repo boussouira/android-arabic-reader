@@ -28,7 +28,7 @@ import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 
 import org.geometerplus.android.fbreader.api.PluginApi;
 

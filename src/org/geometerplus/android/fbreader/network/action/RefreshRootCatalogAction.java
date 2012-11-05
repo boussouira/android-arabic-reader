@@ -26,7 +26,7 @@ import org.geometerplus.zlibrary.core.network.ZLNetworkException;
 import org.geometerplus.fbreader.network.NetworkTree;
 import org.geometerplus.fbreader.network.NetworkLibrary;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 
 import org.geometerplus.android.util.UIUtil;
 

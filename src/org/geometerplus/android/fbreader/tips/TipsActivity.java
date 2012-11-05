@@ -27,7 +27,7 @@ import android.widget.*;
 
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 
 import org.geometerplus.fbreader.tips.*;
 

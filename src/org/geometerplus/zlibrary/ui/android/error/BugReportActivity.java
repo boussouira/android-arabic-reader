@@ -27,7 +27,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.text.method.ScrollingMovementMethod;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 
 public class BugReportActivity extends Activity implements ErrorKeys {
 	public void onCreate(Bundle icicle) {

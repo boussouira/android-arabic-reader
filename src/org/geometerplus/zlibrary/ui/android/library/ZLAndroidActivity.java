@@ -32,7 +32,7 @@ import android.os.PowerManager;
 import org.geometerplus.zlibrary.core.application.ZLApplication;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 import org.geometerplus.zlibrary.ui.android.application.ZLAndroidApplicationWindow;
 
 public abstract class ZLAndroidActivity extends Activity {

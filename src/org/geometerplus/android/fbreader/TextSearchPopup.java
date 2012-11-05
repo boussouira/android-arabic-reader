@@ -21,7 +21,7 @@ package org.geometerplus.android.fbreader;
 
 import android.widget.RelativeLayout;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 
 import org.geometerplus.fbreader.fbreader.ActionCode;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;

@@ -23,7 +23,7 @@ import android.view.*;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 
 import org.geometerplus.fbreader.network.*;
 import org.geometerplus.fbreader.network.tree.*;

@@ -31,7 +31,7 @@ import org.geometerplus.zlibrary.core.util.ZLColor;
 import org.geometerplus.zlibrary.core.options.ZLColorOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 import org.geometerplus.zlibrary.ui.android.util.ZLAndroidColorUtil;
 
 class ZLColorPreference extends DialogPreference {

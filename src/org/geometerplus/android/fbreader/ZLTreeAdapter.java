@@ -26,7 +26,7 @@ import android.widget.*;
 
 import org.geometerplus.zlibrary.core.tree.ZLTree;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 
 abstract class ZLTreeAdapter extends BaseAdapter implements AdapterView.OnItemClickListener, View.OnCreateContextMenuListener {
 	private final ListView myParent;

@@ -24,7 +24,7 @@ import android.content.Context;
 import android.view.*;
 import android.widget.*;
 
-import com.ahlalhdeeth.arabicReader.R;
+import net.sourceforge.arabicReader.R;
 
 public class PopupWindow extends LinearLayout {
 	public static enum Location {
