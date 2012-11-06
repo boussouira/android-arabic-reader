@@ -21,6 +21,7 @@ package org.geometerplus.android.fbreader.preferences;
 
 import android.content.Intent;
 import android.view.KeyEvent;
+import android.os.Build;
 
 import org.geometerplus.zlibrary.core.application.ZLKeyBindings;
 import org.geometerplus.zlibrary.core.options.ZLIntegerOption;
@@ -91,7 +92,10 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 			"dontTurnScreenOffDuringCharging"
 		));
 		*/
-		appearanceScreen.addOption(androidLibrary.ShowStatusBarOption, "showStatusBar");
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			appearanceScreen.addOption(androidLibrary.ShowStatusBarOption, "showStatusBar");
+		}
+		appearanceScreen.addOption(androidLibrary.ShowActionBarOption, "showActionBar");
 		appearanceScreen.addOption(androidLibrary.DisableButtonLightsOption, "disableButtonLights");
 
 		final Screen textScreen = createPreferenceScreen("text");
@@ -100,6 +104,9 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		fontPropertiesScreen.addOption(ZLAndroidPaintContext.AntiAliasOption, "antiAlias");
 		fontPropertiesScreen.addOption(ZLAndroidPaintContext.DeviceKerningOption, "deviceKerning");
 		fontPropertiesScreen.addOption(ZLAndroidPaintContext.DitheringOption, "dithering");
+		if (ZLAndroidPaintContext.usesHintingOption()) {
+			fontPropertiesScreen.addOption(ZLAndroidPaintContext.HintingOption, "hinting");
+		}
 		fontPropertiesScreen.addOption(ZLAndroidPaintContext.SubpixelOption, "subpixel");
 
 		final ZLTextStyleCollection collection = ZLTextStyleCollection.Instance();

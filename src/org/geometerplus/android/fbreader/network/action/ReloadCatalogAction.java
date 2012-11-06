@@ -29,7 +29,7 @@ import org.geometerplus.android.fbreader.network.NetworkLibraryActivity;
 
 public class ReloadCatalogAction extends CatalogAction {
 	public ReloadCatalogAction(NetworkLibraryActivity activity) {
-		super(activity, ActionCode.RELOAD_CATALOG, "reload", R.drawable.ic_menu_refresh);
+		super(activity, ActionCode.RELOAD_CATALOG, "reload", true);
 	}
 
 	@Override

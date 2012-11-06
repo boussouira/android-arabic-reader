@@ -46,7 +46,7 @@ public class RunSearchAction extends Action {
 	private final boolean myFromContextMenu;
 
 	public RunSearchAction(Activity activity, boolean fromContextMenu) {
-		super(activity, ActionCode.SEARCH, "networkSearch", R.drawable.ic_menu_search);
+		super(activity, ActionCode.SEARCH, "networkSearch", true);
 		myFromContextMenu = fromContextMenu;
 	}
 

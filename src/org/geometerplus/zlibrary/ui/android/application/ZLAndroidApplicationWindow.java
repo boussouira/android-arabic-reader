@@ -23,6 +23,7 @@ import java.util.*;
 import java.io.*;
 
 import android.app.Activity;
+import android.app.ActionBar;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
@@ -36,6 +37,7 @@ import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.view.ZLViewWidget;
 
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
+import org.geometerplus.zlibrary.ui.android.library.ZLAndroidActivity;
 import org.geometerplus.zlibrary.ui.android.error.ErrorKeys;
 
 import org.geometerplus.android.util.UIUtil;
@@ -59,13 +61,20 @@ public final class ZLAndroidApplicationWindow extends ZLApplicationWindow {
 		return menu.addSubMenu(ZLResource.resource("menu").getResource(id).getValue());
 	}
 
-	public void addMenuItem(Menu menu, String actionId, Integer iconId, String name) {
+	public void addMenuItem(Menu menu, String actionId, Integer iconId, String name, boolean showInActionBar) {
 		if (name == null) {
 			name = ZLResource.resource("menu").getResource(actionId).getValue();
 		}
 		final MenuItem menuItem = menu.add(name);
 		if (iconId != null) {
 			menuItem.setIcon(iconId);
+			final ZLAndroidActivity activity = 
+				((ZLAndroidLibrary)ZLAndroidLibrary.Instance()).getActivity();
+			if (showInActionBar) {
+				menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+			} else {
+				menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+			}
 		}
 		menuItem.setOnMenuItemClickListener(myMenuListener);
 		myMenuItemMap.put(menuItem, actionId);
@@ -92,6 +101,9 @@ public final class ZLAndroidApplicationWindow extends ZLApplicationWindow {
 					break;
 			}
 		}
+		final ZLAndroidActivity activity = 
+			((ZLAndroidLibrary)ZLAndroidLibrary.Instance()).getActivity();
+		activity.refresh();
 	}
 	
 	@Override

@@ -33,7 +33,7 @@ import net.sourceforge.arabicReader.R;
 
 public class AddCustomCatalogAction extends Action {
 	public AddCustomCatalogAction(Activity activity) {
-		super(activity, ActionCode.CUSTOM_CATALOG_ADD, "addCustomCatalog", R.drawable.ic_menu_add);
+		super(activity, ActionCode.CUSTOM_CATALOG_ADD, "addCustomCatalog", true);
 	}
 
 	@Override
