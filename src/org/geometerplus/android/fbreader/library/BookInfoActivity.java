@@ -319,9 +319,9 @@ public class BookInfoActivity extends Activity implements MenuItem.OnMenuItemCli
 					finish();
 				} else {
 					startActivity(
-						new Intent(getApplicationContext(), FBReader.class)
+						new Intent(getApplicationContext(), ArabicReader.class)
 							.setAction(Intent.ACTION_VIEW)
-							.putExtra(FBReader.BOOK_PATH_KEY, myFile.getPath())
+							.putExtra(ArabicReader.BOOK_PATH_KEY, myFile.getPath())
 							.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 					);
 				}
@@ -342,7 +342,7 @@ public class BookInfoActivity extends Activity implements MenuItem.OnMenuItemCli
 				if (book != null) {
 					book.reloadInfoFromFile();
 					setupBookInfo(book);
-					myResult = Math.max(myResult, FBReader.RESULT_RELOAD_BOOK);
+					myResult = Math.max(myResult, ArabicReader.RESULT_RELOAD_BOOK);
 					setResult(myResult);
 				}
 				return true;

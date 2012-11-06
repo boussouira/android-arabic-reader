@@ -21,6 +21,7 @@ package org.geometerplus.zlibrary.ui.android.view;
 
 import java.util.*;
 
+import android.annotation.SuppressLint;
 import android.graphics.*;
 
 import org.geometerplus.zlibrary.core.image.ZLImageData;
@@ -63,6 +64,7 @@ public final class ZLAndroidPaintContext extends ZLPaintContext {
 
 	private ZLColor myBackgroundColor = new ZLColor(0, 0, 0);
 
+	@SuppressLint("NewApi")
 	ZLAndroidPaintContext(Canvas canvas, int width, int height, int scrollbarWidth) {
 		myCanvas = canvas;
 		myWidth = width - scrollbarWidth;
