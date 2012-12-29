@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2012 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2012 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,20 +17,17 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.fbreader.network.urlInfo;
+#ifndef __UTF8ENCODINGCONVERTER_H__
+#define __UTF8ENCODINGCONVERTER_H__
 
-public class DecoratedBookUrlInfo extends BookUrlInfo {
-	private static final long serialVersionUID = 8558634525845586904L;
+#include "ZLEncodingConverter.h"
+#include "ZLEncodingConverterProvider.h"
 
-	private final String myCleanUrl;
+class Utf8EncodingConverterProvider : public ZLEncodingConverterProvider {
 
-	public DecoratedBookUrlInfo(BookUrlInfo base, String url) {
-		super(base.InfoType, base.BookFormat, url, base.Mime);
-		myCleanUrl = base.cleanUrl();
-	}
+public:
+	bool providesConverter(const std::string &encoding);
+	shared_ptr<ZLEncodingConverter> createConverter(const std::string &encoding);
+};
 
-	@Override
-	public String cleanUrl() {
-		return myCleanUrl;
-	}
-}
+#endif /* __UTF8ENCODINGCONVERTER_H__ */

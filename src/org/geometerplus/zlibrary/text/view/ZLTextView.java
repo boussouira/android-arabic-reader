@@ -1246,6 +1246,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		if (page.PaintState == PaintStateEnum.NOTHING_TO_PAINT || page.PaintState == PaintStateEnum.READY) {
 			return;
 		}
+		final int oldState = page.PaintState;
 
 		final HashMap<ZLTextLineInfo,ZLTextLineInfo> cache = myLineInfoCache;
 		for (ZLTextLineInfo info : page.LineInfos) {
@@ -1345,8 +1346,12 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		myLineInfoCache.clear();
 
 		if (page == myCurrentPage) {
-			myPreviousPage.reset();
-			myNextPage.reset();
+			if (oldState != PaintStateEnum.START_IS_KNOWN) {
+				myPreviousPage.reset();
+			}
+			if (oldState != PaintStateEnum.END_IS_KNOWN) {
+				myNextPage.reset();
+			}
 		}
 	}
 
