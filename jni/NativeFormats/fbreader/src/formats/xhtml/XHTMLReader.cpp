@@ -378,7 +378,7 @@ XHTMLTagParagraphWithControlAction::XHTMLTagParagraphWithControlAction(FBTextKin
 }
 
 void XHTMLTagParagraphWithControlAction::doAtStart(XHTMLReader &reader, const char**) {
-	if ((myControl == TITLE) && (bookReader(reader).model().bookTextModel()->paragraphsNumber() > 1)) {
+	if (myControl == TITLE && bookReader(reader).model().bookTextModel()->paragraphsNumber() > 1) {
 		bookReader(reader).insertEndOfSectionParagraph();
 	}
 	bookReader(reader).pushKind(myControl);
@@ -393,11 +393,10 @@ void XHTMLTagParagraphWithControlAction::doAtEnd(XHTMLReader &reader) {
 void XHTMLTagPreAction::doAtStart(XHTMLReader &reader, const char**) {
 	reader.myPreformatted = true;
 	beginParagraph(reader);
-	bookReader(reader).addControl(CODE, true);
+	bookReader(reader).addControl(PREFORMATTED, true);
 }
 
 void XHTMLTagPreAction::doAtEnd(XHTMLReader &reader) {
-	bookReader(reader).addControl(CODE, false);
 	endParagraph(reader);
 	reader.myPreformatted = false;
 }
@@ -598,7 +597,7 @@ void XHTMLReader::beginParagraph() {
 	}
 
 	if (doBlockSpaceBefore) {
-		ZLTextStyleEntry blockingEntry(ZLTextStyleEntry::STYLE_CSS_ENTRY);
+		ZLTextStyleEntry blockingEntry(ZLTextStyleEntry::STYLE_OTHER_ENTRY);
 		blockingEntry.setLength(
 			ZLTextStyleEntry::LENGTH_SPACE_BEFORE,
 			0,
@@ -616,7 +615,7 @@ void XHTMLReader::endParagraph() {
 			(*it)->isFeatureSupported(ZLTextStyleEntry::LENGTH_SPACE_AFTER);
 	}
 	if (doBlockSpaceAfter) {
-		ZLTextStyleEntry blockingEntry(ZLTextStyleEntry::STYLE_CSS_ENTRY);
+		ZLTextStyleEntry blockingEntry(ZLTextStyleEntry::STYLE_OTHER_ENTRY);
 		blockingEntry.setLength(
 			ZLTextStyleEntry::LENGTH_SPACE_AFTER,
 			0,
@@ -631,7 +630,7 @@ void XHTMLReader::endParagraph() {
 	myModelReader.endParagraph();
 }
 
-void XHTMLReader::characterDataHandler(const char *text, size_t len) {
+void XHTMLReader::characterDataHandler(const char *text, std::size_t len) {
 	switch (myReadState) {
 		case READ_NOTHING:
 			break;
@@ -642,20 +641,21 @@ void XHTMLReader::characterDataHandler(const char *text, size_t len) {
 			break;
 		case READ_BODY:
 			if (myPreformatted) {
-				if ((*text == '\r') || (*text == '\n')) {
-					myModelReader.addControl(CODE, false);
+				if (*text == '\r' || *text == '\n') {
 					endParagraph();
+					text += 1;
+					len -= 1;
 					beginParagraph();
-					myModelReader.addControl(CODE, true);
+					myModelReader.addControl(PREFORMATTED, true);
 				}
-				size_t spaceCounter = 0;
-				while ((spaceCounter < len) && isspace((unsigned char)*(text + spaceCounter))) {
+				std::size_t spaceCounter = 0;
+				while (spaceCounter < len && isspace((unsigned char)*(text + spaceCounter))) {
 					++spaceCounter;
 				}
 				myModelReader.addFixedHSpace(spaceCounter);
 				text += spaceCounter;
 				len -= spaceCounter;
-			} else if ((myNewParagraphInProgress) || !myModelReader.paragraphIsOpen()) {
+			} else if (myNewParagraphInProgress || !myModelReader.paragraphIsOpen()) {
 				while (isspace((unsigned char)*text)) {
 					++text;
 					if (--len == 0) {
@@ -684,7 +684,7 @@ bool XHTMLReader::processNamespaces() const {
 }
 
 const std::string XHTMLReader::normalizedReference(const std::string &reference) const {
-	const size_t index = reference.find('#');
+	const std::size_t index = reference.find('#');
 	if (index == std::string::npos) {
 		return fileAlias(reference);
 	} else {

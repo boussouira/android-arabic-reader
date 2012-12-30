@@ -40,7 +40,7 @@ static const std::string DC_METADATA = "dc-metadata";
 static const std::string META = "meta";
 static const std::string AUTHOR_ROLE = "aut";
 
-void OEBMetaInfoReader::characterDataHandler(const char *text, size_t len) {
+void OEBMetaInfoReader::characterDataHandler(const char *text, std::size_t len) {
 	switch (myReadState) {
 		case READ_NONE:
 		case READ_METADATA:
@@ -117,7 +117,7 @@ void OEBMetaInfoReader::startElementHandler(const char *tag, const char **attrib
 
 void OEBMetaInfoReader::endElementHandler(const char *tag) {
 	const std::string tagString = ZLUnicodeUtil::toLower(tag);
-	ZLStringUtil::stripWhiteSpaces(myBuffer);
+	ZLUnicodeUtil::utf8Trim(myBuffer);
 	switch (myReadState) {
 		case READ_NONE:
 			break;
