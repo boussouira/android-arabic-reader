@@ -39,7 +39,7 @@
 			<node name="summary" value="مجلد المكتبة"/>
 		</node>
 		<node name="menu">
-			<node name="localSearch" value="Search"/>
+			<node name="localSearch" value="بحث"/>
 		</node>
 		<node name="openBook" value="فتح الكتاب"/>
 		<node name="showBookInfo" value="معلومات حول الكتاب"/>
@@ -48,97 +48,98 @@
 		<node name="addToFavorites" value="اضافة الكتاب للمفضلة"/>
 		<node name="removeFromFavorites" value="حذف من المفضلة"/>
 	</node>
-	<node name="networkLibrary" value="FBReader network library">
-		<node name="byAuthor" value="By author">
-			<node name="summary" value="Books sorted by author"/>
+	<node name="networkLibrary" value="مكتبة الشبكة">
+		<node name="byAuthor" value="حسب المؤلف">
+			<node name="summary" value="ترتيب الكتب حسب المؤلف"/>
 		</node>
-		<node name="byTitle" value="By title">
-			<node name="summary" value="Books sorted by title"/>
+		<node name="byTitle" value="حسب العنوان">
+			<node name="summary" value="ترتيب الكتب حسب العنوان"/>
 		</node>
-		<node name="byDate" value="By date">
-			<node name="summary" value="Books sorted by date of purchasing"/>
+		<node name="byDate" value="حسب التاريخ">
+			<node name="summary" value="عرض الكتب حسب تاريخ الشراء"/>
 		</node>
-		<node name="bySeries" value="By series">
-			<node name="summary" value="Books sorted by series"/>
+		<node name="bySeries" value="حسب السلسة">
+			<node name="summary" value="عرض الطتب حسب السلسة"/>
 		</node>
-		<node name="search" value="Search">
-			<node name="summary" value="Search books on %s"/>
-			<node name="summaryAllCatalogs" value="Search books in all catalogs"/>
-			<node name="summaryInProgress" value="Search in progress"/>
+		<node name="search" value="البحث">
+			<node name="summary" value="بحث عن الكتب في %s"/>
+			<node name="summaryAllCatalogs" value="بحث عن الكتب في كل كتالوجات"/>
+			<node name="summaryInProgress" value="جاري البحث"/>
 		</node>
 		<node name="found" value="Found">
-			<node name="summary" value="Search results for: %s"/>
+			<node name="summary" value="نتائج البحث: %s"/>
 		</node>
-		<node name="openCatalog" value="Open catalog"/>
-		<node name="networkSearch" value="Search"/>
-		<node name="showResults" value="Show results"/>
-		<node name="showBooks" value="Show books"/>
-		<node name="download" value="Download"/>
-		<node name="read" value="Read local copy"/>
-		<node name="delete" value="Delete local copy"/>
-		<node name="readDemo" value="Read sample"/>
-		<node name="deleteDemo" value="Delete sample"/>
-		<node name="downloadDemo" value="Download sample"/>
-		<node name="buy" value="Buy (%s)"/>
-		<node name="addToBasket" value="Add to basket"/>
-		<node name="removeFromBasket" value="Remove from basket"/>
-		<node name="openBasket" value="Open basket"/>
-		<node name="clearBasket" value="Clear basket"/>
-		<node name="buyAllBooks" value="Buy all books"/>
-		<node name="openInBrowser" value="Open in browser"/>
-		<node name="stopLoading" value="Stop loading"/>
-		<node name="stopSearching" value="Stop searching"/>
-		<node name="signIn" value="Sign in"/>
-		<node name="signOut" value="Sign out (%s)"/>
+		<node name="openCatalog" value="فتح الكتالوج"/>
+		<node name="networkSearch" value="بحث"/>
+		<node name="showResults" value="عرض النتائج"/>
+		<node name="showBooks" value="عرض الكتب"/>
+		<node name="download" value="تحميل"/>
+		<node name="read" value="قراءة النسخة المحملة"/>
+		<node name="delete" value="حذف النسخة المحملة"/>
+		<node name="readDemo" value="قراءة عينة"/>
+		<node name="deleteDemo" value="حذف العينة"/>
+		<node name="downloadDemo" value="تحميل عينة"/>
+		<node name="buy" value="شراء (%s)"/>
+		<node name="addToBasket" value="إضافة إلى السلة"/>
+		<node name="removeFromBasket" value="حذف من السلة"/>
+		<node name="openBasket" value="فتح السلة"/>
+		<node name="clearBasket" value="تفريغ السلة"/>
+		<node name="buyAllBooks" value="شراء كل الكتب"/>
+		<node name="openInBrowser" value="فتح في المتصفح"/>
+		<node name="stopLoading" value="إيقاف التحميل"/>
+		<node name="stopSearching" value="إيقاف البحث"/>
+		<node name="signIn" value="تسجيل الدخول"/>
+		<node name="signOut" value="تسجي الخروج (%s)"/>
 		<node name="topup" value="Top up account (currently: %s)"/>
 		<node name="topupTitle" value="Top up account"/>
-		<node name="topupViaBrowser" value="Open page in browser"/>
+		<node name="topupViaBrowser" value="فتح الصفحة في المتصفح"/>
 		<node name="authorizationMenuTitle" value="Select action"/>
 		<node name="topupSummary" value="Currently: %s"/>
-		<node name="basket" value="Basket"/>
-		<node name="basketSummaryEmpty" value="No books"/>
-		<node name="basketSummaryCountOnly" value="%0 books">
-			<node condition="value 1" value="%0 book"/>
+		<node name="basket" value="السلة"/>
+		<node name="basketSummaryEmpty" value="لا كتب"/>
+		<node name="basketSummaryCountOnly" value="%0 كتاب">
+			<node condition="value 1" value="%0 كتاب"/>
+			<node condition="value 1" value="%0 كتاب"/>
 		</node>
-		<node name="basketSummary" value="%0 books (%1)">
-			<node condition="value 1" value="%0 book (%1)"/>
+		<node name="basketSummary" value="%0 كتاب (%1)">
+			<node condition="value 1" value="%0 كتاب (%1)"/>
 		</node>
-		<node name="alreadyDownloading" value="Book is being downloaded"/>
-		<node name="alreadyDownloadingDemo" value="Sample is being downloaded"/>
-		<node name="stoppingCatalogLoading" value="Stopping loading"/>
-		<node name="stoppingNetworkSearch" value="Stopping search"/>
-		<node name="editCustomCatalog" value="Edit catalog"/>
-		<node name="removeCustomCatalog" value="Remove catalog"/>
-		<node name="addCustomCatalog" value="Add catalog"/>
-		<node name="addCustomCatalogSummary" value="Add custom OPDS catalog manually"/>
+		<node name="alreadyDownloading" value="حاري تحميل الكتاب"/>
+		<node name="alreadyDownloadingDemo" value="جاري تحميل العينة"/>
+		<node name="stoppingCatalogLoading" value="إلغاء التحميل"/>
+		<node name="stoppingNetworkSearch" value="إلغاء البحث"/>
+		<node name="editCustomCatalog" value="تعديل الكتالوج"/>
+		<node name="removeCustomCatalog" value="حذف الكتالوج"/>
+		<node name="addCustomCatalog" value="إضافة كتالوج"/>
+		<node name="addCustomCatalogSummary" value="إضافة كتالوج OPDS يدويا"/>
 		<node name="confirmQuestions">
-			<node name="read" value="Do you want to read local copy?"/>
-			<node name="download" value="Do you want to download this book?"/>
-			<node name="readDemo" value="Do you want to read sample?"/>
-			<node name="downloadDemo" value="Do you want to download sample?"/>
-			<node name="buy" value="Do you want to buy this book? (%s)"/>
-			<node name="openInBrowser" value="Do you want to open this catalog in browser?"/>
+			<node name="read" value="هل تريد فتح النسخة المحلية؟"/>
+			<node name="download" value="هل تريد تحميل هذا الكتاب؟"/>
+			<node name="readDemo" value="هل تريد فتح عينة من  الكتاب؟"/>
+			<node name="downloadDemo" value="هل تريد تحميل عينة من الكتاب؟"/>
+			<node name="buy" value="هل تريد شراء هذا الكتاب؟ (%s)"/>
+			<node name="openInBrowser" value="هل تريد فتح هذا الكتالوج في المتصفح؟"/>
 		</node>
-		<node name="downloadingCatalogs" value="Downloading catalogs"/>
+		<node name="downloadingCatalogs" value="تحميل الكتالوجات"/>
 		<!-- used as notification title -->
-		<node name="searchingNetwork" value="Searching for books in network"/>
+		<node name="searchingNetwork" value="بحث عن الكتب في الشبكة"/>
 		<!-- used as notification title -->
 		<node name="addCatalog">
-			<node name="title" value="Add catalog"/>
-			<node name="editUrl" value="Enter URL manually"/>
+			<node name="title" value="إضافة كتالوج"/>
+			<node name="editUrl" value="إضافة رابط يجوي"/>
 		</node>
 		<node name="menu">
-			<node name="networkSearch" value="Search"/>
-			<node name="reload" value="Reload"/>
-			<node name="signIn" value="Sign in"/>
-			<node name="signUp" value="Sign up"/>
-			<node name="signOut" value="Sign out (%s)"/>
+			<node name="networkSearch" value="بحث"/>
+			<node name="reload" value="إعادة تحميل"/>
+			<node name="signIn" value="تسجي الدخول"/>
+			<node name="signUp" value="التسجيل"/>
+			<node name="signOut" value="تسجيل الخروج (%s)"/>
 			<node name="topup" value="Top up account"/>
-			<node name="addCustomCatalog" value="Add catalog"/>
-			<node name="refreshCatalogsList" value="Refresh catalogs"/>
+			<node name="addCustomCatalog" value="إضافة كتالوج"/>
+			<node name="refreshCatalogsList" value="إعادة تحميل الكتالوج"/>
 			<node name="languages" value="Language filter"/>
-			<node name="clearBasket" value="Clear basket"/>
-			<node name="buyAllBooks" value="Buy all books"/>
+			<node name="clearBasket" value="تفريغ السلة"/>
+			<node name="buyAllBooks" value="شراء كل الكتب"/>
 		</node>
 	</node>
 	<node name="buyBook">
@@ -153,16 +154,16 @@
 		<node name="zeroFunds" value="This purchase costs %0"/>
 	</node>
 	<node name="bookInfo">
-		<node name="bookInfo" value="Book Info"/>
-		<node name="fileInfo" value="File Info"/>
-		<node name="description" value="Description"/>
-		<node name="noDescription" value="No description available."/>
-		<node name="annotation" value="Annotation"/>
-		<node name="title" value="Title:"/>
-		<node name="authors" value="Authors:">
-			<node condition="value 1" value="Author:"/>
+		<node name="bookInfo" value="معلومات حول الكتاب"/>
+		<node name="fileInfo" value="معلومات حول الملف"/>
+		<node name="description" value="الوصف"/>
+		<node name="noDescription" value="لا يوجد أي وصف."/>
+		<node name="annotation" value="ملاحظة"/>
+		<node name="title" value="العنوان:"/>
+		<node name="authors" value="المؤلفين:">
+			<node condition="value 1" value="المؤلف:"/>
 		</node>
-		<node name="series" value="Series:"/>
+		<node name="series" value="السلسة:"/>
 		<node name="indexInSeries" value="Index in series:"/>
 		<node name="tags" value="الوسوم:">
 			<node condition="value 1" value="الوسم:"/>
@@ -176,21 +177,21 @@
 			<node condition="value 1" value="%s byte"/>
 		</node>
 		<node name="sizeInKiloBytes" value="%s kB"/>
-		<node name="catalog" value="Catalog:"/>
-		<node name="extraLinks" value="Related links"/>
+		<node name="catalog" value="الكتالوج"/>
+		<node name="extraLinks" value="روابط ذات صلة"/>
 		<node name="menu">
 			<node name="edit" value="تعديل"/>
 		</node>
 	</node>
 	<node name="bookDownloader">
-		<node name="tickerSuccess" value="Book has been downloaded"/>
-		<node name="tickerError" value="Book download error"/>
-		<node name="contentSuccess" value="Download complete"/>
-		<node name="contentError" value="Download failed"/>
-		<node name="downloadingStarted" value="Book downloading has been started"/>
-		<node name="alreadyDownloading" value="Book is already being downloaded"/>
-		<node name="cannotCreateDirectory" value="Unable to create directory %s"/>
-		<node name="cannotCreateFile" value="Unable to create file %s"/>
+		<node name="tickerSuccess" value="تم تحميل الكتاب"/>
+		<node name="tickerError" value="خطأ في تحميل الكتاب"/>
+		<node name="contentSuccess" value="إنتهاء التحميل"/>
+		<node name="contentError" value="فشل التحميل"/>
+		<node name="downloadingStarted" value="تم البدأ في تحميل الكتاب"/>
+		<node name="alreadyDownloading" value="يتم تحميل الكتاب مسبقا"/>
+		<node name="cannotCreateDirectory" value="لا يمكن إنشاء المجلد %s"/>
+		<node name="cannotCreateFile" value="لا يمكن إنشاء الملف %s"/>
 	</node>
 	<node name="tocView">
 		<node name="expandTree" value="عرض الشجرة"/>
@@ -264,20 +265,20 @@
 		<node name="bookmarks" value="العلامات المرجعية"/>
 	</node>
 	<node name="BookInfo">
-		<node name="fileName" value="File name"/>
-		<node name="title" value="Title"/>
-		<node name="language" value="Language"/>
-		<node name="encoding" value="Encoding"/>
-		<node name="authors" value="Author(s)"/>
-		<node name="tags" value="Tag(s)"/>
-		<node name="series" value="Series"/>
+		<node name="fileName" value="اسم الملف"/>
+		<node name="title" value="العنوان"/>
+		<node name="language" value="اللغة"/>
+		<node name="encoding" value="الترميز"/>
+		<node name="authors" value="المؤلف"/>
+		<node name="tags" value="الوسوم"/>
+		<node name="series" value="السلسة"/>
 	</node>
 	<node name="Preferences">
-		<node name="directories" value="Directories">
-			<node name="summary" value="Directories to seek for files"/>
-			<node name="books" value="Books directory"/>
-			<node name="fonts" value="Fonts directory"/>
-			<node name="wallpapers" value="Wallpapers directory"/>
+		<node name="directories" value="المجلدات">
+			<node name="summary" value="المجلدات التي يتم البحث فيها عن الملفات"/>
+			<node name="books" value="مجلد الكتب"/>
+			<node name="fonts" value="مجلد الخطوط"/>
+			<node name="wallpapers" value="مجلد الخلفيات"/>
 		</node>
 		<node name="appearance" value="Appearance">
 			<node name="summary" value="Display settings, status bar, button lights"/>
@@ -696,24 +697,24 @@
 	</node>
 	<node name="dialog">
 		<node name="button">
-			<node name="install" value="Install"/>
-			<node name="update" value="Update"/>
-			<node name="skip" value="Skip"/>
-			<node name="buy" value="Buy"/>
-			<node name="buyAndDownload" value="Buy and download"/>
-			<node name="continue" value="Continue"/>
-			<node name="editUrl" value="Edit URL"/>
-			<node name="tryAgain" value="Try again"/>
-			<node name="openBook" value="Read"/>
-			<node name="editInfo" value="Edit"/>
-			<node name="reloadInfo" value="Reload"/>
-			<node name="shareBook" value="Share"/>
+			<node name="install" value="تنصيب"/>
+			<node name="update" value="تحديث"/>
+			<node name="skip" value="تجاهل"/>
+			<node name="buy" value="شراء"/>
+			<node name="buyAndDownload" value="شراء وتحميل"/>
+			<node name="continue" value="متابعة"/>
+			<node name="editUrl" value="تعديل الرابط"/>
+			<node name="tryAgain" value="إعادة المحاولة"/>
+			<node name="openBook" value="قراءة"/>
+			<node name="editInfo" value="تعديل"/>
+			<node name="reloadInfo" value="إعادة التحميل"/>
+			<node name="shareBook" value="مشاركة"/>
 			<node name="topup" value="Top up"/>
-			<node name="pay" value="Pay"/>
-			<node name="refresh" value="Refresh"/>
+			<node name="pay" value="دفع"/>
+			<node name="refresh" value="إعادة التحميل"/>
 			<node name="authorize" value="Authorize"/>
 			<node name="resetPosition" value="Reset position"/>
-			<node name="sendReport" value="Send report"/>
+			<node name="sendReport" value="إرسال التقرير"/>
 		</node>
 		<node name="plugin">
 			<node name="installTitle" value="Install plugin"/>
@@ -725,10 +726,10 @@
 			<node name="message" value="Would you like to install %s?"/>
 		</node>
 		<node name="deleteBookBox">
-			<node name="message" value="The book file will be removed irreversibly. Are you sure?"/>
+			<node name="message" value="سيتم حذف الكتاب نهائيا، هل تريد المتابعة؟"/>
 		</node>
 		<node name="redownloadFileBox">
-			<node name="message" value="File already exists. Redownload?"/>
+			<node name="message" value="الملف موجود مسبقا، هل تريد إعادة تحميله؟"/>
 		</node>
         <node name="waitMessage">
             <node name="downloadingFile" value="تحميل كتاب %s"/>
