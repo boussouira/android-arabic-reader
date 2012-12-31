@@ -2,21 +2,21 @@
 <resources>
 	<node name="dialog">
 		<node name="button">
-			<node name="ok" value="Ok" />
-			<node name="cancel" value="Cancel" />
-			<node name="yes" value="Yes" />
-			<node name="no" value="No" />
-			<node name="apply" value="Apply" />
+			<node name="ok" value="موافق" />
+			<node name="cancel" value="إلغاء" />
+			<node name="yes" value="نعم" />
+			<node name="no" value="لا" />
+			<node name="apply" value="تطبيق" />
 		</node>
 		<node name="networkError">
-			<node name="title" value="Network error" />
-			<node name="unknownErrorMessage" value="Unknown error" />
+			<node name="title" value="خطأ في الشبكة" />
+			<node name="unknownErrorMessage" value="خطأ غير معروف" />
 			<node name="operationTimedOutMessage" value="Operation is timed out" />
 			<node name="somethingWrongMessage" value="Something goes wrong for %s" />
-			<node name="couldntCreateDirectoryMessage" value="Couldn&apos;t create a directory %s" />
-			<node name="couldntCreateFileMessage" value="Couldn&apos;t create a file %s" />
-			<node name="couldntConnectToNetworkMessage" value="Couldn&apos;t connect to the network" />
-			<node name="couldntConnectMessage" value="Couldn&apos;t connect to host %s" />
+			<node name="couldntCreateDirectoryMessage" value="لا يمكن إنشاء المجلد %s" />
+			<node name="couldntCreateFileMessage" value="لا يمكن إنشاء الملف %s" />
+			<node name="couldntConnectToNetworkMessage" value="لا يمكن الإتصال بالشبكة" />
+			<node name="couldntConnectMessage" value="لايمكن الإتصال بالمضيف %s" />
 			<node name="couldntResolveHostMessage" value="Couldn&apos;t resolve host %s" />
 			<node name="authenticationFailed" value="Authentication failed" />
 			<node name="unsupportedProtocol" value="Unsupported protocol" />
@@ -26,62 +26,62 @@
 		</node>
 	</node>
 	<node name="color">
-		<node name="red" value="Red" />
-		<node name="green" value="Green" />
-		<node name="blue" value="Blue" />
-		<node name="black" value="Black" />
-		<node name="white" value="White" />
-		<node name="maroon" value="Maroon" />
+		<node name="red" value="أحمر" />
+		<node name="green" value="أخضر" />
+		<node name="blue" value="أزرق" />
+		<node name="black" value="أسود" />
+		<node name="white" value="أبيض" />
+		<node name="maroon" value="بني" />
 		<node name="olive" value="Olive" />
 		<node name="navy" value="Navy" />
 		<node name="purple" value="Purple" />
-		<node name="teal" value="Teal" />
-		<node name="silver" value="Silver" />
-		<node name="gray" value="Gray" />
+		<node name="teal" value="أزرق مخضر" />
+		<node name="silver" value="فضي" />
+		<node name="gray" value="رمادي" />
 		<node name="lime" value="Lime" />
-		<node name="yellow" value="Yellow" />
+		<node name="yellow" value="أصفر" />
 		<node name="magenta" value="Magenta" />
-		<node name="cyan" value="Cyan" />
+		<node name="cyan" value="أزرق سماوي" />
 		<node name="custom..." value="Custom..." />
 	</node>
 	<node name="language">
-		<node name="ar" value="Arabic" />
-		<node name="cs" value="Czech" />
-		<node name="de" value="German" />
-		<node name="de-traditional" value="German (traditional orthography)" />
-		<node name="el" value="Greek" />
-		<node name="en" value="English" />
-		<node name="eo" value="Esperanto" />
-		<node name="es" value="Spanish" />
-		<node name="fi" value="Finnish" />
-		<node name="fr" value="French" />
-		<node name="gl" value="Galician" />
-		<node name="he" value="Hebrew" />
-		<node name="hu" value="Hungarian" />
-		<node name="id" value="Indonesian" />
-		<node name="it" value="Italian" />
-		<node name="lt" value="Lithuanian" />
-		<node name="nl" value="Dutch" />
-		<node name="no" value="Norwegian" />
-		<node name="pl" value="Polish" />
-		<node name="pt" value="Portuguese" />
-		<node name="ro" value="Romanian" />
-		<node name="ru" value="Russian" />
-		<node name="sv" value="Swedish" />
-		<node name="th" value="Thai" />
-		<node name="tr" value="Turkish" />
-		<node name="uk" value="Ukrainian" />
-		<node name="vi" value="Vietnamese" />
-		<node name="zh" value="Chinese" />
-		<node name="other" value="Other" />
-		<node name="multi" value="Multilanguage" />
+		<node name="ar" value="العربية" />
+		<node name="cs" value="التشيكية" />
+		<node name="de" value="ألألماني" />
+		<node name="de-traditional" value="ألألماني (كتابة تقليدية)" />
+		<node name="el" value="اليونانية" />
+		<node name="en" value="الإنجليزية" />
+		<node name="eo" value="الإسبرانتو" />
+		<node name="es" value="الإسبانية" />
+		<node name="fi" value="الفنلندية" />
+		<node name="fr" value="الفرنسية" />
+		<node name="gl" value="الجاليكية" />
+		<node name="he" value="العبرية" />
+		<node name="hu" value="المجرية" />
+		<node name="id" value="الأندونيسية" />
+		<node name="it" value="الإيطالية" />
+		<node name="lt" value="اللتوانية" />
+		<node name="nl" value="الهولندية" />
+		<node name="no" value="النرويجية" />
+		<node name="pl" value="البولندية" />
+		<node name="pt" value="البرتغالية" />
+		<node name="ro" value="الرومانية" />
+		<node name="ru" value=" الروسية" />
+		<node name="sv" value="السويدية" />
+		<node name="th" value="التايلاندية" />
+		<node name="tr" value="التركية" />
+		<node name="uk" value="الأوكرانية" />
+		<node name="vi" value="الفيتنامية" />
+		<node name="zh" value="الصينية" />
+		<node name="other" value="أخرى" />
+		<node name="multi" value="متعدد اللغات" />
 	</node>
 	<node name="boolean3">
-		<node name="on" value="on" />
-		<node name="off" value="off" />
-		<node name="unchanged" value="unchanged" />
+		<node name="on" value="تشغيل" />
+		<node name="off" value="إيقاف" />
+		<node name="unchanged" value="بدون تغيير" />
 	</node>
 	<node name="keyOptionView">
-		<node name="actionFor" value="Action for Key" />
+		<node name="actionFor" value="عمل للمفتاح" />
 	</node>
 </resources>
