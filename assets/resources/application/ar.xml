@@ -232,7 +232,7 @@
 	</node>
 	<node name="menu">
 		<node name="preferences" value="اعدادات"/>
-		<node name="bookInfo" value="معلومات الكتاب"/>
+		<node name="bookInfo" value="معلومات حول الكتاب"/>
 		<node name="library" value="المكتبة"/>
 		<node name="toc" value="الفهرس"/>
 		<node name="day" value="مضيء"/>
@@ -646,8 +646,8 @@
 		</node>
 		<node name="cancelMenu" value="Cancel menu">
 			<node name="summary" value="Back button action list"/>
-			<node name="library" value="Library">
-				<node name="summaryOn" value="Show 'open library' item"/>
+			<node name="library" value="فتح المكتبة">
+				<node name="summaryOn" value="عرض 'فتح المكتبة'"/>
 				<node name="summaryOff" value="Don't show 'open library' item"/>
 			</node>
 			<node name="networkLibrary" value="Network library">
@@ -681,16 +681,16 @@
 				<node name="summaryOff" value="Do not show"/>
 			</node>
 		</node>
-		<node name="about" value="About Arabic Reader">
-			<node name="summary" value="Version info, contacts"/>
-			<node name="version" value="Version"/>
-			<node name="site" value="Visit our website">
+		<node name="about" value="حول البرنامج">
+			<node name="summary" value="رقم الإصدار، راسلنا"/>
+			<node name="version" value="الإصدار"/>
+			<node name="site" value="موقع البرنامج">
 				<node name="url" value="http://github.com/boussouira/android-arabic-reader"/>
 			</node>
-			<node name="email" value="Send us an e-mail">
-				<node name="url" value="mailto:contact@geometerplus.com"/>
+			<node name="email" value="راسلنا عبر البريد الإلكتروني">
+				<node name="url" value="mailto:justroftest@gmail.com"/>
 			</node>
-			<node name="twitter" value="Follow us at twitter">
+			<node name="twitter" value="تابعنا على تويتر">
 				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
 		</node>
@@ -726,7 +726,7 @@
 			<node name="message" value="Would you like to install %s?"/>
 		</node>
 		<node name="deleteBookBox">
-			<node name="message" value="سيتم حذف الكتاب نهائيا، هل تريد المتابعة؟"/>
+			<node name="message" value="سيتم حذف هذا الكتاب نهائيا، هل تريد المتابعة؟"/>
 		</node>
 		<node name="redownloadFileBox">
 			<node name="message" value="الملف موجود مسبقا، هل تريد إعادة تحميله؟"/>
@@ -734,7 +734,7 @@
         <node name="waitMessage">
             <node name="downloadingFile" value="تحميل كتاب %s"/>
             <node name="search" value="جاري البحث..."/>
-            <node name="loadInfo" value="جاري حمع معلومات الكتاب..."/>
+            <node name="loadInfo" value="جاري جمع معلومات حول الكتاب..."/>
             <node name="loadingBook" value="جاري فتح الكتاب..."/>
             <node name="loadingBookList" value="جاري فتح المكتبة..."/>
             <node name="creatingBooksDatabase" value="انشاء قاعدة بيانات الكتب..."/>
