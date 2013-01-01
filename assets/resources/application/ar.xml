@@ -232,7 +232,7 @@
 	</node>
 	<node name="menu">
 		<node name="preferences" value="اعدادات"/>
-		<node name="bookInfo" value="معلومات الكتاب"/>
+		<node name="bookInfo" value="معلومات حول الكتاب"/>
 		<node name="library" value="المكتبة"/>
 		<node name="toc" value="الفهرس"/>
 		<node name="day" value="مضيء"/>
@@ -734,7 +734,7 @@
         <node name="waitMessage">
             <node name="downloadingFile" value="تحميل كتاب %s"/>
             <node name="search" value="جاري البحث..."/>
-            <node name="loadInfo" value="جاري حمع معلومات الكتاب..."/>
+            <node name="loadInfo" value="جاري جمع معلومات حول الكتاب..."/>
             <node name="loadingBook" value="جاري فتح الكتاب..."/>
             <node name="loadingBookList" value="جاري فتح المكتبة..."/>
             <node name="creatingBooksDatabase" value="انشاء قاعدة بيانات الكتب..."/>

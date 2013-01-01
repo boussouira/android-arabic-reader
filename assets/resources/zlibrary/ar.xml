@@ -46,9 +46,10 @@
 	</node>
 	<node name="language">
 		<node name="ar" value="العربية" />
+		<node name="bg" value="البلغارية"/>
 		<node name="cs" value="التشيكية" />
-		<node name="de" value="ألألماني" />
-		<node name="de-traditional" value="ألألماني (كتابة تقليدية)" />
+		<node name="de" value="الألماني" />
+		<node name="de-traditional" value="الألماني (كتابة تقليدية)" />
 		<node name="el" value="اليونانية" />
 		<node name="en" value="الإنجليزية" />
 		<node name="eo" value="الإسبرانتو" />
