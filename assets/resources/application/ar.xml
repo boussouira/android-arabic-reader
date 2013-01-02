@@ -280,54 +280,54 @@
 			<node name="fonts" value="مجلد الخطوط"/>
 			<node name="wallpapers" value="مجلد الخلفيات"/>
 		</node>
-		<node name="appearance" value="Appearance">
-			<node name="summary" value="Display settings, status bar, button lights"/>
-			<node name="screenOrientation" value="Screen orientation">
-				<node name="system" value="System"/>
-				<node name="sensor" value="Device orientation sensitive"/>
-				<node name="portrait" value="Portrait"/>
-				<node name="landscape" value="Landscape"/>
-				<node name="reversePortrait" value="Reverse portrait"/>
-				<node name="reverseLandscape" value="Reverse landscape"/>
+		<node name="appearance" value="المظهر">
+			<node name="summary" value="إعدادات العرض، شريط المهام"/>
+			<node name="screenOrientation" value="اتجاه الشاشة">
+				<node name="system" value="حسب النظام"/>
+				<node name="sensor" value="حسب الجهاز"/>
+				<node name="portrait" value="طول"/>
+				<node name="landscape" value="عرض"/>
+				<node name="reversePortrait" value="طول معكوس"/>
+				<node name="reverseLandscape" value="عرض معكوس"/>
 			</node>
-			<node name="autoOrientation" value="Automatic rotation">
-				<node name="summaryOn" value="The display will rotate when user moves the device"/>
-				<node name="summaryOff" value="The display will not rotate when user moves the device"/>
+			<node name="autoOrientation" value="تدوير تلقائي">
+				<node name="summaryOn" value="اتجاه الشاشة سيتغير تلقائيا مع الجهاز"/>
+				<node name="summaryOff" value="اتجاه الشاشة لن يتغير تلقائيا مع الجهاز"/>
 			</node>
-			<node name="showStatusBar" value="Show status bar">
-				<node name="summaryOn" value="Show status bar in reading mode"/>
-				<node name="summaryOff" value="Hide status bar in reading mode"/>
+			<node name="showStatusBar" value="عرض شريط الحالة">
+				<node name="summaryOn" value="عرض شريط الحالة أثناء القراءة"/>
+				<node name="summaryOff" value="إخفاء شريط الحالة أثناء القراءة"/>
 			</node>
-			<node name="showActionBar" value="Show action bar">
-				<node name="summaryOn" value="Show action bar in reading mode"/>
-				<node name="summaryOff" value="Hide action bar in reading mode"/>
+			<node name="showActionBar" value="عرض شريط الأدوات">
+				<node name="summaryOn" value="عرض شريط الأدوات أثناء القراءة"/>
+				<node name="summaryOff" value="إخفاء شريط الأدوات أثناء القراءة"/>
 			</node>
-			<node name="showStatusBarWhenMenuIsActive" value="Show status bar when menu is active">
-				<node name="summaryOn" value="Show status bar when menu becomes active"/>
-				<node name="summaryOff" value="Don't show status bar when menu becomes active"/>
+			<node name="showStatusBarWhenMenuIsActive" value="عرض شريط الحالة عن إظهار القائمة">
+				<node name="summaryOn" value="عرض شريط الحالة عن إظهار القائمة"/>
+				<node name="summaryOff" value="لا تعرض شريط الحالة عن إظهار القائمة"/>
 			</node>
-			<node name="disableButtonLights" value="Disable buttons light during reading">
-				<node name="summaryOn" value="Disable button lights (does not work for some devices)"/>
-				<node name="summaryOff" value="Don't try to disable button lights"/>
+			<node name="disableButtonLights" value="إطفاء ضوء أزرار الهاتف">
+				<node name="summaryOn" value="إطفاء ضوء الأزرار"/>
+				<node name="summaryOff" value="لا تحاول إطفاء ضوء الأزرار"/>
 			</node>
-			<node name="allowScreenBrightnessAdjustment" value="Screen brightness adjustment">
-				<node name="summaryOn" value="By dragging finger up/down along left side of the screen"/>
-				<node name="summaryOff" value="Disabled"/>
+			<node name="allowScreenBrightnessAdjustment" value="تغيير شدة إضاءة الشاشة">
+				<node name="summaryOn" value="عند تحريك الأصبع فوق/أعلى على الجانب الأيسر للشاشة"/>
+				<node name="summaryOff" value="إلغاء"/>
 			</node>
-			<node name="dontTurnScreenOff" value="Prevent screen from sleeping">
-				<node name="0" value="Always"/>
-				<node name="25" value="While battery level is greater than 25 percent"/>
-				<node name="50" value="While battery level is greater than 50 percent"/>
-				<node name="100" value="Never"/>
+			<node name="dontTurnScreenOff" value="منع إطفاء الشاشة عند القراءة">
+				<node name="0" value="دائما"/>
+				<node name="25" value="إذا كان مستوى الشحن أعلى من 25 بالمئة"/>
+				<node name="50" value="إذا كان مستوى الشحن أعلى من 50 بالمئة"/>
+				<node name="100" value="إلغاء"/>
 			</node>
-			<node name="dontTurnScreenOffDuringCharging" value="Prevent screen from sleeping during charging">
-				<node name="summaryOn" value="Prevent screen from sleeping if device is in charging mode"/>
-				<node name="summaryOff" value="Switch screen off even if device is in charging mode"/>
+			<node name="dontTurnScreenOffDuringCharging" value="منع إطفاء الشاشة أثناء شحن البطارية">
+				<node name="summaryOn" value="منع إطفاء الشاشة"/>
+				<node name="summaryOff" value="إطفاء الشاشة حتى أثناء شحن البطارية"/>
 			</node>
 		</node>
-		<node name="text" value="Text">
-			<node name="summary" value="Font, hyphenations, etc."/>
-			<node name="fontProperties" value="Font properties">
+		<node name="text" value="النص">
+			<node name="summary" value="الخطوط وغيرها"/>
+			<node name="fontProperties" value="خصائص الخطوط">
 				<node name="summary" value="Font smoothing options"/>
 				<node name="antiAlias" value="Antialiasing">
 					<node name="summaryOn" value="Antialiasing is enabled"/>
@@ -350,46 +350,46 @@
 					<node name="summaryOff" value="Subpixel smoothing is disabled"/>
 				</node>
 			</node>
-			<node name="font" value="Font family">
-				<node name="unchanged" value="&lt;unchanged&gt;"/>
+			<node name="font" value="نوع الخط">
+				<node name="unchanged" value="&lt;بدون تغيير&gt;"/>
 			</node>
-			<node name="fontSize" value="Font size"/>
-			<node name="fontSizeDifference" value="Font size difference"/>
-			<node name="fontStyle" value="Font style">
-				<node name="regular" value="Regular"/>
-				<node name="bold" value="Bold"/>
-				<node name="italic" value="Italic"/>
-				<node name="boldItalic" value="Bold Italic"/>
+			<node name="fontSize" value="حجم الخط"/>
+			<node name="fontSizeDifference" value="الفرق بين حجم الخط"/>
+			<node name="fontStyle" value="ستايل الخط">
+				<node name="regular" value="عادي"/>
+				<node name="bold" value="غليظ"/>
+				<node name="italic" value="مائل"/>
+				<node name="boldItalic" value="مائل وغليظ"/>
 			</node>
-			<node name="bold" value="Bold">
-				<node name="summaryOn" value="bold"/>
-				<node name="summaryOff" value="regular"/>
-				<node name="unchanged" value="&lt;unchanged&gt;"/>
+			<node name="bold" value="غليظ">
+				<node name="summaryOn" value="غليظ"/>
+				<node name="summaryOff" value="عادي"/>
+				<node name="unchanged" value="&lt;بدون تغيير&gt;"/>
 			</node>
-			<node name="italic" value="Italic">
-				<node name="summaryOn" value="italic"/>
-				<node name="summaryOff" value="regular"/>
-				<node name="unchanged" value="&lt;unchanged&gt;"/>
+			<node name="italic" value="مائل">
+				<node name="summaryOn" value="مائل"/>
+				<node name="summaryOff" value="عادي"/>
+				<node name="unchanged" value="&lt;بدون تغيير&gt;"/>
 			</node>
-			<node name="underlined" value="Underlined">
-				<node name="summaryOn" value="underlined"/>
-				<node name="summaryOff" value="regular"/>
-				<node name="unchanged" value="&lt;unchanged&gt;"/>
+			<node name="underlined" value="مسطر">
+				<node name="summaryOn" value="مسطر"/>
+				<node name="summaryOff" value="عادي"/>
+				<node name="unchanged" value="&lt;بدون تغيير&gt;"/>
 			</node>
-			<node name="strikedThrough" value="Striked through">
-				<node name="summaryOn" value="striked through"/>
-				<node name="summaryOff" value="regular"/>
-				<node name="unchanged" value="&lt;unchanged&gt;"/>
+			<node name="strikedThrough" value="مشطوب">
+				<node name="summaryOn" value="مشطوب"/>
+				<node name="summaryOff" value="عادي"/>
+				<node name="unchanged" value="&lt;بدون تغيير&gt;"/>
 			</node>
-			<node name="lineSpacing" value="Line Spacing">
-				<node name="unchanged" value="&lt;unchanged&gt;"/>
+			<node name="lineSpacing" value="تباعد الأسطر">
+				<node name="unchanged" value="&lt;بدون تغيير&gt;"/>
 			</node>
-			<node name="alignment" value="Alignment">
-				<node name="left" value="Left"/>
-				<node name="right" value="Right"/>
-				<node name="center" value="Center"/>
-				<node name="justify" value="Justify"/>
-				<node name="unchanged" value="&lt;unchanged&gt;"/>
+			<node name="alignment" value="محاذاة النص">
+				<node name="left" value="يسار"/>
+				<node name="right" value="يمين"/>
+				<node name="center" value="وسط"/>
+				<node name="justify" value="ملء"/>
+				<node name="unchanged" value="&lt;بدون تغيير&gt;"/>
 			</node>
 			<node name="autoHyphenations" value="Auto hyphenations">
 				<node name="summaryOn" value="Hyphenate words automatically"/>
@@ -398,15 +398,15 @@
 			<node name="allowHyphenations" value="Allow Hyphenations">
 				<node name="summaryOn" value="hyphenate words"/>
 				<node name="summaryOff" value="don't hyphenate words"/>
-				<node name="unchanged" value="&lt;unchanged&gt;"/>
+				<node name="unchanged" value="&lt;بدون تغيير&gt;"/>
 			</node>
 			<node name="firstLineIndent" value="First Line Indent"/>
 			<node name="spaceBefore" value="Space Before"/>
 			<node name="spaceAfter" value="Space After"/>
 			<node name="leftIndent" value="Left Indent"/>
 			<node name="rightIndent" value="Right Indent"/>
-			<node name="more" value="More styles">
-				<node name="summary" value="Separate settings for titles, epigraphs, etc."/>
+			<node name="more" value="مزيد...">
+				<node name="summary" value="اعدادات العناوين وغيرها"/>
 				<node name="Regular Paragraph" value="Regular Paragraph">
 					<node name="summary" value=""/>
 				</node>
@@ -509,100 +509,100 @@
 			</node>
 		</node>
 		<node name="css" value="CSS">
-			<node name="summary" value="Apply/ignore values defined in CSS"/>
-			<node name="fontSize" value="Font size">
-				<node name="summaryOn" value="Apply font size defined in CSS"/>
-				<node name="summaryOff" value="Ignore font size defined in CSS"/>
+			<node name="summary" value="تطبيق أو تجاهل الستايلات الموجودة في CSS"/>
+			<node name="fontSize" value="حجم الخط">
+				<node name="summaryOn" value="تطبيق حجم الخط الموجود في CSS"/>
+				<node name="summaryOff" value="تجاهل حجم الخط الموجود في CSS"/>
 			</node>
-			<node name="textAlignment" value="Text alignment">
-				<node name="summaryOn" value="Apply text alignment defined in CSS"/>
-				<node name="summaryOff" value="Ignore text alignment defined in CSS"/>
+			<node name="textAlignment" value="محاذاة النص">
+				<node name="summaryOn" value="تطبيق محاذاة النص الموجودة في CSS"/>
+				<node name="summaryOff" value="تجاهل محاذاة النص الموجودة في CSS"/>
 			</node>
 		</node>
-		<node name="colors" value="Colors &amp; wallpapers">
-			<node name="summary" value="Color settings"/>
-			<node name="background" value="Background">
-				<node name="solidColor" value="Solid color"/>
+		<node name="colors" value="الألوان والخلفية">
+			<node name="summary" value="إعدادات الخلفية"/>
+			<node name="background" value="الخلفية">
+				<node name="solidColor" value="لون موحد"/>
 				<node name="leather" value="Leather"/>
 				<node name="sepia" value="Sepia"/>
 				<node name="wood" value="Wood"/>
 			</node>
-			<node name="backgroundColor" value="Background color"/>
-			<node name="selectionBackground" value="Selection background"/>
-			<node name="selectionForeground" value="Selected text"/>
-			<node name="text" value="Regular text"/>
-			<node name="hyperlink" value="Hyperlink text"/>
-			<node name="hyperlinkVisited" value="Visited hyperlink text"/>
-			<node name="highlighting" value="Search results background"/>
-			<node name="footer" value="Footer"/>
+			<node name="backgroundColor" value="لون الخلفية"/>
+			<node name="selectionBackground" value="خلفية تحديد النص"/>
+			<node name="selectionForeground" value="النص المحدد"/>
+			<node name="text" value="النص العادي"/>
+			<node name="hyperlink" value="الروابط"/>
+			<node name="hyperlinkVisited" value="الروابط التي تمت زيارتها"/>
+			<node name="highlighting" value="خلفية نتائج البحث"/>
+			<node name="footer" value="الحاشية"/>
 		</node>
-		<node name="margins" value="Margins">
-			<node name="summary" value="Text margins"/>
-			<node name="left" value="Left margin"/>
-			<node name="right" value="Right margin"/>
-			<node name="top" value="Top margin"/>
-			<node name="bottom" value="Bottom margin"/>
+		<node name="margins" value="الهوامش">
+			<node name="summary" value="هوامش النص"/>
+			<node name="left" value="الهامش الأيسر"/>
+			<node name="right" value="الهامش الأيمن"/>
+			<node name="top" value="الهامش العلوي"/>
+			<node name="bottom" value="الهامش السفلي"/>
 		</node>
-		<node name="scrollBar" value="Progress indicator">
-			<node name="summary" value="Scrollbar &amp; footer settings"/>
-			<node name="scrollbarType" value="Scrollbar type">
-				<node name="hide" value="Hide"/>
-				<node name="show" value="Vertical slider"/>
-				<node name="showAsProgress" value="Vertical progress bar"/>
-				<node name="showAsFooter" value="Horizontal footer"/>
+		<node name="scrollBar" value="شريط تقدم القراءة">
+			<node name="summary" value="شريط التمرير والهامش"/>
+			<node name="scrollbarType" value="نوع شريط التمرير">
+				<node name="hide" value="مخفي"/>
+				<node name="show" value="شريط تمرير عمودي"/>
+				<node name="showAsProgress" value="شريط تقدم عمودي"/>
+				<node name="showAsFooter" value="شريط تقدم أفقي"/>
 			</node>
-			<node name="footerHeight" value="Footer height"/>
-			<node name="footerColor" value="Footer color"/>
-			<node name="tocMarks" value="Show TOC marks">
-				<node name="summaryOn" value="Show TOC marks in the footer bar"/>
-				<node name="summaryOff" value="Don't show TOC marks in the footer bar"/>
+			<node name="footerHeight" value="ارتفاع حاشية الصفحة"/>
+			<node name="footerColor" value="لون حاشية الصفحة"/>
+			<node name="tocMarks" value="إظهار علامات الفهرس">
+				<node name="summaryOn" value="عرض علامات الفهرس على شريط التقدم"/>
+				<node name="summaryOff" value="لا تعرض علامات الفهرس على شريط التقدم"/>
 			</node>
-			<node name="showProgress" value="Show page number">
-				<node name="summaryOn" value="Show page number in footer"/>
-				<node name="summaryOff" value="Don't show page number in footer"/>
+			<node name="showProgress" value="عرض رقم الصفحة">
+				<node name="summaryOn" value="عرض رقم الصفحة في الحاشية"/>
+				<node name="summaryOff" value="لا تعرض رقم الصفحة في الحاشية"/>
 			</node>
-			<node name="showBattery" value="Show battery level">
-				<node name="summaryOn" value="Show battery level in footer"/>
-				<node name="summaryOff" value="Don't show battery level in footer"/>
+			<node name="showBattery" value="عرض مستوى شحن البطارية">
+				<node name="summaryOn" value="عرض مستوى شحن البطارية في الحاشية"/>
+				<node name="summaryOff" value="لا تعرض مستوى شحن البطارية في الحاشية"/>
 			</node>
-			<node name="showClock" value="Show clock">
-				<node name="summaryOn" value="Show clock in footer"/>
-				<node name="summaryOff" value="Don't show clock in footer"/>
+			<node name="showClock" value="عرض الساعة">
+				<node name="summaryOn" value="عرض الساعة في الحاشية"/>
+				<node name="summaryOff" value="لا تعرض الساعة في الحاشية"/>
 			</node>
-			<node name="font" value="Font family"/>
+			<node name="font" value="نوع الخط"/>
 		</node>
-		<node name="scrolling" value="Page turning">
-			<node name="summary" value="How to turn pages"/>
-			<node name="fingerScrolling" value="Touch screen page turning">
-				<node name="byTap" value="Turn pages by finger tap"/>
-				<node name="byFlick" value="Turn pages by finger flick"/>
-				<node name="byTapAndFlick" value="Turn pages by finger tap or flick"/>
+		<node name="scrolling" value="تمرير الصفحات">
+			<node name="summary" value="كيفية تمرير الصفحات"/>
+			<node name="fingerScrolling" value="تمرير الصفحات عن طريق اللمس">
+				<node name="byTap" value="تمرير الصفحات عن طريق النقر على الشاشة"/>
+				<node name="byFlick" value="تمرير الصفحات عن طريق تمرير الأصبع على الشاشة"/>
+				<node name="byTapAndFlick" value="كل الخيارين السابقين"/>
 			</node>
-			<node name="enableDoubleTapDetection" value="Double tap detection">
-				<node name="summaryOn" value="Double tap to run navigation dialog/menu"/>
-				<node name="summaryOff" value="Ignore double taps"/>
+			<node name="enableDoubleTapDetection" value="النقر المزدوج">
+				<node name="summaryOn" value="النقر المزدوج يفتح شريط التنقل بين الصفحات"/>
+				<node name="summaryOff" value="تجاهل النقر المزدوج"/>
 			</node>
-			<node name="volumeKeys" value="Turn page with volume keys">
-				<node name="summaryOn" value="Use volume keys to turn the pages"/>
-				<node name="summaryOff" value="Keep volume keys for sound"/>
+			<node name="volumeKeys" value="تمرير الصفحات بأزرار التحكم في مستوى الصوت">
+				<node name="summaryOn" value="استخدام هذه الأزرار لتمرير الصفحات"/>
+				<node name="summaryOff" value="ترك هذه الأزرار تتحكم في مستوى الصوت فقط"/>
 			</node>
-			<node name="invertVolumeKeys" value="Invert volume keys direction">
+			<node name="invertVolumeKeys" value="عكس اتجاه أزرار الصوت">
 				<node name="summaryOn" value="Louder (lower) key turns to previous (next) page"/>
 				<node name="summaryOff" value="Lower (louder) key turns to next (previous) page"/>
 			</node>
-			<node name="animation" value="Animation">
-				<node name="none" value="Turn pages with no animation"/>
+			<node name="animation" value="تأثير تمرير الصفحات">
+				<node name="none" value="تمرير الصفحات بدون تأثيرات"/>
 				<node name="curl" value="Curl animation"/>
 				<node name="slide" value="Slide animation"/>
 				<node name="shift" value="Shift animation"/>
 			</node>
-			<node name="animationSpeed" value="Animation speed">
-				<node name="fast" value="fast"/>
-				<node name="slow" value="slow"/>
+			<node name="animationSpeed" value="سرعة تأثير تمرير الصفحات">
+				<node name="fast" value="سريع"/>
+				<node name="slow" value="بطيء"/>
 			</node>
-			<node name="horizontal" value="Horizontal scrolling">
-				<node name="summaryOn" value="Scroll pages horizontally"/>
-				<node name="summaryOff" value="Scroll pages vertically"/>
+			<node name="horizontal" value="تمرير عمودي">
+				<node name="summaryOn" value="تمرير الصفحات عموديا"/>
+				<node name="summaryOff" value="تمرير الصفحات أفقيا"/>
 			</node>
 		</node>
 		<node name="tapZones" value="Tap zones">
@@ -615,10 +615,10 @@
 				<node name="custom" value="Custom…"/>
 			</node>
 		</node>
-		<node name="dictionary" value="Dictionary">
-			<node name="summary" value="Dictionary settings"/>
-			<node name="dictionary" value="Dictionary"/>
-			<node name="translator" value="Translator"/>
+		<node name="dictionary" value="القواميس">
+			<node name="summary" value="اعدادات القواميس"/>
+			<node name="dictionary" value="القاموس"/>
+			<node name="translator" value="المترجم"/>
 			<node name="tappingAction" value="Long tapping action">
 				<node name="doNothing" value="Long tapping does nothing"/>
 				<node name="selectSingleWord" value="Long tapping selects single word"/>
@@ -630,55 +630,55 @@
 				<node name="summaryOff" value="Key navigation visits hyperlinks only"/>
 			</node>
 		</node>
-		<node name="images" value="Images">
-			<node name="summary" value="Image displaying options"/>
-			<node name="backgroundColor" value="Background color for image view"/>
-			<node name="tappingAction" value="Long tapping action">
-				<node name="doNothing" value="Long tapping does nothing"/>
-				<node name="selectImage" value="Long tapping selects the image"/>
-				<node name="openImageView" value="Long tapping opens image view"/>
+		<node name="images" value="الصور">
+			<node name="summary" value="خيارات عرض الصور"/>
+			<node name="backgroundColor" value="خلفية الصور المعروضة"/>
+			<node name="tappingAction" value="الضغط المستمر على الصور">
+				<node name="doNothing" value="الضغط المستمر لا يفعل شيئا"/>
+				<node name="selectImage" value="الضغط المستمر يختار الصورة"/>
+				<node name="openImageView" value="الضغط المستمر يفتح عارض الصور"/>
 			</node>
-			<node name="fitImagesToScreen" value="Fit images to screen">
-				<node name="none" value="None"/>
-				<node name="covers" value="Covers only"/>
-				<node name="all" value="All"/>
+			<node name="fitImagesToScreen" value="الصور تملء الشاشة">
+				<node name="none" value="بدون"/>
+				<node name="covers" value="الغلاف فقط"/>
+				<node name="all" value="الكل"/>
 			</node>
 		</node>
-		<node name="cancelMenu" value="Cancel menu">
-			<node name="summary" value="Back button action list"/>
+		<node name="cancelMenu" value="قائمة الخروج">
+			<node name="summary" value="أوامر زر العودة للخلف"/>
 			<node name="library" value="فتح المكتبة">
-				<node name="summaryOn" value="عرض 'فتح المكتبة'"/>
-				<node name="summaryOff" value="Don't show 'open library' item"/>
+				<node name="summaryOn" value="عرض خيار 'فتح المكتبة'"/>
+				<node name="summaryOff" value="لا تعرض خيار 'فتح المكتبة'"/>
 			</node>
-			<node name="networkLibrary" value="Network library">
-				<node name="summaryOn" value="Show 'open network library' item"/>
-				<node name="summaryOff" value="Don't show 'open network library' item"/>
+			<node name="networkLibrary" value="مكتبة الشبكة">
+				<node name="summaryOn" value="عرض خيار 'مكتبة الشبكة'"/>
+				<node name="summaryOff" value="لا تعرض خيار 'مكتبة الشبكة'"/>
 			</node>
-			<node name="previousBook" value="Previous book">
-				<node name="summaryOn" value="Show 'return to previous book' item"/>
-				<node name="summaryOff" value="Don't show 'return to previous book' item"/>
+			<node name="previousBook" value="الكتاب السابق">
+				<node name="summaryOn" value="عرض خيار 'الكتاب السابق'"/>
+				<node name="summaryOff" value="لا تعرض خيار 'الكتاب السابق'"/>
 			</node>
-			<node name="positions" value="Last 3 positions">
-				<node name="summaryOn" value="Show items for last 3 positions in the book"/>
-				<node name="summaryOff" value="Don't show items for last 3 positions in the book"/>
+			<node name="positions" value="اخر 3 مواضع">
+				<node name="summaryOn" value="عرض خيار 'اخر 3 مواضع'"/>
+				<node name="summaryOff" value="لا تعرض خيار 'اخر 3 مواضع'"/>
 			</node>
-			<node name="backKeyAction" value="Back key action">
-				<node name="exit" value="Close Arabic Reader"/>
-				<node name="goBack" value="Navigate back"/>
-				<node name="cancelMenu" value="Show cancel menu"/>
+			<node name="backKeyAction" value="وضيفة زر العودة للخلف">
+				<node name="exit" value="إغلاق البرنامج"/>
+				<node name="goBack" value="عودة للخلف"/>
+				<node name="cancelMenu" value="عرض قائمة الخروج"/>
 			</node>
-			<node name="backKeyLongPressAction" value="Back key long press action">
-				<node name="exit" value="Close Arabic Reader"/>
-				<node name="goBack" value="Navigate back"/>
-				<node name="cancelMenu" value="Show cancel menu"/>
-				<node name="none" value="No action"/>
+			<node name="backKeyLongPressAction" value="الضغط المستمر على زر العودة للخلف">
+				<node name="exit" value="إغلاق البرنامج"/>
+				<node name="goBack" value="عودة للخلف"/>
+				<node name="cancelMenu" value="عرض قائمة الخروج"/>
+				<node name="none" value="لا شيء"/>
 			</node>
 		</node>
-		<node name="tips" value="Tips">
-			<node name="summary" value="Daily tips settings"/>
-			<node name="showTips" value="Show tips">
-				<node name="summaryOn" value="Show daily tips"/>
-				<node name="summaryOff" value="Do not show"/>
+		<node name="tips" value="التلميحات">
+			<node name="summary" value="اعدادات التلميحات"/>
+			<node name="showTips" value="عرض التلميحات">
+				<node name="summaryOn" value="عرص التلميحات اليومية"/>
+				<node name="summaryOff" value="لا تعرض التلميحات"/>
 			</node>
 		</node>
 		<node name="about" value="حول البرنامج">
@@ -713,17 +713,17 @@
 			<node name="pay" value="دفع"/>
 			<node name="refresh" value="إعادة التحميل"/>
 			<node name="authorize" value="Authorize"/>
-			<node name="resetPosition" value="Reset position"/>
+			<node name="resetPosition" value="الصفحة السابقة"/>
 			<node name="sendReport" value="إرسال التقرير"/>
 		</node>
 		<node name="plugin">
-			<node name="installTitle" value="Install plugin"/>
-			<node name="updateTitle" value="Update plugin"/>
-			<node name="dontAskAgain" value="Don't ask again"/>
+			<node name="installTitle" value="تنصيب الإضافة"/>
+			<node name="updateTitle" value="تحديث الإضافة"/>
+			<node name="dontAskAgain" value="لا تسأل مجددا"/>
 		</node>
 		<node name="installDictionary">
-			<node name="title" value="Install dictionary"/>
-			<node name="message" value="Would you like to install %s?"/>
+			<node name="title" value="مجلد التنصيب"/>
+			<node name="message" value="هل تريد تنصيب %s؟"/>
 		</node>
 		<node name="deleteBookBox">
 			<node name="message" value="سيتم حذف هذا الكتاب نهائيا، هل تريد المتابعة؟"/>
@@ -770,18 +770,18 @@
 			<node name="register" value="Sign up"/>
 		</node>
 		<node name="CustomCatalogDialog">
-			<node name="title" value="FBReader: add custom catalog"/>
-			<node name="catalogTitle" value="Title"/>
-			<node name="catalogUrl" value="URL"/>
-			<node name="catalogSummary" value="Summary"/>
+			<node name="title" value="إضافة كاتالوج"/>
+			<node name="catalogTitle" value="العنوان"/>
+			<node name="catalogUrl" value="الرابط"/>
+			<node name="catalogSummary" value="نبذة"/>
 			<node name="catalogTitleExample" value="E.g.: Project Gutenberg catalog"/>
 			<node name="catalogUrlExample" value="E.g.: http://m.gutenberg.org/"/>
 			<node name="catalogSummaryExample" value="E.g.: Public domain books"/>
-			<node name="titleIsEmpty" value="Title should be non-empty"/>
-			<node name="urlIsEmpty" value="URL should be non-empty"/>
-			<node name="invalidUrl" value="Invalid URL"/>
-			<node name="titleAlreadyExists" value="Specified title is already in use"/>
-			<node name="siteAlreadyExists" value="Specified site is already in use"/>
+			<node name="titleIsEmpty" value="العنوان يجب أن لا يكون فارغا"/>
+			<node name="urlIsEmpty" value="الرابط يجب ان لا يكون فارغا"/>
+			<node name="invalidUrl" value="الرابط غير صحيح"/>
+			<node name="titleAlreadyExists" value="العنوان مستخدم مسبقل"/>
+			<node name="siteAlreadyExists" value="الرابط مستخدم مسبقا"/>
 		</node>
 		<node name="languageFilterDialog">
 			<node name="title" value="Language filter"/>
@@ -799,7 +799,7 @@
 		<node name="bookNotFound" value="لم يتم العثور على الكتاب الذي تبحث عنه"/>
 		<node name="bookmarkNotFound" value="لم يتم العثور على العلامة المرجعية التي تبحث عنها"/>
 		<node name="cannotOpenBook" value="لا يمكن فتح هذا الكتاب في الوقت الحالي"/>
-		<node name="dictionaryIsNotInstalled" value="Dictionary is not installed, sorry"/>
+		<node name="dictionaryIsNotInstalled" value="القاموس غير منصب"/>
 		<node name="permissionDenied" value="Permission denied, sorry"/>
 		<node name="noFavorites" value="قائمة الكتب المفضلة لديك فارغة"/>
 		<node name="emptyCatalog" value="Catalog is empty, sorry"/>
@@ -831,7 +831,7 @@
 		</node>
 	</node>
 	<node name="bookReadingException">
-		<node name="errorReadingFile" value="Error occured during reading '%s'"/>
+		<node name="errorReadingFile" value="حدث خطأ أثناء قراءة '%s'"/>
 		<node name="errorReadingZip" value="Error occured during extracting '%s'"/>
 		<node name="pluginNotFound" value="No plugin for '%s'"/>
 		<node name="unknownPluginType" value="Unknown plugin type: %s"/>
