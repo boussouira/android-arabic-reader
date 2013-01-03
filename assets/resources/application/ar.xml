@@ -8,8 +8,8 @@
 		<node name="byAuthor" value="المؤلفين">
 			<node name="summary" value="عرض الكتب حسب المؤلف"/>
 		</node>
-		<node name="byTitle" value="الاسم">
-			<node name="summary" value="عرض الكتب حسب الاسم"></node>
+		<node name="byTitle" value="العنوان">
+			<node name="summary" value="عرض الكتب حسب العنوان"></node>
 		</node>
 		<node name="bySeries" value="الرقم التسلسلي">
 			<node name="summary" value="عرض حسب الرقم التسلسلي"/>
