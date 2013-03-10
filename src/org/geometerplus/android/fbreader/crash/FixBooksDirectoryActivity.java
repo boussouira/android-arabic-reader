@@ -32,7 +32,7 @@ import org.geometerplus.fbreader.Paths;
 
 import net.sourceforge.arabicReader.R;
 
-import org.geometerplus.android.fbreader.ArabicReader;
+import org.geometerplus.android.fbreader.FBReader;
 
 public class FixBooksDirectoryActivity extends Activity {
 	@Override
@@ -57,7 +57,7 @@ public class FixBooksDirectoryActivity extends Activity {
 		okButton.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				Paths.BooksDirectoryOption().setValue(directoryView.getText().toString());
-				startActivity(new Intent(FixBooksDirectoryActivity.this, ArabicReader.class));
+				startActivity(new Intent(FixBooksDirectoryActivity.this, FBReader.class));
 				finish();
 			}
 		});

@@ -22,7 +22,7 @@ package org.geometerplus.android.fbreader;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 
 class SearchAction extends FBAndroidAction {
-	SearchAction(ArabicReader baseActivity, FBReaderApp fbreader) {
+	SearchAction(FBReader baseActivity, FBReaderApp fbreader) {
 		super(baseActivity, fbreader);
 	}
 

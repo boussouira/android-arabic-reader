@@ -57,7 +57,7 @@ import org.geometerplus.android.fbreader.tips.TipsActivity;
 
 import org.geometerplus.android.util.UIUtil;
 
-public final class ArabicReader extends ZLAndroidActivity {
+public final class FBReader extends ZLAndroidActivity {
 	public static final String BOOK_PATH_KEY = "BookPath";
 	static final int ACTION_BAR_COLOR = Color.DKGRAY;
 
@@ -92,7 +92,7 @@ public final class ArabicReader extends ZLAndroidActivity {
 					for (PluginApi.ActionInfo info : myPluginActions) {
 						fbReader.addAction(
 							PLUGIN_ACTION_PREFIX + index++,
-							new RunPluginAction(ArabicReader.this, fbReader, info.getId())
+							new RunPluginAction(FBReader.this, fbReader, info.getId())
 						);
 					}
 					if (!myPluginActions.isEmpty()) {
@@ -122,7 +122,7 @@ public final class ArabicReader extends ZLAndroidActivity {
 				runOnUiThread(new Runnable() {
 					public void run() {
 						//new TipRunner().start();
-						DictionaryUtil.init(ArabicReader.this);
+						DictionaryUtil.init(FBReader.this);
 					}
 				});
 			}
@@ -223,7 +223,7 @@ public final class ArabicReader extends ZLAndroidActivity {
 					} else {
 						runOnUiThread(new Runnable() {
 							public void run() {
-								UIUtil.showErrorMessage(ArabicReader.this, "textNotFound");
+								UIUtil.showErrorMessage(FBReader.this, "textNotFound");
 								popup.StartPosition = null;
 							}
 						});
@@ -292,12 +292,12 @@ public final class ArabicReader extends ZLAndroidActivity {
 			switch (manager.requiredAction()) {
 				case Initialize:
 					startActivity(new Intent(
-						TipsActivity.INITIALIZE_ACTION, null, ArabicReader.this, TipsActivity.class
+						TipsActivity.INITIALIZE_ACTION, null, FBReader.this, TipsActivity.class
 					));
 					break;
 				case Show:
 					startActivity(new Intent(
-						TipsActivity.SHOW_TIP_ACTION, null, ArabicReader.this, TipsActivity.class
+						TipsActivity.SHOW_TIP_ACTION, null, FBReader.this, TipsActivity.class
 					));
 					break;
 				case Download:

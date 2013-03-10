@@ -26,7 +26,7 @@ import org.geometerplus.fbreader.fbreader.FBReaderApp;
 abstract class RunActivityAction extends FBAndroidAction {
 	private final Class<?> myActivityClass;
 
-	RunActivityAction(ArabicReader baseActivity, FBReaderApp fbreader, Class<?> activityClass) {
+	RunActivityAction(FBReader baseActivity, FBReaderApp fbreader, Class<?> activityClass) {
 		super(baseActivity, fbreader);
 		myActivityClass = activityClass;
 	}

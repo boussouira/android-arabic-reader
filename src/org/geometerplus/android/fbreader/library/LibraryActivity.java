@@ -242,9 +242,9 @@ public class LibraryActivity extends TreeActivity implements MenuItem.OnMenuItem
 
 	private void openBook(Book book) {
 		startActivity(
-			new Intent(getApplicationContext(), ArabicReader.class)
+			new Intent(getApplicationContext(), FBReader.class)
 				.setAction(Intent.ACTION_VIEW)
-				.putExtra(ArabicReader.BOOK_PATH_KEY, book.File.getPath())
+				.putExtra(FBReader.BOOK_PATH_KEY, book.File.getPath())
 				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 		);
 	}

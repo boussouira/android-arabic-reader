@@ -35,7 +35,7 @@ import org.geometerplus.fbreader.library.Book;
 import org.geometerplus.fbreader.formats.FormatPlugin;
 import org.geometerplus.fbreader.bookmodel.BookReadingException;
 
-import org.geometerplus.android.fbreader.ArabicReader;
+import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.android.fbreader.library.BookInfoActivity;
 import org.geometerplus.android.fbreader.library.SQLiteBooksDatabase;
 
@@ -140,7 +140,7 @@ class EncodingPreference extends ZLStringListPreference {
 			final String value = getValue();
 			if (!value.equalsIgnoreCase(myBook.getEncoding())) {
 				myBook.setEncoding(value);
-				((EditBookInfoActivity)getContext()).setResult(ArabicReader.RESULT_RELOAD_BOOK);
+				((EditBookInfoActivity)getContext()).setResult(FBReader.RESULT_RELOAD_BOOK);
 			}
 		}
 	}
@@ -162,7 +162,7 @@ public class EditBookInfoActivity extends ZLPreferenceActivity {
 		final String path = intent.getStringExtra(BookInfoActivity.CURRENT_BOOK_PATH_KEY);
 		final ZLFile file = ZLFile.createFileByPath(path);
 		myBook = Book.getByFile(file);
-		setResult(ArabicReader.RESULT_REPAINT);
+		setResult(FBReader.RESULT_REPAINT);
 
 		if (myBook == null) {
 			finish();

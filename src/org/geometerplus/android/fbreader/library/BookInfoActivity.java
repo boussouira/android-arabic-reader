@@ -85,7 +85,7 @@ public class BookInfoActivity extends Activity implements MenuItem.OnMenuItemCli
 		}
 		setContentView(R.layout.book_info);
 
-		myResult = ArabicReader.RESULT_DO_NOTHING;
+		myResult = FBReader.RESULT_DO_NOTHING;
 		setResult(myResult, intent);
 	}
 
@@ -325,9 +325,9 @@ public class BookInfoActivity extends Activity implements MenuItem.OnMenuItemCli
 					finish();
 				} else {
 					startActivity(
-						new Intent(getApplicationContext(), ArabicReader.class)
+						new Intent(getApplicationContext(), FBReader.class)
 							.setAction(Intent.ACTION_VIEW)
-							.putExtra(ArabicReader.BOOK_PATH_KEY, myFile.getPath())
+							.putExtra(FBReader.BOOK_PATH_KEY, myFile.getPath())
 							.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 					);
 				}
@@ -349,7 +349,7 @@ public class BookInfoActivity extends Activity implements MenuItem.OnMenuItemCli
 				if (book != null) {
 					book.reloadInfoFromFile();
 					setupBookInfo(book);
-					myResult = Math.max(myResult, ArabicReader.RESULT_RELOAD_BOOK);
+					myResult = Math.max(myResult, FBReader.RESULT_RELOAD_BOOK);
 					setResult(myResult);
 				}
 				return true;

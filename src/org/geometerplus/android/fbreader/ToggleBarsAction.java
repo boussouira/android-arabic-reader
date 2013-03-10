@@ -22,7 +22,7 @@ package org.geometerplus.android.fbreader;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 
 class ToggleBarsAction extends FBAndroidAction {
-	ToggleBarsAction(ArabicReader baseActivity, FBReaderApp fbreader) {
+	ToggleBarsAction(FBReader baseActivity, FBReaderApp fbreader) {
 		super(baseActivity, fbreader);
 	}
 

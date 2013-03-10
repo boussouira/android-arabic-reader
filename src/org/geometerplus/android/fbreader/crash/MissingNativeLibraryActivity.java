@@ -31,7 +31,7 @@ import org.geometerplus.fbreader.Paths;
 
 import net.sourceforge.arabicReader.R;
 
-import org.geometerplus.android.fbreader.ArabicReader;
+import org.geometerplus.android.fbreader.FBReader;
 
 public class MissingNativeLibraryActivity extends Activity {
 	@Override

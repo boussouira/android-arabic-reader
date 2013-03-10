@@ -45,7 +45,7 @@ final class TextSearchPopup extends ButtonsPopupPanel {
 	}
 
 	@Override
-	public void createControlPanel(ArabicReader activity, RelativeLayout root) {
+	public void createControlPanel(FBReader activity, RelativeLayout root) {
 		if (myWindow != null && activity == myWindow.getActivity()) {
 			return;
 		}

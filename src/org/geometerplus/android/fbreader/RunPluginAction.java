@@ -28,7 +28,7 @@ import org.geometerplus.fbreader.fbreader.FBReaderApp;
 class RunPluginAction extends FBAndroidAction {
 	private final Uri myUri;
 
-	RunPluginAction(ArabicReader baseActivity, FBReaderApp fbreader, Uri uri) {
+	RunPluginAction(FBReader baseActivity, FBReaderApp fbreader, Uri uri) {
 		super(baseActivity, fbreader);
 		myUri = uri;
 	}

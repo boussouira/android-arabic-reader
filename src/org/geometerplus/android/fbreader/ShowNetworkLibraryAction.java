@@ -24,7 +24,7 @@ import org.geometerplus.fbreader.fbreader.FBReaderApp;
 import org.geometerplus.android.fbreader.network.NetworkLibraryPrimaryActivity;
 
 class ShowNetworkLibraryAction extends RunActivityAction {
-	ShowNetworkLibraryAction(ArabicReader baseActivity, FBReaderApp fbreader) {
+	ShowNetworkLibraryAction(FBReader baseActivity, FBReaderApp fbreader) {
 		super(baseActivity, fbreader, NetworkLibraryPrimaryActivity.class);
 	}
 }

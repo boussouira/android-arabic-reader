@@ -48,7 +48,7 @@ class SetScreenOrientationAction extends FBAndroidAction {
 
 	private final String myOptionValue;
 
-	SetScreenOrientationAction(ArabicReader baseActivity, FBReaderApp fbreader, String optionValue) {
+	SetScreenOrientationAction(FBReader baseActivity, FBReaderApp fbreader, String optionValue) {
 		super(baseActivity, fbreader);
 		myOptionValue = optionValue;
 	}

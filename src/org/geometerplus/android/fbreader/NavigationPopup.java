@@ -45,7 +45,7 @@ final class NavigationPopup {
 		myFBReader = fbReader;
 	}
 
-	public void runNavigation(ArabicReader activity, RelativeLayout root) {
+	public void runNavigation(FBReader activity, RelativeLayout root) {
 		createControlPanel(activity, root);
 		myStartPosition = new ZLTextWordCursor(myFBReader.getTextView().getStartCursor());
 		myWindow.show();
@@ -71,7 +71,7 @@ final class NavigationPopup {
 		myWindow = null;
 	}
 
-	public void createControlPanel(ArabicReader activity, RelativeLayout root) {
+	public void createControlPanel(FBReader activity, RelativeLayout root) {
 		if (myWindow != null && activity == myWindow.getActivity()) {
 			return;
 		}
