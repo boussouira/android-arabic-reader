@@ -19,7 +19,7 @@
 
 package org.geometerplus.zlibrary.text.view;
 
-import org.geometerplus.android.fbreader.ArabicReader;
+import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.zlibrary.core.util.ZLArabicUtils;
 import org.geometerplus.zlibrary.core.view.ZLPaintContext;
 

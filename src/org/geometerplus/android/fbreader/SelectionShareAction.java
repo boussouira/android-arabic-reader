@@ -26,7 +26,7 @@ import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 
 public class SelectionShareAction extends FBAndroidAction {
-	SelectionShareAction(ArabicReader baseActivity, FBReaderApp fbreader) {
+	SelectionShareAction(FBReader baseActivity, FBReaderApp fbreader) {
 		super(baseActivity, fbreader);
 	}
 

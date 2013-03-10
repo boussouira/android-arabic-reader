@@ -22,7 +22,7 @@ package org.geometerplus.android.fbreader;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 
 public class ShareBookAction extends FBAndroidAction {
-	ShareBookAction(ArabicReader baseActivity, FBReaderApp fbreader) {
+	ShareBookAction(FBReader baseActivity, FBReaderApp fbreader) {
 		super(baseActivity, fbreader);
 	}
 

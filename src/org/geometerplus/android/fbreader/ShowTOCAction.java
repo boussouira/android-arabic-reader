@@ -22,7 +22,7 @@ package org.geometerplus.android.fbreader;
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
 
 class ShowTOCAction extends RunActivityAction {
-	ShowTOCAction(ArabicReader baseActivity, FBReaderApp fbreader) {
+	ShowTOCAction(FBReader baseActivity, FBReaderApp fbreader) {
 		super(baseActivity, fbreader, TOCActivity.class);
 	}
 
