@@ -40,6 +40,7 @@
 		</node>
 		<node name="menu">
 			<node name="localSearch" value="Search"/>
+			<node name="rescan" value="Rescan"/>
 		</node>
 		<node name="openBook" value="Open book"/>
 		<node name="showBookInfo" value="Book info"/>
@@ -281,6 +282,7 @@
 		</node>
 		<node name="appearance" value="Appearance">
 			<node name="summary" value="Display settings, status bar, button lights"/>
+			<node name="language" value="Interface language"/>
 			<node name="screenOrientation" value="Screen orientation">
 				<node name="system" value="System"/>
 				<node name="sensor" value="Device orientation sensitive"/>
@@ -801,6 +803,7 @@
 		<node name="dictionaryIsNotInstalled" value="Dictionary is not installed, sorry"/>
 		<node name="permissionDenied" value="Permission denied, sorry"/>
 		<node name="noFavorites" value="Your favorites list is empty, sorry"/>
+		<node name="noSeries" value="There are no books in series, sorry"/>
 		<node name="emptyCatalog" value="Catalog is empty, sorry"/>
 		<node name="emptyBasket" value="Your basket is empty, sorry"/>
 		<node name="emptyNetworkSearchResults" value="No books found, sorry"/>

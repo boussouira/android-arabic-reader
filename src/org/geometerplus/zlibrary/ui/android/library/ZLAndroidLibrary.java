@@ -43,6 +43,8 @@ import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
 import net.sourceforge.arabicReader.R;
 import org.geometerplus.zlibrary.ui.android.view.ZLAndroidWidget;
 
+import org.geometerplus.android.fbreader.FBReader;
+
 public final class ZLAndroidLibrary extends ZLibrary {
 	public final ZLBooleanOption ShowStatusBarOption = new ZLBooleanOption("LookNFeel", "ShowStatusBar", false);
 	public final ZLBooleanOption ShowActionBarOption = new ZLBooleanOption("LookNFeel", "ShowActionBar", true);
@@ -66,14 +68,14 @@ public final class ZLAndroidLibrary extends ZLibrary {
 		return "GT-S5830".equals(Build.MODEL);
 	}
 
-	private ZLAndroidActivity myActivity;
+	private FBReader myActivity;
 	private final Application myApplication;
 
 	ZLAndroidLibrary(Application application) {
 		myApplication = application;
 	}
 
-	void setActivity(ZLAndroidActivity activity) {
+	public void setActivity(FBReader activity) {
 		myActivity = activity;
 	}
 
@@ -83,12 +85,12 @@ public final class ZLAndroidLibrary extends ZLibrary {
 		}
 	}
 
-	public ZLAndroidActivity getActivity() {
+	public FBReader getActivity() {
 		return myActivity;
 	}
 
 	public ZLAndroidWidget getWidget() {
-		return (ZLAndroidWidget)myActivity.findViewById(R.id.main_view);
+		return myActivity.getMainView();
 	}
 
 	@Override
@@ -179,7 +181,7 @@ public final class ZLAndroidLibrary extends ZLibrary {
 	}
 
 	@Override
-	public Collection<String> defaultLanguageCodes() {
+	public List<String> defaultLanguageCodes() {
 		final TreeSet<String> set = new TreeSet<String>();
 		set.add(Locale.getDefault().getLanguage());
 		final TelephonyManager manager = (TelephonyManager)myApplication.getSystemService(Context.TELEPHONY_SERVICE);
@@ -202,7 +204,7 @@ public final class ZLAndroidLibrary extends ZLibrary {
 			}
 		}
 		set.add("multi");
-		return set;
+		return new ArrayList<String>(set);
 	}
 
 	@Override
@@ -305,7 +307,7 @@ public final class ZLAndroidLibrary extends ZLibrary {
 				return length;
 			} catch (IOException e) {
 				return sizeSlow();
-			} 
+			}
 		}
 
 		private long sizeSlow() {

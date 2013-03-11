@@ -17,7 +17,7 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.fbreader.library;
+package org.geometerplus.fbreader.book;
 
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
@@ -27,83 +27,20 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import org.geometerplus.zlibrary.core.util.ZLMiscUtil;
 import org.geometerplus.zlibrary.core.filesystem.*;
 import org.geometerplus.zlibrary.core.image.ZLImage;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
+import org.geometerplus.zlibrary.core.util.MiscUtil;
 
 import org.geometerplus.zlibrary.text.view.ZLTextPosition;
 
-import org.geometerplus.fbreader.formats.*;
-import org.geometerplus.fbreader.bookmodel.BookReadingException;
-
 import org.geometerplus.fbreader.Paths;
+import org.geometerplus.fbreader.bookmodel.BookReadingException;
+import org.geometerplus.fbreader.formats.*;
+import org.geometerplus.fbreader.sort.TitledEntity;
 
-public class Book {
-	public static Book getById(long bookId) {
-		final Book book = BooksDatabase.Instance().loadBook(bookId);
-		if (book == null) {
-			return null;
-		}
-		book.loadLists();
-
-		final ZLFile bookFile = book.File;
-		final ZLPhysicalFile physicalFile = bookFile.getPhysicalFile();
-		if (physicalFile == null) {
-			return book;
-		}
-		if (!physicalFile.exists()) {
-			return null;
-		}
-
-		FileInfoSet fileInfos = new FileInfoSet(physicalFile);
-		if (fileInfos.check(physicalFile, physicalFile != bookFile)) {
-			return book;
-		}
-		fileInfos.save();
-
-		try {
-			book.readMetaInfo();
-			return book;
-		} catch (BookReadingException e) {
-			return null;
-		}
-	}
-
-	public static Book getByFile(ZLFile bookFile) {
-		if (bookFile == null) {
-			return null;
-		}
-
-		final ZLPhysicalFile physicalFile = bookFile.getPhysicalFile();
-		if (physicalFile != null && !physicalFile.exists()) {
-			return null;
-		}
-
-		final FileInfoSet fileInfos = new FileInfoSet(bookFile);
-
-		Book book = BooksDatabase.Instance().loadBookByFile(fileInfos.getId(bookFile), bookFile);
-		if (book != null) {
-			book.loadLists();
-		}
-
-		if (book != null && fileInfos.check(physicalFile, physicalFile != bookFile)) {
-			return book;
-		}
-		fileInfos.save();
-
-		try {
-			if (book == null) {
-				book = new Book(bookFile);
-			} else {
-				book.readMetaInfo();
-			}
-		} catch (BookReadingException e) {
-			return null;
-		}
-
-		book.save();
-		return book;
-	}
+public class Book extends TitledEntity {
+	public static final String FAVORITE_LABEL = "favorite";
 
 	public final ZLFile File;
 
@@ -111,7 +48,6 @@ public class Book {
 
 	private volatile String myEncoding;
 	private volatile String myLanguage;
-	private volatile String myTitle;
 	private volatile List<Author> myAuthors;
 	private volatile List<Tag> myTags;
 	private volatile SeriesInfo mySeriesInfo;
@@ -122,40 +58,44 @@ public class Book {
 	private WeakReference<ZLImage> myCover;
 
 	Book(long id, ZLFile file, String title, String encoding, String language) {
+		super(title);
 		myId = id;
 		File = file;
-		myTitle = title;
 		myEncoding = encoding;
 		myLanguage = language;
 		myIsSaved = true;
 	}
 
 	Book(ZLFile file) throws BookReadingException {
+		super(null);
 		myId = -1;
 		final FormatPlugin plugin = getPlugin(file);
 		File = plugin.realBookFile(file);
 		readMetaInfo(plugin);
+		myIsSaved = false;
+	}
+
+	public void updateFrom(Book book) {
+		if (myId != book.myId) {
+			return;
+		}
+		setTitle(book.getTitle());
+		myEncoding = book.myEncoding;
+		myLanguage = book.myLanguage;
+		myAuthors = book.myAuthors != null ? new ArrayList<Author>(book.myAuthors) : null;
+		myTags = book.myTags != null ? new ArrayList<Tag>(book.myTags) : null;
+		mySeriesInfo = book.mySeriesInfo;
 	}
 
 	public void reloadInfoFromFile() {
 		try {
 			readMetaInfo();
-			save();
 		} catch (BookReadingException e) {
 			// ignore
 		}
 	}
 
-	public void reloadInfoFromDatabase() {
-		final BooksDatabase database = BooksDatabase.Instance();
-		database.reloadBook(this);
-		myAuthors = database.loadAuthors(myId);
-		myTags = database.loadTags(myId);
-		mySeriesInfo = database.loadSeriesInfo(myId);
-		myIsSaved = true;
-	}
-
-	private FormatPlugin getPlugin(ZLFile file) throws BookReadingException {
+	private static FormatPlugin getPlugin(ZLFile file) throws BookReadingException {
 		final FormatPlugin plugin = PluginCollection.Instance().getPlugin(file);
 		if (plugin == null) {
 			throw new BookReadingException("pluginNotFound", file);
@@ -174,7 +114,7 @@ public class Book {
 	private void readMetaInfo(FormatPlugin plugin) throws BookReadingException {
 		myEncoding = null;
 		myLanguage = null;
-		myTitle = null;
+		setTitle(null);
 		myAuthors = null;
 		myTags = null;
 		mySeriesInfo = null;
@@ -183,24 +123,23 @@ public class Book {
 
 		plugin.readMetaInfo(this);
 
-		if (myTitle == null || myTitle.length() == 0) {
+		if (isTitleEmpty()) {
 			final String fileName = File.getShortName();
 			final int index = fileName.lastIndexOf('.');
 			setTitle(index > 0 ? fileName.substring(0, index) : fileName);
 		}
 		final String demoPathPrefix = Paths.mainBookDirectory() + "/Demos/";
 		if (File.getPath().startsWith(demoPathPrefix)) {
-			final String demoTag = LibraryUtil.resource().getResource("demo").getValue();
+			final String demoTag = ZLResource.resource("library").getResource("demo").getValue();
 			setTitle(getTitle() + " (" + demoTag + ")");
 			addTag(demoTag);
 		}
 	}
 
-	private void loadLists() {
-		final BooksDatabase database = BooksDatabase.Instance();
-		myAuthors = database.loadAuthors(myId);
-		myTags = database.loadTags(myId);
-		mySeriesInfo = database.loadSeriesInfo(myId);
+	void loadLists(BooksDatabase database) {
+		myAuthors = database.listAuthors(myId);
+		myTags = database.listTags(myId);
+		mySeriesInfo = database.getSeriesInfo(myId);
 		myIsSaved = true;
 	}
 
@@ -269,13 +208,9 @@ public class Book {
 		return myId;
 	}
 
-	public String getTitle() {
-		return myTitle;
-	}
-
 	public void setTitle(String title) {
-		if (!ZLMiscUtil.equals(myTitle, title)) {
-			myTitle = title;
+		if (!getTitle().equals(title)) {
+			super.setTitle(title);
 			myIsSaved = false;
 		}
 	}
@@ -284,8 +219,8 @@ public class Book {
 		return mySeriesInfo;
 	}
 
-	void setSeriesInfoWithNoCheck(String name, BigDecimal index) {
-		mySeriesInfo = new SeriesInfo(name, index);
+	void setSeriesInfoWithNoCheck(String name, String index) {
+		mySeriesInfo = SeriesInfo.createSeriesInfo(name, index);
 	}
 
 	public void setSeriesInfo(String name, String index) {
@@ -301,7 +236,7 @@ public class Book {
 		} else if (name == null) {
 			mySeriesInfo = null;
 			myIsSaved = false;
-		} else if (!name.equals(mySeriesInfo.Name) || mySeriesInfo.Index != index) {
+		} else if (!name.equals(mySeriesInfo.Series.getTitle()) || mySeriesInfo.Index != index) {
 			mySeriesInfo = new SeriesInfo(name, index);
 			myIsSaved = false;
 		}
@@ -312,8 +247,9 @@ public class Book {
 	}
 
 	public void setLanguage(String language) {
-		if (!ZLMiscUtil.equals(myLanguage, language)) {
+		if (!MiscUtil.equals(myLanguage, language)) {
 			myLanguage = language;
+			resetSortKey();
 			myIsSaved = false;
 		}
 	}
@@ -336,7 +272,7 @@ public class Book {
 	}
 
 	public void setEncoding(String encoding) {
-		if (!ZLMiscUtil.equals(myEncoding, encoding)) {
+		if (!MiscUtil.equals(myEncoding, encoding)) {
 			myEncoding = encoding;
 			myIsSaved = false;
 		}
@@ -376,46 +312,50 @@ public class Book {
 		addTag(Tag.getTag(null, tagName));
 	}
 
-	boolean matches(String pattern) {
-		if (myTitle != null && ZLMiscUtil.matchesIgnoreCase(myTitle, pattern)) {
+	public boolean matches(String pattern) {
+		if (MiscUtil.matchesIgnoreCase(getTitle(), pattern)) {
 			return true;
 		}
-		if (mySeriesInfo != null && ZLMiscUtil.matchesIgnoreCase(mySeriesInfo.Name, pattern)) {
+		if (mySeriesInfo != null && MiscUtil.matchesIgnoreCase(mySeriesInfo.Series.getTitle(), pattern)) {
 			return true;
 		}
 		if (myAuthors != null) {
 			for (Author author : myAuthors) {
-				if (ZLMiscUtil.matchesIgnoreCase(author.DisplayName, pattern)) {
+				if (MiscUtil.matchesIgnoreCase(author.DisplayName, pattern)) {
 					return true;
 				}
 			}
 		}
 		if (myTags != null) {
 			for (Tag tag : myTags) {
-				if (ZLMiscUtil.matchesIgnoreCase(tag.Name, pattern)) {
+				if (MiscUtil.matchesIgnoreCase(tag.Name, pattern)) {
 					return true;
 				}
 			}
 		}
-		if (ZLMiscUtil.matchesIgnoreCase(File.getLongName(), pattern)) {
+		if (MiscUtil.matchesIgnoreCase(File.getLongName(), pattern)) {
 			return true;
 		}
 		return false;
 	}
 
-	public boolean save() {
-		if (myIsSaved) {
+	boolean save(final BooksDatabase database, boolean force) {
+		if (!force && myId != -1 && myIsSaved) {
 			return false;
 		}
-		final BooksDatabase database = BooksDatabase.Instance();
-		database.executeAsATransaction(new Runnable() {
+
+		database.executeAsTransaction(new Runnable() {
 			public void run() {
 				if (myId >= 0) {
-					final FileInfoSet fileInfos = new FileInfoSet(File);
-					database.updateBookInfo(myId, fileInfos.getId(File), myEncoding, myLanguage, myTitle);
+					final FileInfoSet fileInfos = new FileInfoSet(database, File);
+					database.updateBookInfo(myId, fileInfos.getId(File), myEncoding, myLanguage, getTitle());
 				} else {
-					myId = database.insertBookInfo(File, myEncoding, myLanguage, myTitle);
-					storeAllVisitedHyperinks();
+					myId = database.insertBookInfo(File, myEncoding, myLanguage, getTitle());
+					if (myId != -1 && myVisitedHyperlinks != null) {
+						for (String linkId : myVisitedHyperlinks) {
+							database.addVisitedHyperlink(myId, linkId);
+						}
+					}
 				}
 
 				long index = 0;
@@ -435,52 +375,28 @@ public class Book {
 		return true;
 	}
 
-	public ZLTextPosition getStoredPosition() {
-		return BooksDatabase.Instance().getStoredPosition(myId);
-	}
-
-	public void storePosition(ZLTextPosition position) {
-		if (myId != -1) {
-			BooksDatabase.Instance().storePosition(myId, position);
-		}
-	}
-
 	private Set<String> myVisitedHyperlinks;
-	private void initHyperlinkSet() {
+	private void initHyperlinkSet(BooksDatabase database) {
 		if (myVisitedHyperlinks == null) {
 			myVisitedHyperlinks = new TreeSet<String>();
 			if (myId != -1) {
-				myVisitedHyperlinks.addAll(BooksDatabase.Instance().loadVisitedHyperlinks(myId));
+				myVisitedHyperlinks.addAll(database.loadVisitedHyperlinks(myId));
 			}
 		}
 	}
 
-	public boolean isHyperlinkVisited(String linkId) {
-		initHyperlinkSet();
+	boolean isHyperlinkVisited(BooksDatabase database, String linkId) {
+		initHyperlinkSet(database);
 		return myVisitedHyperlinks.contains(linkId);
 	}
 
-	public void markHyperlinkAsVisited(String linkId) {
-		initHyperlinkSet();
+	void markHyperlinkAsVisited(BooksDatabase database, String linkId) {
+		initHyperlinkSet(database);
 		if (!myVisitedHyperlinks.contains(linkId)) {
 			myVisitedHyperlinks.add(linkId);
 			if (myId != -1) {
-				BooksDatabase.Instance().addVisitedHyperlink(myId, linkId);
+				database.addVisitedHyperlink(myId, linkId);
 			}
-		}
-	}
-
-	private void storeAllVisitedHyperinks() {
-		if (myId != -1 && myVisitedHyperlinks != null) {
-			for (String linkId : myVisitedHyperlinks) {
-				BooksDatabase.Instance().addVisitedHyperlink(myId, linkId);
-			}
-		}
-	}
-
-	public void insertIntoBookList() {
-		if (myId != -1) {
-			BooksDatabase.Instance().insertIntoBookList(myId);
 		}
 	}
 

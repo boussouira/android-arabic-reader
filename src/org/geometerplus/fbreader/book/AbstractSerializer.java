@@ -17,24 +17,12 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.android.fbreader;
+package org.geometerplus.fbreader.book;
 
-import android.content.Intent;
+abstract class AbstractSerializer {
+	public abstract String serialize(Book book);
+	public abstract Book deserializeBook(String xml);
 
-import org.geometerplus.fbreader.fbreader.FBReaderApp;
-
-abstract class RunActivityAction extends FBAndroidAction {
-	private final Class<?> myActivityClass;
-
-	RunActivityAction(FBReader baseActivity, FBReaderApp fbreader, Class<?> activityClass) {
-		super(baseActivity, fbreader);
-		myActivityClass = activityClass;
-	}
-
-	@Override
-	protected void run(Object ... params) {
-		OrientationUtil.startActivity(
-			BaseActivity, new Intent(BaseActivity.getApplicationContext(), myActivityClass)
-		);
-	}
+	public abstract String serialize(Bookmark bookmark);
+	public abstract Bookmark deserializeBookmark(String xml);
 }

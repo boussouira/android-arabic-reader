@@ -17,11 +17,11 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.fbreader.library;
+package org.geometerplus.fbreader.book;
 
 import java.util.*;
 
-import org.geometerplus.zlibrary.core.util.ZLMiscUtil;
+import org.geometerplus.zlibrary.core.util.MiscUtil;
 import org.geometerplus.zlibrary.core.filesystem.*;
 
 public final class FileInfoSet {
@@ -48,7 +48,7 @@ public final class FileInfoSet {
 				return false;
 			}
 			Pair p = (Pair)o;
-			return (myName.equals(p.myName)) && ZLMiscUtil.equals(myParent, p.myParent);
+			return myName.equals(p.myName) && MiscUtil.equals(myParent, p.myParent);
 		}
 	}
 
@@ -60,16 +60,21 @@ public final class FileInfoSet {
 	private final LinkedHashSet<FileInfo> myInfosToSave = new LinkedHashSet<FileInfo>();
 	private final LinkedHashSet<FileInfo> myInfosToRemove = new LinkedHashSet<FileInfo>();
 
-	public FileInfoSet() {
-		load(BooksDatabase.Instance().loadFileInfos());
+	private final BooksDatabase myDatabase;
+
+	public FileInfoSet(BooksDatabase database) {
+		myDatabase = database;
+		load(database.loadFileInfos());
 	}
 
-	public FileInfoSet(ZLFile file) {
-		load(BooksDatabase.Instance().loadFileInfos(file));
+	public FileInfoSet(BooksDatabase database, ZLFile file) {
+		myDatabase = database;
+		load(database.loadFileInfos(file));
 	}
 
-	FileInfoSet(long fileId) {
-		load(BooksDatabase.Instance().loadFileInfos(fileId));
+	FileInfoSet(BooksDatabase database, long fileId) {
+		myDatabase = database;
+		load(database.loadFileInfos(fileId));
 	}
 
 	private void load(Collection<FileInfo> infos) {
@@ -80,16 +85,15 @@ public final class FileInfoSet {
 	}
 
 	public void save() {
-		final BooksDatabase database = BooksDatabase.Instance();
-		database.executeAsATransaction(new Runnable() {
+		myDatabase.executeAsTransaction(new Runnable() {
 			public void run() {
 				for (FileInfo info : myInfosToRemove) {
-					database.removeFileInfo(info.Id);
+					myDatabase.removeFileInfo(info.Id);
 					myInfosByPair.remove(new Pair(info.Name, info.Parent));
 				}
 				myInfosToRemove.clear();
 				for (FileInfo info : myInfosToSave) {
-					database.saveFileInfo(info);
+					myDatabase.saveFileInfo(info);
 				}
 				myInfosToSave.clear();
 			}
@@ -164,7 +168,7 @@ public final class FileInfoSet {
 			save();
 		}
 		return info.Id;
-	}	
+	}
 
 	private ZLFile getFile(FileInfo info) {
 		if (info == null) {

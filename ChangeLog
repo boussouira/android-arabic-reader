@@ -1,3 +1,34 @@
+===== 1.7.4/5 (Mar 11, 2013) =====
+* Book/bookmark deserializer: SAX instead of our own XML parser
+* Georgian localization (by Bookland.ge)
+* Interface language option
+* Book sort order in Library omits leading articles
+* Fixed "screen stays switched on while locked" issue
+
+===== 1.7.3 (Mar 04, 2013) =====
+* Library service does not work in background after program closing
+* We do not obfuscate code
+* Fixed issue in 'Books sorted by title' library catalog: viewing book info does not remove book from the list
+* Fixed issue with large (1000+) bookmarks collection opening
+
+===== 1.7.2 (Feb 22, 2013) =====
+* Restored android:changes attribute for all activities
+* Fixed possible NPE in BookmarksActivity
+
+===== 1.7.1 (Feb 18, 2013) =====
+* Fixed several NPEs
+
+===== 1.7 (Feb 17, 2013) =====
+* Introduced library service; FBReader loads library in background
+* Fixed issue for XHTML files with several body tags (sometimes produced by Calibre)
+* Fixed navigation popup text
+* Fixed NPE in findViewById in the main activity
+* Popup dictionary (https://play.google.com/store/apps/details?id=com.barisatamer.popupdictionary) integration
+* Catalan localization (by Alfonso Montero)
+* Open 'additional links in network library' with correct orientation
+* Some incorrect FB2 files support (li/i/b tags, href attributes with no namespace and with unknown namespace ids) -- e.g. CoolReader manual
+* Fixed 'Book is being downloaded' button behaviour (in Network book info activity)
+
 ===== 1.6.9 (Jan 03, 2013) =====
 * Added Bulgarian translation (by Ники Арсов)
 * Updated Dutch translation (by Frank Fesevur)

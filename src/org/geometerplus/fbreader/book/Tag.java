@@ -17,11 +17,13 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.fbreader.library;
+package org.geometerplus.fbreader.book;
 
 import java.util.HashMap;
 
 public final class Tag {
+	public static final Tag NULL = new Tag(null, "");
+
 	private static final HashMap<Tag,Tag> ourTagSet = new HashMap<Tag,Tag>();
 
 	public static Tag getTag(Tag parent, String name) {
@@ -30,7 +32,7 @@ public final class Tag {
 		}
 		name = name.trim();
 		if (name.length() == 0) {
-			return parent;
+			return parent == null ? Tag.NULL : parent;
 		}
 		Tag tag = new Tag(parent, name);
 		Tag stored = ourTagSet.get(tag);
@@ -58,7 +60,13 @@ public final class Tag {
 	}
 
 	public String toString(String delimiter) {
-		return Parent == null ? Name : Parent.toString(delimiter) + delimiter + Name;
+		return toStringBuilder(delimiter).toString();
+	}
+
+	protected StringBuilder toStringBuilder(String delimiter) {
+		return Parent == null
+			? new StringBuilder(Name)
+			: Parent.toStringBuilder(delimiter).append(delimiter).append(Name);
 	}
 
 	@Override

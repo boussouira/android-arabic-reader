@@ -40,6 +40,7 @@
 		</node>
 		<node name="menu">
 			<node name="localSearch" value="Ara"/>
+			<node name="rescan" value="Rescan" toBeTranslated="true"/>
 		</node>
 		<node name="openBook" value="Oku"/>
 		<node name="showBookInfo" value="Kitabın künyesi"/>
@@ -281,6 +282,7 @@
 		</node>
 		<node name="appearance" value="Görünüm">
 			<node name="summary" value="Ekran ayarları, durum çubuğu, düğme ışıkları"/>
+			<node name="language" value="Interface language" toBeTranslated="true"/>
 			<node name="screenOrientation" value="Ekran döndürme">
 				<node name="system" value="Sistem"/>
 				<node name="sensor" value="Cihaz dönüş hassasiyeti"/>
@@ -801,6 +803,7 @@
 		<node name="dictionaryIsNotInstalled" value="Sözlük kurulamadı"/>
 		<node name="permissionDenied" value="İzin reddedildi"/>
 		<node name="noFavorites" value="Hiç favoriniz yok"/>
+		<node name="noSeries" value="There are no books in series, sorry" toBeTranslated="true"/>
 		<node name="emptyCatalog" value="Katalog boş"/>
 		<node name="emptyBasket" value="Sepetiniz boş"/>
 		<node name="emptyNetworkSearchResults" value="Hiç kitap bulunamadı"/>

@@ -40,6 +40,7 @@
 		</node>
 		<node name="menu">
 			<node name="localSearch" value="Претражи"/>
+			<node name="rescan" value="Rescan" toBeTranslated="true"/>
 		</node>
 		<node name="openBook" value="Отвори књигу"/>
 		<node name="showBookInfo" value="Подаци о књизи"/>
@@ -281,6 +282,7 @@
 		</node>
 		<node name="appearance" value="Изглед">
 			<node name="summary" value="Приказ подешавања, траке стања и осветљења дугмади."/>
+			<node name="language" value="Interface language" toBeTranslated="true"/>
 			<node name="screenOrientation" value="Усмерење екрана">
 				<node name="system" value="Систем"/>
 				<node name="sensor" value="Осетљивост на усмерење"/>
@@ -801,6 +803,7 @@
 		<node name="dictionaryIsNotInstalled" value="Речник није инсталиран."/>
 		<node name="permissionDenied" value="Приступ је одбијен."/>
 		<node name="noFavorites" value="Ваш списак омиљених књига је празан."/>
+		<node name="noSeries" value="There are no books in series, sorry" toBeTranslated="true"/>
 		<node name="emptyCatalog" value="Каталог је празан."/>
 		<node name="emptyBasket" value="Ваша корпа је празна."/>
 		<node name="emptyNetworkSearchResults" value="Нема тражених књига."/>

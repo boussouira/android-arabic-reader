@@ -19,22 +19,34 @@
 
 package org.geometerplus.fbreader.library;
 
-import java.math.BigDecimal;
+import org.geometerplus.fbreader.book.*;
 
-public final class SeriesInfo {
-	public static BigDecimal createIndex(String index) {
-		try {
-			return index != null ? new BigDecimal(index).stripTrailingZeros() : null;
-		} catch (NumberFormatException e) {
-			return null;
-		}
+public class BookWithAuthorsTree extends BookTree {
+	BookWithAuthorsTree(IBookCollection collection, Book book) {
+		super(collection, book);
 	}
 
-	public final String Name;
-	public final BigDecimal Index;
+	BookWithAuthorsTree(LibraryTree parent, Book book) {
+		super(parent, book);
+	}
 
-	public SeriesInfo(String name, BigDecimal index) {
-		Name = name;
-		Index = index;
+	BookWithAuthorsTree(LibraryTree parent, Book book, int position) {
+		super(parent, book, position);
+	}
+
+	@Override
+	public String getSummary() {
+		StringBuilder builder = new StringBuilder();
+		int count = 0;
+		for (Author author : Book.authors()) {
+			if (count++ > 0) {
+				builder.append(",  ");
+			}
+			builder.append(author.DisplayName);
+			if (count == 5) {
+				break;
+			}
+		}
+		return builder.toString();
 	}
 }

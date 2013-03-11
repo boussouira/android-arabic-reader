@@ -73,7 +73,7 @@ class SQLiteNetworkDatabase extends NetworkDatabase {
 		myDatabase.setVersion(currentCodeVersion);
 	}
 
-	protected void executeAsATransaction(Runnable actions) {
+	protected void executeAsTransaction(Runnable actions) {
 		myDatabase.beginTransaction();
 		try {
 			actions.run();
@@ -131,7 +131,7 @@ class SQLiteNetworkDatabase extends NetworkDatabase {
 	private SQLiteStatement myUpdateCustomLinkUrlStatement;
 	@Override
 	protected synchronized void saveLink(final INetworkLink link) {
-		executeAsATransaction(new Runnable() {
+		executeAsTransaction(new Runnable() {
 			public void run() {
 				final SQLiteStatement statement;
 				if (link.getId() == INetworkLink.INVALID_ID) {
@@ -173,7 +173,7 @@ class SQLiteNetworkDatabase extends NetworkDatabase {
 					id = link.getId();
 					statement.bindLong(5, id);
 					statement.execute();
-					
+
 					final Cursor linksCursor = myDatabase.rawQuery("SELECT key,url,mime,update_time FROM LinkUrls WHERE link_id = " + link.getId(), null);
 					while (linksCursor.moveToNext()) {
 						try {
@@ -232,7 +232,7 @@ class SQLiteNetworkDatabase extends NetworkDatabase {
 		if (link.getId() == INetworkLink.INVALID_ID) {
 			return;
 		}
-		executeAsATransaction(new Runnable() {
+		executeAsTransaction(new Runnable() {
 			public void run() {
 				final String stringLinkId = String.valueOf(link.getId());
 				myDatabase.delete("Links", "link_id = ?", new String[] { stringLinkId });
@@ -258,7 +258,7 @@ class SQLiteNetworkDatabase extends NetworkDatabase {
 
 	@Override
 	protected synchronized void setLinkExtras(final INetworkLink link, final Map<String,String> extras) {
-		executeAsATransaction(new Runnable() {
+		executeAsTransaction(new Runnable() {
 			public void run() {
 				if (link.getId() == INetworkLink.INVALID_ID) {
 					return;
@@ -273,7 +273,7 @@ class SQLiteNetworkDatabase extends NetworkDatabase {
 			}
 		});
 	}
-	
+
 	private void createTables() {
 		myDatabase.execSQL(
 			"CREATE TABLE CustomLinks(" +

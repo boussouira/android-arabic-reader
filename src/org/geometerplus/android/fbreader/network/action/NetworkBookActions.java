@@ -72,7 +72,7 @@ public abstract class NetworkBookActions {
 		@Override
 		public boolean isEnabled(NetworkTree tree) {
 			return myId >= 0;
-		} 
+		}
 
 		@Override
 		public String getContextLabel(NetworkTree tree) {
@@ -91,7 +91,7 @@ public abstract class NetworkBookActions {
 			final BookUrlInfo reference = book.reference(UrlInfo.Type.Book);
 			if (reference != null
 					&& connection != null && connection.isBeingDownloaded(reference.Url)) {
-				return R.drawable.ic_list_download;
+				return R.drawable.ic_list_downloading;
 			} else if (book.localCopyFileName() != null) {
 				return R.drawable.ic_list_flag;
 			} else if (reference != null) {

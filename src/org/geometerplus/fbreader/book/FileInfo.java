@@ -17,7 +17,7 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.fbreader.library;
+package org.geometerplus.fbreader.book;
 
 import org.geometerplus.zlibrary.core.tree.ZLTree;
 

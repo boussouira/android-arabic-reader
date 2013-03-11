@@ -17,7 +17,7 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.fbreader.library;
+package org.geometerplus.fbreader.book;
 
 import java.util.*;
 
@@ -26,18 +26,8 @@ import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.text.view.ZLTextPosition;
 
 public abstract class BooksDatabase {
-	private static BooksDatabase ourInstance;
-
-	public static BooksDatabase Instance() {
-		return ourInstance;
-	}
-
-	protected BooksDatabase() {
-		ourInstance = this;
-	}
-
 	protected Book createBook(long id, long fileId, String title, String encoding, String language) {
-		final FileInfoSet infos = new FileInfoSet(fileId);
+		final FileInfoSet infos = new FileInfoSet(this, fileId);
 		return createBook(id, infos.getFile(fileId), title, encoding, language);
 	}
 	protected Book createBook(long id, ZLFile file, String title, String encoding, String language) {
@@ -50,21 +40,21 @@ public abstract class BooksDatabase {
 		book.addTagWithNoCheck(tag);
 	}
 	protected void setSeriesInfo(Book book, String series, String index) {
-		book.setSeriesInfoWithNoCheck(series, SeriesInfo.createIndex(index));
+		book.setSeriesInfoWithNoCheck(series, index);
 	}
 
-	protected abstract void executeAsATransaction(Runnable actions);
+	protected abstract void executeAsTransaction(Runnable actions);
 
 	// returns map fileId -> book
 	protected abstract Map<Long,Book> loadBooks(FileInfoSet infos, boolean existing);
 	protected abstract void setExistingFlag(Collection<Book> books, boolean flag);
 	protected abstract Book loadBook(long bookId);
-	protected abstract void reloadBook(Book book);
 	protected abstract Book loadBookByFile(long fileId, ZLFile file);
 
-	protected abstract List<Author> loadAuthors(long bookId);
-	protected abstract List<Tag> loadTags(long bookId);
-	protected abstract SeriesInfo loadSeriesInfo(long bookId);
+	protected abstract List<Author> listAuthors(long bookId);
+	protected abstract List<Tag> listTags(long bookId);
+	protected abstract SeriesInfo getSeriesInfo(long bookId);
+
 	protected abstract void updateBookInfo(long bookId, long fileId, String encoding, String language, String title);
 	protected abstract long insertBookInfo(ZLFile file, String encoding, String language, String title);
 	protected abstract void deleteAllBookAuthors(long bookId);
@@ -86,25 +76,24 @@ public abstract class BooksDatabase {
 	protected abstract List<Long> loadRecentBookIds();
 	protected abstract void saveRecentBookIds(final List<Long> ids);
 
-	protected abstract List<Long> loadFavoritesIds();
-	protected abstract void addToFavorites(long bookId);
-	protected abstract void removeFromFavorites(long bookId);
+	protected abstract List<Long> loadBooksForLabelIds(String label);
+	protected abstract List<String> labels();
+	protected abstract List<String> labels(long bookId);
+	protected abstract void setLabel(long bookId, String label);
+	protected abstract void removeLabel(long bookId, String label);
 
 	protected Bookmark createBookmark(long id, long bookId, String bookTitle, String text, Date creationDate, Date modificationDate, Date accessDate, int accessCounter, String modelId, int paragraphIndex, int wordIndex, int charIndex, boolean isVisible) {
 		return new Bookmark(id, bookId, bookTitle, text, creationDate, modificationDate, accessDate, accessCounter, modelId, paragraphIndex, wordIndex, charIndex, isVisible);
 	}
 
-	protected abstract List<Bookmark> loadBookmarks(long bookId, boolean isVisible);
-	protected abstract List<Bookmark> loadAllVisibleBookmarks();
+	protected abstract List<Bookmark> loadInvisibleBookmarks(long bookId);
+	protected abstract List<Bookmark> loadVisibleBookmarks(long fromId, int limitCount);
+	protected abstract List<Bookmark> loadVisibleBookmarks(long bookId, long fromId, int limitCount);
 	protected abstract long saveBookmark(Bookmark bookmark);
 	protected abstract void deleteBookmark(Bookmark bookmark);
 
 	protected abstract ZLTextPosition getStoredPosition(long bookId);
 	protected abstract void storePosition(long bookId, ZLTextPosition position);
-
-	protected abstract boolean insertIntoBookList(long bookId);
-	protected abstract boolean deleteFromBookList(long bookId);
-	protected abstract boolean checkBookList(long bookId);
 
 	protected abstract Collection<String> loadVisitedHyperlinks(long bookId);
 	protected abstract void addVisitedHyperlink(long bookId, String hyperlinkId);

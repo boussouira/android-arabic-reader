@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2013 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2007-2013 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,19 +17,10 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.android.fbreader.library;
+package org.geometerplus.fbreader.book;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Process;
-
-public class KillerCallback extends BroadcastReceiver {
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		if (LibraryActivity.ourToBeKilled) {
-			System.err.println("kill");
-			Process.killProcess(Process.myPid());
-		}
-	}
+public enum BookEvent {
+	Added,
+	Updated,
+	Removed
 }
