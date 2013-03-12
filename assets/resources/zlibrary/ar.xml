@@ -61,6 +61,7 @@
 		<node name="hu" value="المجرية" />
 		<node name="id" value="الأندونيسية" />
 		<node name="it" value="الإيطالية" />
+ 		<node name="ka" value="Georgian"/>
 		<node name="lt" value="اللتوانية" />
 		<node name="nl" value="الهولندية" />
 		<node name="no" value="النرويجية" />
@@ -76,6 +77,7 @@
 		<node name="zh" value="الصينية" />
 		<node name="other" value="أخرى" />
 		<node name="multi" value="متعدد اللغات" />
+ 		<node name="system" value="النظام"/>
 	</node>
 	<node name="boolean3">
 		<node name="on" value="تشغيل" />
