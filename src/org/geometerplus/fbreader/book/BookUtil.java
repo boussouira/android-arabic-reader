@@ -57,7 +57,7 @@ public abstract class BookUtil {
 			return file;
 		}
 
-		return ZLResourceFile.createResourceFile("data/help/MiniHelp.en.fb2");
+		return ZLResourceFile.createResourceFile("data/help/MiniHelp.ar.fb2");
 	}
 
 	public static boolean canRemoveBookFile(Book book) {
