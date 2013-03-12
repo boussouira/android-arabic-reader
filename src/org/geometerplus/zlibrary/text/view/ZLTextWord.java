@@ -23,7 +23,7 @@ import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.zlibrary.core.util.ZLArabicUtils;
 import org.geometerplus.zlibrary.core.view.ZLPaintContext;
 
-public final class ZLTextWord extends ZLTextElement { 
+public final class ZLTextWord extends ZLTextElement {
 	public final char[] Data;
 	public final int Offset;
 	public final int Length;
@@ -50,7 +50,7 @@ public final class ZLTextWord extends ZLTextElement {
 			myNext = mark;
 		}
 	}
-	
+
 	public ZLTextWord(char[] data, int offset, int length, int paragraphOffset) {
 		Data = data;
 		Offset = offset;
@@ -98,7 +98,7 @@ public final class ZLTextWord extends ZLTextElement {
 	public int getParagraphOffset() {
 		return myParagraphOffset;
 	}
-	
+
 	public void addMark(int start, int length) {
 		/*
 		int i = 0;
@@ -136,13 +136,13 @@ public final class ZLTextWord extends ZLTextElement {
 			}
 			mark.setNext(existingMark.getNext());
 			existingMark.setNext(mark);
-		}		
+		}
 	}
-	
+
 	public int getWidth(ZLPaintContext context) {
 		int width = myWidth;
 		if (width <= 1) {
-			width = context.getStringWidth(Data, Offset, Length);	
+			width = context.getStringWidth(Data, Offset, Length);
 			myWidth = width;
 		}
 		return width;

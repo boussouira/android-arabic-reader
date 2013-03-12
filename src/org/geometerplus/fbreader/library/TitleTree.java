@@ -19,51 +19,71 @@
 
 package org.geometerplus.fbreader.library;
 
+import org.geometerplus.zlibrary.core.util.MiscUtil;
+
+import org.geometerplus.fbreader.book.*;
+
 public final class TitleTree extends LibraryTree {
-	static String firstTitleLetter(Book book) {
-		if (book == null) {
-			return null;
-		}
-		String title = book.getTitle();
-		if (title == null) {
-			return null;
-		}
-		title = title.trim();
-		if ("".equals(title)) {
-			return null;
-		}
-		for (int i = 0; i < title.length(); ++i) {
-			char letter = title.charAt(i);
-			if (Character.isLetterOrDigit(letter)) {
-				return String.valueOf(Character.toUpperCase(letter));
-			}
-		}
-		return String.valueOf(Character.toUpperCase(title.charAt(0)));
+	public final String Prefix;
+
+	TitleTree(IBookCollection collection, String prefix) {
+		super(collection);
+		Prefix = prefix;
 	}
 
-	public final String Title;
-
-	TitleTree(String title) {
-		Title = title;
-	}
-
-	TitleTree(LibraryTree parent, String title, int position) {
+	TitleTree(LibraryTree parent, String prefix, int position) {
 		super(parent, position);
-		Title = title;
+		Prefix = prefix;
 	}
 
 	@Override
 	public String getName() {
-		return Title;
+		return Prefix;
+	}
+
+	@Override
+	public String getSummary() {
+		return MiscUtil.join(Collection.titlesForTitlePrefix(Prefix, 5), ", ");
 	}
 
 	@Override
 	protected String getStringId() {
-		return "@TitleTree " + getName();
+		return "@PrefixTree " + getName();
 	}
 
 	@Override
 	public boolean containsBook(Book book) {
-		return Title.equals(firstTitleLetter(book));
+		return Prefix.equals(book.firstTitleLetter());
+	}
+
+	@Override
+	public Status getOpeningStatus() {
+		return Status.ALWAYS_RELOAD_BEFORE_OPENING;
+	}
+
+	@Override
+	public void waitForOpening() {
+		clear();
+
+		for (Book b : Collection.booksForTitlePrefix(Prefix)) {
+			createBookWithAuthorsSubTree(b);
+		}
+	}
+
+	@Override
+	public boolean onBookEvent(BookEvent event, Book book) {
+		switch (event) {
+			case Added:
+				return containsBook(book) && createBookWithAuthorsSubTree(book);
+			case Updated:
+			{
+				boolean changed = removeBook(book);
+				changed |= containsBook(book) && createBookWithAuthorsSubTree(book);
+				return changed;
+			}
+			case Removed:
+			default:
+				return super.onBookEvent(event, book);
+		}
 	}
 }

@@ -40,6 +40,7 @@
 		</node>
 		<node name="menu">
 			<node name="localSearch" value="Pesquise"/>
+			<node name="rescan" value="Rescan" toBeTranslated="true"/>
 		</node>
 		<node name="openBook" value="Abra o livro"/>
 		<node name="showBookInfo" value="Informações do livro"/>
@@ -283,6 +284,7 @@
 		</node>
 		<node name="appearance" value="Aparência">
 			<node name="summary" value="Definições do visor, barra de status, luzes das teclas"/>
+			<node name="language" value="Interface language" toBeTranslated="true"/>
 			<node name="screenOrientation" value="Orientação da tela">
 				<node name="system" value="Sistema"/>
 				<node name="sensor" value="Orientação do dispositivo sensível"/>
@@ -803,6 +805,7 @@
 		<node name="dictionaryIsNotInstalled" value="Dicionário não está instalado, desculpe"/>
 		<node name="permissionDenied" value="Permissão negada, desculpe"/>
 		<node name="noFavorites" value="Sua lista de favoritos está vazia, desculpe"/>
+		<node name="noSeries" value="There are no books in series, sorry" toBeTranslated="true"/>
 		<node name="emptyCatalog" value="Catálogo está vazio, desculpe"/>
 		<node name="emptyBasket" value="O seu cesto está vazio, desculpe"/>
 		<node name="emptyNetworkSearchResults" value="Nenhum livro encontrado, desculpe"/>

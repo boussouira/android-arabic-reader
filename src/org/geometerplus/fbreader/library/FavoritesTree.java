@@ -19,23 +19,48 @@
 
 package org.geometerplus.fbreader.library;
 
+import org.geometerplus.fbreader.book.*;
+
 public class FavoritesTree extends FirstLevelTree {
-	FavoritesTree(RootTree root, String id) {
-		super(root, id);
+	FavoritesTree(RootTree root) {
+		super(root, ROOT_FAVORITES);
 	}
 
 	@Override
 	public Status getOpeningStatus() {
-		final Status status = super.getOpeningStatus();
-		if (status == Status.READY_TO_OPEN && !hasChildren()) {
+		if (!Collection.labels().contains(Book.FAVORITE_LABEL)) {
 			return Status.CANNOT_OPEN;
 		}
-		return status;
+		return Status.ALWAYS_RELOAD_BEFORE_OPENING;
 	}
 
 	@Override
 	public String getOpeningStatusMessage() {
 		return getOpeningStatus() == Status.CANNOT_OPEN
 			? "noFavorites" : super.getOpeningStatusMessage();
+	}
+
+	@Override
+	public void waitForOpening() {
+		clear();
+		for (Book book : Collection.booksForLabel(Book.FAVORITE_LABEL)) {
+			createBookWithAuthorsSubTree(book);
+		}
+	}
+
+	public boolean onBookEvent(BookEvent event, Book book) {
+		switch (event) {
+			case Added:
+				return Collection.labels(book).contains(Book.FAVORITE_LABEL) && createBookWithAuthorsSubTree(book);
+			case Updated:
+			{
+				boolean changed = removeBook(book);
+				changed |= Collection.labels(book).contains(Book.FAVORITE_LABEL) && createBookWithAuthorsSubTree(book);
+				return changed;
+			}
+			case Removed:
+			default:
+				return super.onBookEvent(event, book);
+		}
 	}
 }

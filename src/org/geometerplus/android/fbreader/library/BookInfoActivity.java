@@ -39,13 +39,14 @@ import org.geometerplus.zlibrary.core.filesystem.ZLPhysicalFile;
 import org.geometerplus.zlibrary.core.image.ZLImage;
 import org.geometerplus.zlibrary.core.image.ZLLoadableImage;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
+import org.geometerplus.zlibrary.core.language.Language;
 import org.geometerplus.zlibrary.core.language.ZLLanguageUtil;
 
 import net.sourceforge.arabicReader.R;
 import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageData;
 import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageManager;
 
-import org.geometerplus.fbreader.library.*;
+import org.geometerplus.fbreader.book.*;
 import org.geometerplus.fbreader.network.HtmlUtil;
 
 import org.geometerplus.android.fbreader.*;
@@ -54,11 +55,10 @@ import org.geometerplus.android.fbreader.preferences.EditBookInfoActivity;
 public class BookInfoActivity extends Activity {
 	private static final boolean ENABLE_EXTENDED_FILE_INFO = false;
 
-	public static final String CURRENT_BOOK_PATH_KEY = "CurrentBookPath";
-	public static final String FROM_READING_MODE_KEY = "fromReadingMode";
+	public static final String FROM_READING_MODE_KEY = "fbreader.from.reading.mode";
 
 	private final ZLResource myResource = ZLResource.resource("bookInfo");
-	private ZLFile myFile;
+	private Book myBook;
 	private int myResult;
 	private boolean myDontReloadBook;
 
@@ -69,13 +69,8 @@ public class BookInfoActivity extends Activity {
 			new org.geometerplus.zlibrary.ui.android.library.UncaughtExceptionHandler(this)
 		);
 
-		final String path = getIntent().getStringExtra(CURRENT_BOOK_PATH_KEY);
 		myDontReloadBook = getIntent().getBooleanExtra(FROM_READING_MODE_KEY, false);
-		myFile = ZLFile.createFileByPath(path);
-
-		if (SQLiteBooksDatabase.Instance() == null) {
-			new SQLiteBooksDatabase(this, "LIBRARY");
-		}
+		myBook = bookByIntent(getIntent());
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.book_info);
@@ -90,16 +85,14 @@ public class BookInfoActivity extends Activity {
 
 		OrientationUtil.setOrientation(this, getIntent());
 
-		final Book book = Book.getByFile(myFile);
-
-		if (book != null) {
+		if (myBook != null) {
 			// we do force language & encoding detection
-			book.getEncoding();
+			myBook.getEncoding();
 
-			setupCover(book);
-			setupBookInfo(book);
-			setupAnnotation(book);
-			setupFileInfo(book);
+			setupCover(myBook);
+			setupBookInfo(myBook);
+			setupAnnotation(myBook);
+			setupFileInfo(myBook);
 		}
 
 		setupButton(R.id.book_info_button_open, "openBook", new View.OnClickListener() {
@@ -107,12 +100,7 @@ public class BookInfoActivity extends Activity {
 				if (myDontReloadBook) {
 					finish();
 				} else {
-					startActivity(
-						new Intent(getApplicationContext(), FBReader.class)
-							.setAction(Intent.ACTION_VIEW)
-							.putExtra(FBReader.BOOK_PATH_KEY, myFile.getPath())
-							.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-					);
+					FBReader.openBookActivity(BookInfoActivity.this, myBook, null);
 				}
 			}
 		});
@@ -121,19 +109,19 @@ public class BookInfoActivity extends Activity {
 				OrientationUtil.startActivityForResult(
 					BookInfoActivity.this,
 					new Intent(getApplicationContext(), EditBookInfoActivity.class)
-						.putExtra(CURRENT_BOOK_PATH_KEY, myFile.getPath()),
+						.putExtra(FBReader.BOOK_KEY, SerializerUtil.serialize(myBook)),
 					1
 				);
 			}
 		});
 		setupButton(R.id.book_info_button_reload, "reloadInfo", new View.OnClickListener() {
 			public void onClick(View view) {
-				if (book != null) {
-					book.reloadInfoFromFile();
-					setupBookInfo(book);
+				if (myBook != null) {
+					myBook.reloadInfoFromFile();
+					setupBookInfo(myBook);
 					myDontReloadBook = false;
-					myResult = Math.max(myResult, FBReader.RESULT_RELOAD_BOOK);
-					setResult(myResult);
+					myResult = FBReader.RESULT_REPAINT;
+					setResult(myResult, intentByBook(myBook));
 				}
 			}
 		});
@@ -148,16 +136,26 @@ public class BookInfoActivity extends Activity {
 		OrientationUtil.setOrientation(this, intent);
 	}
 
+	public static Intent intentByBook(Book book) {
+		return new Intent().putExtra(FBReader.BOOK_KEY, SerializerUtil.serialize(book));
+	}
+
+	public static Book bookByIntent(Intent intent) {
+		return intent != null ?
+			SerializerUtil.deserializeBook(intent.getStringExtra(FBReader.BOOK_KEY)) : null;
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		final Book book = Book.getByFile(myFile);
+		final Book book = bookByIntent(data);
 		if (book != null) {
+			myBook = book;
 			setupBookInfo(book);
 			myDontReloadBook = false;
 		}
 
-		myResult = Math.max(myResult, resultCode);
-		setResult(myResult);
+		myResult = FBReader.RESULT_REPAINT;
+		setResult(myResult, data);
 	}
 
 	private Button findButton(int buttonId) {
@@ -198,7 +196,7 @@ public class BookInfoActivity extends Activity {
 		coverView.setVisibility(View.GONE);
 		coverView.setImageDrawable(null);
 
-		final ZLImage image = LibraryUtil.getCover(book);
+		final ZLImage image = BookUtil.getCover(book);
 
 		if (image == null) {
 			return;
@@ -243,7 +241,7 @@ public class BookInfoActivity extends Activity {
 		setupInfoPair(R.id.book_authors, "authors", buffer, authors.size());
 
 		final SeriesInfo series = book.getSeriesInfo();
-		setupInfoPair(R.id.book_series, "series", series == null ? null : series.Name);
+		setupInfoPair(R.id.book_series, "series", series == null ? null : series.Series.getTitle());
 		String seriesIndexString = null;
 		if (series != null && series.Index != null) {
 			seriesIndexString = series.Index.toString();
@@ -264,15 +262,15 @@ public class BookInfoActivity extends Activity {
 		setupInfoPair(R.id.book_tags, "tags", buffer, tagNames.size());
 		String language = book.getLanguage();
 		if (!ZLLanguageUtil.languageCodes().contains(language)) {
-			language = ZLLanguageUtil.OTHER_LANGUAGE_CODE;
+			language = Language.OTHER_CODE;
 		}
-		setupInfoPair(R.id.book_language, "language", ZLLanguageUtil.languageName(language));
+		setupInfoPair(R.id.book_language, "language", new Language(language).Name);
 	}
 
 	private void setupAnnotation(Book book) {
 		final TextView titleView = (TextView)findViewById(R.id.book_info_annotation_title);
 		final TextView bodyView = (TextView)findViewById(R.id.book_info_annotation_body);
-		final String annotation = LibraryUtil.getAnnotation(book);
+		final String annotation = BookUtil.getAnnotation(book);
 		if (annotation == null) {
 			titleView.setVisibility(View.GONE);
 			bodyView.setVisibility(View.GONE);

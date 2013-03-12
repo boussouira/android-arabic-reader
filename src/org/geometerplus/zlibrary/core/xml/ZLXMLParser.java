@@ -67,7 +67,7 @@ final class ZLXMLParser {
 		return s;
 	}
 
-	private final InputStreamReader myStreamReader;
+	private final Reader myStreamReader;
 	private final ZLXMLReader myXMLReader;
 	private final boolean myProcessNamespaces;
 
@@ -119,7 +119,15 @@ final class ZLXMLParser {
 		storeString(myEntityName);
 	}
 
-	public ZLXMLParser(ZLXMLReader xmlReader, InputStream stream, int bufferSize) throws IOException {
+	ZLXMLParser(ZLXMLReader xmlReader, Reader reader, int bufferSize) throws IOException {
+		myXMLReader = xmlReader;
+		myProcessNamespaces = xmlReader.processNamespaces();
+		myBuffer = getBuffer(bufferSize);
+		myBufferDescriptionLength = 0;
+		myStreamReader = reader;
+	}
+
+	ZLXMLParser(ZLXMLReader xmlReader, InputStream stream, int bufferSize) throws IOException {
 		myXMLReader = xmlReader;
 		myProcessNamespaces = xmlReader.processNamespaces();
 
@@ -177,7 +185,7 @@ final class ZLXMLParser {
 		return value;
 	}
 
-	private static HashMap<List<String>,HashMap<String,char[]>> ourDTDMaps = 
+	private static HashMap<List<String>,HashMap<String,char[]>> ourDTDMaps =
 		new HashMap<List<String>,HashMap<String,char[]>>();
 
 	static synchronized HashMap<String,char[]> getDTDMap(List<String> dtdList) throws IOException {
@@ -204,7 +212,7 @@ final class ZLXMLParser {
 		final ZLXMLReader xmlReader = myXMLReader;
 		final HashMap<String,char[]> entityMap = getDTDMap(xmlReader.externalDTDs());
 		xmlReader.collectExternalEntities(entityMap);
-		final InputStreamReader streamReader = myStreamReader;
+		final Reader streamReader = myStreamReader;
 		final boolean processNamespaces = myProcessNamespaces;
 		HashMap<String,String> oldNamespaceMap = processNamespaces ? new HashMap<String,String>() : null;
 		HashMap<String,String> currentNamespaceMap = null;

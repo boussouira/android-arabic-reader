@@ -28,7 +28,7 @@ import org.geometerplus.zlibrary.core.encodings.JavaEncodingCollection;
 import org.geometerplus.zlibrary.core.language.ZLLanguageUtil;
 import org.geometerplus.zlibrary.core.util.MimeType;
 
-import org.geometerplus.fbreader.library.Book;
+import org.geometerplus.fbreader.book.Book;
 import org.geometerplus.fbreader.bookmodel.BookModel;
 import org.geometerplus.fbreader.bookmodel.BookReadingException;
 import org.geometerplus.fbreader.formats.JavaFormatPlugin;
@@ -88,7 +88,7 @@ public class MobipocketPlugin extends JavaFormatPlugin {
 								if (index != -1) {
 									author = author.substring(index + 1).trim() +
 											 ' ' +
-											 author.substring(0, index).trim(); 
+											 author.substring(0, index).trim();
 								} else {
 									author = author.trim();
 								}
@@ -228,7 +228,7 @@ public class MobipocketPlugin extends JavaFormatPlugin {
 					return new ZLFileImage(MimeType.IMAGE_AUTO, file, ZLFileImage.ENCODING_NONE, start, len);
 				}
 			}
-			return null; 
+			return null;
 		} catch (IOException e) {
 			return null;
 		} finally {

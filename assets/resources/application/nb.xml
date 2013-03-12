@@ -40,6 +40,7 @@
 		</node>
 		<node name="menu">
 			<node name="localSearch" value="Søk"/>
+			<node name="rescan" value="Rescan" toBeTranslated="true"/>
 		</node>
 		<node name="openBook" value="Åpne book"/>
 		<node name="showBookInfo" value="Bokinformasjon"/>
@@ -281,6 +282,7 @@
 		</node>
 		<node name="appearance" value="Utseende">
 			<node name="summary" value="Visningsinnstillinger, statuslinje, knappelys"/>
+			<node name="language" value="Interface language" toBeTranslated="true"/>
 			<node name="screenOrientation" value="Visningsretning">
 				<node name="system" value="System"/>
 				<node name="sensor" value="Følger retningen til enhet"/>
@@ -801,6 +803,7 @@
 		<node name="dictionaryIsNotInstalled" value="Ordbok er ikke installert, beklager"/>
 		<node name="permissionDenied" value="Mangler tillatelse, beklager"/>
 		<node name="noFavorites" value="Favorittlisten din er tom, beklager"/>
+		<node name="noSeries" value="There are no books in series, sorry" toBeTranslated="true"/>
 		<node name="emptyCatalog" value="Katalogen er tom, beklager"/>
 		<node name="emptyBasket" value="Kurven din er tom, beklager"/>
 		<node name="emptyNetworkSearchResults" value="Ingen bøker ble funnet, beklager"/>

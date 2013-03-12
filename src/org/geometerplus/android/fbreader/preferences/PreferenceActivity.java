@@ -20,11 +20,13 @@
 package org.geometerplus.android.fbreader.preferences;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.KeyEvent;
 
 import org.geometerplus.zlibrary.core.application.ZLKeyBindings;
 import org.geometerplus.zlibrary.core.options.ZLIntegerOption;
 import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
+import org.geometerplus.zlibrary.core.resources.ZLResource;
 
 import org.geometerplus.zlibrary.text.view.style.*;
 
@@ -32,17 +34,34 @@ import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
 import org.geometerplus.zlibrary.ui.android.view.AndroidFontUtil;
 import org.geometerplus.zlibrary.ui.android.view.ZLAndroidPaintContext;
 
-import org.geometerplus.fbreader.fbreader.*;
 import org.geometerplus.fbreader.Paths;
 import org.geometerplus.fbreader.bookmodel.FBTextKind;
+import org.geometerplus.fbreader.fbreader.*;
 import org.geometerplus.fbreader.tips.TipsManager;
 
 import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.android.fbreader.DictionaryUtil;
+import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
 
 public class PreferenceActivity extends ZLPreferenceActivity {
+	private BookCollectionShadow myCollection = new BookCollectionShadow();
+
 	public PreferenceActivity() {
 		super("Preferences");
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+
+		myCollection.bindToService(this, null);
+	}
+
+	@Override
+	protected void onStop() {
+		myCollection.unbind();
+
+		super.onStop();
 	}
 
 	@Override
@@ -54,11 +73,36 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		final ColorProfile profile = fbReader.getColorProfile();
 
 		final Screen directoriesScreen = createPreferenceScreen("directories");
-		directoriesScreen.addOption(Paths.BooksDirectoryOption(), "books");
+		directoriesScreen.addPreference(new ZLStringOptionPreference(
+			this, Paths.BooksDirectoryOption(), directoriesScreen.Resource, "books"
+		) {
+			protected void setValue(String value) {
+				super.setValue(value);
+				myCollection.reset(false);
+			}
+		});
 		directoriesScreen.addOption(Paths.FontsDirectoryOption(), "fonts");
 		directoriesScreen.addOption(Paths.WallpapersDirectoryOption(), "wallpapers");
 
 		final Screen appearanceScreen = createPreferenceScreen("appearance");
+		appearanceScreen.addPreference(new LanguagePreference(
+			this, appearanceScreen.Resource, "language", ZLResource.languages()
+		) {
+			@Override
+			protected void init() {
+				setInitialValue(ZLResource.LanguageOption.getValue());
+			}
+
+			@Override
+			protected void setLanguage(String code) {
+				if (!code.equals(ZLResource.LanguageOption.getValue())) {
+					ZLResource.LanguageOption.setValue(code);
+					startActivity(new Intent(
+						Intent.ACTION_VIEW, Uri.parse("fbreader-action:preferences#appearance")
+					));
+				}
+			}
+		});
 		appearanceScreen.addPreference(new ZLStringChoicePreference(
 			this, appearanceScreen.Resource, "screenOrientation",
 			androidLibrary.OrientationOption, androidLibrary.allOrientations()
@@ -405,20 +449,24 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		scrollingScreen.addOption(scrollingPreferences.HorizontalOption, "horizontal");
 
 		final Screen dictionaryScreen = createPreferenceScreen("dictionary");
-		dictionaryScreen.addPreference(new DictionaryPreference(
-			this,
-			dictionaryScreen.Resource,
-			"dictionary",
-			DictionaryUtil.singleWordTranslatorOption(),
-			DictionaryUtil.dictionaryInfos(this, true)
-		));
-		dictionaryScreen.addPreference(new DictionaryPreference(
-			this,
-			dictionaryScreen.Resource,
-			"translator",
-			DictionaryUtil.multiWordTranslatorOption(),
-			DictionaryUtil.dictionaryInfos(this, false)
-		));
+		try {
+			dictionaryScreen.addPreference(new DictionaryPreference(
+				this,
+				dictionaryScreen.Resource,
+				"dictionary",
+				DictionaryUtil.singleWordTranslatorOption(),
+				DictionaryUtil.dictionaryInfos(this, true)
+			));
+			dictionaryScreen.addPreference(new DictionaryPreference(
+				this,
+				dictionaryScreen.Resource,
+				"translator",
+				DictionaryUtil.multiWordTranslatorOption(),
+				DictionaryUtil.dictionaryInfos(this, false)
+			));
+		} catch (Exception e) {
+			// ignore: dictionary lists are not initialized yet
+		}
 		dictionaryScreen.addPreference(new ZLBooleanPreference(
 			this,
 			fbReader.NavigateAllWordsOption,
