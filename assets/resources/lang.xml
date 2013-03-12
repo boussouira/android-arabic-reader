@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
 	<node name="language-self">
+		<node name="ar" value="العربية" />
 		<node name="be" value="Беларуская"/>
 		<node name="bg" value="Български"/>
 		<node name="ca" value="Català"/>

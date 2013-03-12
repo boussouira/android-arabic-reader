@@ -40,6 +40,7 @@
 		</node>
 		<node name="menu">
 			<node name="localSearch" value="بحث"/>
+ 			<node name="rescan" value="إعادة الفحص"/>
 		</node>
 		<node name="openBook" value="فتح الكتاب"/>
 		<node name="showBookInfo" value="معلومات حول الكتاب"/>
@@ -282,6 +283,7 @@
 		</node>
 		<node name="appearance" value="المظهر">
 			<node name="summary" value="إعدادات العرض، شريط المهام"/>
+ 			<node name="language" value="لغة واجهة البرنامج"/>
 			<node name="screenOrientation" value="اتجاه الشاشة">
 				<node name="system" value="حسب النظام"/>
 				<node name="sensor" value="حسب الجهاز"/>
@@ -802,6 +804,7 @@
 		<node name="dictionaryIsNotInstalled" value="القاموس غير منصب"/>
 		<node name="permissionDenied" value="Permission denied, sorry"/>
 		<node name="noFavorites" value="قائمة الكتب المفضلة لديك فارغة"/>
+ 		<node name="noSeries" value="لا يوجد أي كتاب في هذه السلسة"/>
 		<node name="emptyCatalog" value="Catalog is empty, sorry"/>
 		<node name="emptyBasket" value="Your basket is empty, sorry"/>
 		<node name="emptyNetworkSearchResults" value="لم يتم العثور على الكتاب الذي تبحث عنه"/>
