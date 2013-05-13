@@ -48,6 +48,8 @@
 		<node name="deleteBook" value="حذف الكتاب"/>
 		<node name="addToFavorites" value="اضافة الكتاب للمفضلة"/>
 		<node name="removeFromFavorites" value="حذف من المفضلة"/>
+		<node name="markAsRead" value="Mark as read"/>
+		<node name="markAsUnread" value="Mark as unread"/>
 	</node>
 	<node name="networkLibrary" value="مكتبة الشبكة">
 		<node name="byAuthor" value="حسب المؤلف">
@@ -99,7 +101,6 @@
 		<node name="basket" value="السلة"/>
 		<node name="basketSummaryEmpty" value="لا كتب"/>
 		<node name="basketSummaryCountOnly" value="%0 كتاب">
-			<node condition="value 1" value="%0 كتاب"/>
 			<node condition="value 1" value="%0 كتاب"/>
 		</node>
 		<node name="basketSummary" value="%0 كتاب (%1)">
@@ -220,6 +221,10 @@
 		<node name="forward" value="الامام"/>
 		<node name="close" value="اغلاق البرنامج"/>
 	</node>
+	<node name="highlightingStyleMenu">
+		<node name="style" value="Style %s"/>
+		<node name="deleteBookmark" value="Delete bookmark"/>
+	</node>
 	<node name="selection" value="Selection">
 		<node name="copyToClipboard" value="نسخ الى الحافظ"/>
 		<node name="openInDictionary" value="فتح في القاموس"/>
@@ -311,6 +316,10 @@
 			<node name="disableButtonLights" value="إطفاء ضوء أزرار الهاتف">
 				<node name="summaryOn" value="إطفاء ضوء الأزرار"/>
 				<node name="summaryOff" value="لا تحاول إطفاء ضوء الأزرار"/>
+			</node>
+			<node name="twoColumnView" value="عرض الصفحة في خانتين">
+				<node name="summaryOn" value="عرض النص في خانتين عندما يكون وضع الجهاز أفقي"/>
+				<node name="summaryOff" value="عرض النص دائما في خانة واحدة"/>
 			</node>
 			<node name="allowScreenBrightnessAdjustment" value="تغيير شدة إضاءة الشاشة">
 				<node name="summaryOn" value="عند تحريك الأصبع فوق/أعلى على الجانب الأيسر للشاشة"/>
@@ -544,6 +553,7 @@
 			<node name="right" value="الهامش الأيمن"/>
 			<node name="top" value="الهامش العلوي"/>
 			<node name="bottom" value="الهامش السفلي"/>
+			<node name="spaceBetweenColumns" value="المسافة بين الخانتين"/>
 		</node>
 		<node name="scrollBar" value="شريط تقدم القراءة">
 			<node name="summary" value="شريط التمرير والهامش"/>
@@ -717,6 +727,10 @@
 			<node name="authorize" value="Authorize"/>
 			<node name="resetPosition" value="الصفحة السابقة"/>
 			<node name="sendReport" value="إرسال التقرير"/>
+			<node name="addToFavorites" value="اضافة الى المفضلة"/>
+			<node name="removeFromFavorites" value="حذف من المفضلة"/>
+			<node name="markAsRead" value="Mark as read"/>
+			<node name="markAsUnread" value="Mark as unread"/>
 		</node>
 		<node name="plugin">
 			<node name="installTitle" value="تنصيب الإضافة"/>
@@ -804,7 +818,7 @@
 		<node name="dictionaryIsNotInstalled" value="القاموس غير منصب"/>
 		<node name="permissionDenied" value="Permission denied, sorry"/>
 		<node name="noFavorites" value="قائمة الكتب المفضلة لديك فارغة"/>
- 		<node name="noSeries" value="لا يوجد أي كتاب في هذه السلسة"/>
+		<node name="noSeries" value="لا يوجد أي كتاب في هذه السلسة"/>
 		<node name="emptyCatalog" value="Catalog is empty, sorry"/>
 		<node name="emptyBasket" value="Your basket is empty, sorry"/>
 		<node name="emptyNetworkSearchResults" value="لم يتم العثور على الكتاب الذي تبحث عنه"/>
