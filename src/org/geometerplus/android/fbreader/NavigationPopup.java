@@ -76,7 +76,7 @@ final class NavigationPopup {
 			return;
 		}
 
-		myWindow = new PopupWindow(activity, root, PopupWindow.Type.BottomFlat);
+		myWindow = new PopupWindow(activity, root, PopupWindow.Location.BottomFlat);
 
 		final View layout = activity.getLayoutInflater().inflate(R.layout.navigate, myWindow, false);
 
@@ -119,7 +119,7 @@ final class NavigationPopup {
 				}
 				myFBReader.getViewWidget().reset();
 				myFBReader.getViewWidget().repaint();
-				setupNavigation();
+				update();
 			}
 		});
 		final ZLResource buttonResource = ZLResource.resource("dialog").getResource("button");

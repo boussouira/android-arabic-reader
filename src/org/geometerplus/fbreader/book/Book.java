@@ -22,10 +22,6 @@ package org.geometerplus.fbreader.book;
 import java.lang.ref.WeakReference;
 import java.math.BigDecimal;
 import java.util.*;
-import java.io.InputStream;
-import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import org.geometerplus.zlibrary.core.filesystem.*;
 import org.geometerplus.zlibrary.core.image.ZLImage;
@@ -41,6 +37,7 @@ import org.geometerplus.fbreader.sort.TitledEntity;
 
 public class Book extends TitledEntity {
 	public static final String FAVORITE_LABEL = "favorite";
+	public static final String READ_LABEL = "read";
 
 	public final ZLFile File;
 
@@ -50,7 +47,11 @@ public class Book extends TitledEntity {
 	private volatile String myLanguage;
 	private volatile List<Author> myAuthors;
 	private volatile List<Tag> myTags;
+	private volatile List<String> myLabels;
 	private volatile SeriesInfo mySeriesInfo;
+	private volatile List<UID> myUids;
+
+	public volatile boolean HasBookmark;
 
 	private volatile boolean myIsSaved;
 
@@ -84,7 +85,9 @@ public class Book extends TitledEntity {
 		myLanguage = book.myLanguage;
 		myAuthors = book.myAuthors != null ? new ArrayList<Author>(book.myAuthors) : null;
 		myTags = book.myTags != null ? new ArrayList<Tag>(book.myTags) : null;
+		myLabels = book.myLabels != null ? new ArrayList<String>(book.myLabels) : null;
 		mySeriesInfo = book.mySeriesInfo;
+		HasBookmark = book.HasBookmark;
 	}
 
 	public void reloadInfoFromFile() {
@@ -118,10 +121,14 @@ public class Book extends TitledEntity {
 		myAuthors = null;
 		myTags = null;
 		mySeriesInfo = null;
+		myUids = null;
 
 		myIsSaved = false;
 
 		plugin.readMetaInfo(this);
+		if (myUids == null || myUids.isEmpty()) {
+			plugin.readUids(this);
+		}
 
 		if (isTitleEmpty()) {
 			final String fileName = File.getShortName();
@@ -139,8 +146,21 @@ public class Book extends TitledEntity {
 	void loadLists(BooksDatabase database) {
 		myAuthors = database.listAuthors(myId);
 		myTags = database.listTags(myId);
+		myLabels = database.listLabels(myId);
 		mySeriesInfo = database.getSeriesInfo(myId);
+		myUids = database.listUids(myId);
+		HasBookmark = database.hasVisibleBookmark(myId);
 		myIsSaved = true;
+		if (myUids == null || myUids.isEmpty()) {
+			try {
+				final FormatPlugin plugin = getPlugin();
+				if (plugin != null) {
+					plugin.readUids(this);
+					save(database, false);
+				}
+			} catch (BookReadingException e) {
+			}
+		}
 	}
 
 	public List<Author> authors() {
@@ -312,6 +332,68 @@ public class Book extends TitledEntity {
 		addTag(Tag.getTag(null, tagName));
 	}
 
+	public List<String> labels() {
+		return myLabels != null ? Collections.unmodifiableList(myLabels) : Collections.<String>emptyList();
+	}
+
+	void addLabelWithNoCheck(String label) {
+		if (myLabels == null) {
+			myLabels = new ArrayList<String>();
+		}
+		myLabels.add(label);
+	}
+
+	public void addLabel(String label) {
+		if (myLabels == null) {
+			myLabels = new ArrayList<String>();
+		}
+		if (!myLabels.contains(label)) {
+			myLabels.add(label);
+			myIsSaved = false;
+		}
+	}
+
+	public void removeLabel(String label) {
+		if (myLabels != null && myLabels.remove(label)) {
+			myIsSaved = false;
+		}
+	}
+
+	public List<UID> uids() {
+		return myUids != null ? Collections.unmodifiableList(myUids) : Collections.<UID>emptyList();
+	}
+
+	public void addUid(String type, String id) {
+		addUid(new UID(type, id));
+	}
+
+	void addUidWithNoCheck(UID uid) {
+		if (uid == null) {
+			return;
+		}
+		if (myUids == null) {
+			myUids = new ArrayList<UID>();
+		}
+		myUids.add(uid);
+	}
+
+	public void addUid(UID uid) {
+		if (uid == null) {
+			return;
+		}
+		if (myUids == null) {
+			myUids = new ArrayList<UID>();
+		}
+		if (!myUids.contains(uid)) {
+			myUids.add(uid);
+			myIsSaved = false;
+		}
+	}
+
+	public boolean matchesUid(UID uid) {
+		return myUids.contains(uid);
+	}
+
 	public boolean matches(String pattern) {
 		if (MiscUtil.matchesIgnoreCase(getTitle(), pattern)) {
 			return true;
@@ -367,7 +449,22 @@ public class Book extends TitledEntity {
 				for (Tag tag : tags()) {
 					database.saveBookTagInfo(myId, tag);
 				}
+				final List<String> labelsInDb = database.listLabels(myId);
+				for (String label : labelsInDb) {
+					if (myLabels == null || !myLabels.contains(label)) {
+						database.removeLabel(myId, label);
+					}
+				}
+				if (myLabels != null) {
+					for (String label : myLabels) {
+						database.setLabel(myId, label);
+					}
+				}
 				database.saveBookSeriesInfo(myId, mySeriesInfo);
+				database.deleteAllBookUids(myId);
+				for (UID uid : uids()) {
+					database.saveBookUid(myId, uid);
+				}
 			}
 		});
 
@@ -396,41 +493,6 @@ public class Book extends TitledEntity {
 			myVisitedHyperlinks.add(linkId);
 			if (myId != -1) {
 				database.addVisitedHyperlink(myId, linkId);
-			}
-		}
-	}
-
-	public String getContentHashCode() {
-		InputStream stream = null;
-
-		try {
-			final MessageDigest hash = MessageDigest.getInstance("SHA-256");
-			stream = File.getInputStream();
-
-			final byte[] buffer = new byte[2048];
-			while (true) {
-				final int nread = stream.read(buffer);
-				if (nread == -1) {
-					break;
-				}
-				hash.update(buffer, 0, nread);
-			}
-
-			final Formatter f = new Formatter();
-			for (byte b : hash.digest()) {
-				f.format("%02X", b & 0xFF);
-			}
-			return f.toString();
-		} catch (IOException e) {
-			return null;
-		} catch (NoSuchAlgorithmException e) {
-			return null;
-		} finally {
-			if (stream != null) {
-				try {
-					stream.close();
-				} catch (IOException e) {
-				}
 			}
 		}
 	}
@@ -468,5 +530,15 @@ public class Book extends TitledEntity {
 			return false;
 		}
 		return File.equals(((Book)o).File);
+	}
+
+	@Override
+	public String toString() {
+		return new StringBuilder("Book[")
+			.append(File.getPath())
+			.append(", ")
+			.append(myId)
+			.append("]")
+			.toString();
 	}
 }
