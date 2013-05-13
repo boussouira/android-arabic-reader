@@ -2,8 +2,8 @@
 <manifest
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		package="net.sourceforge.arabicReader"
-		android:versionCode="107061"
-		android:versionName="1.7.6"
+		android:versionCode="108021"
+		android:versionName="1.8.2"
 		android:installLocation="auto"
 >
 	<uses-sdk
@@ -52,7 +52,6 @@
 			<intent-filter>
 				<action android:name="android.fbreader.action.VIEW"/>
 				<category android:name="android.intent.category.DEFAULT"/>
-				<data android:scheme="file"/>
 			</intent-filter>
 			<intent-filter>
 				<action android:name="android.intent.action.VIEW"/>
@@ -108,6 +107,7 @@
 			<meta-data android:name="android.app.searchable" android:resource="@xml/searchable"/>
 		</activity>
 		<activity android:name="org.geometerplus.android.fbreader.CancelActivity" android:theme="@style/FBReader.Dialog" android:configChanges="orientation|keyboardHidden|screenSize"/>
+		<activity android:name="org.geometerplus.android.fbreader.StyleListActivity" android:theme="@style/FBReader.Dialog" android:configChanges="orientation|keyboardHidden|screenSize"/>
 		<activity android:name="org.geometerplus.android.fbreader.image.ImageViewActivity" android:process=":imageView" android:theme="@style/FBReader.Activity" android:configChanges="orientation|keyboardHidden|screenSize"/>
 		<service android:name="org.geometerplus.android.fbreader.libraryService.LibraryService" android:launchMode="singleTask" android:process=":libraryService">
 			<intent-filter>

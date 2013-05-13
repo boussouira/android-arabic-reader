@@ -78,12 +78,12 @@ final class NavigationPopup extends PopupPanel {
 			return;
 		}
 
-		myWindow = new PopupWindow(activity, root, PopupWindow.Location.Bottom, true);
+		myWindow = new PopupWindow(activity, root, PopupWindow.Location.BottomFlat);
 
 		final View layout = activity.getLayoutInflater().inflate(R.layout.navigate, myWindow, false);
 
-		final SeekBar slider = (SeekBar)layout.findViewById(R.id.book_position_slider);
-		final TextView text = (TextView)layout.findViewById(R.id.book_position_text);
+		final SeekBar slider = (SeekBar)layout.findViewById(R.id.navigation_slider);
+		final TextView text = (TextView)layout.findViewById(R.id.navigation_text);
 
 		slider.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			private void gotoPage(int page) {
@@ -97,12 +97,12 @@ final class NavigationPopup extends PopupPanel {
 				getReader().getViewWidget().repaint();
 			}
 
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				myIsInProgress = false;
-			}
-
 			public void onStartTrackingTouch(SeekBar seekBar) {
 				myIsInProgress = true;
+			}
+
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				myIsInProgress = false;
 			}
 
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -141,8 +141,8 @@ final class NavigationPopup extends PopupPanel {
 	}
 
 	private void setupNavigation(PopupWindow panel) {
-		final SeekBar slider = (SeekBar)panel.findViewById(R.id.book_position_slider);
-		final TextView text = (TextView)panel.findViewById(R.id.book_position_text);
+		final SeekBar slider = (SeekBar)panel.findViewById(R.id.navigation_slider);
+		final TextView text = (TextView)panel.findViewById(R.id.navigation_text);
 
 		final ZLTextView textView = getReader().getTextView();
 		final ZLTextView.PagePosition pagePosition = textView.pagePosition();

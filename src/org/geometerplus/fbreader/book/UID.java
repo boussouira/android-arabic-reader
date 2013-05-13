@@ -17,24 +17,31 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.zlibrary.core.util;
+package org.geometerplus.fbreader.book;
 
-public abstract class ZLCharacterUtil {
-	public static boolean isLetter(char ch) {
-		return
-			(('a' <= ch) && (ch <= 'z')) ||
-			(('A' <= ch) && (ch <= 'Z')) ||
-			// ' is "letter" (in French, for example)
-			(ch == '\'') ||
-			// ^ is "letter" (in Esperanto)
-			(ch == '^') ||
-			// latin1
-			((0xC0 <= ch) && (ch <= 0xFF) && (ch != 0xD7) && (ch != 0xF7)) ||
-			// extended latin1
-			((0x100 <= ch) && (ch <= 0x178)) ||
-			// cyrillic
-			((0x410 <= ch) && (ch <= 0x44F)) ||
-			// cyrillic YO & yo
-			(ch == 0x401) || (ch == 0x451);
+public class UID {
+	public final String Type;
+	public final String Id;
+
+	public UID(String type, String id) {
+		Type = type;
+		Id = id.trim();
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (!(o instanceof UID)) {
+			return false;
+		}
+		final UID u = (UID)o;
+		return Type.equals(u.Type) && Id.equals(u.Id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Type.hashCode() + Id.hashCode();
 	}
 }

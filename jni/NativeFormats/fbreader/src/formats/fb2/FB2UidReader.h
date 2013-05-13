@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2013 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2013 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,14 +17,37 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.zlibrary.text.view;
+#ifndef __FB2UIDREADER_H__
+#define __FB2UIDREADER_H__
 
-interface ZLTextAbstractHighlighting {
-	boolean clear();
+#include <string>
 
-	boolean isEmpty();
-	ZLTextPosition getStartPosition();
-	ZLTextPosition getEndPosition();
-	ZLTextElementArea getStartArea(ZLTextPage page);
-	ZLTextElementArea getEndArea(ZLTextPage page);
-}
+#include "FB2Reader.h"
+
+class Book;
+
+class FB2UidReader : public FB2Reader {
+
+public:
+	FB2UidReader(Book &book);
+	bool readUids();
+
+	void startElementHandler(int tag, const char **attributes);
+	void endElementHandler(int tag);
+	void characterDataHandler(const char *text, std::size_t len);
+
+private:
+	Book &myBook;
+
+	bool myReturnCode;
+
+	enum {
+		READ_NOTHING,
+		READ_DOCUMENT_INFO,
+		READ_ID
+	} myReadState;
+
+	std::string myBuffer;
+};
+
+#endif /* __FB2UIDREADER_H__ */

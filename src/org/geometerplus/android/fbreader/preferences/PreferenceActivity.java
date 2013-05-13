@@ -24,14 +24,12 @@ import android.net.Uri;
 import android.view.KeyEvent;
 
 import org.geometerplus.zlibrary.core.application.ZLKeyBindings;
-import org.geometerplus.zlibrary.core.options.ZLIntegerOption;
-import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
+import org.geometerplus.zlibrary.core.options.*;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
 import org.geometerplus.zlibrary.text.view.style.*;
 
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
-import org.geometerplus.zlibrary.ui.android.view.AndroidFontUtil;
 import org.geometerplus.zlibrary.ui.android.view.ZLAndroidPaintContext;
 
 import org.geometerplus.fbreader.Paths;
@@ -39,8 +37,8 @@ import org.geometerplus.fbreader.bookmodel.FBTextKind;
 import org.geometerplus.fbreader.fbreader.*;
 import org.geometerplus.fbreader.tips.TipsManager;
 
-import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.android.fbreader.DictionaryUtil;
+import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
 
 public class PreferenceActivity extends ZLPreferenceActivity {
@@ -90,13 +88,15 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		) {
 			@Override
 			protected void init() {
-				setInitialValue(ZLResource.LanguageOption.getValue());
+				setInitialValue(ZLResource.getLanguageOption().getValue());
 			}
 
 			@Override
 			protected void setLanguage(String code) {
-				if (!code.equals(ZLResource.LanguageOption.getValue())) {
-					ZLResource.LanguageOption.setValue(code);
+				final ZLStringOption languageOption = ZLResource.getLanguageOption();
+				if (!code.equals(languageOption.getValue())) {
+					languageOption.setValue(code);
+					finish();
 					startActivity(new Intent(
 						Intent.ACTION_VIEW, Uri.parse("fbreader-action:preferences#appearance")
 					));
@@ -105,7 +105,13 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		});
 		appearanceScreen.addPreference(new ZLStringChoicePreference(
 			this, appearanceScreen.Resource, "screenOrientation",
-			androidLibrary.OrientationOption, androidLibrary.allOrientations()
+			androidLibrary.getOrientationOption(), androidLibrary.allOrientations()
+		));
+		appearanceScreen.addPreference(new ZLBooleanPreference(
+			this,
+			fbReader.TwoColumnViewOption,
+			appearanceScreen.Resource,
+			"twoColumnView"
 		));
 		appearanceScreen.addPreference(new ZLBooleanPreference(
 			this,
@@ -340,6 +346,10 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		marginsScreen.addPreference(new ZLIntegerRangePreference(
 			this, marginsScreen.Resource.getResource("bottom"),
 			fbReader.BottomMarginOption
+		));
+		marginsScreen.addPreference(new ZLIntegerRangePreference(
+			this, marginsScreen.Resource.getResource("spaceBetweenColumns"),
+			fbReader.SpaceBetweenColumnsOption
 		));
 
 		final Screen statusLineScreen = createPreferenceScreen("scrollBar");

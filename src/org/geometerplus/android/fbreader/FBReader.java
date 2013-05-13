@@ -25,6 +25,7 @@ import java.util.*;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.*;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -61,9 +62,10 @@ public final class FBReader extends Activity {
 	public static final String BOOK_KEY = "fbreader.book";
 	public static final String BOOKMARK_KEY = "fbreader.bookmark";
 
+	static final int ACTION_BAR_COLOR = Color.DKGRAY;
+
 	public static final int REQUEST_PREFERENCES = 1;
-	public static final int REQUEST_BOOK_INFO = 2;
-	public static final int REQUEST_CANCEL_MENU = 3;
+	public static final int REQUEST_CANCEL_MENU = 2;
 
 	public static final int RESULT_DO_NOTHING = RESULT_FIRST_USER;
 	public static final int RESULT_REPAINT = RESULT_FIRST_USER + 1;
@@ -89,6 +91,7 @@ public final class FBReader extends Activity {
 	private ZLAndroidWidget myMainView;
 
 	private int myFullScreenFlag;
+	private String myMenuLanguage;
 
 	private static final String PLUGIN_ACTION_PREFIX = "___";
 	private final List<PluginApi.ActionInfo> myPluginActions =
@@ -242,12 +245,15 @@ public final class FBReader extends Activity {
 		}
 	}
 
- 	@Override
+	@Override
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		final ZLAndroidLibrary zlibrary = (ZLAndroidLibrary)ZLibrary.Instance();
 		if (!zlibrary.isKindleFire() && !zlibrary.ShowStatusBarOption.getValue()) {
 			getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 		}
+
+		setupMenu(menu);
+
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -281,7 +287,7 @@ public final class FBReader extends Activity {
 		if ((intent.getFlags() & Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0) {
 			super.onNewIntent(intent);
 		} else if (Intent.ACTION_VIEW.equals(action)
-					&& data != null && "fbreader-action".equals(data.getScheme())) {
+				   && data != null && "fbreader-action".equals(data.getScheme())) {
 			myFBReaderApp.runAction(data.getEncodedSchemeSpecificPart(), data.getFragment());
 		} else if (Intent.ACTION_VIEW.equals(action) || ACTION_OPEN_BOOK.equals(action)) {
 			getCollection().bindToService(this, new Runnable() {
@@ -346,7 +352,7 @@ public final class FBReader extends Activity {
 			startActivity(new Intent(this, getClass()));
 		}
 
-		SetScreenOrientationAction.setOrientation(this, zlibrary.OrientationOption.getValue());
+		SetScreenOrientationAction.setOrientation(this, zlibrary.getOrientationOption().getValue());
 
 		((PopupPanel)myFBReaderApp.getPopupById(TextSearchPopup.ID)).setPanelInfo(this, myRootView);
 		((PopupPanel)myFBReaderApp.getPopupById(NavigationPopup.ID)).setPanelInfo(this, myRootView);
@@ -508,37 +514,18 @@ public final class FBReader extends Activity {
 
 	private void onPreferencesUpdate(Book book) {
 		AndroidFontUtil.clearFontCache();
-
-		final BookModel model = myFBReaderApp.Model;
-		if (book == null || model == null || model.Book == null) {
-			return;
-		}
-
-		final String newEncoding = book.getEncodingNoDetection();
-		final String oldEncoding = model.Book.getEncodingNoDetection();
-
-		model.Book.updateFrom(book);
-
-		if (newEncoding != null && !newEncoding.equals(oldEncoding)) {
-			myFBReaderApp.reloadBook();
-		} else {
-			ZLTextHyphenator.Instance().load(model.Book.getLanguage());
-			myFBReaderApp.clearTextCaches();
-			myFBReaderApp.getViewWidget().repaint();
-		}
+		myFBReaderApp.onBookUpdated(book);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
 			case REQUEST_PREFERENCES:
-			case REQUEST_BOOK_INFO:
 				if (resultCode != RESULT_DO_NOTHING) {
 					final Book book = BookInfoActivity.bookByIntent(data);
 					if (book != null) {
 						getCollection().bindToService(this, new Runnable() {
 							public void run() {
-								myFBReaderApp.Collection.saveBook(book, true);
 								onPreferencesUpdate(book);
 							}
 						});
@@ -575,9 +562,14 @@ public final class FBReader extends Activity {
 		application.myMainWindow.addMenuItem(menu, actionId, null, null);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
+	private void setupMenu(Menu menu) {
+		final String menuLanguage = ZLResource.getLanguageOption().getValue();
+		if (menuLanguage.equals(myMenuLanguage)) {
+			return;
+		}
+		myMenuLanguage = menuLanguage;
+
+		menu.clear();
 		addMenuItem(menu, ActionCode.SHOW_LIBRARY, R.drawable.ic_menu_library);
 		addMenuItem(menu, ActionCode.SHOW_TOC, R.drawable.ic_menu_toc);
 		addMenuItem(menu, ActionCode.SHOW_BOOKMARKS, R.drawable.ic_menu_bookmarks);
@@ -617,28 +609,15 @@ public final class FBReader extends Activity {
 
 		final ZLAndroidApplication application = (ZLAndroidApplication)getApplication();
 		application.myMainWindow.refresh();
-
-		return true;
 	}
 
-	void addSelectionBookmark() {
-		final FBView fbView = myFBReaderApp.getTextView();
-		final String text = fbView.getSelectedText();
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
 
-		final Bookmark bookmark = new Bookmark(
-			myFBReaderApp.Model.Book,
-			fbView.getModel().getId(),
-			fbView.getSelectionStartPosition(),
-			text,
-			true
-		);
-		myFBReaderApp.Collection.saveBookmark(bookmark);
-		fbView.clearSelection();
+		setupMenu(menu);
 
-		UIUtil.showMessageText(
-			this,
-			ZLResource.resource("selection").getResource("bookmarkCreated").getValue().replace("%s", text)
-		);
+		return true;
 	}
 
 	@Override
@@ -675,8 +654,8 @@ public final class FBReader extends Activity {
 				if (myWakeLockToCreate) {
 					myWakeLockToCreate = false;
 					myWakeLock =
-						((PowerManager)getSystemService(POWER_SERVICE)).
-							newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "FBReader");
+						((PowerManager)getSystemService(POWER_SERVICE))
+							.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, "FBReader");
 					myWakeLock.acquire();
 				}
 			}
