@@ -492,7 +492,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 
 		final ArrayList<ZLTextLineInfo> lineInfos = page.LineInfos;
 		final int[] labels = new int[lineInfos.size() + 1];
-		int x = getLeftMargin();
+		int x = page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth();
 		int y = getTopMargin();
 		int index = 0;
 		for (ZLTextLineInfo info : lineInfos) {
@@ -501,11 +501,11 @@ public abstract class ZLTextView extends ZLTextViewBase {
 			labels[++index] = page.TextElementMap.size();
 			if (index == page.Column0Height) {
 				y = getTopMargin();
-				x += page.getTextWidth() + getSpaceBetweenColumns();
+				x -= page.getTextWidth() + getSpaceBetweenColumns();
 			}
 		}
 
-		x = getLeftMargin();
+		x = page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth();
 		y = getTopMargin();
 		index = 0;
 		for (ZLTextLineInfo info : lineInfos) {
@@ -514,11 +514,11 @@ public abstract class ZLTextView extends ZLTextViewBase {
 			++index;
 			if (index == page.Column0Height) {
 				y = getTopMargin();
-				x += page.getTextWidth() + getSpaceBetweenColumns();
+				x -= page.getTextWidth() + getSpaceBetweenColumns();
 			}
 		}
 
-		x = getLeftMargin();
+		x = page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth();
 		y = getTopMargin();
 		index = 0;
 		for (ZLTextLineInfo info : lineInfos) {
@@ -527,7 +527,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 			++index;
 			if (index == page.Column0Height) {
 				y = getTopMargin();
-				x += page.getTextWidth() + getSpaceBetweenColumns();
+				x -= page.getTextWidth() + getSpaceBetweenColumns();
 			}
 		}
 
@@ -1022,6 +1022,8 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		ZLTextStyle storedStyle = getTextStyle();
 
 		info.LeftIndent = getTextStyle().getLeftIndent();
+		info.RightIndent = getTextStyle().getRightIndent();
+
 		if (isFirstLine) {
 			info.LeftIndent += getTextStyle().getFirstLineIndentDelta();
 		}
@@ -1189,19 +1191,19 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		final boolean endOfParagraph = info.isEndOfParagraph();
 		boolean wordOccurred = false;
 		boolean changeStyle = true;
-		x += info.LeftIndent;
+		x -= info.RightIndent;
 
 		final int maxWidth = page.getTextWidth();
 		switch (getTextStyle().getAlignment()) {
 			case ZLTextAlignmentType.ALIGN_LEFT:
-				x -=  info.Width - getTextStyle().getLeftIndent();
+				x =  info.Width - getTextStyle().getRightIndent();
 				break;
 			case ZLTextAlignmentType.ALIGN_CENTER:
-				x -= (maxWidth - getTextStyle().getRightIndent() - info.Width) / 2;
+				x -= (maxWidth - info.RightIndent - info.Width) / 2;
 				break;
 			case ZLTextAlignmentType.ALIGN_JUSTIFY:
 				if (!endOfParagraph && (paragraphCursor.getElement(info.EndElementIndex) != ZLTextElement.AfterParagraph)) {
-					fullCorrection = maxWidth - getTextStyle().getRightIndent() - info.Width;
+					fullCorrection = maxWidth - info.RightIndent - info.Width;
 				}
 				break;
 			case ZLTextAlignmentType.ALIGN_RIGHT:

@@ -30,8 +30,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.widget.*;
 import android.view.*;
 
+import net.sourceforge.arabicReader.R;
+
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.util.ZLAndroidColorUtil;
 
 import org.geometerplus.fbreader.book.*;

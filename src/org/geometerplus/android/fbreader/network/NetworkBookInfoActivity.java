@@ -39,7 +39,6 @@ import org.geometerplus.zlibrary.core.image.ZLLoadableImage;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.util.MimeType;
 
-import org.geometerplus.zlibrary.ui.android.R;
 import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageData;
 import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageManager;
 import org.geometerplus.zlibrary.ui.android.network.SQLiteCookieDatabase;

@@ -32,6 +32,7 @@ final class ZLTextLineInfo {
 
 	boolean IsVisible;
 	int LeftIndent;
+	int RightIndent;
 	int Width;
 	int Height;
 	int Descent;
