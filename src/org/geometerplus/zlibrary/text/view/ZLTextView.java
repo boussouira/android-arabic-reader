@@ -1022,6 +1022,8 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		ZLTextStyle storedStyle = getTextStyle();
 
 		info.LeftIndent = getTextStyle().getLeftIndent();
+		info.RightIndent = getTextStyle().getRightIndent();
+
 		if (isFirstLine) {
 			info.LeftIndent += getTextStyle().getFirstLineIndentDelta();
 		}
@@ -1189,19 +1191,19 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		final boolean endOfParagraph = info.isEndOfParagraph();
 		boolean wordOccurred = false;
 		boolean changeStyle = true;
-		x -= info.LeftIndent;
+		x -= info.RightIndent;
 
 		final int maxWidth = page.getTextWidth();
 		switch (getTextStyle().getAlignment()) {
 			case ZLTextAlignmentType.ALIGN_LEFT:
-				x =  info.Width - getTextStyle().getLeftIndent();
+				x =  info.Width - getTextStyle().getRightIndent();
 				break;
 			case ZLTextAlignmentType.ALIGN_CENTER:
 				x -= (maxWidth - info.RightIndent - info.Width) / 2;
 				break;
 			case ZLTextAlignmentType.ALIGN_JUSTIFY:
 				if (!endOfParagraph && (paragraphCursor.getElement(info.EndElementIndex) != ZLTextElement.AfterParagraph)) {
-					fullCorrection = maxWidth - getTextStyle().getRightIndent() - info.Width;
+					fullCorrection = maxWidth - info.RightIndent - info.Width;
 				}
 				break;
 			case ZLTextAlignmentType.ALIGN_RIGHT:
@@ -1455,7 +1457,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		myCharWidth = -1;
 	}
 
-	protected synchronized void rebuildPaintInfo() {
+	protected void rebuildPaintInfo() {
 		myPreviousPage.reset();
 		myNextPage.reset();
 		ZLTextParagraphCursorCache.clear();
