@@ -48,8 +48,8 @@
 		<node name="deleteBook" value="حذف الكتاب"/>
 		<node name="addToFavorites" value="اضافة الكتاب للمفضلة"/>
 		<node name="removeFromFavorites" value="حذف من المفضلة"/>
-		<node name="markAsRead" value="Mark as read"/>
-		<node name="markAsUnread" value="Mark as unread"/>
+		<node name="markAsRead" value="تعليم كمقروء"/>
+		<node name="markAsUnread" value="تعليم كغير مقروء"/>
 	</node>
 	<node name="networkLibrary" value="مكتبة الشبكة">
 		<node name="byAuthor" value="حسب المؤلف">
@@ -223,7 +223,7 @@
 	</node>
 	<node name="highlightingStyleMenu">
 		<node name="style" value="Style %s"/>
-		<node name="deleteBookmark" value="Delete bookmark"/>
+		<node name="deleteBookmark" value="حذف العلامة المرجعية"/>
 	</node>
 	<node name="selection" value="Selection">
 		<node name="copyToClipboard" value="نسخ الى الحافظ"/>
@@ -729,8 +729,8 @@
 			<node name="sendReport" value="إرسال التقرير"/>
 			<node name="addToFavorites" value="اضافة الى المفضلة"/>
 			<node name="removeFromFavorites" value="حذف من المفضلة"/>
-			<node name="markAsRead" value="Mark as read"/>
-			<node name="markAsUnread" value="Mark as unread"/>
+			<node name="markAsRead" value="تعليم كمقروء"/>
+			<node name="markAsUnread" value="تعليم كغير مقروء"/>
 		</node>
 		<node name="plugin">
 			<node name="installTitle" value="تنصيب الإضافة"/>
