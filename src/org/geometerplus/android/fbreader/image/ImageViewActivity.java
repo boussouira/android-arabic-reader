@@ -27,9 +27,7 @@ import android.os.Bundle;
 import android.util.FloatMath;
 import android.view.*;
 
-import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.image.*;
-import org.geometerplus.zlibrary.core.util.MimeType;
 import org.geometerplus.zlibrary.core.util.ZLColor;
 
 import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
@@ -65,7 +63,7 @@ public class ImageViewActivity extends Activity {
 		final Intent intent = getIntent();
 
 		myBgColor = new ZLColor(
-			intent.getIntExtra(BACKGROUND_COLOR_KEY, new ZLColor(127, 127, 127).getIntValue())
+			intent.getIntExtra(BACKGROUND_COLOR_KEY, new ZLColor(127, 127, 127).intValue())
 		);
 
 		final Uri uri = intent.getData();

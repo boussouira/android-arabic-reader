@@ -27,11 +27,7 @@ import android.widget.TextView;
 
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
-import org.geometerplus.fbreader.Paths;
-
 import net.sourceforge.arabicReader.R;
-
-import org.geometerplus.android.fbreader.FBReader;
 
 public class MissingNativeLibraryActivity extends Activity {
 	@Override

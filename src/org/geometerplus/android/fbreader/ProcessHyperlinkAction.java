@@ -23,8 +23,6 @@ import android.content.Intent;
 import android.content.ActivityNotFoundException;
 import android.net.Uri;
 
-import org.geometerplus.zlibrary.core.network.ZLNetworkException;
-
 import org.geometerplus.zlibrary.text.view.*;
 
 import org.geometerplus.fbreader.fbreader.FBReaderApp;
@@ -77,7 +75,7 @@ class ProcessHyperlinkAction extends FBAndroidAction {
 					intent.setData(Uri.parse(url));
 					intent.putExtra(
 						ImageViewActivity.BACKGROUND_COLOR_KEY,
-						Reader.ImageViewBackgroundOption.getValue().getIntValue()
+						Reader.ImageViewBackgroundOption.getValue().intValue()
 					);
 					OrientationUtil.startActivity(BaseActivity, intent);
 				} catch (Exception e) {
