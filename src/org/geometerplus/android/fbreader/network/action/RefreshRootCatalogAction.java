@@ -21,14 +21,8 @@ package org.geometerplus.android.fbreader.network.action;
 
 import android.app.Activity;
 
-import org.geometerplus.zlibrary.core.network.ZLNetworkException;
-
 import org.geometerplus.fbreader.network.NetworkTree;
 import org.geometerplus.fbreader.network.NetworkLibrary;
-
-import net.sourceforge.arabicReader.R;
-
-import org.geometerplus.android.util.UIUtil;
 
 public class RefreshRootCatalogAction extends RootAction {
 	public RefreshRootCatalogAction(Activity activity) {

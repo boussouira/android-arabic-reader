@@ -19,6 +19,9 @@
 
 package org.geometerplus.android.fbreader.preferences;
 
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.view.KeyEvent;
@@ -36,6 +39,7 @@ import org.geometerplus.zlibrary.ui.android.view.ZLAndroidPaintContext;
 import org.geometerplus.fbreader.Paths;
 import org.geometerplus.fbreader.bookmodel.FBTextKind;
 import org.geometerplus.fbreader.fbreader.*;
+import org.geometerplus.fbreader.fbreader.options.*;
 import org.geometerplus.fbreader.tips.TipsManager;
 
 import org.geometerplus.android.fbreader.DictionaryUtil;
@@ -70,6 +74,10 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		final FBReaderApp fbReader = (FBReaderApp)FBReaderApp.Instance();
 		final ZLAndroidLibrary androidLibrary = (ZLAndroidLibrary)ZLAndroidLibrary.Instance();
 		final ColorProfile profile = fbReader.getColorProfile();
+		// TODO: use user-defined locale, not the default one,
+		// or set user-defined locale as default
+		final String decimalSeparator =
+			String.valueOf(new DecimalFormatSymbols(Locale.getDefault()).getDecimalSeparator());
 
 		final Screen directoriesScreen = createPreferenceScreen("directories");
 		directoriesScreen.addPreference(new ZLStringOptionPreference(
@@ -177,7 +185,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		final String[] spacings = new String[spaceOption.MaxValue - spaceOption.MinValue + 1];
 		for (int i = 0; i < spacings.length; ++i) {
 			final int val = spaceOption.MinValue + i;
-			spacings[i] = (char)(val / 10 + '0') + "." + (char)(val % 10 + '0');
+			spacings[i] = (char)(val / 10 + '0') + decimalSeparator + (char)(val % 10 + '0');
 		}
 		textScreen.addPreference(new ZLChoicePreference(
 			this, textScreen.Resource, "lineSpacing",
@@ -296,7 +304,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 				for (int j = 1; j < spacingValues.length; ++j) {
 					final int val = 4 + j;
 					spacingValues[j] = 10 * val;
-					spacingKeys[j] = (char)(val / 10 + '0') + "." + (char)(val % 10 + '0');
+					spacingKeys[j] = (char)(val / 10 + '0') + decimalSeparator + (char)(val % 10 + '0');
 				}
 				formatScreen.addPreference(new ZLIntegerChoicePreference(
 					this, textScreen.Resource, "lineSpacing",
@@ -375,19 +383,20 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 			}
 		});
 
+		final FooterOptions footerOptions = fbReader.FooterOptions;
 		footerPreferences.add(statusLineScreen.addPreference(new ZLIntegerRangePreference(
 			this, statusLineScreen.Resource.getResource("footerHeight"),
 			fbReader.FooterHeightOption
 		)));
 		footerPreferences.add(statusLineScreen.addOption(profile.FooterFillOption, "footerColor"));
-		footerPreferences.add(statusLineScreen.addOption(fbReader.FooterShowTOCMarksOption, "tocMarks"));
+		footerPreferences.add(statusLineScreen.addOption(footerOptions.ShowTOCMarks, "tocMarks"));
 
-		footerPreferences.add(statusLineScreen.addOption(fbReader.FooterShowClockOption, "showClock"));
-		footerPreferences.add(statusLineScreen.addOption(fbReader.FooterShowBatteryOption, "showBattery"));
-		footerPreferences.add(statusLineScreen.addOption(fbReader.FooterShowProgressOption, "showProgress"));
+		footerPreferences.add(statusLineScreen.addOption(footerOptions.ShowClock, "showClock"));
+		footerPreferences.add(statusLineScreen.addOption(footerOptions.ShowBattery, "showBattery"));
+		footerPreferences.add(statusLineScreen.addOption(footerOptions.ShowProgress, "showProgress"));
 		footerPreferences.add(statusLineScreen.addPreference(new FontOption(
 			this, statusLineScreen.Resource, "font",
-			fbReader.FooterFontOption, false
+			footerOptions.Font, false
 		)));
 		footerPreferences.setEnabled(
 			fbReader.ScrollbarTypeOption.getValue() == FBView.SCROLLBAR_SHOW_AS_FOOTER
@@ -404,12 +413,12 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		}
 		*/
 
-		final ScrollingPreferences scrollingPreferences = ScrollingPreferences.Instance();
+		final PageTurningOptions pageTurningOptions = fbReader.PageTurningOptions;
 
 		final ZLKeyBindings keyBindings = fbReader.keyBindings();
 
 		final Screen scrollingScreen = createPreferenceScreen("scrolling");
-		scrollingScreen.addOption(scrollingPreferences.FingerScrollingOption, "fingerScrolling");
+		scrollingScreen.addOption(pageTurningOptions.FingerScrolling, "fingerScrolling");
 		scrollingScreen.addOption(fbReader.EnableDoubleTapOption, "enableDoubleTapDetection");
 
 		final ZLPreferenceSet volumeKeysPreferences = new ZLPreferenceSet();
@@ -456,14 +465,14 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		}));
 		volumeKeysPreferences.setEnabled(fbReader.hasActionForKey(KeyEvent.KEYCODE_VOLUME_UP, false));
 
-		scrollingScreen.addOption(scrollingPreferences.AnimationOption, "animation");
+		scrollingScreen.addOption(pageTurningOptions.Animation, "animation");
 		scrollingScreen.addPreference(new AnimationSpeedPreference(
 			this,
 			scrollingScreen.Resource,
 			"animationSpeed",
-			scrollingPreferences.AnimationSpeedOption
+			pageTurningOptions.AnimationSpeed
 		));
-		scrollingScreen.addOption(scrollingPreferences.HorizontalOption, "horizontal");
+		scrollingScreen.addOption(pageTurningOptions.Horizontal, "horizontal");
 
 		final Screen dictionaryScreen = createPreferenceScreen("dictionary");
 		try {
@@ -497,11 +506,12 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		imagesScreen.addOption(fbReader.FitImagesToScreenOption, "fitImagesToScreen");
 		imagesScreen.addOption(fbReader.ImageViewBackgroundOption, "backgroundColor");
 
+		final CancelMenuOptions cancelMenuOptions = fbReader.CancelMenuOptions;
 		final Screen cancelMenuScreen = createPreferenceScreen("cancelMenu");
-		cancelMenuScreen.addOption(fbReader.ShowLibraryInCancelMenuOption, "library");
-		cancelMenuScreen.addOption(fbReader.ShowNetworkLibraryInCancelMenuOption, "networkLibrary");
-		cancelMenuScreen.addOption(fbReader.ShowPreviousBookInCancelMenuOption, "previousBook");
-		cancelMenuScreen.addOption(fbReader.ShowPositionsInCancelMenuOption, "positions");
+		cancelMenuScreen.addOption(cancelMenuOptions.ShowLibraryItem, "library");
+		cancelMenuScreen.addOption(cancelMenuOptions.ShowNetworkLibraryItem, "networkLibrary");
+		cancelMenuScreen.addOption(cancelMenuOptions.ShowPreviousBookItem, "previousBook");
+		cancelMenuScreen.addOption(cancelMenuOptions.ShowPositionItems, "positions");
 		final String[] backKeyActions =
 			{ ActionCode.EXIT, ActionCode.SHOW_CANCEL_MENU };
 		cancelMenuScreen.addPreference(new ZLStringChoicePreference(
