@@ -27,6 +27,7 @@ import org.geometerplus.zlibrary.core.options.*;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.util.MiscUtil;
 import org.geometerplus.zlibrary.core.util.ZLColor;
+import org.geometerplus.zlibrary.core.util.ZLLogUtil;
 
 import org.geometerplus.zlibrary.text.hyphenation.ZLTextHyphenator;
 import org.geometerplus.zlibrary.text.model.ZLTextModel;
@@ -180,6 +181,8 @@ public final class FBReaderApp extends ZLApplication {
 					}
 				}
 			}, postAction);
+			
+			ZLLogUtil.bookOpen(book);
 		}
 	}
 
