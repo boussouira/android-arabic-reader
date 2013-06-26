@@ -38,35 +38,39 @@ public abstract class ColorPreference extends Preference {
 	}
 
 	public abstract String getTitle();
+
 	protected abstract ZLColor getSavedColor();
+
 	protected abstract void saveColor(ZLColor color);
 
 	@Override
 	protected void onBindView(View view) {
 		super.onBindView(view);
 
-		((TextView)view.findViewById(R.id.color_preference_title)).setText(getTitle());
+		((TextView) view.findViewById(R.id.color_preference_title))
+				.setText(getTitle());
 		final ZLColor color = getSavedColor();
 		view.findViewById(R.id.color_preference_widget).setBackgroundColor(
-			color != null ? ZLAndroidColorUtil.rgb(color) : 0
-		);
+				color != null ? ZLAndroidColorUtil.rgb(color) : 0);
 	}
 
 	@Override
 	protected void onClick() {
-		new AmbilWarnaDialog(getContext(), ZLAndroidColorUtil.rgb(getSavedColor()), new AmbilWarnaDialog.OnAmbilWarnaListener() {
-			@Override
-			public void onOk(AmbilWarnaDialog dialog, int color) {
-				if (!callChangeListener(color)) {
-					return;
-				}
-				saveColor(new ZLColor(color));
-				notifyChanged();
-			}
+		new AmbilWarnaDialog(getContext(),
+				ZLAndroidColorUtil.rgb(getSavedColor()),
+				new AmbilWarnaDialog.OnAmbilWarnaListener() {
+					@Override
+					public void onOk(AmbilWarnaDialog dialog, int color) {
+						if (!callChangeListener(color)) {
+							return;
+						}
+						saveColor(new ZLColor(color));
+						notifyChanged();
+					}
 
-			@Override
-			public void onCancel(AmbilWarnaDialog dialog) {
-			}
-		}).show();
+					@Override
+					public void onCancel(AmbilWarnaDialog dialog) {
+					}
+				}).show();
 	}
 }
