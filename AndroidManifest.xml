@@ -2,8 +2,8 @@
 <manifest
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		package="net.sourceforge.arabicReader"
-		android:versionCode="108032"
-		android:versionName="1.8.3"
+		android:versionCode="108034"
+		android:versionName="1.8.4"
 		android:installLocation="auto"
 >
 	<uses-sdk
