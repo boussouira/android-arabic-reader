@@ -35,6 +35,7 @@ import android.widget.TextView;
 
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
 import org.geometerplus.zlibrary.core.library.ZLibrary;
+import org.geometerplus.zlibrary.core.util.ZLAdUtil;
 
 import org.geometerplus.zlibrary.text.view.ZLTextView;
 
@@ -266,6 +267,9 @@ public final class FBReader extends Activity {
 			myFBReaderApp.addAction(ActionCode.SET_SCREEN_ORIENTATION_REVERSE_PORTRAIT, new SetScreenOrientationAction(this, myFBReaderApp, ZLibrary.SCREEN_ORIENTATION_REVERSE_PORTRAIT));
 			myFBReaderApp.addAction(ActionCode.SET_SCREEN_ORIENTATION_REVERSE_LANDSCAPE, new SetScreenOrientationAction(this, myFBReaderApp, ZLibrary.SCREEN_ORIENTATION_REVERSE_LANDSCAPE));
 		}
+
+		ZLAdUtil ad = new ZLAdUtil(this, myRootView);
+		ad.start();
 	}
 
 	public ZLAndroidWidget getMainView() {
