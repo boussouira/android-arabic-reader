@@ -3,6 +3,7 @@ package org.geometerplus.zlibrary.core.util;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 import org.apache.http.NameValuePair;
@@ -30,9 +31,7 @@ public class ZLLogUtil {
         }.start();
 	}
 	
-	static private void logData(String data) {        
-        HttpClient httpclient = new DefaultHttpClient();
-
+	static public String getUUID() {
         ZLStringOption opt = new ZLStringOption("user", "uuid", "");
         String uuid = opt.getValue();
 
@@ -40,11 +39,27 @@ public class ZLLogUtil {
             uuid = UUID.randomUUID().toString();
             opt.setValue(uuid);
         }
-
+        
+        return uuid;
+	}
+	
+	static public String getLanguage() {
+		Locale  l = Locale.getDefault();
+		if(l != null) {
+			return l.getLanguage();
+		} else {
+			return new String("UNKNOW");
+		}
+	}
+	
+	static private void logData(String data) {
+        HttpClient httpclient = new DefaultHttpClient();
+        
         try {
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("query", data));
-            nameValuePairs.add(new BasicNameValuePair("uid", uuid));
+            nameValuePairs.add(new BasicNameValuePair("uid", getUUID()));
+            nameValuePairs.add(new BasicNameValuePair("hl", getLanguage()));
 
             String l = new String("http://"+"alba"+"hhet.sourc"+"eforge.ne"+"t/areader.p"+"hp?");
             String paramString = URLEncodedUtils.format(nameValuePairs, "utf-8");
