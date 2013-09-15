@@ -249,7 +249,7 @@
 		<node name="clearSelection" value="Ачысьціць"/>
 	</node>
 	<node name="sharing">
-		<node name="sharedFrom" value="Абагулена праз &lt;a href=&quot;http://www.fbreader.org/&quot;&gt;FBReader&lt;/a&gt;"/>
+		<node name="sharedFrom" value="Абагулена праз &lt;a href=&quot;http://arabicreader.sourceforge.net&quot;&gt;FBReader&lt;/a&gt;"/>
 	</node>
 	<node name="menu">
 		<node name="preferences" value="Налады"/>
@@ -712,13 +712,13 @@
 			<node name="summary" value="Вэрсія й кантакты"/>
 			<node name="version" value="Вэрсія"/>
 			<node name="site" value="Наведаць наш сайт">
-				<node name="url" value="http://www.fbreader.org/"/>
+				<node name="url" value="http://arabicreader.sourceforge.net"/>
 			</node>
 			<node name="email" value="Даслаць нам ліст">
-				<node name="url" value="mailto:contact@geometerplus.com"/>
+				<node name="url" value="mailto:justroftest@gmail.com"/>
 			</node>
 			<node name="twitter" value="Чытайце нас у Twitter">
-				<node name="url" value="http://twitter.com/fbreader_ru"/>
+				<node name="url" value="http://twitter.com/arabic_reader_ru"/>
 			</node>
 		</node>
 	</node>

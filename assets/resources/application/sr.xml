@@ -243,7 +243,7 @@
 		<node name="clearSelection" value="Очисти"/>
 	</node>
 	<node name="sharing">
-		<node name="sharedFrom" value="Поделио &lt;a href=&quot;http://www.fbreader.org/&quot;&gt;FBReader&lt;/a&gt;."/>
+		<node name="sharedFrom" value="Поделио &lt;a href=&quot;http://arabicreader.sourceforge.net&quot;&gt;FBReader&lt;/a&gt;."/>
 	</node>
 	<node name="menu">
 		<node name="preferences" value="Подешавања"/>
@@ -706,13 +706,13 @@
 			<node name="summary" value="Подаци о верзији и контакт."/>
 			<node name="version" value="Верзија"/>
 			<node name="site" value="Посетите наш сајт">
-				<node name="url" value="http://www.fbreader.org/"/>
+				<node name="url" value="http://arabicreader.sourceforge.net"/>
 			</node>
 			<node name="email" value="Пошаљите нам поруку">
-				<node name="url" value="mailto:contact@geometerplus.com"/>
+				<node name="url" value="mailto:justroftest@gmail.com"/>
 			</node>
 			<node name="twitter" value="Пратите нас на Твитеру">
-				<node name="url" value="http://twitter.com/fbreader"/>
+				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
 		</node>
 	</node>

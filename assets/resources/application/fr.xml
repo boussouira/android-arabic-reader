@@ -236,7 +236,7 @@
 		<node name="clearSelection" value="Effacer"/>
 	</node>
 	<node name="sharing">
-		<node name="sharedFrom" value="Partagé depuis l'application &lt;a href=&quot;http://www.fbreader.org/&quot;&gt;FBReader&lt;/a&gt; pour Android"/>
+		<node name="sharedFrom" value="Partagé depuis l'application &lt;a href=&quot;http://arabicreader.sourceforge.net&quot;&gt;FBReader&lt;/a&gt; pour Android"/>
 	</node>
 	<node name="menu">
 		<node name="preferences" value="Paramètres"/>
@@ -699,10 +699,10 @@
 			<node name="summary" value="Numéro de version, contact"/>
 			<node name="version" value="Version"/>
 			<node name="site" value="Site web">
-				<node name="url" value="http://github.com/boussouira/android-arabic-reader"/>
+				<node name="url" value="http://arabicreader.sourceforge.net"/>
 			</node>
 			<node name="email" value="Contact">
-				<node name="url" value="mailto:contact@geometerplus.com"/>
+				<node name="url" value="mailto:justroftest@gmail.com"/>
 			</node>
 			<node name="twitter" value="Suivez nous sur twitter !">
 				<node name="url" value="http://twitter.com/arabic_reader"/>

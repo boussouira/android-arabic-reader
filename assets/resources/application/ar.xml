@@ -234,7 +234,7 @@
 		<node name="clearSelection" value="مسح"/>
 	</node>
 	<node name="sharing">
-		<node name="sharedFrom" value="Shared from &lt;a href=&quot;http://www.fbreader.org/&quot;&gt;FBReader&lt;/a&gt;"/>
+		<node name="sharedFrom" value="Shared from &lt;a href=&quot;http://arabicreader.sourceforge.net&quot;&gt;FBReader&lt;/a&gt;"/>
 	</node>
 	<node name="menu">
 		<node name="preferences" value="اعدادات"/>
@@ -697,7 +697,7 @@
 			<node name="summary" value="رقم الإصدار، راسلنا"/>
 			<node name="version" value="الإصدار"/>
 			<node name="site" value="موقع البرنامج">
-				<node name="url" value="http://github.com/boussouira/android-arabic-reader"/>
+				<node name="url" value="http://arabicreader.sourceforge.net"/>
 			</node>
 			<node name="email" value="راسلنا عبر البريد الإلكتروني">
 				<node name="url" value="mailto:justroftest@gmail.com"/>

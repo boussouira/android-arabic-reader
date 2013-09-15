@@ -233,7 +233,7 @@
 		<node name="clearSelection" value="清除"/>
 	</node>
 	<node name="sharing">
-		<node name="sharedFrom" value="共享自 &lt;a href=&quot;http://www.fbreader.org/&quot;&gt;FBReader&lt;/a&gt; "/>
+		<node name="sharedFrom" value="共享自 &lt;a href=&quot;http://arabicreader.sourceforge.net&quot;&gt;FBReader&lt;/a&gt; "/>
 	</node>
 	<node name="menu">
 		<node name="preferences" value="阅读相关设置"/>
@@ -696,13 +696,13 @@
 			<node name="summary" value="版本信息, 联系人"/>
 			<node name="version" value="版本"/>
 			<node name="site" value="访问我们的网站">
-				<node name="url" value="http://www.fbreader.org/"/>
+				<node name="url" value="http://arabicreader.sourceforge.net"/>
 			</node>
 			<node name="email" value="给我们发送邮件">
-				<node name="url" value="mailto:contact@geometerplus.com"/>
+				<node name="url" value="mailto:justroftest@gmail.com"/>
 			</node>
 			<node name="twitter" value="关注我们的twitter">
-				<node name="url" value="http://twitter.com/fbreader"/>
+				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
 		</node>
 	</node>
