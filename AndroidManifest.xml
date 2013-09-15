@@ -2,7 +2,7 @@
 <manifest
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		package="net.sourceforge.arabicReader"
-		android:versionCode="108061"
+		android:versionCode="108062"
 		android:versionName="1.8.6"
 		android:installLocation="auto"
 >
