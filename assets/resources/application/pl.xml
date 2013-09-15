@@ -233,7 +233,7 @@
 		<node name="clearSelection" value="Wyczyść"/>
 	</node>
 	<node name="sharing">
-		<node name="sharedFrom" value="Shared from &lt;a href=&quot;http://www.fbreader.org/&quot;&gt;FBReader&lt;/a&gt;" toBeTranslated="true"/>
+		<node name="sharedFrom" value="Shared from &lt;a href=&quot;http://arabicreader.sourceforge.net&quot;&gt;FBReader&lt;/a&gt;" toBeTranslated="true"/>
 	</node>
 	<node name="menu">
 		<node name="preferences" value="Ustawienia"/>
@@ -696,13 +696,13 @@
 			<node name="summary" value="Version info, contacts" toBeTranslated="true"/>
 			<node name="version" value="Version" toBeTranslated="true"/>
 			<node name="site" value="Visit our website" toBeTranslated="true">
-				<node name="url" value="http://www.fbreader.org/"/>
+				<node name="url" value="http://arabicreader.sourceforge.net"/>
 			</node>
 			<node name="email" value="Send us an e-mail" toBeTranslated="true">
-				<node name="url" value="mailto:contact@geometerplus.com" toBeTranslated="true"/>
+				<node name="url" value="mailto:justroftest@gmail.com" toBeTranslated="true"/>
 			</node>
 			<node name="twitter" value="Follow us at twitter" toBeTranslated="true">
-				<node name="url" value="http://twitter.com/fbreader"/>
+				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
 		</node>
 	</node>

@@ -243,7 +243,7 @@
 		<node name="clearSelection" value="Tøm"/>
 	</node>
 	<node name="sharing">
-		<node name="sharedFrom" value="Delt fra &lt;a href=&quot;http://www.fbreader.org/&quot;&gt;FBReader&lt;/a&gt;"/>
+		<node name="sharedFrom" value="Delt fra &lt;a href=&quot;http://arabicreader.sourceforge.net&quot;&gt;FBReader&lt;/a&gt;"/>
 	</node>
 	<node name="menu">
 		<node name="preferences" value="Innstillinger"/>
@@ -706,13 +706,13 @@
 			<node name="summary" value="Versjonsinfo, kontakter"/>
 			<node name="version" value="Versjon"/>
 			<node name="site" value="Besøk nettstedet vårt">
-				<node name="url" value="http://www.fbreader.org/"/>
+				<node name="url" value="http://arabicreader.sourceforge.net"/>
 			</node>
 			<node name="email" value="Send oss en e-post">
-				<node name="url" value="mailto:contact@geometerplus.com"/>
+				<node name="url" value="mailto:justroftest@gmail.com"/>
 			</node>
 			<node name="twitter" value="Følg oss på Twitter">
-				<node name="url" value="http://twitter.com/fbreader"/>
+				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
 		</node>
 	</node>
