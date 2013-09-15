@@ -57,6 +57,7 @@ public class ZLAdUtil {
 	public class AdMessage {
 		public String id;
 		public String text;
+		public String title;
 		public String link;
 		public boolean cancelable;
 
@@ -185,6 +186,9 @@ public class ZLAdUtil {
 				AlertDialog.Builder builder = new AlertDialog.Builder(m_parentActivity);
 				builder.setMessage(m_config.message.text);
 				builder.setCancelable(m_config.message.cancelable);
+
+				if(m_config.message.title != null && m_config.message.title.length() > 0)
+					builder.setTitle(m_config.message.title);
 
 				if (m_config.message.firstButton != null) {
 					builder.setPositiveButton(m_config.message.firstButton.text, new DialogInterface.OnClickListener() {
@@ -320,6 +324,9 @@ public class ZLAdUtil {
 
 				if (message.has("text"))
 					config.message.text = message.getString("text");
+
+				if (message.has("title"))
+					config.message.title = message.getString("title");
 
 				if (message.has("link"))
 					config.message.link = message.getString("link");
