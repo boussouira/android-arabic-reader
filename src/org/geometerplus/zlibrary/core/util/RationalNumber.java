@@ -17,9 +17,14 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.zlibrary.core.image;
+package org.geometerplus.zlibrary.core.util;
 
-public interface ZLImage {
-	String getURI();
-	boolean saveToFile(String url);
+public class RationalNumber {
+	public final long Numerator;
+	public final long Denominator;
+	
+	public RationalNumber(long numerator, long denominator) {
+		Numerator = numerator;
+		Denominator = denominator;
+	}
 }
