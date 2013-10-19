@@ -72,6 +72,9 @@
 		<node name="found" value="ნაპოვნია">
 			<node name="summary" value="ძებნის შედეგები %s-სთვის"/>
 		</node>
+		<node name="recent" value="Recent catalogs" toBeTranslated="true">
+			<node name="summary" value="Catalogs you visited recently" toBeTranslated="true"/>
+		</node>
 		<node name="openCatalog" value="კატალოგის გახსნა"/>
 		<node name="networkSearch" value="ძებნა"/>
 		<node name="showResults" value="შედეგების ჩვენება"/>
@@ -118,6 +121,7 @@
 		<node name="removeCustomCatalog" value="კატალოგის წაშლა"/>
 		<node name="addCustomCatalog" value="კატალოგის დამატება"/>
 		<node name="addCustomCatalogSummary" value="OPDS კატალოგის დამატება ხელით"/>
+		<node name="disableCatalog" value="Disable catalog" toBeTranslated="true"/>
 		<node name="confirmQuestions">
 			<node name="read" value="გნებავთ ლოკალური ასლის გახსნა?"/>
 			<node name="download" value="გნებავთ ამ წიგნის გადმოწერა?"/>
@@ -134,7 +138,13 @@
 			<node name="title" value="კატალოგის დამატება"/>
 			<node name="editUrl" value="Url მისამართის ხელით შეყვანა"/>
 		</node>
+		<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true">
+			<node name="summary" value="Configure your catalogs list" toBeTranslated="true"/>
+			<node name="enabled" value="Enabled" toBeTranslated="true"/>
+			<node name="disabled" value="Disabled" toBeTranslated="true"/>
+		</node>
 		<node name="menu">
+			<node name="openRoot" value="Root catalog" toBeTranslated="true"/>
 			<node name="networkSearch" value="ქსელში ძებნა"/>
 			<node name="reload" value="განახლება"/>
 			<node name="signIn" value="შესვლა"/>
@@ -143,7 +153,7 @@
 			<node name="topup" value="ანგარიშის შევსება"/>
 			<node name="addCustomCatalog" value="კატალოგის დამატება"/>
 			<node name="refreshCatalogsList" value="კატალოგის განახლება"/>
-			<node name="languages" value="ენების მიხედვით გაფილტვრა"/>
+			<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true"/>
 			<node name="clearBasket" value="კალათის გასუფთავება"/>
 			<node name="buyAllBooks" value="ყველა წიგნის ყიდვა"/>
 		</node>
@@ -248,7 +258,7 @@
 		<node name="clearSelection" value="ნიშნულის მოხსნა"/>
 	</node>
 	<node name="sharing">
-		<node name="sharedFrom" value="გამოგზავნილია &lt;a href=&quot;http://www.fbreader.ru/&quot;&gt;FBReader&lt;/a&gt;-დან"/>
+		<node name="sharedFrom" value="გამოგზავნილია &lt;a href=&quot;http://fbreader.ru/&quot;&gt;FBReader&lt;/a&gt;-დან"/>
 	</node>
 	<node name="menu">
 		<node name="preferences" value="პარამეტრები"/>
@@ -283,6 +293,7 @@
 		<node name="decreaseFont" value="შრიფტის შემცირება"/>
 		<node name="toggleFullscreen" value="მთლიან ეკრანზე"/>
 		<node name="bookmarks" value="სანიშნეები"/>
+		<node name="help" value="Help" toBeTranslated="true"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="ფაილი"/>
@@ -645,6 +656,9 @@
 			<node name="summary" value="ლექსიკონის პარამეტრები"/>
 			<node name="dictionary" value="ლექსიკონი"/>
 			<node name="translator" value="თარჯიმანი"/>
+			<node name="targetLanguage" value="Translate to" toBeTranslated="true">
+				<node name="any" value="all languages" toBeTranslated="true"/>
+			</node>
 			<node name="tappingAction" value="ეკრანზე ხანგრძლივი დაჭერის ქმედება">
 				<node name="doNothing" value="არაფრის გაკეთება"/>
 				<node name="selectSingleWord" value="ერთი სიტყვის გამოყოფა"/>
@@ -711,7 +725,7 @@
 			<node name="summary" value="ვერსია, კონტაქტები"/>
 			<node name="version" value="ვერსია"/>
 			<node name="site" value="ჩვენი ვებ-გვერდი">
-				<node name="url" value="http://www.fbreader.ru/"/>
+				<node name="url" value="http://fbreader.ru/"/>
 			</node>
 			<node name="email" value="მოგვწერეთ წერილი">
 				<node name="url" value="mailto:justroftest@gmail.com"/>
@@ -870,5 +884,8 @@
 		<node name="opfFileNotFound" value="არ მოიძებნა OPF %s-ში"/>
 		<node name="unsupportedFileFormat" value="'%s' ფაილის ფორმატი არ არის მხარდაჭერილი"/>
 		<node name="errorParsingRtf" value="შეცდომა RTF-ფაილის %s კითხვისას"/>
+	</node>
+	<node name="links">
+		<node name="faqPage" value="http://fbreader.org/faq-page"/>
 	</node>
 </resources>

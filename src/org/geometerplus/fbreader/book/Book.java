@@ -27,6 +27,7 @@ import org.geometerplus.zlibrary.core.filesystem.*;
 import org.geometerplus.zlibrary.core.image.ZLImage;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.util.MiscUtil;
+import org.geometerplus.zlibrary.core.util.RationalNumber;
 
 import org.geometerplus.fbreader.Paths;
 import org.geometerplus.fbreader.bookmodel.BookReadingException;
@@ -48,6 +49,7 @@ public class Book extends TitledEntity {
 	private volatile List<String> myLabels;
 	private volatile SeriesInfo mySeriesInfo;
 	private volatile List<UID> myUids;
+	private volatile RationalNumber myProgress;
 
 	public volatile boolean HasBookmark;
 
@@ -85,6 +87,7 @@ public class Book extends TitledEntity {
 		myTags = book.myTags != null ? new ArrayList<Tag>(book.myTags) : null;
 		myLabels = book.myLabels != null ? new ArrayList<String>(book.myLabels) : null;
 		mySeriesInfo = book.mySeriesInfo;
+		myProgress = book.myProgress;
 		HasBookmark = book.HasBookmark;
 	}
 
@@ -147,6 +150,7 @@ public class Book extends TitledEntity {
 		myLabels = database.listLabels(myId);
 		mySeriesInfo = database.getSeriesInfo(myId);
 		myUids = database.listUids(myId);
+		myProgress = database.getProgress(myId);
 		HasBookmark = database.hasVisibleBookmark(myId);
 		myIsSaved = true;
 		if (myUids == null || myUids.isEmpty()) {
@@ -394,6 +398,19 @@ public class Book extends TitledEntity {
 		return myUids.contains(uid);
 	}
 
+	public RationalNumber getProgress() {
+		return myProgress;
+	}
+
+	public void setProgress(RationalNumber progress) {
+		myProgress = progress;
+		myIsSaved = false;
+	}
+	
+	public void setProgressWithNoCheck(RationalNumber progress) {
+		myProgress = progress;
+	}
+
 	public boolean matches(String pattern) {
 		if (MiscUtil.matchesIgnoreCase(getTitle(), pattern)) {
 			return true;
@@ -464,6 +481,9 @@ public class Book extends TitledEntity {
 				database.deleteAllBookUids(myId);
 				for (UID uid : uids()) {
 					database.saveBookUid(myId, uid);
+				}
+				if (myProgress != null) {
+					database.saveBookProgress(myId, myProgress);
 				}
 			}
 		});

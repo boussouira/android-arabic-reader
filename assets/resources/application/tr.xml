@@ -709,10 +709,10 @@
 				<node name="url" value="http://arabicreader.sourceforge.net"/>
 			</node>
 			<node name="email" value="Send us an e-mail">
-				<node name="url" value="mailto:justroftest@gmail.com"/>
+				<node name="url" value="mailto:contact@geometerplus.com"/>
 			</node>
 			<node name="twitter" value="Follow us at twitter">
-				<node name="url" value="http://twitter.com/arabic_reader"/>
+				<node name="url" value="http://twitter.com/fbreader"/>
 			</node>
 		</node>
 	</node>

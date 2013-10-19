@@ -21,12 +21,12 @@ package org.geometerplus.zlibrary.ui.android.view;
 
 import android.content.Context;
 import android.graphics.*;
-import android.view.*;
 import android.util.AttributeSet;
+import android.view.*;
 
+import org.geometerplus.zlibrary.core.application.ZLApplication;
 import org.geometerplus.zlibrary.core.view.ZLView;
 import org.geometerplus.zlibrary.core.view.ZLViewWidget;
-import org.geometerplus.zlibrary.core.application.ZLApplication;
 
 import org.geometerplus.android.fbreader.FBReader;
 
@@ -322,7 +322,7 @@ public class ZLAndroidWidget extends View implements ZLViewWidget, View.OnLongCl
 			case MotionEvent.ACTION_UP:
 				if (myPendingDoubleTap) {
 					view.onFingerDoubleTap(x, y);
-				} if (myLongClickPerformed) {
+				} else if (myLongClickPerformed) {
 					view.onFingerReleaseAfterLongPress(x, y);
 				} else {
 					if (myPendingLongClickRunnable != null) {

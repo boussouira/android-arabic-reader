@@ -72,6 +72,9 @@
 		<node name="found" value="Found">
 			<node name="summary" value="Search results for: %s"/>
 		</node>
+		<node name="recent" value="Recent catalogs">
+			<node name="summary" value="Catalogs you visited recently"/>
+		</node>
 		<node name="openCatalog" value="Open catalog"/>
 		<node name="networkSearch" value="Search"/>
 		<node name="showResults" value="Show results"/>
@@ -114,6 +117,7 @@
 		<node name="removeCustomCatalog" value="Remove catalog"/>
 		<node name="addCustomCatalog" value="Add catalog"/>
 		<node name="addCustomCatalogSummary" value="Add custom OPDS catalog manually"/>
+		<node name="disableCatalog" value="Disable catalog"/>
 		<node name="confirmQuestions">
 			<node name="read" value="Do you want to read local copy?"/>
 			<node name="download" value="Do you want to download this book?"/>
@@ -130,7 +134,13 @@
 			<node name="title" value="Add catalog"/>
 			<node name="editUrl" value="Enter URL manually"/>
 		</node>
+		<node name="manageCatalogs" value="Manage catalogs">
+			<node name="summary" value="Configure your catalogs list"/>
+			<node name="enabled" value="Enabled"/>
+			<node name="disabled" value="Disabled"/>
+		</node>
 		<node name="menu">
+			<node name="openRoot" value="Root catalog"/>
 			<node name="networkSearch" value="Search"/>
 			<node name="reload" value="Reload"/>
 			<node name="signIn" value="Sign in"/>
@@ -139,7 +149,7 @@
 			<node name="topup" value="Top up account"/>
 			<node name="addCustomCatalog" value="Add catalog"/>
 			<node name="refreshCatalogsList" value="Refresh catalogs"/>
-			<node name="languages" value="Language filter"/>
+			<node name="manageCatalogs" value="Manage catalogs"/>
 			<node name="clearBasket" value="Clear basket"/>
 			<node name="buyAllBooks" value="Buy all books"/>
 		</node>
@@ -278,6 +288,7 @@
 		<node name="decreaseFont" value="Zoom out"/>
 		<node name="toggleFullscreen" value="Full Screen"/>
 		<node name="bookmarks" value="Bookmarks"/>
+		<node name="help" value="Help"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="File name"/>
@@ -640,6 +651,9 @@
 			<node name="summary" value="Dictionary settings"/>
 			<node name="dictionary" value="Dictionary"/>
 			<node name="translator" value="Translator"/>
+			<node name="targetLanguage" value="Translate to">
+				<node name="any" value="all languages"/>
+			</node>
 			<node name="tappingAction" value="Long tapping action">
 				<node name="doNothing" value="Long tapping does nothing"/>
 				<node name="selectSingleWord" value="Long tapping selects single word"/>
@@ -865,5 +879,8 @@
 		<node name="opfFileNotFound" value="OPF is not found in %s"/>
 		<node name="unsupportedFileFormat" value="File format is not supported for '%s'"/>
 		<node name="errorParsingRtf" value="Rtf parsing error in: %s"/>
+	</node>
+	<node name="links">
+		<node name="faqPage" value="http://fbreader.org/faq-page"/>
 	</node>
 </resources>

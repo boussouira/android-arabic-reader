@@ -23,6 +23,7 @@ import java.util.*;
 
 import org.geometerplus.zlibrary.core.application.ZLApplication;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.util.RationalNumber;
 import org.geometerplus.zlibrary.core.util.ZLColor;
 import org.geometerplus.zlibrary.core.view.ZLPaintContext;
 
@@ -767,6 +768,11 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		return new PagePosition(current, total);
 	}
 
+	public final RationalNumber getProgress() {
+		final PagePosition position = pagePosition();
+		return RationalNumber.create(position.Current, position.Total);
+	}
+
 	public final synchronized void gotoPage(int page) {
 		if (myModel == null || myModel.getParagraphsNumber() == 0) {
 			return;
@@ -1433,11 +1439,15 @@ public abstract class ZLTextView extends ZLTextViewBase {
 				}
 				break;
 			case PaintStateEnum.START_IS_KNOWN:
-				buildInfos(page, page.StartCursor, page.EndCursor);
+				if (!page.StartCursor.isNull()) {
+					buildInfos(page, page.StartCursor, page.EndCursor);
+				}
 				break;
 			case PaintStateEnum.END_IS_KNOWN:
-				page.StartCursor.setCursor(findStartOfPrevousPage(page, page.EndCursor));
-				buildInfos(page, page.StartCursor, page.EndCursor);
+				if (!page.EndCursor.isNull()) {
+					page.StartCursor.setCursor(findStartOfPrevousPage(page, page.EndCursor));
+					buildInfos(page, page.StartCursor, page.EndCursor);
+				}
 				break;
 		}
 		page.PaintState = PaintStateEnum.READY;

@@ -72,6 +72,9 @@
 		<node name="found" value="Wyszukane">
 			<node name="summary" value="Wyniki wyszukiwania: %s"/>
 		</node>
+		<node name="recent" value="Recent catalogs" toBeTranslated="true">
+			<node name="summary" value="Catalogs you visited recently" toBeTranslated="true"/>
+		</node>
 		<node name="openCatalog" value="Otwórz katalog"/>
 		<node name="networkSearch" value="Wyszukaj"/>
 		<node name="showResults" value="Pokaż wyniki"/>
@@ -110,6 +113,7 @@
 		<node name="removeCustomCatalog" value="Usuń katalog"/>
 		<node name="addCustomCatalog" value="Dodaj katalog"/>
 		<node name="addCustomCatalogSummary" value="Ręcznie dodaj katalog OPDS"/>
+		<node name="disableCatalog" value="Disable catalog" toBeTranslated="true"/>
 		<node name="confirmQuestions">
 			<node name="read" value="Czy chcesz czytać lokalną kopię?"/>
 			<node name="download" value="Czy chcesz pobrać tę książkę?"/>
@@ -126,7 +130,13 @@
 			<node name="title" value="Dodaj katalog"/>
 			<node name="editUrl" value="Wpisz adres URL"/>
 		</node>
+		<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true">
+			<node name="summary" value="Configure your catalogs list" toBeTranslated="true"/>
+			<node name="enabled" value="Enabled" toBeTranslated="true"/>
+			<node name="disabled" value="Disabled" toBeTranslated="true"/>
+		</node>
 		<node name="menu">
+			<node name="openRoot" value="Root catalog" toBeTranslated="true"/>
 			<node name="networkSearch" value="Wyszukiwanie sieciowe"/>
 			<node name="reload" value="Przeładuj"/>
 			<node name="signIn" value="Zaloguj"/>
@@ -135,7 +145,7 @@
 			<node name="topup" value="Doładuj konto"/>
 			<node name="addCustomCatalog" value="Dodaj własny katalog"/>
 			<node name="refreshCatalogsList" value="Odśwież katalogi"/>
-			<node name="languages" value="Filtr języka"/>
+			<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true"/>
 			<node name="clearBasket" value="Opróżnij koszyk"/>
 			<node name="buyAllBooks" value="Kup wszystkie książki"/>
 		</node>
@@ -268,6 +278,7 @@
 		<node name="decreaseFont" value="Pomniejsz"/>
 		<node name="toggleFullscreen" value="Pełny ekran"/>
 		<node name="bookmarks" value="Zakładki"/>
+		<node name="help" value="Help" toBeTranslated="true"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="Nazwa pliku"/>
@@ -630,6 +641,9 @@
 			<node name="summary" value="Ustawienia słownika"/>
 			<node name="dictionary" value="Słownik"/>
 			<node name="translator" value="Translator"/>
+			<node name="targetLanguage" value="Translate to" toBeTranslated="true">
+				<node name="any" value="all languages" toBeTranslated="true"/>
+			</node>
 			<node name="tappingAction" value="Akcja po przytrzymaniu palcem">
 				<node name="doNothing" value="Przytrzymanie nie wywołuje akcji"/>
 				<node name="selectSingleWord" value="Przytrzymanie zaznacza jedno słowo"/>
@@ -855,5 +869,8 @@
 		<node name="opfFileNotFound" value="OPF is not found in %s" toBeTranslated="true"/>
 		<node name="unsupportedFileFormat" value="File format is not supported for '%s'" toBeTranslated="true"/>
 		<node name="errorParsingRtf" value="Rtf parsing error in: %s" toBeTranslated="true"/>
+	</node>
+	<node name="links">
+		<node name="faqPage" value="http://fbreader.org/faq-page"/>
 	</node>
 </resources>
