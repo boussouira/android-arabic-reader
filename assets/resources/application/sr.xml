@@ -72,6 +72,9 @@
 		<node name="found" value="Пронађено">
 			<node name="summary" value="Резултати претраге за: %s"/>
 		</node>
+		<node name="recent" value="Recent catalogs" toBeTranslated="true">
+			<node name="summary" value="Catalogs you visited recently" toBeTranslated="true"/>
+		</node>
 		<node name="openCatalog" value="Отвори каталог"/>
 		<node name="networkSearch" value="Претражи"/>
 		<node name="showResults" value="Прикажи резултате"/>
@@ -114,6 +117,7 @@
 		<node name="removeCustomCatalog" value="Уклони каталог"/>
 		<node name="addCustomCatalog" value="Додај каталог"/>
 		<node name="addCustomCatalogSummary" value="Додајте прилагођени OPDS каталог."/>
+		<node name="disableCatalog" value="Disable catalog" toBeTranslated="true"/>
 		<node name="confirmQuestions">
 			<node name="read" value="Желите ли да прочитате локални примерак?"/>
 			<node name="download" value="Желите ли да преузмете ову књигу?"/>
@@ -130,7 +134,13 @@
 			<node name="title" value="Додавање каталога"/>
 			<node name="editUrl" value="Ручно унесите адресу."/>
 		</node>
+		<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true">
+			<node name="summary" value="Configure your catalogs list" toBeTranslated="true"/>
+			<node name="enabled" value="Enabled" toBeTranslated="true"/>
+			<node name="disabled" value="Disabled" toBeTranslated="true"/>
+		</node>
 		<node name="menu">
+			<node name="openRoot" value="Root catalog" toBeTranslated="true"/>
 			<node name="networkSearch" value="Претражи"/>
 			<node name="reload" value="Освежи"/>
 			<node name="signIn" value="Пријави ме"/>
@@ -139,7 +149,7 @@
 			<node name="topup" value="Попуни налог"/>
 			<node name="addCustomCatalog" value="Додај каталог"/>
 			<node name="refreshCatalogsList" value="Освежи каталоге"/>
-			<node name="languages" value="Језички филтер"/>
+			<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true"/>
 			<node name="clearBasket" value="Очисти корпу"/>
 			<node name="buyAllBooks" value="Купи све књиге"/>
 		</node>
@@ -278,6 +288,7 @@
 		<node name="decreaseFont" value="Умањи"/>
 		<node name="toggleFullscreen" value="Цео екран"/>
 		<node name="bookmarks" value="Обележивачи"/>
+		<node name="help" value="Help" toBeTranslated="true"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="Име датотеке"/>
@@ -640,6 +651,9 @@
 			<node name="summary" value="Подешавања речника"/>
 			<node name="dictionary" value="Речник"/>
 			<node name="translator" value="Преводилац"/>
+			<node name="targetLanguage" value="Translate to" toBeTranslated="true">
+				<node name="any" value="all languages" toBeTranslated="true"/>
+			</node>
 			<node name="tappingAction" value="Дуго тапкање">
 				<node name="doNothing" value="Дуго тапкање не ради ништа"/>
 				<node name="selectSingleWord" value="Дуго тапкање одабира једну реч"/>
@@ -865,5 +879,8 @@
 		<node name="opfFileNotFound" value="Не могу да пронађем OPF у „%s“."/>
 		<node name="unsupportedFileFormat" value="Формат датотеке није подржан за „%s“."/>
 		<node name="errorParsingRtf" value="Грешка при рашчлањивању RTF-а у: %s."/>
+	</node>
+	<node name="links">
+		<node name="faqPage" value="http://fbreader.org/faq-page"/>
 	</node>
 </resources>

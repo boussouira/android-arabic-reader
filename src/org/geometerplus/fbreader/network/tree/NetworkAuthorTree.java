@@ -30,7 +30,7 @@ public class NetworkAuthorTree extends NetworkTree {
 	public final NetworkBookItem.AuthorData Author;
 
 	private int myBooksNumber;
-	private HashMap<String, Integer> mySeriesMap;
+	private HashMap<String,Integer> mySeriesMap;
 
 	NetworkAuthorTree(NetworkTree parent, NetworkBookItem.AuthorData author) {
 		super(parent);
@@ -60,12 +60,12 @@ public class NetworkAuthorTree extends NetworkTree {
 
 	private void setSeriesIndex(String seriesName, int index) {
 		if (mySeriesMap == null) {
-			mySeriesMap = new HashMap<String, Integer>();
+			mySeriesMap = new HashMap<String,Integer>();
 		}
 		mySeriesMap.put(seriesName, Integer.valueOf(index));
 	}
 
-	public void updateSubTrees(LinkedList<NetworkBookItem> books) {
+	public void updateSubtrees(LinkedList<NetworkBookItem> books) {
 		if (myBooksNumber >= books.size()) {
 			return;
 		}
@@ -77,11 +77,11 @@ public class NetworkAuthorTree extends NetworkTree {
 			if (book.SeriesTitle != null) {
 				final int seriesPosition = getSeriesIndex(book.SeriesTitle);
 				if (seriesPosition == -1) {
-					final int insertAt = subTrees().size();
+					final int insertAt = subtrees().size();
 					setSeriesIndex(book.SeriesTitle, insertAt);
 					new NetworkBookTree(this, book, false);
 				} else {
-					FBTree treeAtSeriesPosition = subTrees().get(seriesPosition);
+					FBTree treeAtSeriesPosition = subtrees().get(seriesPosition);
 					if (treeAtSeriesPosition instanceof NetworkBookTree) {
 						final NetworkBookTree bookTree = (NetworkBookTree) treeAtSeriesPosition;
 						bookTree.removeSelf();
@@ -94,7 +94,7 @@ public class NetworkAuthorTree extends NetworkTree {
 						throw new RuntimeException("That's impossible!!!");
 					}
 					final NetworkSeriesTree seriesTree = (NetworkSeriesTree) treeAtSeriesPosition;
-					ListIterator<FBTree> nodesIterator = seriesTree.subTrees().listIterator();
+					ListIterator<FBTree> nodesIterator = seriesTree.subtrees().listIterator();
 					int insertAt = 0;
 					while (nodesIterator.hasNext()) {
 						FBTree tree = nodesIterator.next();

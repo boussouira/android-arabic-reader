@@ -22,13 +22,8 @@ package org.geometerplus.android.fbreader.network;
 import java.util.*;
 import java.io.*;
 
-import android.os.IBinder;
-import android.os.Handler;
-import android.os.Message;
-import android.app.Service;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
+import android.os.*;
+import android.app.*;
 import android.net.Uri;
 import android.content.Intent;
 import android.widget.RemoteViews;
@@ -43,6 +38,7 @@ import org.geometerplus.fbreader.network.urlInfo.UrlInfo;
 import org.geometerplus.fbreader.network.urlInfo.BookUrlInfo;
 
 import org.geometerplus.android.fbreader.FBReader;
+import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
 
 public class BookDownloaderService extends Service {
 	public static final String BOOK_FORMAT_KEY = "org.geometerplus.android.fbreader.network.BookFormat";
@@ -58,7 +54,6 @@ public class BookDownloaderService extends Service {
 
 		int ALL = 0x0003;
 	}
-
 
 	private Set<String> myDownloadingURLs = Collections.synchronizedSet(new HashSet<String>());
 	private Set<Integer> myOngoingNotifications = new HashSet<Integer>();
@@ -91,7 +86,7 @@ public class BookDownloaderService extends Service {
 	@Override
 	public void onDestroy() {
 		final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-		for (int notificationId: myOngoingNotifications) {
+		for (int notificationId : myOngoingNotifications) {
 			notificationManager.cancel(notificationId);
 		}
 		myOngoingNotifications.clear();
@@ -250,7 +245,7 @@ public class BookDownloaderService extends Service {
 		final int notificationId = NetworkNotifications.Instance().getBookDownloadingId();
 		final Notification progressNotification = createDownloadProgressNotification(title);
 
-		final NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+		final NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 		myOngoingNotifications.add(Integer.valueOf(notificationId));
 		notificationManager.notify(notificationId, progressNotification);
 
@@ -295,7 +290,7 @@ public class BookDownloaderService extends Service {
 				if (length <= 0) {
 					progressHandler.sendEmptyMessage(-1);
 				}
-				OutputStream outStream;
+				final OutputStream outStream;
 				try {
 					outStream = new FileOutputStream(file);
 				} catch (FileNotFoundException ex) {
@@ -325,6 +320,14 @@ public class BookDownloaderService extends Service {
 						} catch (InterruptedException ex) {
 						}*/
 					}
+					final BookCollectionShadow collection = new BookCollectionShadow();
+					collection.bindToService(BookDownloaderService.this, new Runnable() {
+						@Override
+						public void run() {
+							collection.rescan(file.getPath());
+							collection.unbind();
+						}
+					});
 				} finally {
 					outStream.close();
 				}

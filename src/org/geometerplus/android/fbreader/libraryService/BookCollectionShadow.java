@@ -111,9 +111,7 @@ public class BookCollectionShadow extends AbstractBookCollection implements Serv
 	public synchronized void reset(boolean force) {
 		if (myInterface != null) {
 			try {
-				myInterface.reset(
-					Collections.singletonList(Paths.BooksDirectoryOption().getValue()), force
-				);
+				myInterface.reset(Paths.BookPathOption().getValue(), force);
 			} catch (RemoteException e) {
 			}
 		}
@@ -455,6 +453,16 @@ public class BookCollectionShadow extends AbstractBookCollection implements Serv
 		if (myInterface != null) {
 			try {
 				myInterface.saveHighlightingStyle(SerializerUtil.serialize(style));
+			} catch (RemoteException e) {
+				// ignore
+			}
+		}
+	}
+
+	public synchronized void rescan(String path) {
+		if (myInterface != null) {
+			try {
+				myInterface.rescan(path);
 			} catch (RemoteException e) {
 				// ignore
 			}

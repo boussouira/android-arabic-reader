@@ -72,6 +72,9 @@
 		<node name="found" value="S-au gasit">
 			<node name="summary" value="Rezultatele cautarii pentru: %s"/>
 		</node>
+		<node name="recent" value="Recent catalogs" toBeTranslated="true">
+			<node name="summary" value="Catalogs you visited recently" toBeTranslated="true"/>
+		</node>
 		<node name="openCatalog" value="Deschide catalogul"/>
 		<node name="networkSearch" value="Cautare"/>
 		<node name="showResults" value="Arata rezultatele"/>
@@ -110,6 +113,7 @@
 		<node name="removeCustomCatalog" value="Eliminati catalog"/>
 		<node name="addCustomCatalog" value="Adauga catalog"/>
 		<node name="addCustomCatalogSummary" value="Adauga particularizate catalog OPDS manual"/>
+		<node name="disableCatalog" value="Disable catalog" toBeTranslated="true"/>
 		<node name="confirmQuestions">
 			<node name="read" value="Doriti sa cititi copia locala?"/>
 			<node name="download" value="Doriti sa descarcati aceasta carte?"/>
@@ -126,7 +130,13 @@
 			<node name="title" value="Adauga Catalog"/>
 			<node name="editUrl" value="Editeaza URL manual"/>
 		</node>
+		<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true">
+			<node name="summary" value="Configure your catalogs list" toBeTranslated="true"/>
+			<node name="enabled" value="Enabled" toBeTranslated="true"/>
+			<node name="disabled" value="Disabled" toBeTranslated="true"/>
+		</node>
 		<node name="menu">
+			<node name="openRoot" value="Root catalog" toBeTranslated="true"/>
 			<node name="networkSearch" value="Reteaua de cautare"/>
 			<node name="reload" value="Reîncarca"/>
 			<node name="signIn" value="Conectati-va în"/>
@@ -135,7 +145,7 @@
 			<node name="topup" value="Incarca cont"/>
 			<node name="addCustomCatalog" value="Adauga catalog"/>
 			<node name="refreshCatalogsList" value="Reîmprospatare cataloage"/>
-			<node name="languages" value="Filtru limba"/>
+			<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true"/>
 			<node name="clearBasket" value="Clar cos"/>
 			<node name="buyAllBooks" value="Cumpara toate cartile"/>
 		</node>
@@ -268,6 +278,7 @@
 		<node name="decreaseFont" value="Micsoreaza"/>
 		<node name="toggleFullscreen" value="Pe intreg ecranul"/>
 		<node name="bookmarks" value="Favorite"/>
+		<node name="help" value="Help" toBeTranslated="true"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="Nume de fisier"/>
@@ -630,6 +641,9 @@
 			<node name="summary" value="Setari dictionar "/>
 			<node name="dictionary" value="Dictionar"/>
 			<node name="translator" value="Traducator"/>
+			<node name="targetLanguage" value="Translate to" toBeTranslated="true">
+				<node name="any" value="all languages" toBeTranslated="true"/>
+			</node>
 			<node name="tappingAction" value="Atingere lunga pentru actiune">
 				<node name="doNothing" value="Apasând lung nu face nimic"/>
 				<node name="selectSingleWord" value="Apasând lung selecteaza un singur cuvânt"/>
@@ -855,5 +869,8 @@
 		<node name="opfFileNotFound" value="OPF is not found in %s" toBeTranslated="true"/>
 		<node name="unsupportedFileFormat" value="File format is not supported for '%s'" toBeTranslated="true"/>
 		<node name="errorParsingRtf" value="Rtf parsing error in: %s" toBeTranslated="true"/>
+	</node>
+	<node name="links">
+		<node name="faqPage" value="http://fbreader.org/faq-page"/>
 	</node>
 </resources>

@@ -37,8 +37,8 @@ import org.geometerplus.fbreader.book.*;
 import org.geometerplus.android.fbreader.api.TextPosition;
 
 public class LibraryService extends Service {
-	static final String BOOK_EVENT_ACTION = "fbreader.library-service.book-event";
-	static final String BUILD_EVENT_ACTION = "fbreader.library-service.build-event";
+	static final String BOOK_EVENT_ACTION = "fbreader.library_service.book_event";
+	static final String BUILD_EVENT_ACTION = "fbreader.library_service.build_event";
 
 	private static final class Observer extends FileObserver {
 		private static final int MASK =
@@ -89,7 +89,7 @@ public class LibraryService extends Service {
 
 		LibraryImplementation() {
 			myDatabase = SQLiteBooksDatabase.Instance(LibraryService.this);
-			reset(Collections.singletonList(Paths.BooksDirectoryOption().getValue()), true);
+			reset(Paths.BookPathOption().getValue(), true);
 		}
 
 		public void reset(List<String> bookDirectories, boolean force) {
@@ -277,6 +277,10 @@ public class LibraryService extends Service {
 
 		public void saveHighlightingStyle(String style) {
 			myCollection.saveHighlightingStyle(SerializerUtil.deserializeStyle(style));
+		}
+
+		public void rescan(String path) {
+			myCollection.rescan(path);
 		}
 	}
 

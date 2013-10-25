@@ -72,6 +72,9 @@
 		<node name="found" value="Знойдзена">
 			<node name="summary" value="Вынікі пошуку для: %s"/>
 		</node>
+		<node name="recent" value="Recent catalogs" toBeTranslated="true">
+			<node name="summary" value="Catalogs you visited recently" toBeTranslated="true"/>
+		</node>
 		<node name="openCatalog" value="Адчыніць каталёґ"/>
 		<node name="networkSearch" value="Пошук"/>
 		<node name="showResults" value="Паказаць вынікі"/>
@@ -118,6 +121,7 @@
 		<node name="removeCustomCatalog" value="Выдаліць каталёґ"/>
 		<node name="addCustomCatalog" value="Дадаць каталёґ"/>
 		<node name="addCustomCatalogSummary" value="Дадаць уручную дапасаваны каталёґ OPDS (адкрытай сыстэмы дастаўленьня публікацыяў)"/>
+		<node name="disableCatalog" value="Disable catalog" toBeTranslated="true"/>
 		<node name="confirmQuestions">
 			<node name="read" value="Чытаць лякальную копію?"/>
 			<node name="download" value="Зладаваць гэтую кнігу?"/>
@@ -134,7 +138,13 @@
 			<node name="title" value="Дадаць каталёґ"/>
 			<node name="editUrl" value="Увесьці адрас уручную"/>
 		</node>
+		<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true">
+			<node name="summary" value="Configure your catalogs list" toBeTranslated="true"/>
+			<node name="enabled" value="Enabled" toBeTranslated="true"/>
+			<node name="disabled" value="Disabled" toBeTranslated="true"/>
+		</node>
 		<node name="menu">
+			<node name="openRoot" value="Root catalog" toBeTranslated="true"/>
 			<node name="networkSearch" value="Пошук"/>
 			<node name="reload" value="Перазаладаваць"/>
 			<node name="signIn" value="Увайсьці"/>
@@ -143,7 +153,7 @@
 			<node name="topup" value="Папоўніць рахунак"/>
 			<node name="addCustomCatalog" value="Дадаць каталёґ"/>
 			<node name="refreshCatalogsList" value="Абнавіць каталёґі"/>
-			<node name="languages" value="Моўны фільтар"/>
+			<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true"/>
 			<node name="clearBasket" value="Ачысьціць кошык"/>
 			<node name="buyAllBooks" value="Купіць усе кнігі"/>
 		</node>
@@ -284,6 +294,7 @@
 		<node name="decreaseFont" value="Падаліць"/>
 		<node name="toggleFullscreen" value="Поўны экран"/>
 		<node name="bookmarks" value="Закладкі"/>
+		<node name="help" value="Help" toBeTranslated="true"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="Назва файла"/>
@@ -646,6 +657,9 @@
 			<node name="summary" value="Налады слоўніку"/>
 			<node name="dictionary" value="Слоўнік"/>
 			<node name="translator" value="Перакладнік"/>
+			<node name="targetLanguage" value="Translate to" toBeTranslated="true">
+				<node name="any" value="all languages" toBeTranslated="true"/>
+			</node>
 			<node name="tappingAction" value="Дзеяньне доўгага дотыку">
 				<node name="doNothing" value="Доўгі дотык нічога ня робіць"/>
 				<node name="selectSingleWord" value="Доўгі дотык вылучае адно слова"/>
@@ -871,5 +885,8 @@
 		<node name="opfFileNotFound" value="OPF ня знойдзены ў %s"/>
 		<node name="unsupportedFileFormat" value="Фармат файла не падтрымліваецца для '%s'"/>
 		<node name="errorParsingRtf" value="Памылка разбору rtf у: %s"/>
+	</node>
+	<node name="links">
+		<node name="faqPage" value="http://fbreader.org/faq-page"/>
 	</node>
 </resources>

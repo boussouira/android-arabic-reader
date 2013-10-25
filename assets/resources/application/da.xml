@@ -75,6 +75,9 @@
 		<node name="found" value="Fundet">
 			<node name="summary" value="Søgeresultater for: %s"/>
 		</node>
+		<node name="recent" value="Recent catalogs" toBeTranslated="true">
+			<node name="summary" value="Catalogs you visited recently" toBeTranslated="true"/>
+		</node>
 		<node name="openCatalog" value="Åbn katalog"/>
 		<node name="networkSearch" value="Søg"/>
 		<node name="showResults" value="Vis resultater"/>
@@ -117,6 +120,7 @@
 		<node name="removeCustomCatalog" value="Fjern katalog"/>
 		<node name="addCustomCatalog" value="Tilføj katalog"/>
 		<node name="addCustomCatalogSummary" value="Tilføj brugerdefineret OPDS katalog manuelt"/>
+		<node name="disableCatalog" value="Disable catalog" toBeTranslated="true"/>
 		<node name="confirmQuestions">
 			<node name="read" value="Vil du læse lokal kopi?"/>
 			<node name="download" value="Vil du overføre denne bog?"/>
@@ -133,7 +137,13 @@
 			<node name="title" value="Tilføj katalog"/>
 			<node name="editUrl" value="Indtast URL manuelt"/>
 		</node>
+		<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true">
+			<node name="summary" value="Configure your catalogs list" toBeTranslated="true"/>
+			<node name="enabled" value="Enabled" toBeTranslated="true"/>
+			<node name="disabled" value="Disabled" toBeTranslated="true"/>
+		</node>
 		<node name="menu">
+			<node name="openRoot" value="Root catalog" toBeTranslated="true"/>
 			<node name="networkSearch" value="Søg"/>
 			<node name="reload" value="Genindlæs"/>
 			<node name="signIn" value="Log på"/>
@@ -142,7 +152,7 @@
 			<node name="topup" value="Tank din konto op"/>
 			<node name="addCustomCatalog" value="Tilføj katalog"/>
 			<node name="refreshCatalogsList" value="Opdater kataloger"/>
-			<node name="languages" value="Sprogfilter"/>
+			<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true"/>
 			<node name="clearBasket" value="Tøm kurv"/>
 			<node name="buyAllBooks" value="Køb alle bøger"/>
 		</node>
@@ -281,6 +291,7 @@
 		<node name="decreaseFont" value="Zoom ud"/>
 		<node name="toggleFullscreen" value="Fuld skærm"/>
 		<node name="bookmarks" value="Bogmærker"/>
+		<node name="help" value="Help" toBeTranslated="true"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="Filnavn"/>
@@ -647,6 +658,9 @@
 			<node name="summary" value="Ordbogsindstillinger"/>
 			<node name="dictionary" value="Ordbog"/>
 			<node name="translator" value="Oversætter"/>
+			<node name="targetLanguage" value="Translate to" toBeTranslated="true">
+				<node name="any" value="all languages" toBeTranslated="true"/>
+			</node>
 			<node name="tappingAction" value="Handling for langt tryk">
 				<node name="doNothing" value="Langt tast har ingen virkning"/>
 				<node name="selectSingleWord" value="Et langt tryk vælger et enkelt ord"/>
@@ -895,7 +909,13 @@
 		<node name="unsupportedFileFormat" value="Filformatet understøttes ikke for '%s'"/>
 		<node name="errorParsingRtf" value="RTF-parsingfejl i: %s"/>
 	</node>
+	<node name="links">
+		<node name="faqPage" value="http://fbreader.org/faq-page" toBeTranslated="true"/>
+	</node>
 	<node name="warningMessage">
 		<node name="mainBookDirEditing" value="Redigering af hovedbiblioteket vil medføre tab af data. Vil du fortsætte?"/>
+	</node>
+	<node name="links">
+		<node name="faqPage" value="http://fbreader.org/faq-page"/>
 	</node>
 </resources>

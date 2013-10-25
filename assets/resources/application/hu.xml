@@ -72,6 +72,9 @@
 		<node name="found" value="Találatok">
 			<node name="summary" value="Keresés az eredmények között: %s"/>
 		</node>
+		<node name="recent" value="Recent catalogs" toBeTranslated="true">
+			<node name="summary" value="Catalogs you visited recently" toBeTranslated="true"/>
+		</node>
 		<node name="openCatalog" value="Katalógus megnyitása"/>
 		<node name="networkSearch" value="Keresés"/>
 		<node name="showResults" value="Eredmények"/>
@@ -110,6 +113,7 @@
 		<node name="removeCustomCatalog" value="Katalógus törlése"/>
 		<node name="addCustomCatalog" value="Katalógus hozzáadása"/>
 		<node name="addCustomCatalogSummary" value="OPDS katalógus kézi hozzáadása"/>
+		<node name="disableCatalog" value="Disable catalog" toBeTranslated="true"/>
 		<node name="confirmQuestions">
 			<node name="read" value="Elolvassa a helyi példányt?"/>
 			<node name="download" value="Letölti a könyvet?"/>
@@ -126,7 +130,13 @@
 			<node name="title" value="Új katalógus"/>
 			<node name="editUrl" value="URL megadása"/>
 		</node>
+		<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true">
+			<node name="summary" value="Configure your catalogs list" toBeTranslated="true"/>
+			<node name="enabled" value="Enabled" toBeTranslated="true"/>
+			<node name="disabled" value="Disabled" toBeTranslated="true"/>
+		</node>
 		<node name="menu">
+			<node name="openRoot" value="Root catalog" toBeTranslated="true"/>
 			<node name="networkSearch" value="Internetes keresés"/>
 			<node name="reload" value="Újratöltés"/>
 			<node name="signIn" value="Bejelentkezés"/>
@@ -135,7 +145,7 @@
 			<node name="topup" value="Számla feltöltése"/>
 			<node name="addCustomCatalog" value="Katalógus hozzáadása"/>
 			<node name="refreshCatalogsList" value="Katalógusok frissítése"/>
-			<node name="languages" value="Nyelvi szűrő"/>
+			<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true"/>
 			<node name="clearBasket" value="Kosár kiürítése"/>
 			<node name="buyAllBooks" value="összes könyv megvásárlása"/>
 		</node>
@@ -268,6 +278,7 @@
 		<node name="decreaseFont" value="Kicsinyítés"/>
 		<node name="toggleFullscreen" value="Teljes kijelző"/>
 		<node name="bookmarks" value="Könyvjelzők"/>
+		<node name="help" value="Help" toBeTranslated="true"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="Fájlnév"/>
@@ -630,6 +641,9 @@
 			<node name="summary" value="Szótár beállításai"/>
 			<node name="dictionary" value="Szótár"/>
 			<node name="translator" value="Fordító"/>
+			<node name="targetLanguage" value="Translate to" toBeTranslated="true">
+				<node name="any" value="all languages" toBeTranslated="true"/>
+			</node>
 			<node name="tappingAction" value="Hosszú érintés">
 				<node name="doNothing" value="Nem történik semmi hosszú érintésre"/>
 				<node name="selectSingleWord" value="A hosszú érintés kijelöli a szót"/>
@@ -855,5 +869,8 @@
 		<node name="opfFileNotFound" value="OPF is not found in %s" toBeTranslated="true"/>
 		<node name="unsupportedFileFormat" value="File format is not supported for '%s'" toBeTranslated="true"/>
 		<node name="errorParsingRtf" value="Rtf parsing error in: %s" toBeTranslated="true"/>
+	</node>
+	<node name="links">
+		<node name="faqPage" value="http://fbreader.org/faq-page"/>
 	</node>
 </resources>

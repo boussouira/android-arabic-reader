@@ -23,6 +23,7 @@ import java.util.*;
 
 import org.geometerplus.zlibrary.core.application.ZLApplication;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.util.RationalNumber;
 import org.geometerplus.zlibrary.core.util.ZLColor;
 import org.geometerplus.zlibrary.core.view.ZLPaintContext;
 
@@ -767,6 +768,11 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		return new PagePosition(current, total);
 	}
 
+	public final RationalNumber getProgress() {
+		final PagePosition position = pagePosition();
+		return RationalNumber.create(position.Current, position.Total);
+	}
+
 	public final synchronized void gotoPage(int page) {
 		if (myModel == null || myModel.getParagraphsNumber() == 0) {
 			return;
@@ -833,7 +839,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		if (hilites.isEmpty()) {
 			return;
 		}
-	
+
 		final ZLTextElementArea fromArea = page.TextElementMap.get(from);
 		final ZLTextElementArea toArea = page.TextElementMap.get(to - 1);
 		for (ZLTextHighlighting h : hilites) {
@@ -1115,7 +1121,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 					ZLTextHyphenationInfo hyphenationInfo = ZLTextHyphenator.Instance().getInfo(word);
 					int hyphenationPosition = word.Length - 1;
 					int subwordWidth = 0;
-					for(; hyphenationPosition > currentCharIndex; hyphenationPosition--) {
+					for (; hyphenationPosition > currentCharIndex; hyphenationPosition--) {
 						if (hyphenationInfo.isHyphenationPossible(hyphenationPosition)) {
 							subwordWidth = getWordWidth(
 								word,
@@ -1131,7 +1137,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 					if (hyphenationPosition == currentCharIndex && info.EndElementIndex == startIndex) {
 						hyphenationPosition = word.Length == currentCharIndex + 1 ? word.Length : word.Length - 1;
 						subwordWidth = getWordWidth(word, currentCharIndex, word.Length - currentCharIndex, false);
-						for(; hyphenationPosition > currentCharIndex + 1; hyphenationPosition--) {
+						for (; hyphenationPosition > currentCharIndex + 1; hyphenationPosition--) {
 							subwordWidth = getWordWidth(
 								word,
 								currentCharIndex,
@@ -1433,11 +1439,15 @@ public abstract class ZLTextView extends ZLTextViewBase {
 				}
 				break;
 			case PaintStateEnum.START_IS_KNOWN:
-				buildInfos(page, page.StartCursor, page.EndCursor);
+				if (!page.StartCursor.isNull()) {
+					buildInfos(page, page.StartCursor, page.EndCursor);
+				}
 				break;
 			case PaintStateEnum.END_IS_KNOWN:
-				page.StartCursor.setCursor(findStartOfPrevousPage(page, page.EndCursor));
-				buildInfos(page, page.StartCursor, page.EndCursor);
+				if (!page.EndCursor.isNull()) {
+					page.StartCursor.setCursor(findStartOfPrevousPage(page, page.EndCursor));
+					buildInfos(page, page.StartCursor, page.EndCursor);
+				}
 				break;
 		}
 		page.PaintState = PaintStateEnum.READY;

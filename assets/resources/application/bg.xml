@@ -72,6 +72,9 @@
 		<node name="found" value="Намерено">
 			<node name="summary" value="Резултати от тъсенето: %s"/>
 		</node>
+		<node name="recent" value="Recent catalogs" toBeTranslated="true">
+			<node name="summary" value="Catalogs you visited recently" toBeTranslated="true"/>
+		</node>
 		<node name="openCatalog" value="Отвори каталога"/>
 		<node name="networkSearch" value="Търси"/>
 		<node name="showResults" value="Покажи резултатите"/>
@@ -118,6 +121,7 @@
 		<node name="removeCustomCatalog" value="Премахни каталога"/>
 		<node name="addCustomCatalog" value="Добави каталог"/>
 		<node name="addCustomCatalogSummary" value="Добави OPDS каталог ръчно"/>
+		<node name="disableCatalog" value="Disable catalog" toBeTranslated="true"/>
 		<node name="confirmQuestions">
 			<node name="read" value="Искате ли да прочетете локално копие?"/>
 			<node name="download" value="Искате ли да свалите книгата?"/>
@@ -134,7 +138,13 @@
 			<node name="title" value="Добавяне на каталог"/>
 			<node name="editUrl" value="Въведи адрес ръчно"/>
 		</node>
+		<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true">
+			<node name="summary" value="Configure your catalogs list" toBeTranslated="true"/>
+			<node name="enabled" value="Enabled" toBeTranslated="true"/>
+			<node name="disabled" value="Disabled" toBeTranslated="true"/>
+		</node>
 		<node name="menu">
+			<node name="openRoot" value="Root catalog" toBeTranslated="true"/>
 			<node name="networkSearch" value="Търсене в межата"/>
 			<node name="reload" value="Обнови"/>
 			<node name="signIn" value="Вход"/>
@@ -143,7 +153,7 @@
 			<node name="topup" value="Зареди сметката"/>
 			<node name="addCustomCatalog" value="Добави каталог"/>
 			<node name="refreshCatalogsList" value="Обнови каталозите"/>
-			<node name="languages" value="Език"/>
+			<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true"/>
 			<node name="clearBasket" value="Изчисти кошницата"/>
 			<node name="buyAllBooks" value="Купи всички книги"/>
 		</node>
@@ -248,7 +258,7 @@
 		<node name="clearSelection" value="Премахни"/>
 	</node>
 	<node name="sharing">
-		<node name="sharedFrom" value="Изпратено от &lt;a href=&quot;http://www.fbreader.ru/&quot;&gt;FBReader&lt;/a&gt;"/>
+		<node name="sharedFrom" value="Изпратено от &lt;a href=&quot;http://fbreader.ru/&quot;&gt;FBReader&lt;/a&gt;"/>
 	</node>
 	<node name="menu">
 		<node name="preferences" value="Настройки"/>
@@ -283,6 +293,7 @@
 		<node name="decreaseFont" value="Намали шрифта"/>
 		<node name="toggleFullscreen" value="На цял екран"/>
 		<node name="bookmarks" value="Отбелязани"/>
+		<node name="help" value="Help" toBeTranslated="true"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="Файл"/>
@@ -645,6 +656,9 @@
 			<node name="summary" value="Настройки на речника"/>
 			<node name="dictionary" value="Речник"/>
 			<node name="translator" value="Преводач"/>
+			<node name="targetLanguage" value="Translate to" toBeTranslated="true">
+				<node name="any" value="all languages" toBeTranslated="true"/>
+			</node>
 			<node name="tappingAction" value="Действие при продължителен натиск по екрана">
 				<node name="doNothing" value="Не се извършва действие"/>
 				<node name="selectSingleWord" value="Селектиране на една дума"/>
@@ -711,7 +725,7 @@
 			<node name="summary" value="Версия, контакти"/>
 			<node name="version" value="Версия"/>
 			<node name="site" value="Сайт">
-				<node name="url" value="http://www.fbreader.ru/"/>
+				<node name="url" value="http://fbreader.ru/"/>
 			</node>
 			<node name="email" value="Пишете ни">
 				<node name="url" value="mailto:justroftest@gmail.com"/>
@@ -870,5 +884,8 @@
 		<node name="opfFileNotFound" value="OPF файлът не е намерен в %s"/>
 		<node name="unsupportedFileFormat" value="Файловият формат '%s' не се поддържа"/>
 		<node name="errorParsingRtf" value="Грешка при четенето на RTF файла %s"/>
+	</node>
+	<node name="links">
+		<node name="faqPage" value="http://fbreader.org/faq-page"/>
 	</node>
 </resources>
