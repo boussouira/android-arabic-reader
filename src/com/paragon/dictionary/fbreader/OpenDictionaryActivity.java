@@ -36,7 +36,7 @@ import android.widget.*;
 
 import com.paragon.open.dictionary.api.*;
 
-import org.geometerplus.zlibrary.ui.android.R;
+import net.sourceforge.arabicReader.R;
 
 public class OpenDictionaryActivity extends Activity {
 	public final static String OPEN_DICTIONARY_QUERY_KEY = "open_dictionary_query";
