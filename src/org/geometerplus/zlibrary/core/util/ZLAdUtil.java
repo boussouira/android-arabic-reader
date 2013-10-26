@@ -6,10 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import net.sourceforge.arabicReader.R;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -26,23 +22,12 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.FrameLayout.LayoutParams;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-
-import com.google.ads.Ad;
-import com.google.ads.AdListener;
-import com.google.ads.AdRequest;
-import com.google.ads.AdRequest.ErrorCode;
-import com.google.ads.AdSize;
-import com.google.ads.AdView;
 
 public class ZLAdUtil {
 
@@ -52,6 +37,8 @@ public class ZLAdUtil {
 		public String text;
 		public String action;
 		public String link;
+		public String shareSubject;
+		public String shareText;
 	}
 	
 	public class AdMessage {
@@ -87,56 +74,13 @@ public class ZLAdUtil {
 			 displayAdDelay = 1;
 		}
 	}
-
-	class runThread extends AsyncTask<Integer, Integer, Integer> {
-		public AdView adView;
-
-		runThread(AdView ad) {
-			adView = ad;
-		}
-		
-		protected Integer doInBackground(Integer... topDocs) {
-			publishProgress(0);
-
-			return 0;
-		}
-
-		protected void onProgressUpdate(Integer... result) {
-			// Initiate a generic request to load it with an ad
-			AdRequest request = new AdRequest();
-
-			 //request.addTestDevice(AdRequest.TEST_EMULATOR);
-			 //request.addTestDevice("E83D20734F72FB3108F104ABC0FFC738"); 
-
-			adView.loadAd(request);
-
-		}
-	}
-	
-	class AdUpdateTask extends TimerTask {
-		private AdView adView;
-
-		AdUpdateTask(AdView ad) {
-			adView = ad;
-		}
-
-		public void run() {
-			new runThread(adView).execute(0);
-		}
-	};
 	   
-	public class AdManager extends AsyncTask<Integer, Integer, Integer> implements OnClickListener, AdListener {
-		private static final String MY_AD_UNIT_ID = "a151ea9a7f3440c";
-		private AdView m_adView;
-		private ImageButton m_adHideButton;
-		private Timer m_timer = null;
+	public class AdManager extends AsyncTask<Integer, Integer, Integer> {
 		private AdConfig m_config;
-		private RelativeLayout m_rootView;
 		private Activity m_parentActivity;
 
 		public AdManager(Activity parentActivity, RelativeLayout rootView) {
 			m_parentActivity = parentActivity;
-			m_rootView = rootView;
 		}
 
 		protected Integer doInBackground(Integer... topDocs) {
@@ -147,30 +91,7 @@ public class ZLAdUtil {
 		}
 
 		protected void onProgressUpdate(Integer... result) {
-			// Create the adView
-		    m_adView = new AdView(m_parentActivity, AdSize.BANNER, MY_AD_UNIT_ID);
-	    	//adView.setAlpha(0.5f);
 
-			if (m_config.showAd == true) {
-				m_adHideButton = new ImageButton(m_parentActivity);
-				m_adHideButton.setImageResource(R.drawable.ic_ads_error);
-				m_adHideButton.setPadding(0, 0, 0, 0);
-				m_adHideButton.setVisibility(View.GONE);
-
-				m_adView.addView(m_adHideButton, 20, 20);
-
-				LayoutParams parms = new LayoutParams(
-						LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT,
-						10);
-
-				m_rootView.addView(m_adView, parms);
-
-				m_adHideButton.setOnClickListener(this);
-				m_adView.setAdListener(this);
-
-				adShowShedule();
-			}
-		    
 	        boolean showMessage = false;
 			final ZLBooleanOption opt = ((m_config.message != null && m_config.message.id != null) ? new ZLBooleanOption(
 					"message", m_config.message.id, true) : null);
@@ -220,72 +141,34 @@ public class ZLAdUtil {
 		}
 		
 		protected void buttonAction(DialogInterface dialog, AdMessageButton btn, ZLBooleanOption opt) {
-			if (btn.action.contains("link") && btn.link != null)
+			if (btn.action.contains("link") && btn.link != null) {
 				m_parentActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(btn.link)));
+			}
 
-			if (btn.action.contains("remind"))
+			if (btn.action.contains("remind")) {
 				opt.setValue(true);
-			
-			if (btn.action.contains("hide"))
-				dialog.cancel();
+			}
 
-			if (btn.action.contains("close"))
-				m_parentActivity.finish();
-		}
-		// Ad Listener
-		@Override
-		public void onDismissScreen(Ad arg0) {
-		}
-
-		@Override
-		public void onFailedToReceiveAd(Ad arg0, ErrorCode arg1) {
-			
-		}
-
-		@Override
-		public void onLeaveApplication(Ad arg0) {
-		}
-
-		@Override
-		public void onPresentScreen(Ad arg0) {
-			hideAd();
-		}
-
-		@Override
-		public void onReceiveAd(Ad arg0) {
-			m_adView.setVisibility(View.VISIBLE);
-			m_adHideButton.setVisibility(View.VISIBLE);
-			
-			RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) m_adView.getLayoutParams();
-			params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-			params.addRule(RelativeLayout.ALIGN_BASELINE, R.id.root_view);
-
-			m_adView.setLayoutParams(params);
-		}
-
-		// Hide button
-		@Override
-		public void onClick(View v) {
-			hideAd();
-		}
-		
-		public void hideAd() {
-			m_adView.setVisibility(View.GONE);
-			m_adHideButton.setVisibility(View.GONE);
-			
-			m_adView.loadAd(null);
-		}
-		
-		public void adShowShedule() {
-			if(m_timer != null) {
-				m_timer.cancel();
+			if(btn.action.contains("share")) {
+				try {
+					m_parentActivity.startActivity(
+						new Intent(Intent.ACTION_SEND)
+							.putExtra(Intent.EXTRA_SUBJECT, btn.shareSubject)
+							.putExtra(Intent.EXTRA_TEXT, btn.shareText)
+							//.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file.javaFile()))
+					);
+				} catch (ActivityNotFoundException e) {
+					// TODO: show toast
+				}
 			}
 			
-			m_timer = new Timer();
-			
-			m_timer.schedule(new AdUpdateTask(m_adView),
-					m_config.displayAdDelay * 1000, m_config.updateInterval * 1000);
+			if (btn.action.contains("hide")) {
+				dialog.cancel();
+			}
 
+			if (btn.action.contains("close")) {
+				m_parentActivity.finish();
+			}
 		}
 	}
 	
@@ -348,6 +231,12 @@ public class ZLAdUtil {
 
 					if (btn.has("link"))
 						config.message.firstButton.link = btn.getString("link");
+					
+					if (btn.has("share_subject"))
+						config.message.firstButton.shareSubject = btn.getString("share_subject");
+					
+					if (btn.has("share_text"))
+						config.message.firstButton.shareText = btn.getString("share_text");
 				}
 
 				if (message.has("secondButton")) {
@@ -365,6 +254,12 @@ public class ZLAdUtil {
 					if (btn.has("link"))
 						config.message.secondButton.link = btn
 								.getString("link");
+					
+					if (btn.has("share_subject"))
+						config.message.secondButton.shareSubject = btn.getString("share_subject");
+					
+					if (btn.has("share_text"))
+						config.message.secondButton.shareText = btn.getString("share_text");
 				}
 
 				if (message.has("thirdButton")) {
@@ -380,6 +275,12 @@ public class ZLAdUtil {
 
 					if (btn.has("link"))
 						config.message.thirdButton.link = btn.getString("link");
+					
+					if (btn.has("share_subject"))
+						config.message.thirdButton.shareSubject = btn.getString("share_subject");
+					
+					if (btn.has("share_text"))
+						config.message.thirdButton.shareText = btn.getString("share_text");
 				}
 			}
 
