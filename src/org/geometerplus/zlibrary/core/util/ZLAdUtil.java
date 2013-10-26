@@ -22,6 +22,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -36,6 +37,8 @@ public class ZLAdUtil {
 		public String text;
 		public String action;
 		public String link;
+		public String shareSubject;
+		public String shareText;
 	}
 	
 	public class AdMessage {
@@ -138,17 +141,34 @@ public class ZLAdUtil {
 		}
 		
 		protected void buttonAction(DialogInterface dialog, AdMessageButton btn, ZLBooleanOption opt) {
-			if (btn.action.contains("link") && btn.link != null)
+			if (btn.action.contains("link") && btn.link != null) {
 				m_parentActivity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(btn.link)));
+			}
 
-			if (btn.action.contains("remind"))
+			if (btn.action.contains("remind")) {
 				opt.setValue(true);
-			
-			if (btn.action.contains("hide"))
-				dialog.cancel();
+			}
 
-			if (btn.action.contains("close"))
+			if(btn.action.contains("share")) {
+				try {
+					m_parentActivity.startActivity(
+						new Intent(Intent.ACTION_SEND)
+							.putExtra(Intent.EXTRA_SUBJECT, btn.shareSubject)
+							.putExtra(Intent.EXTRA_TEXT, btn.shareText)
+							//.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file.javaFile()))
+					);
+				} catch (ActivityNotFoundException e) {
+					// TODO: show toast
+				}
+			}
+			
+			if (btn.action.contains("hide")) {
+				dialog.cancel();
+			}
+
+			if (btn.action.contains("close")) {
 				m_parentActivity.finish();
+			}
 		}
 	}
 	
@@ -211,6 +231,12 @@ public class ZLAdUtil {
 
 					if (btn.has("link"))
 						config.message.firstButton.link = btn.getString("link");
+					
+					if (btn.has("share_subject"))
+						config.message.firstButton.shareSubject = btn.getString("share_subject");
+					
+					if (btn.has("share_text"))
+						config.message.firstButton.shareText = btn.getString("share_text");
 				}
 
 				if (message.has("secondButton")) {
@@ -228,6 +254,12 @@ public class ZLAdUtil {
 					if (btn.has("link"))
 						config.message.secondButton.link = btn
 								.getString("link");
+					
+					if (btn.has("share_subject"))
+						config.message.secondButton.shareSubject = btn.getString("share_subject");
+					
+					if (btn.has("share_text"))
+						config.message.secondButton.shareText = btn.getString("share_text");
 				}
 
 				if (message.has("thirdButton")) {
@@ -243,6 +275,12 @@ public class ZLAdUtil {
 
 					if (btn.has("link"))
 						config.message.thirdButton.link = btn.getString("link");
+					
+					if (btn.has("share_subject"))
+						config.message.thirdButton.shareSubject = btn.getString("share_subject");
+					
+					if (btn.has("share_text"))
+						config.message.thirdButton.shareText = btn.getString("share_text");
 				}
 			}
 
