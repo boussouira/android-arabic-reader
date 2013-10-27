@@ -153,12 +153,12 @@ public class ZLAdUtil {
 				try {
 					m_parentActivity.startActivity(
 						new Intent(Intent.ACTION_SEND)
+							.setType("text/plain")
 							.putExtra(Intent.EXTRA_SUBJECT, btn.shareSubject)
 							.putExtra(Intent.EXTRA_TEXT, btn.shareText)
-							//.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file.javaFile()))
 					);
 				} catch (ActivityNotFoundException e) {
-					// TODO: show toast
+					e.printStackTrace();
 				}
 			}
 			
