@@ -92,7 +92,7 @@ public class OpenDictionaryActivity extends Activity {
 				@Override
 				public void onComplete(String s, TranslateMode translateMode) {
 					final String url = saveArticle(s.replace("</BODY>", "<br><br></BODY>"), getApplicationContext());
-					if (url == null || url.isEmpty())
+					if (url == null || url.length() == 0)
 						openTextInDictionary(myQuery);
 					else
 						myArticleView.loadUrl(url);
