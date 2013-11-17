@@ -20,10 +20,7 @@
 package org.geometerplus.android.fbreader;
 
 import android.view.View;
-import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.TextView;
+import android.widget.*;
 
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
@@ -61,14 +58,14 @@ final class NavigationPopup extends PopupPanel {
 	protected void show_() {
 		super.show_();
 		if (myWindow != null) {
-			setupNavigation(myWindow);
+			setupNavigation();
 		}
 	}
 
 	@Override
 	protected void update() {
 		if (!myIsInProgress && myWindow != null) {
-			setupNavigation(myWindow);
+			setupNavigation();
 		}
 	}
 
@@ -140,9 +137,9 @@ final class NavigationPopup extends PopupPanel {
 		myWindow.addView(layout);
 	}
 
-	private void setupNavigation(PopupWindow panel) {
-		final SeekBar slider = (SeekBar)panel.findViewById(R.id.navigation_slider);
-		final TextView text = (TextView)panel.findViewById(R.id.navigation_text);
+	private void setupNavigation() {
+		final SeekBar slider = (SeekBar)myWindow.findViewById(R.id.navigation_slider);
+		final TextView text = (TextView)myWindow.findViewById(R.id.navigation_text);
 
 		final ZLTextView textView = getReader().getTextView();
 		final ZLTextView.PagePosition pagePosition = textView.pagePosition();

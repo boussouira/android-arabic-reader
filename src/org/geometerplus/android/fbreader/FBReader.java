@@ -48,6 +48,7 @@ import org.geometerplus.zlibrary.ui.android.view.ZLAndroidWidget;
 import org.geometerplus.fbreader.book.*;
 import org.geometerplus.fbreader.bookmodel.BookModel;
 import org.geometerplus.fbreader.fbreader.*;
+import org.geometerplus.fbreader.fbreader.options.CancelMenuHelper;
 import org.geometerplus.fbreader.tips.TipsManager;
 
 import org.geometerplus.android.fbreader.api.*;
@@ -161,7 +162,7 @@ public final class FBReader extends Activity {
 				runOnUiThread(new Runnable() {
 					public void run() {
 						//new TipRunner().start();
-						DictionaryUtil.init(FBReader.this);
+						DictionaryUtil.init(FBReader.this, null);
 					}
 				});
 			}
@@ -244,6 +245,7 @@ public final class FBReader extends Activity {
 			myFBReaderApp.addAction(ActionCode.SET_SCREEN_ORIENTATION_REVERSE_LANDSCAPE, new SetScreenOrientationAction(this, myFBReaderApp, ZLibrary.SCREEN_ORIENTATION_REVERSE_LANDSCAPE));
 		}
 		myFBReaderApp.addAction(ActionCode.OPEN_WEB_HELP, new OpenWebHelpAction(this, myFBReaderApp));
+		myFBReaderApp.addAction(ActionCode.INSTALL_PLUGINS, new InstallPluginsAction(this, myFBReaderApp));
 
 		ZLAdUtil ad = new ZLAdUtil(this, myRootView);
 		ad.start();
@@ -537,9 +539,33 @@ public final class FBReader extends Activity {
 				}
 				break;
 			case REQUEST_CANCEL_MENU:
-				myFBReaderApp.runCancelAction(resultCode - 1);
+				runCancelAction(data);
 				break;
 		}
+	}
+
+	private void runCancelAction(Intent intent) {
+		final CancelMenuHelper.ActionType type;
+		try {
+			type = CancelMenuHelper.ActionType.valueOf(
+				intent.getStringExtra(CancelActivity.TYPE_KEY)
+			);
+		} catch (Exception e) {
+			// invalid (or null) type value
+			return;
+		}
+		Bookmark bookmark = null;
+		if (type == CancelMenuHelper.ActionType.returnTo) {
+			try {
+				bookmark = SerializerUtil.deserializeBookmark(
+					intent.getStringExtra(CancelActivity.BOOKMARK_KEY)
+				);
+			} catch (Exception e) {
+				// invalid (or null) bookmark value
+				return;
+			}
+		}
+		myFBReaderApp.runCancelAction(type, bookmark);
 	}
 
 	public void navigate() {

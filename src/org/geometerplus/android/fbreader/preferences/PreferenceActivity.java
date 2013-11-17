@@ -319,7 +319,8 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		cssScreen.addOption(collection.UseCSSTextAlignmentOption, "textAlignment");
 
 		final Screen colorsScreen = createPreferenceScreen("colors");
-		colorsScreen.addPreference(new WallpaperPreference(
+
+		final WallpaperPreference wallpaperPreference = new WallpaperPreference(
 			this, profile, colorsScreen.Resource, "background"
 		) {
 			@Override
@@ -327,7 +328,9 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 				super.onDialogClosed(result);
 				bgPreferences.setEnabled("".equals(getValue()));
 			}
-		});
+		};
+		colorsScreen.addPreference(wallpaperPreference);
+
 		bgPreferences.add(
 			colorsScreen.addOption(profile.BackgroundOption, "backgroundColor")
 		);
@@ -497,55 +500,55 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 			}
 		};
 
-		try {
-			dictionaryScreen.addPreference(new DictionaryPreference(
-				this,
-				dictionaryScreen.Resource,
-				"dictionary",
-				DictionaryUtil.singleWordTranslatorOption(),
-				DictionaryUtil.dictionaryInfos(this, true)
-			) {
-				@Override
-				protected void onDialogClosed(boolean result) {
-					super.onDialogClosed(result);
-					targetLanguagePreference.setEnabled(
-						DictionaryUtil.getCurrentDictionaryInfo(true).SupportsTargetLanguageSetting
-					);
-				}
-			});
-			dictionaryScreen.addPreference(new DictionaryPreference(
-				this,
-				dictionaryScreen.Resource,
-				"translator",
-				DictionaryUtil.multiWordTranslatorOption(),
-				DictionaryUtil.dictionaryInfos(this, false)
-			));
-		} catch (Exception e) {
-			// ignore: dictionary lists are not initialized yet
-		}
-		dictionaryScreen.addPreference(new ZLBooleanPreference(
-			this,
-			fbReader.NavigateAllWordsOption,
-			dictionaryScreen.Resource,
-			"navigateOverAllWords"
-		));
-		dictionaryScreen.addOption(fbReader.WordTappingActionOption, "tappingAction");
-		dictionaryScreen.addPreference(targetLanguagePreference);
-		targetLanguagePreference.setEnabled(
-			DictionaryUtil.getCurrentDictionaryInfo(true).SupportsTargetLanguageSetting
-		);
+		DictionaryUtil.init(this, new Runnable() {
+			public void run() {
+				dictionaryScreen.addPreference(new DictionaryPreference(
+					PreferenceActivity.this,
+					dictionaryScreen.Resource,
+					"dictionary",
+					DictionaryUtil.singleWordTranslatorOption(),
+					DictionaryUtil.dictionaryInfos(PreferenceActivity.this, true)
+				) {
+					@Override
+					protected void onDialogClosed(boolean result) {
+						super.onDialogClosed(result);
+						targetLanguagePreference.setEnabled(
+							DictionaryUtil.getCurrentDictionaryInfo(true).SupportsTargetLanguageSetting
+						);
+					}
+				});
+				dictionaryScreen.addPreference(new DictionaryPreference(
+					PreferenceActivity.this,
+					dictionaryScreen.Resource,
+					"translator",
+					DictionaryUtil.multiWordTranslatorOption(),
+					DictionaryUtil.dictionaryInfos(PreferenceActivity.this, false)
+				));
+				dictionaryScreen.addPreference(new ZLBooleanPreference(
+					PreferenceActivity.this,
+					fbReader.NavigateAllWordsOption,
+					dictionaryScreen.Resource,
+					"navigateOverAllWords"
+				));
+				dictionaryScreen.addOption(fbReader.WordTappingActionOption, "tappingAction");
+				dictionaryScreen.addPreference(targetLanguagePreference);
+				targetLanguagePreference.setEnabled(
+					DictionaryUtil.getCurrentDictionaryInfo(true).SupportsTargetLanguageSetting
+				);
+			}
+		});
 
 		final Screen imagesScreen = createPreferenceScreen("images");
 		imagesScreen.addOption(fbReader.ImageTappingActionOption, "tappingAction");
 		imagesScreen.addOption(fbReader.FitImagesToScreenOption, "fitImagesToScreen");
 		imagesScreen.addOption(fbReader.ImageViewBackgroundOption, "backgroundColor");
 
-		final CancelMenuOptions cancelMenuOptions = fbReader.CancelMenuOptions;
+		final CancelMenuHelper cancelMenuHelper = new CancelMenuHelper();
 		final Screen cancelMenuScreen = createPreferenceScreen("cancelMenu");
-		cancelMenuScreen.addOption(cancelMenuOptions.ShowLibraryItem, "library");
-		cancelMenuScreen.addOption(cancelMenuOptions.ShowNetworkLibraryItem, "networkLibrary");
-		cancelMenuScreen.addOption(cancelMenuOptions.ShowPreviousBookItem, "previousBook");
-		cancelMenuScreen.addOption(cancelMenuOptions.ShowPositionItems, "positions");
+		cancelMenuScreen.addOption(cancelMenuHelper.ShowLibraryItemOption, "library");
+		cancelMenuScreen.addOption(cancelMenuHelper.ShowNetworkLibraryItemOption, "networkLibrary");
+		cancelMenuScreen.addOption(cancelMenuHelper.ShowPreviousBookItemOption, "previousBook");
+		cancelMenuScreen.addOption(cancelMenuHelper.ShowPositionItemsOption, "positions");
 		final String[] backKeyActions =
 			{ ActionCode.EXIT, ActionCode.SHOW_CANCEL_MENU };
 		cancelMenuScreen.addPreference(new ZLStringChoicePreference(

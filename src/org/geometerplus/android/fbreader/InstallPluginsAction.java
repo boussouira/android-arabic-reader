@@ -17,17 +17,19 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.fbreader.fbreader.options;
+package org.geometerplus.android.fbreader;
 
-import org.geometerplus.zlibrary.core.options.ZLBooleanOption;
+import android.content.Intent;
 
-public class CancelMenuOptions {
-	public final ZLBooleanOption ShowLibraryItem =
-		new ZLBooleanOption("CancelMenu", "library", true);
-	public final ZLBooleanOption ShowNetworkLibraryItem =
-		new ZLBooleanOption("CancelMenu", "networkLibrary", true);
-	public final ZLBooleanOption ShowPreviousBookItem =
-		new ZLBooleanOption("CancelMenu", "previousBook", false);
-	public final ZLBooleanOption ShowPositionItems =
-		new ZLBooleanOption("CancelMenu", "positions", true);
+import org.geometerplus.fbreader.fbreader.FBReaderApp;
+
+class InstallPluginsAction extends FBAndroidAction {
+	InstallPluginsAction(FBReader baseActivity, FBReaderApp fbreader) {
+		super(baseActivity, fbreader);
+	}
+
+	@Override
+	protected void run(Object ... params) {
+		BaseActivity.startActivity(new Intent(BaseActivity, PluginListActivity.class));
+	}
 }
