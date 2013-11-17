@@ -179,6 +179,7 @@ public class BookCollectionShadow extends AbstractBookCollection implements Serv
 		try {
 			return SerializerUtil.deserializeBook(myInterface.getRecentBook(index));
 		} catch (RemoteException e) {
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -291,12 +292,12 @@ public class BookCollectionShadow extends AbstractBookCollection implements Serv
 		}
 	}
 
-	public synchronized boolean saveBook(Book book, boolean force) {
+	public synchronized boolean saveBook(Book book) {
 		if (myInterface == null) {
 			return false;
 		}
 		try {
-			return myInterface.saveBook(SerializerUtil.serialize(book), force);
+			return myInterface.saveBook(SerializerUtil.serialize(book));
 		} catch (RemoteException e) {
 			return false;
 		}
