@@ -262,6 +262,8 @@
 		<node name="toc" value="TOC"/>
 		<node name="day" value="روز"/>
 		<node name="night" value="شب"/>
+		<node name="yotaSwitchToBackScreen" value="Switch to back screen" toBeTranslated="true"/>
+		<node name="yotaSwitchToFrontScreen" value="Switch to front screen" toBeTranslated="true"/>
 		<node name="networkLibrary" value="کتابخانه شبکه"/>
 		<node name="navigate" value="هدایت کردن">
 			<node name="toc" value="فهرست مطالب"/>
@@ -333,6 +335,10 @@
 			<node name="showStatusBarWhenMenuIsActive" value="نمایش نوار وضعیت هنگام فعالیت منو">
 				<node name="summaryOn" value="نمایش نوار وضعیت هنگامی که منو فعال میشود"/>
 				<node name="summaryOff" value="عدم نمایش نوار وضعیت هنگامی که منو فعال میشود"/>
+			</node>
+			<node name="fullscreenMode" value="Fullscreen mode" toBeTranslated="true">
+				<node name="summaryOn" value="Hide navigation controls" toBeTranslated="true"/>
+				<node name="summaryOff" value="Show navigation controls" toBeTranslated="true"/>
 			</node>
 			<node name="disableButtonLights" value="غیرفعال کردن نور کلیدها هنگام خواندن">
 				<node name="summaryOn" value="غیرفعال کردن نور کلیدها &quot; در بعضی از دستگاه ها عمل نمیکند&quot;"/>
@@ -887,5 +893,9 @@
 	</node>
 	<node name="links">
 		<node name="faqPage" value="http://fbreader.org/faq-page"/>
+	</node>
+	<node name="yota">
+		<node name="frontScreenMessage" value="Turn the device over to read your book. To return text to this screen, press the button below." toBeTranslated="true"/>
+		<node name="frontScreenButton" value="Switch to this screen" toBeTranslated="true"/>
 	</node>
 </resources>

@@ -73,6 +73,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		setResult(FBReader.RESULT_REPAINT);
 
 		final FBReaderApp fbReader = (FBReaderApp)FBReaderApp.Instance();
+		final ViewOptions viewOptions = fbReader.ViewOptions;
 		final ZLAndroidLibrary androidLibrary = (ZLAndroidLibrary)ZLAndroidLibrary.Instance();
 		final ColorProfile profile = fbReader.getColorProfile();
 		// TODO: use user-defined locale, not the default one,
@@ -123,7 +124,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		));
 		appearanceScreen.addPreference(new ZLBooleanPreference(
 			this,
-			fbReader.TwoColumnViewOption,
+			viewOptions.TwoColumnView,
 			appearanceScreen.Resource,
 			"twoColumnView"
 		));
@@ -159,6 +160,9 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 			appearanceScreen.addOption(androidLibrary.ShowStatusBarOption, "showStatusBar");
 		}
 		appearanceScreen.addOption(androidLibrary.ShowActionBarOption, "showActionBar");
+		if (Build.VERSION.SDK_INT >= 19/*Build.VERSION_CODES.KITKAT*/) {
+			appearanceScreen.addOption(androidLibrary.EnableFullscreenModeOption, "fullscreenMode");
+		}
 		appearanceScreen.addOption(androidLibrary.DisableButtonLightsOption, "disableButtonLights");
 
 		final Screen textScreen = createPreferenceScreen("text");
@@ -172,7 +176,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		}
 		fontPropertiesScreen.addOption(ZLAndroidPaintContext.SubpixelOption, "subpixel");
 
-		final ZLTextStyleCollection collection = ZLTextStyleCollection.Instance();
+		final ZLTextStyleCollection collection = fbReader.TextStyleCollection;
 		final ZLTextBaseStyle baseStyle = collection.getBaseStyle();
 		textScreen.addPreference(new FontOption(
 			this, textScreen.Resource, "font",
@@ -322,8 +326,8 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		final ZLPreferenceSet bgPreferences = new ZLPreferenceSet();
 
 		final Screen cssScreen = createPreferenceScreen("css");
-		cssScreen.addOption(collection.UseCSSFontSizeOption, "fontSize");
-		cssScreen.addOption(collection.UseCSSTextAlignmentOption, "textAlignment");
+		cssScreen.addOption(baseStyle.UseCSSFontSizeOption, "fontSize");
+		cssScreen.addOption(baseStyle.UseCSSTextAlignmentOption, "textAlignment");
 
 		final Screen colorsScreen = createPreferenceScreen("colors");
 
@@ -356,23 +360,23 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		final Screen marginsScreen = createPreferenceScreen("margins");
 		marginsScreen.addPreference(new ZLIntegerRangePreference(
 			this, marginsScreen.Resource.getResource("left"),
-			fbReader.LeftMarginOption
+			viewOptions.LeftMargin
 		));
 		marginsScreen.addPreference(new ZLIntegerRangePreference(
 			this, marginsScreen.Resource.getResource("right"),
-			fbReader.RightMarginOption
+			viewOptions.RightMargin
 		));
 		marginsScreen.addPreference(new ZLIntegerRangePreference(
 			this, marginsScreen.Resource.getResource("top"),
-			fbReader.TopMarginOption
+			viewOptions.TopMargin
 		));
 		marginsScreen.addPreference(new ZLIntegerRangePreference(
 			this, marginsScreen.Resource.getResource("bottom"),
-			fbReader.BottomMarginOption
+			viewOptions.BottomMargin
 		));
 		marginsScreen.addPreference(new ZLIntegerRangePreference(
 			this, marginsScreen.Resource.getResource("spaceBetweenColumns"),
-			fbReader.SpaceBetweenColumnsOption
+			viewOptions.SpaceBetweenColumns
 		));
 
 		final Screen statusLineScreen = createPreferenceScreen("scrollBar");
@@ -394,7 +398,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		final FooterOptions footerOptions = fbReader.FooterOptions;
 		footerPreferences.add(statusLineScreen.addPreference(new ZLIntegerRangePreference(
 			this, statusLineScreen.Resource.getResource("footerHeight"),
-			fbReader.FooterHeightOption
+			viewOptions.FooterHeight
 		)));
 		footerPreferences.add(statusLineScreen.addOption(profile.FooterFillOption, "footerColor"));
 		footerPreferences.add(statusLineScreen.addOption(footerOptions.ShowTOCMarks, "tocMarks"));

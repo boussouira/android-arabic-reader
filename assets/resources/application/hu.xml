@@ -252,6 +252,8 @@
 		<node name="toc" value="Tartalom"/>
 		<node name="day" value="Nappali"/>
 		<node name="night" value="Éjjeli"/>
+		<node name="yotaSwitchToBackScreen" value="Switch to back screen" toBeTranslated="true"/>
+		<node name="yotaSwitchToFrontScreen" value="Switch to front screen" toBeTranslated="true"/>
 		<node name="networkLibrary" value="Internetes könyvtár"/>
 		<node name="navigate" value="Navigáció">
 			<node name="toc" value="Tartalomjegyzék"/>
@@ -323,6 +325,10 @@
 			<node name="showStatusBarWhenMenuIsActive" value="Állapotsor látható a menüben">
 				<node name="summaryOn" value="Az állapotsor látszik a menübe belépéskor"/>
 				<node name="summaryOff" value="Az állapotsor nem látszik a menübe belépéskor"/>
+			</node>
+			<node name="fullscreenMode" value="Fullscreen mode" toBeTranslated="true">
+				<node name="summaryOn" value="Hide navigation controls" toBeTranslated="true"/>
+				<node name="summaryOff" value="Show navigation controls" toBeTranslated="true"/>
 			</node>
 			<node name="disableButtonLights" value="Gombok megvilágításának kikapcsolása">
 				<node name="summaryOn" value="Megvilágítás kikapcsolása olvasás közben (nem minden eszköznél működik)"/>
@@ -877,5 +883,9 @@
 	</node>
 	<node name="links">
 		<node name="faqPage" value="http://fbreader.org/faq-page"/>
+	</node>
+	<node name="yota">
+		<node name="frontScreenMessage" value="Turn the device over to read your book. To return text to this screen, press the button below." toBeTranslated="true"/>
+		<node name="frontScreenButton" value="Switch to this screen" toBeTranslated="true"/>
 	</node>
 </resources>

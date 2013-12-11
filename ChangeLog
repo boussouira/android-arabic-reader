@@ -1,7 +1,14 @@
-===== 1.9.3 (Nov ??, 2013) =====
-* Updated Chinese localization by Chris Yu
-* Updated Catalan localization (by Alfonso Montero)
+===== 1.9.4 (Dec ??, 2013) =====
 * New option: adjust image color according background. For light background, adjusts too light colors to match background, for dark background adjusts too dark areas.
+* Updated Czech localization (by Marek Pavelka)
+* It is possible to load fonts from assets; PT Sans font added in ics version
+
+===== 1.9.3 (Nov 22, 2013) =====
+* Added Greek localization (by Alex Doulamis)
+* Updated Chinese localization (by Chris Yu)
+* Updated Catalan localization (by Alfonso Montero)
+* Litres: don't fail on loading of purchased books list (for large collections).
+* Immersive fullscreen mode on android 4.4 devices
 
 ===== 1.9.2 (Nov 02, 2013) =====
 * Fixed adding of new books to the library
