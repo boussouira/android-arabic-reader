@@ -179,9 +179,7 @@ public final class FBReaderApp extends ZLApplication {
 					}
 				}
 			}, postAction);
-			
-			ZLLogUtil.bookOpen(book);
-		}
+					}
 	}
 
 	public void reloadBook() {
@@ -353,6 +351,8 @@ public final class FBReaderApp extends ZLApplication {
 
 		getViewWidget().reset();
 		getViewWidget().repaint();
+		
+		ZLLogUtil.bookOpen(book);
 	}
 
 	private List<Bookmark> invisibleBookmarks() {
