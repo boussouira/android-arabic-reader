@@ -252,6 +252,8 @@
 		<node name="toc" value="本书目录"/>
 		<node name="day" value="白底黑字"/>
 		<node name="night" value="黑底白字"/>
+		<node name="yotaSwitchToBackScreen" value="Switch to back screen" toBeTranslated="true"/>
+		<node name="yotaSwitchToFrontScreen" value="Switch to front screen" toBeTranslated="true"/>
 		<node name="networkLibrary" value="在线书库"/>
 		<node name="navigate" value="快速翻看">
 			<node name="toc" value="内容目录"/>
@@ -323,6 +325,10 @@
 			<node name="showStatusBarWhenMenuIsActive" value="菜单激活时显示状态栏">
 				<node name="summaryOn" value="菜单处于激活状态时显示状态栏"/>
 				<node name="summaryOff" value="菜单激活时不要显示状态栏"/>
+			</node>
+			<node name="fullscreenMode" value="Fullscreen mode" toBeTranslated="true">
+				<node name="summaryOn" value="Hide navigation controls" toBeTranslated="true"/>
+				<node name="summaryOff" value="Show navigation controls" toBeTranslated="true"/>
 			</node>
 			<node name="disableButtonLights" value="阅读时禁用系统按键发亮">
 				<node name="summaryOn" value="禁用设备系统按键发亮 (对某些设备无效)"/>
@@ -877,5 +883,9 @@
 	</node>
 	<node name="links">
 		<node name="faqPage" value="http://fbreader.org/faq-page"/>
+	</node>
+	<node name="yota">
+		<node name="frontScreenMessage" value="Turn the device over to read your book. To return text to this screen, press the button below." toBeTranslated="true"/>
+		<node name="frontScreenButton" value="Switch to this screen" toBeTranslated="true"/>
 	</node>
 </resources>

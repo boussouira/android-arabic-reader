@@ -28,6 +28,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.format.DateFormat;
@@ -58,15 +59,15 @@ public final class ZLAndroidLibrary extends ZLibrary {
 			"PD_Novel".equals(Build.MODEL);
 	}
 
-	private Boolean myIsKindleFire = null;
 	public boolean isKindleFire() {
-		if (myIsKindleFire == null) {
-			final String KINDLE_MODEL_REGEXP = ".*kindle(\\s+)fire.*";
-			myIsKindleFire =
-				Build.MODEL != null &&
-				Build.MODEL.toLowerCase().matches(KINDLE_MODEL_REGEXP);
-		}
-		return myIsKindleFire;
+		final String KINDLE_MODEL_REGEXP = ".*kindle(\\s+)fire.*";
+		return
+			Build.MODEL != null &&
+			Build.MODEL.toLowerCase().matches(KINDLE_MODEL_REGEXP);
+	}
+
+	public boolean isYotaPhone() {
+		return "YotaPhone".equals(Build.BRAND);
 	}
 
 	public boolean hasButtonLightsBug() {
@@ -90,14 +91,10 @@ public final class ZLAndroidLibrary extends ZLibrary {
 		}
 	}
 
-	public FBReader getActivity() {
-		return myActivity;
+	public AssetManager getAssets() {
+		return myApplication.getAssets();
 	}
-
-	public ZLAndroidWidget getWidget() {
-		return myActivity.getMainView();
-	}
-
+		
 	@Override
 	public ZLResourceFile createResourceFile(String path) {
 		return new AndroidAssetsFile(path);
@@ -148,41 +145,33 @@ public final class ZLAndroidLibrary extends ZLibrary {
 	}
 
 	private DisplayMetrics myMetrics;
+	private DisplayMetrics getMetrics() {
+		if (myMetrics == null) {
+			if (myActivity == null) {
+				return null;
+			}
+			myMetrics = new DisplayMetrics();
+			myActivity.getWindowManager().getDefaultDisplay().getMetrics(myMetrics);
+		}
+		return myMetrics;
+	}
 
 	@Override
 	public int getDisplayDPI() {
-		if (myMetrics == null) {
-			if (myActivity == null) {
-				return 0;
-			}
-			myMetrics = new DisplayMetrics();
-			myActivity.getWindowManager().getDefaultDisplay().getMetrics(myMetrics);
-		}
-		return (int)(160 * myMetrics.density);
+		final DisplayMetrics metrics = getMetrics();
+		return metrics == null ? 0 : (int)(160 * metrics.density);
 	}
 
 	@Override
-	public int getPixelWidth() {
-		if (myMetrics == null) {
-			if (myActivity == null) {
-				return 0;
-			}
-			myMetrics = new DisplayMetrics();
-			myActivity.getWindowManager().getDefaultDisplay().getMetrics(myMetrics);
-		}
-		return myMetrics.widthPixels;
+	public int getWidthInPixels() {
+		final DisplayMetrics metrics = getMetrics();
+		return metrics == null ? 0 : metrics.widthPixels;
 	}
 
 	@Override
-	public int getPixelHeight() {
-		if (myMetrics == null) {
-			if (myActivity == null) {
-				return 0;
-			}
-			myMetrics = new DisplayMetrics();
-			myActivity.getWindowManager().getDefaultDisplay().getMetrics(myMetrics);
-		}
-		return myMetrics.heightPixels;
+	public int getHeightInPixels() {
+		final DisplayMetrics metrics = getMetrics();
+		return metrics == null ? 0 : metrics.heightPixels;
 	}
 
 	@Override
@@ -214,11 +203,7 @@ public final class ZLAndroidLibrary extends ZLibrary {
 
 	@Override
 	public boolean supportsAllOrientations() {
-		try {
-			return ActivityInfo.class.getField("SCREEN_ORIENTATION_REVERSE_PORTRAIT") != null;
-		} catch (NoSuchFieldException e) {
-			return false;
-		}
+		return Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD;
 	}
 
 	private final class AndroidAssetsFile extends ZLResourceFile {

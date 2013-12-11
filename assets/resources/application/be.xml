@@ -268,6 +268,8 @@
 		<node name="toc" value="Зьмест"/>
 		<node name="day" value="Дзень"/>
 		<node name="night" value="Ноч"/>
+		<node name="yotaSwitchToBackScreen" value="Switch to back screen" toBeTranslated="true"/>
+		<node name="yotaSwitchToFrontScreen" value="Switch to front screen" toBeTranslated="true"/>
 		<node name="networkLibrary" value="Сеткавая бібліятэка"/>
 		<node name="navigate" value="Перайсьці">
 			<node name="toc" value="Зьмест"/>
@@ -339,6 +341,10 @@
 			<node name="showStatusBarWhenMenuIsActive" value="Паказваць паліцу стану, калі мэню актыўнае">
 				<node name="summaryOn" value="Паказваць паліцу стану, калі актывуецца мэню"/>
 				<node name="summaryOff" value="Не паказваць паліцу стану, калі актывуецца мэню"/>
+			</node>
+			<node name="fullscreenMode" value="Fullscreen mode" toBeTranslated="true">
+				<node name="summaryOn" value="Hide navigation controls" toBeTranslated="true"/>
+				<node name="summaryOff" value="Show navigation controls" toBeTranslated="true"/>
 			</node>
 			<node name="disableButtonLights" value="Выключаць сьвятло кнопак падчас чытаньня">
 				<node name="summaryOn" value="Выключаць сьвятло кнопак (не працуе на некаторых прыладах)"/>
@@ -893,5 +899,9 @@
 	</node>
 	<node name="links">
 		<node name="faqPage" value="http://fbreader.org/faq-page"/>
+	</node>
+	<node name="yota">
+		<node name="frontScreenMessage" value="Turn the device over to read your book. To return text to this screen, press the button below." toBeTranslated="true"/>
+		<node name="frontScreenButton" value="Switch to this screen" toBeTranslated="true"/>
 	</node>
 </resources>
