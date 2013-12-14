@@ -80,7 +80,7 @@ public abstract class ZLSearchUtil {
 
         final char[] lower = pattern.LowerCasePattern;
         final int patternLength = lower.length;
-        final int last = offset + length;
+        final int last = offset + length - patternLength;
         final char firstChar = lower[0];
 
         for (int i = offset + pos; i <= last; i++) {
