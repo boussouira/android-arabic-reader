@@ -3,4 +3,3 @@ markdown: redcarpet
 safe: true
 lsi: false
 pygments: true
-source: test
