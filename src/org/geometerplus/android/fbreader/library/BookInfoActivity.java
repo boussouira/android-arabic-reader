@@ -40,6 +40,7 @@ import org.geometerplus.zlibrary.core.image.ZLLoadableImage;
 import org.geometerplus.zlibrary.core.language.Language;
 import org.geometerplus.zlibrary.core.language.ZLLanguageUtil;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
+import org.geometerplus.zlibrary.core.util.ZLArabicUtils;
 
 import net.sourceforge.arabicReader.R;
 import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageData;
@@ -258,6 +259,11 @@ public class BookInfoActivity extends Activity implements IBookCollection.Listen
 		}
 		setupInfoPair(R.id.book_tags, "tags", buffer, tagNames.size());
 		String language = book.getLanguage();
+		
+		if(ZLArabicUtils.arabicCharCount(book.getTitle()) > 0.5 && (language == null || !language.equals("ar"))) {
+			language = "ar";
+		}
+		
 		if (!ZLLanguageUtil.languageCodes().contains(language)) {
 			language = Language.OTHER_CODE;
 		}

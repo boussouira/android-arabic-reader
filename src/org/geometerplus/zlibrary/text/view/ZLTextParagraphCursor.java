@@ -23,11 +23,14 @@ import java.util.*;
 import org.vimgadgets.linebreak.LineBreaker;
 
 import org.geometerplus.zlibrary.core.image.*;
+import org.geometerplus.zlibrary.core.util.ZLArabicUtils;
 import org.geometerplus.zlibrary.text.model.*;
 
 public final class ZLTextParagraphCursor {
 	private static final class Processor {
 		private final ZLTextParagraph myParagraph;
+		private final String myLanguage;
+		private final boolean myRTLMode;
 		private final LineBreaker myLineBreaker;
 		private final ArrayList<ZLTextElement> myElements;
 		private int myOffset;
@@ -35,9 +38,11 @@ public final class ZLTextParagraphCursor {
 		private int myLastMark;
 		private final List<ZLTextMark> myMarks;
 
-		private Processor(ZLTextParagraph paragraph, LineBreaker lineBreaker, List<ZLTextMark> marks, int paragraphIndex, ArrayList<ZLTextElement> elements) {
+		private Processor(ZLTextParagraph paragraph, String language, List<ZLTextMark> marks, int paragraphIndex, ArrayList<ZLTextElement> elements) {
 			myParagraph = paragraph;
-			myLineBreaker = lineBreaker;
+			myLanguage = language;
+			myRTLMode = myLanguage.equals("ar");
+			myLineBreaker = new LineBreaker(language);
 			myElements = elements;
 			myMarks = marks;
 			final ZLTextMark mark = new ZLTextMark(paragraphIndex, 0, 0);
@@ -178,11 +183,14 @@ public final class ZLTextParagraphCursor {
 		}
 
 		private final void addWord(char[] data, int offset, int len, int paragraphOffset, ZLTextHyperlink hyperlink) {
+			if (myRTLMode)
+				ZLArabicUtils.mayReshape(data, offset, len);
+
 			ZLTextWord word = new ZLTextWord(data, offset, len, paragraphOffset);
 			for (int i = myFirstMark; i < myLastMark; ++i) {
 				final ZLTextMark mark = (ZLTextMark)myMarks.get(i);
 				if ((mark.Offset < paragraphOffset + len) && (mark.Offset + mark.Length > paragraphOffset)) {
-					word.addMark(mark.Offset - paragraphOffset, mark.Length);
+					word.addMark(myRTLMode ? 0 : mark.Offset - paragraphOffset, myRTLMode ? mark.Length : data.length - 1);
 				}
 			}
 			if (hyperlink != null) {
@@ -216,7 +224,7 @@ public final class ZLTextParagraphCursor {
 		ZLTextParagraph	paragraph = Model.getParagraph(Index);
 		switch (paragraph.getKind()) {
 			case ZLTextParagraph.Kind.TEXT_PARAGRAPH:
-				new Processor(paragraph, new LineBreaker(Model.getLanguage()), Model.getMarks(), Index, myElements).fill();
+				new Processor(paragraph, Model.getLanguage(), Model.getMarks(), Index, myElements).fill();
 				break;
 			case ZLTextParagraph.Kind.EMPTY_LINE_PARAGRAPH:
 				myElements.add(new ZLTextWord(SPACE_ARRAY, 0, 1, 0));
