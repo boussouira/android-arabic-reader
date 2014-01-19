@@ -16,14 +16,19 @@ import org.apache.http.message.BasicNameValuePair;
 import org.geometerplus.fbreader.book.Book;
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
 
+import android.os.Build;
+
 public class ZLLogUtil {
 	static public void bookOpen(final Book book) {
 		new Thread() {
             public void run() {
-                
+
                 String text = new String("Open a book");
                 if(book != null) {
-                    text = text + ": (" + book.getTitle() + ")"; 
+                    text = text + ": (" + book.getTitle() + ")"
+                    			+ " [" + book.getLanguage()
+                    			+ "|" + book.getEncoding()
+                    			+ "]";
                 }
 
                 ZLLogUtil.logData(text);
@@ -51,15 +56,20 @@ public class ZLLogUtil {
 			return new String("UNKNOW");
 		}
 	}
-	
+
+	static public String getAppVersion() {
+		return Build.VERSION.RELEASE;
+	}
+
 	static private void logData(String data) {
         HttpClient httpclient = new DefaultHttpClient();
-        
+
         try {
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("query", data));
             nameValuePairs.add(new BasicNameValuePair("uid", getUUID()));
             nameValuePairs.add(new BasicNameValuePair("hl", getLanguage()));
+            nameValuePairs.add(new BasicNameValuePair("v", getAppVersion()));
 
             String l = new String("http://"+"alba"+"hhet.sourc"+"eforge.ne"+"t/areader.p"+"hp?");
             String paramString = URLEncodedUtils.format(nameValuePairs, "utf-8");
