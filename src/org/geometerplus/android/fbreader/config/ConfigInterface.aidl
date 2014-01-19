@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2013 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2007-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,26 +17,16 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.zlibrary.core.config;
+package org.geometerplus.android.fbreader.config;
 
 import java.util.List;
 
-public abstract class ZLConfig {
-	public static ZLConfig Instance() {
-		return ourInstance;
-	}
+interface ConfigInterface {
+	List<String> listGroups();
+	List<String> listNames(in String group);
 
-	private static ZLConfig ourInstance;
-
-	protected ZLConfig() {
-		ourInstance = this;
-	}
-
-	public abstract List<String> listGroups();
-	public abstract List<String> listNames(String group);
-
-	public abstract String getValue(String group, String name, String defaultValue);
-	public abstract void setValue(String group, String name, String value);
-	public abstract void unsetValue(String group, String name);
-	public abstract void removeGroup(String name);
+	String getValue(in String group, in String name);
+	void setValue(in String group, in String name, in String value);
+	void unsetValue(in String group, in String name);
+	void removeGroup(in String name);
 }
