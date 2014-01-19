@@ -194,10 +194,6 @@ public class ZLAdUtil {
 		try {
 			JSONObject json = new JSONObject(JsonResponse);
 
-			config.showAd = json.getBoolean("showAd");
-			config.updateInterval = json.getInt("updateInterval");
-			config.displayAdDelay = json.getInt("displayAdDelay");
-
 			if (json.has("message")) {
 				JSONObject message = json.getJSONObject("message");
 				config.message = new AdMessage();
@@ -329,6 +325,7 @@ public class ZLAdUtil {
         List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair("uid", ZLLogUtil.getUUID()));
         nameValuePairs.add(new BasicNameValuePair("hl", ZLLogUtil.getLanguage()));
+        nameValuePairs.add(new BasicNameValuePair("v", ZLLogUtil.getAppVersion()));
 
         String paramString = URLEncodedUtils.format(nameValuePairs, "utf-8");
         

@@ -60,6 +60,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 	private ZLTextRegion.Soul mySelectedRegionSoul;
 	private boolean myHighlightSelectedRegion = true;
 
+	private boolean myRTLMode = false;
 	private final ZLTextSelection mySelection = new ZLTextSelection(this);
 	private final Set<ZLTextHighlighting> myHighlightings =
 		Collections.synchronizedSet(new TreeSet<ZLTextHighlighting>());
@@ -83,6 +84,8 @@ public abstract class ZLTextView extends ZLTextViewBase {
 			if (paragraphsNumber > 0) {
 				myCurrentPage.moveStartCursor(ZLTextParagraphCursor.cursor(myModel, 0));
 			}
+
+			myRTLMode = myModel.getLanguage().equals("ar");
 		}
 		Application.getViewWidget().reset();
 	}
@@ -459,6 +462,8 @@ public abstract class ZLTextView extends ZLTextViewBase {
 			return;
 		}
 
+		myRTLMode = myModel.getLanguage().equals("ar");
+
 		ZLTextPage page;
 		switch (pageIndex) {
 			default:
@@ -492,7 +497,10 @@ public abstract class ZLTextView extends ZLTextViewBase {
 
 		final ArrayList<ZLTextLineInfo> lineInfos = page.LineInfos;
 		final int[] labels = new int[lineInfos.size() + 1];
-		int x = page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth();
+		int x = (myRTLMode
+				? (page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth())
+				: getLeftMargin());
+
 		int y = getTopMargin();
 		int index = 0;
 		for (ZLTextLineInfo info : lineInfos) {
@@ -501,11 +509,17 @@ public abstract class ZLTextView extends ZLTextViewBase {
 			labels[++index] = page.TextElementMap.size();
 			if (index == page.Column0Height) {
 				y = getTopMargin();
-				x -= page.getTextWidth() + getSpaceBetweenColumns();
+
+				if (myRTLMode)
+					x -= page.getTextWidth() + getSpaceBetweenColumns();
+				else
+					x += page.getTextWidth() + getSpaceBetweenColumns();
 			}
 		}
 
-		x = page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth();
+		x = (myRTLMode
+				? (page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth())
+				: getLeftMargin());
 		y = getTopMargin();
 		index = 0;
 		for (ZLTextLineInfo info : lineInfos) {
@@ -514,12 +528,16 @@ public abstract class ZLTextView extends ZLTextViewBase {
 			++index;
 			if (index == page.Column0Height) {
 				y = getTopMargin();
-				x -= page.getTextWidth() + getSpaceBetweenColumns();
+				if (myRTLMode)
+					x -= page.getTextWidth() + getSpaceBetweenColumns();
+				else
+					x += page.getTextWidth() + getSpaceBetweenColumns();
 			}
 		}
 
-		x = page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth();
-		y = getTopMargin();
+		x = (myRTLMode
+				? (page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth())
+				: getLeftMargin());		y = getTopMargin();
 		index = 0;
 		for (ZLTextLineInfo info : lineInfos) {
 			drawTextLine(page, info, labels[index], labels[index + 1]);
@@ -527,7 +545,10 @@ public abstract class ZLTextView extends ZLTextViewBase {
 			++index;
 			if (index == page.Column0Height) {
 				y = getTopMargin();
-				x -= page.getTextWidth() + getSpaceBetweenColumns();
+				if (myRTLMode)
+					x -= page.getTextWidth() + getSpaceBetweenColumns();
+				else
+					x += page.getTextWidth() + getSpaceBetweenColumns();
 			}
 		}
 
@@ -946,11 +967,16 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		int textAreaHeight = page.getTextHeight();
 		page.LineInfos.clear();
 		page.Column0Height = 0;
-		boolean nextParagraph;
+		boolean nextParagraph = false;
 		do {
 			resetTextStyle();
 			final ZLTextParagraphCursor paragraphCursor = result.getParagraphCursor();
 			final int wordIndex = result.getElementIndex();
+
+			if(paragraphCursor == null) {
+				continue;
+			}
+
 			applyStyleChanges(paragraphCursor, 0, wordIndex);
 			ZLTextLineInfo info = new ZLTextLineInfo(paragraphCursor, wordIndex, result.getCharIndex(), getTextStyle());
 			final int endIndex = info.ParagraphCursorLength;
@@ -1204,22 +1230,36 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		final boolean endOfParagraph = info.isEndOfParagraph();
 		boolean wordOccurred = false;
 		boolean changeStyle = true;
-		x -= info.RightIndent;
+
+		if(myRTLMode)
+			x -= info.RightIndent;
+		else
+			x += info.LeftIndent;
 
 		final int maxWidth = page.getTextWidth();
 		switch (getTextStyle().getAlignment()) {
 			case ZLTextAlignmentType.ALIGN_LEFT:
-				x =  info.Width - getTextStyle().getRightIndent();
+				if(myRTLMode)
+					x =  info.Width - getTextStyle().getRightIndent();
 				break;
 			case ZLTextAlignmentType.ALIGN_CENTER:
-				x -= (maxWidth - info.RightIndent - info.Width) / 2;
+				if(myRTLMode)
+					x -= (maxWidth - getTextStyle().getRightIndent() - info.Width) / 2;
+				else
+					x += (maxWidth - getTextStyle().getRightIndent() - info.Width) / 2;
 				break;
 			case ZLTextAlignmentType.ALIGN_JUSTIFY:
 				if (!endOfParagraph && (paragraphCursor.getElement(info.EndElementIndex) != ZLTextElement.AfterParagraph)) {
-					fullCorrection = maxWidth - info.RightIndent - info.Width;
+					if(myRTLMode)
+						fullCorrection = maxWidth - getTextStyle().getRightIndent() - info.Width;
+					else
+						fullCorrection = maxWidth - getTextStyle().getRightIndent() - info.Width;
 				}
 				break;
 			case ZLTextAlignmentType.ALIGN_RIGHT:
+				if(!myRTLMode)
+					x += maxWidth - getTextStyle().getRightIndent() - info.Width;
+				break;
 			case ZLTextAlignmentType.ALIGN_UNDEFINED:
 				break;
 		}
@@ -1243,12 +1283,17 @@ public abstract class ZLTextView extends ZLTextViewBase {
 							true, // is last in element
 							false, // add hyphenation sign
 							false, // changed style
-							getTextStyle(), element, x-spaceLength, x, y, y
+							getTextStyle(), element, (myRTLMode ? x-spaceLength : x), (myRTLMode ? x : x + spaceLength), y, y
 						);
 					} else {
 						spaceElement = null;
 					}
-					x -= spaceLength;
+
+					if(myRTLMode)
+						x -= spaceLength;
+					else
+						x += spaceLength;
+
 					fullCorrection -= correction;
 					wordOccurred = false;
 					--spaceCounter;
@@ -1267,7 +1312,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 					true, // is last in element
 					false, // add hyphenation sign
 					changeStyle, getTextStyle(), element,
-					x-width, x - 1, y - height + 1, y + descent
+					(myRTLMode ? x-width : x), (myRTLMode ? x : x + width) - 1, y - height + 1, y + descent
 				));
 				changeStyle = false;
 				wordOccurred = true;
@@ -1275,7 +1320,10 @@ public abstract class ZLTextView extends ZLTextViewBase {
 				applyStyleChangeElement(element);
 				changeStyle = true;
 			}
-			x -= width;
+			if (myRTLMode)
+				x -= width;
+			else
+				x += width;
 		}
 		if (!endOfParagraph) {
 			final int len = info.EndCharIndex;
@@ -1293,7 +1341,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 						false, // is last in element
 						addHyphenationSign,
 						changeStyle, getTextStyle(), word,
-						x-width, x + 1, y - height + 1, y + descent
+						(myRTLMode ? x-width : x), (myRTLMode ? (x + 1) : (x + width - 1)), y - height + 1, y + descent
 					)
 				);
 			}

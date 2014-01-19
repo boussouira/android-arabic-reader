@@ -46,6 +46,7 @@ public abstract class ZLLanguageUtil {
 					}
 				}
 			}
+			codes.add("ar");
 			codes.add("id");
 			codes.add("de-traditional");
 

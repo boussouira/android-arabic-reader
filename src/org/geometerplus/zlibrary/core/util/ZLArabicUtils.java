@@ -44,6 +44,23 @@ public class ZLArabicUtils {
     	return (0x30 <= c &&  c <= 0x39);
     }
     
+    public static double arabicCharCount(String text) {
+    	double arabicCount = 0;
+    	double otherCount = 0;
+    	
+    	for (int i = 0; i< text.length(); i++) {
+    		char c = text.charAt(i);
+    		if (isArabic(c)) {
+    			++arabicCount;
+    		} else if (isLatin(c)) {
+    		} else {
+    			++otherCount;
+    		}
+    	}
+    	
+    	return arabicCount > 0 ? arabicCount / (text.length() - otherCount) : 0;
+    }
+    
     public static int markNum(char c) {
 		int ret = 0;
 		switch (c) {
@@ -126,6 +143,32 @@ public class ZLArabicUtils {
 			return LatinChar;
 	}
 
+    public static void mayReshape(char[] text, int offset, int length) {
+		int arabicCount = 0;
+		int numberCount = 0;
+		boolean haveMark = false;
+		
+		for(int i=offset; i<offset+length; i++) {
+			if(ZLArabicUtils.isArabic(text[i])) {
+				++arabicCount;
+			} else if(ZLArabicUtils.isNumber(text[i])) {
+				++numberCount;
+			}
+			
+			if(!haveMark)
+				haveMark = (ZLArabicUtils.markNum(text[i]) != 0);
+		}
+		
+		boolean wordIsArabic = (arabicCount == length); // The word contains only Arabic chars
+		if(!wordIsArabic && numberCount > 0 && (haveMark || arabicCount < 0)) {
+			reshape(text, offset, length);
+		} else {
+			for(int i=offset; i<offset+length; i++) {
+				text[i] = reverseForArabic(text[i]);
+			}
+		}
+    }
+    
 	public static void reshape(char[] text, int offset, int len) {
 		StringBuffer resheped = new StringBuffer();
 		int numOffset = 0;
@@ -135,11 +178,12 @@ public class ZLArabicUtils {
 		int charType = 0;
 
 		for (int i = len + offset - 1; i >= offset; i--) {
-			charType = getCharType(text[i]);
+			char c = text[i];
+			charType = getCharType(c);
 			if(lastCharType == 0)
 				lastCharType = charType;
 			
-			if ((isNumber(text[i]) || isLatin(text[i]) || isArabic(text[i])) && (charType == lastCharType)) {
+			if (((isNumber(c) || isLatin(c) || isArabic(c)) && (charType == lastCharType))) {
 				if (numOffset == 0)
 					numOffset = i;
 
@@ -154,12 +198,20 @@ public class ZLArabicUtils {
 										
 					numOffset = 0;
 					numLen = 0;
-					lastCharType = charType;
+					lastCharType = 0;
 					++i;
 					continue;
 				}
-
-				resheped.append(reverseForArabic(text[i]));
+				
+				resheped.append(reverseForArabic(c));
+				
+				if(i-1 > 0) {
+					if(!isArabic(c) && isArabic(text[i-1])) {
+						lastCharType = ArabicChar;
+						numOffset = i-1;
+						continue;
+					}
+				}
 			}
 			
 			lastCharType = charType;
@@ -174,7 +226,6 @@ public class ZLArabicUtils {
 			numLen = 0;
 		}
 
-		System.arraycopy(resheped.toString().toCharArray(), 0, text, offset,
-				len);
+		System.arraycopy(resheped.toString().toCharArray(), 0, text, offset, len);
 	}
 }

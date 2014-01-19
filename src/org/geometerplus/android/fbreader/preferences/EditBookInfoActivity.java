@@ -63,6 +63,8 @@ class BookLanguagePreference extends LanguagePreference {
 			set.add(new Language(code));
 		}
 		set.add(new Language(Language.OTHER_CODE));
+		set.add(new Language("ar")); // Add the Arabic language
+
 		return new ArrayList<Language>(set);
 	}
 
