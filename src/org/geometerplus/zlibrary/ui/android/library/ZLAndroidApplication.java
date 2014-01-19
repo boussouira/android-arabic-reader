@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2013 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2007-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,15 +21,15 @@ package org.geometerplus.zlibrary.ui.android.library;
 
 import android.app.Application;
 
-import org.geometerplus.zlibrary.core.sqliteconfig.ZLSQLiteConfig;
-
 import org.geometerplus.zlibrary.ui.android.image.ZLAndroidImageManager;
+
+import org.geometerplus.android.fbreader.config.ConfigShadow;
 
 public abstract class ZLAndroidApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		new ZLSQLiteConfig(this);
+		new ConfigShadow(this);
 		new ZLAndroidImageManager();
 		new ZLAndroidLibrary(this);
 	}
