@@ -135,11 +135,12 @@ public class ZLArabicUtils {
 		int charType = 0;
 
 		for (int i = len + offset - 1; i >= offset; i--) {
-			charType = getCharType(text[i]);
+			char c = text[i];
+			charType = getCharType(c);
 			if(lastCharType == 0)
 				lastCharType = charType;
 			
-			if ((isNumber(text[i]) || isLatin(text[i]) || isArabic(text[i])) && (charType == lastCharType)) {
+			if (((isNumber(c) || isLatin(c) || isArabic(c)) && (charType == lastCharType))) {
 				if (numOffset == 0)
 					numOffset = i;
 
@@ -154,12 +155,20 @@ public class ZLArabicUtils {
 										
 					numOffset = 0;
 					numLen = 0;
-					lastCharType = charType;
+					lastCharType = 0;
 					++i;
 					continue;
 				}
-
-				resheped.append(reverseForArabic(text[i]));
+				
+				resheped.append(reverseForArabic(c));
+				
+				if(i-1 > 0) {
+					if(!isArabic(c) && isArabic(text[i-1])) {
+						lastCharType = ArabicChar;
+						numOffset = i-1;
+						continue;
+					}
+				}
 			}
 			
 			lastCharType = charType;
@@ -174,7 +183,6 @@ public class ZLArabicUtils {
 			numLen = 0;
 		}
 
-		System.arraycopy(resheped.toString().toCharArray(), 0, text, offset,
-				len);
+		System.arraycopy(resheped.toString().toCharArray(), 0, text, offset, len);
 	}
 }
