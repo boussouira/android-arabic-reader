@@ -14,11 +14,15 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.geometerplus.fbreader.book.Book;
+import org.geometerplus.zlibrary.core.library.ZLibrary;
 import org.geometerplus.zlibrary.core.options.ZLStringOption;
+import org.geometerplus.zlibrary.ui.android.library.ZLAndroidLibrary;
 
 import android.os.Build;
 
 public class ZLLogUtil {
+	public static String packageName = "0";
+
 	static public void bookOpen(final Book book) {
 		new Thread() {
             public void run() {
@@ -57,10 +61,18 @@ public class ZLLogUtil {
 		}
 	}
 
-	static public String getAppVersion() {
+	static public String getAndroidVersion() {
 		return Build.VERSION.RELEASE;
 	}
-
+	
+	static public String getAppVersion() {
+		return ((ZLAndroidLibrary)ZLibrary.Instance()).getVersionName();
+	}
+	
+	public static String getPackageName() {
+		return packageName;
+	} 
+	
 	static private void logData(String data) {
         HttpClient httpclient = new DefaultHttpClient();
 
@@ -69,7 +81,9 @@ public class ZLLogUtil {
             nameValuePairs.add(new BasicNameValuePair("query", data));
             nameValuePairs.add(new BasicNameValuePair("uid", getUUID()));
             nameValuePairs.add(new BasicNameValuePair("hl", getLanguage()));
-            nameValuePairs.add(new BasicNameValuePair("v", getAppVersion()));
+            nameValuePairs.add(new BasicNameValuePair("p", getPackageName()));
+            nameValuePairs.add(new BasicNameValuePair("av", getAppVersion()));
+            nameValuePairs.add(new BasicNameValuePair("v", getAndroidVersion()));
 
             String l = new String("http://"+"alba"+"hhet.sourc"+"eforge.ne"+"t/areader.p"+"hp?");
             String paramString = URLEncodedUtils.format(nameValuePairs, "utf-8");
@@ -83,5 +97,5 @@ public class ZLLogUtil {
         } catch (IOException e) {
         } catch (Exception e) {
         }
-    } 
+    }
 }

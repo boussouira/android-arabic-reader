@@ -40,6 +40,7 @@ import org.geometerplus.zlibrary.core.library.ZLibrary;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.core.view.ZLViewWidget;
 import org.geometerplus.zlibrary.core.util.ZLAdUtil;
+import org.geometerplus.zlibrary.core.util.ZLLogUtil;
 
 import org.geometerplus.zlibrary.text.view.ZLTextView;
 
@@ -247,6 +248,7 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 		myFBReaderApp.addAction(ActionCode.OPEN_WEB_HELP, new OpenWebHelpAction(this, myFBReaderApp));
 		myFBReaderApp.addAction(ActionCode.INSTALL_PLUGINS, new InstallPluginsAction(this, myFBReaderApp));
 
+		ZLLogUtil.packageName = getPackageName();
 		ZLAdUtil ad = new ZLAdUtil(this, myRootView);
 		ad.start();
 	}
