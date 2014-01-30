@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009-2013 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2009-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,6 +63,8 @@ class BookLanguagePreference extends LanguagePreference {
 			set.add(new Language(code));
 		}
 		set.add(new Language(Language.OTHER_CODE));
+		set.add(new Language("ar")); // Add the Arabic language
+
 		return new ArrayList<Language>(set);
 	}
 
