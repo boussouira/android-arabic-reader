@@ -30,6 +30,10 @@ import org.geometerplus.fbreader.network.tree.SearchCatalogTree;
 import net.sourceforge.arabicReader.R;
 
 import org.geometerplus.android.fbreader.network.NetworkLibraryActivity;
+import org.geometerplus.android.fbreader.network.NetworkSearchActivity;
+
+import org.geometerplus.android.util.DeviceType;
+import org.geometerplus.android.util.SearchDialogUtil;
 
 public class RunSearchAction extends Action {
 	public static SearchCatalogTree getSearchTree(FBTree tree) {
@@ -72,6 +76,10 @@ public class RunSearchAction extends Action {
 			getSearchTree(tree).getUniqueKey()
 		);
 		final NetworkLibrary library = NetworkLibrary.Instance();
-		myActivity.startSearch(library.NetworkSearchPatternOption.getValue(), true, bundle, false);
+		if (DeviceType.Instance().hasStandardSearchDialog()) {
+			myActivity.startSearch(library.NetworkSearchPatternOption.getValue(), true, bundle, false);
+		} else {
+			SearchDialogUtil.showDialog(myActivity, NetworkSearchActivity.class, library.NetworkSearchPatternOption.getValue(), null, bundle);
+		}
 	}
 }
