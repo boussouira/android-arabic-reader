@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2013 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2007-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -56,30 +56,6 @@ public final class ZLTextWord extends ZLTextElement {
 		Offset = offset;
 		Length = length;
 		myParagraphOffset = paragraphOffset;
-		
-		int arabicCount = 0;
-		int numberCount = 0;
-		boolean haveMark = false;
-		
-		for(int i=offset; i<offset+length; i++) {
-			if(ZLArabicUtils.isArabic(Data[i])) {
-				++arabicCount;
-			} else if(ZLArabicUtils.isNumber(Data[i])) {
-				++numberCount;
-			}
-			
-			if(!haveMark)
-				haveMark = (ZLArabicUtils.markNum(Data[i]) != 0);
-		}
-		
-		boolean wordIsArabic = (arabicCount == length); // The word contains only Arabic chars
-		if(!wordIsArabic && numberCount > 0 && (haveMark || arabicCount < 0)) {
-			ZLArabicUtils.reshape(Data, offset, length);
-		} else {
-			for(int i=offset; i<offset+length; i++) {
-				Data[i] = ZLArabicUtils.reverseForArabic(Data[i]);
-			}
-		}
 	}
 
 	public boolean isASpace() {
@@ -100,31 +76,6 @@ public final class ZLTextWord extends ZLTextElement {
 	}
 
 	public void addMark(int start, int length) {
-		/*
-		int i = 0;
-		for(i=start; i>= 0; i--) {
-			if(!ZLArabicUtils.isArabic(Data[Offset + i])) {
-				break;
-			}
-		}
-
-		length += start - Math.max(0, i);
-		start = Math.max(0, i);
-
-		int j = Length;
-		for(j=length; j<Data.length; j++) {
-			if(!ZLArabicUtils.isArabic(Data[Offset + j])) {
-				break;
-			}
-		}
-
-		length = Math.min(j, length);
-		*/
-
-		// Mark the hole word
-		start = 0;
-		length = Data.length;
-
 		Mark existingMark = myMark;
 		Mark mark = new Mark(start, length);
 		if ((existingMark == null) || (existingMark.Start > start)) {

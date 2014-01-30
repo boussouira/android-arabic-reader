@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2013 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2010-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@ import android.os.IBinder;
 import android.os.FileObserver;
 
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.options.Config;
 
 import org.geometerplus.zlibrary.text.view.ZLTextPosition;
 import org.geometerplus.zlibrary.text.view.ZLTextFixedPosition;
@@ -89,10 +90,19 @@ public class LibraryService extends Service {
 
 		LibraryImplementation() {
 			myDatabase = SQLiteBooksDatabase.Instance(LibraryService.this);
-			reset(Paths.BookPathOption().getValue(), true);
+			reset(true);
 		}
 
-		public void reset(List<String> bookDirectories, boolean force) {
+		public void reset(final boolean force) {
+			Config.Instance().runOnStart(new Runnable() {
+				public void run() {
+					resetInternal(force);
+				}
+			});
+		}
+
+		private void resetInternal(boolean force) {
+			final List<String> bookDirectories = Paths.BookPathOption.getValue();
 			if (!force && myCollection != null && bookDirectories.equals(myCollection.BookDirectories)) {
 				return;
 			}

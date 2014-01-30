@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2007-2013 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2007-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -43,6 +43,7 @@ import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
 import org.geometerplus.zlibrary.ui.android.view.ZLAndroidWidget;
 
 import org.geometerplus.android.fbreader.FBReader;
+import org.geometerplus.android.util.DeviceType;
 
 public final class ZLAndroidLibrary extends ZLibrary {
 	public final ZLBooleanOption ShowStatusBarOption = new ZLBooleanOption("LookNFeel", "ShowStatusBar", false);
@@ -51,22 +52,7 @@ public final class ZLAndroidLibrary extends ZLibrary {
 	public final ZLBooleanOption DontTurnScreenOffDuringChargingOption = new ZLBooleanOption("LookNFeel", "DontTurnScreenOffDuringCharging", true);
 	public final ZLIntegerRangeOption ScreenBrightnessLevelOption = new ZLIntegerRangeOption("LookNFeel", "ScreenBrightnessLevel", 0, 100, 0);
 	public final ZLBooleanOption EnableFullscreenModeOption = new ZLBooleanOption("LookNFeel", "FullscreenMode", true);
-	public final ZLBooleanOption DisableButtonLightsOption = new ZLBooleanOption("LookNFeel", "DisableButtonLights", !hasButtonLightsBug());
-
-	public boolean isKindleFire() {
-		final String KINDLE_MODEL_REGEXP = ".*kindle(\\s+)fire.*";
-		return
-			Build.MODEL != null &&
-			Build.MODEL.toLowerCase().matches(KINDLE_MODEL_REGEXP);
-	}
-
-	public boolean isYotaPhone() {
-		return "YotaPhone".equals(Build.BRAND);
-	}
-
-	public boolean hasButtonLightsBug() {
-		return "GT-S5830".equals(Build.MODEL);
-	}
+	public final ZLBooleanOption DisableButtonLightsOption = new ZLBooleanOption("LookNFeel", "DisableButtonLights", !DeviceType.Instance().hasButtonLightsBug());
 
 	private FBReader myActivity;
 	private final Application myApplication;
@@ -88,7 +74,7 @@ public final class ZLAndroidLibrary extends ZLibrary {
 	public AssetManager getAssets() {
 		return myApplication.getAssets();
 	}
-		
+
 	@Override
 	public ZLResourceFile createResourceFile(String path) {
 		return new AndroidAssetsFile(path);

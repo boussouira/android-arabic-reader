@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009-2013 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2009-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 
 import org.geometerplus.zlibrary.core.library.ZLibrary;
-import org.geometerplus.zlibrary.core.config.ZLConfig;
+import org.geometerplus.zlibrary.core.options.Config;
 
 import org.geometerplus.zlibrary.text.view.*;
 
@@ -287,15 +287,15 @@ public class ApiServerImplementation extends ApiInterface.Stub implements Api, A
 
 	// preferences information
 	public List<String> getOptionGroups() {
-		return ZLConfig.Instance().listGroups();
+		return Config.Instance().listGroups();
 	}
 
 	public List<String> getOptionNames(String group) {
-		return ZLConfig.Instance().listNames(group);
+		return Config.Instance().listNames(group);
 	}
 
 	public String getOptionValue(String group, String name) {
-		return ZLConfig.Instance().getValue(group, name, null);
+		return Config.Instance().getValue(group, name, null);
 	}
 
 	public void setOptionValue(String group, String name, String value) {
