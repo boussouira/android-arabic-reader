@@ -31,34 +31,18 @@ import org.geometerplus.zlibrary.core.util.ZLLogUtil;
 import org.geometerplus.zlibrary.text.hyphenation.ZLTextHyphenator;
 import org.geometerplus.zlibrary.text.model.ZLTextModel;
 import org.geometerplus.zlibrary.text.view.*;
-import org.geometerplus.zlibrary.text.view.style.ZLTextStyleCollection;
 
 import org.geometerplus.fbreader.book.*;
 import org.geometerplus.fbreader.bookmodel.*;
 import org.geometerplus.fbreader.fbreader.options.*;
 
 public final class FBReaderApp extends ZLApplication {
-	public final ZLTextStyleCollection TextStyleCollection;
+	public final MiscOptions MiscOptions = new MiscOptions();
+	public final ImageOptions ImageOptions = new ImageOptions();
+	public final ViewOptions ViewOptions = new ViewOptions();
+	public final PageTurningOptions PageTurningOptions = new PageTurningOptions();
 
-	public final MiscOptions MiscOptions;
-	public final ImageOptions ImageOptions;
-	public final ViewOptions ViewOptions;
-	public final PageTurningOptions PageTurningOptions;
-	public final FooterOptions FooterOptions;
-
-	private final ZLKeyBindings myBindings;
-
-	{
-		TextStyleCollection = new ZLTextStyleCollection("Base");
-
-		MiscOptions = new MiscOptions();
-		ImageOptions = new ImageOptions();
-		ViewOptions = new ViewOptions();
-		PageTurningOptions = new PageTurningOptions();
-		FooterOptions = new FooterOptions();
-
-		myBindings = new ZLKeyBindings();
-	}
+	private final ZLKeyBindings myBindings = new ZLKeyBindings();
 
 	public final FBView BookTextView;
 	public final FBView FootnoteView;
@@ -151,24 +135,6 @@ public final class FBReaderApp extends ZLApplication {
 				}
 			}, null);
 		}
-	}
-
-	private ColorProfile myColorProfile;
-
-	public ColorProfile getColorProfile() {
-		if (myColorProfile == null) {
-			myColorProfile = ColorProfile.get(getColorProfileName());
-		}
-		return myColorProfile;
-	}
-
-	public String getColorProfileName() {
-		return ViewOptions.ColorProfileName.getValue();
-	}
-
-	public void setColorProfileName(String name) {
-		ViewOptions.ColorProfileName.setValue(name);
-		myColorProfile = null;
 	}
 
 	public ZLKeyBindings keyBindings() {
@@ -265,6 +231,7 @@ public final class FBReaderApp extends ZLApplication {
 			book.addLabel(Book.READ_LABEL);
 			Collection.saveBook(book);
 		}
+
 		if (!force && Model != null && book.equals(Model.Book)) {
 			if (bookmark != null) {
 				gotoBookmark(bookmark, false);

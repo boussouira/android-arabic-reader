@@ -21,9 +21,9 @@ package org.geometerplus.fbreader.fbreader.options;
 
 import org.geometerplus.zlibrary.core.library.ZLibrary;
 import org.geometerplus.zlibrary.core.options.*;
+import org.geometerplus.zlibrary.text.view.style.ZLTextStyleCollection;
 
 import org.geometerplus.fbreader.fbreader.FBView;
-import org.geometerplus.fbreader.fbreader.ColorProfile;
 
 public class ViewOptions {
 	public final ZLBooleanOption TwoColumnView;
@@ -35,6 +35,10 @@ public class ViewOptions {
 	public final ZLIntegerRangeOption ScrollbarType;
 	public final ZLIntegerRangeOption FooterHeight;
 	public final ZLStringOption ColorProfileName;
+
+	private ColorProfile myColorProfile;
+	private ZLTextStyleCollection myTextStyleCollection;
+	private FooterOptions myFooterOptions;
 
 	public ViewOptions() {
 		final ZLibrary zlibrary = ZLibrary.Instance();
@@ -62,5 +66,27 @@ public class ViewOptions {
 			new ZLIntegerRangeOption("Options", "FooterHeight", 8, dpi / 8, dpi / 20);
 		ColorProfileName =
 			new ZLStringOption("Options", "ColorProfile", ColorProfile.DAY);
+	}
+
+	public ColorProfile getColorProfile() {
+		final String name = ColorProfileName.getValue();
+		if (myColorProfile == null || !name.equals(myColorProfile.Name)) {
+			myColorProfile = ColorProfile.get(name);
+		}
+		return myColorProfile;
+	}
+
+	public ZLTextStyleCollection getTextStyleCollection() {
+		if (myTextStyleCollection == null) {
+			myTextStyleCollection = new ZLTextStyleCollection("Base");
+		}
+		return myTextStyleCollection;
+	}
+
+	public FooterOptions getFooterOptions() {
+		if (myFooterOptions == null) {
+			myFooterOptions = new FooterOptions();
+		}
+		return myFooterOptions;
 	}
 }
