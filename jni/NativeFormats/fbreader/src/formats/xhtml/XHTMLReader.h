@@ -34,6 +34,8 @@ class ZLFile;
 class BookReader;
 class XHTMLReader;
 
+class EncryptionMap;
+
 class XHTMLTagAction {
 
 public:
@@ -61,7 +63,8 @@ private:
 	static std::map<shared_ptr<FullNamePredicate>,XHTMLTagAction*> ourNsTagActions;
 
 public:
-	XHTMLReader(BookReader &modelReader);
+	XHTMLReader(BookReader &modelReader, shared_ptr<EncryptionMap> map);
+
 	bool readFile(const ZLFile &file, const std::string &referenceName);
 	const std::string &fileAlias(const std::string &fileName) const;
 	const std::string normalizedReference(const std::string &reference) const;
@@ -86,6 +89,7 @@ private:
 	mutable std::map<std::string,std::string> myFileNumbers;
 
 	BookReader &myModelReader;
+	shared_ptr<EncryptionMap> myEncryptionMap;
 	std::string myPathPrefix;
 	std::string myReferenceAlias;
 	std::string myReferenceDirName;

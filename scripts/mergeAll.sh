@@ -25,4 +25,19 @@ git merge master
 git checkout microtypography
 git merge ice-cream-sandwich
 
+git checkout yotabeta
+git merge beta-ics
+git merge yota2
+
+git checkout betayota
+git merge beta-ics
+git merge yota2
+
+git checkout video
+git merge master
+
+git checkout video-ics
+git merge video
+git merge yota2
+
 git checkout master

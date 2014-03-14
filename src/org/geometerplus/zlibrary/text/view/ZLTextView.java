@@ -1522,7 +1522,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		myCharWidth = -1;
 	}
 
-	protected void rebuildPaintInfo() {
+	protected synchronized void rebuildPaintInfo() {
 		myPreviousPage.reset();
 		myNextPage.reset();
 		ZLTextParagraphCursorCache.clear();

@@ -33,7 +33,7 @@ import org.geometerplus.zlibrary.core.filetypes.FileTypeCollection;
 
 public class PluginCollection {
 	static {
-		System.loadLibrary("NativeFormats-v3");
+		System.loadLibrary("NativeFormats-v4");
 	}
 
 	private static PluginCollection ourInstance;

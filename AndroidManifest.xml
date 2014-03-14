@@ -2,8 +2,8 @@
 <manifest
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		package="net.sourceforge.arabicReader"
-		android:versionCode="109053"
-		android:versionName="1.9.5.3"
+		android:versionCode="1090611"
+		android:versionName="1.9.6.1"
 		android:installLocation="auto"
 >
 	<uses-sdk
@@ -70,7 +70,7 @@
 				<data android:scheme="fbreader-action"/>
 			</intent-filter>
 			<intent-filter>
-				<action android:name="android.intent.action.PLUGIN"/>
+				<action android:name="android.fbreader.action.PLUGIN"/>
 				<category android:name="android.intent.category.DEFAULT"/>
 			</intent-filter>
 			<intent-filter>

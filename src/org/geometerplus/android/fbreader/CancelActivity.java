@@ -27,6 +27,8 @@ import android.os.Bundle;
 import android.widget.*;
 import android.view.*;
 
+import org.geometerplus.zlibrary.core.options.Config;
+
 import net.sourceforge.arabicReader.R;
 
 import org.geometerplus.fbreader.book.SerializerUtil;

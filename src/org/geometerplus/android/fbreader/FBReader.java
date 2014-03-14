@@ -142,6 +142,16 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 				myBook = createBookForFile(ZLFile.createFileByPath(data.getPath()));
 			}
 		}
+		if (myBook != null) {
+			ZLFile file = myBook.File;
+			if (!file.exists()) {
+				if (file.getPhysicalFile() != null) {
+					file = file.getPhysicalFile();
+				}
+				UIUtil.showErrorMessage(this, "fileNotFound", file.getPath());
+				myBook = null;
+			}
+		}
 		Config.Instance().runOnStart(new Runnable() {
 			public void run() {
 				myFBReaderApp.openBook(myBook, bookmark, action);
@@ -175,6 +185,10 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 					public void run() {
 						//new TipRunner().start();
 						DictionaryUtil.init(FBReader.this, null);
+						final Intent intent = getIntent();
+						if (intent != null && ACTION_OPEN_PLUGIN.equals(intent.getAction())) {
+							new RunPluginAction(FBReader.this, myFBReaderApp, intent.getData()).run();
+						}
 					}
 				});
 			}
@@ -184,17 +198,22 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 	@Override
 	protected void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-
 		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler(this));
+
+		final Config config = Config.Instance();
+		config.runOnStart(new Runnable() {
+			public void run() {
+				config.requestAllValuesForGroup("Options");
+				config.requestAllValuesForGroup("Style");
+				config.requestAllValuesForGroup("LookNFeel");
+				config.requestAllValuesForGroup("Fonts");
+				config.requestAllValuesForGroup("Colors");
+				config.requestAllValuesForGroup("Files");
+			}
+		});
 
 		final ZLAndroidLibrary zlibrary = getZLibrary();
 		myShowStatusBarFlag = zlibrary.ShowStatusBarOption.getValue();
-		if (!Config.Instance().isInitialized()) {
-			final SharedPreferences preferences = getSharedPreferences("fbreader.ui", MODE_PRIVATE);
-			myShowStatusBarFlag = preferences.getBoolean("statusBar", myShowStatusBarFlag);
-		} else {
-			myShowStatusBarFlag = zlibrary.ShowStatusBarOption.getValue();
-		}
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
@@ -305,9 +324,7 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 				}
 			});
 		} else if (ACTION_OPEN_PLUGIN.equals(action)) {
-			if (data != null) {
-				new RunPluginAction(this, myFBReaderApp, data).run();
-			}
+			new RunPluginAction(this, myFBReaderApp, data).run();
 		} else if (Intent.ACTION_SEARCH.equals(action)) {
 			final String pattern = intent.getStringExtra(SearchManager.QUERY);
 			final Runnable runnable = new Runnable() {
@@ -365,9 +382,8 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 					finish();
 					startActivity(new Intent(FBReader.this, FBReader.class));
 				}
-				getSharedPreferences("fbreader.ui", MODE_PRIVATE).edit()
-					.putBoolean("statusBar", showStatusBar)
-					.commit();
+				zlibrary.ShowStatusBarOption.saveSpecialValue();
+				myFBReaderApp.ViewOptions.ColorProfileName.saveSpecialValue();
 				SetScreenOrientationAction.setOrientation(FBReader.this, zlibrary.getOrientationOption().getValue());
 			}
 		});

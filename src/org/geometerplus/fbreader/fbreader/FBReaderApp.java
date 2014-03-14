@@ -22,6 +22,7 @@ package org.geometerplus.fbreader.fbreader;
 import java.util.*;
 
 import org.geometerplus.zlibrary.core.application.*;
+import org.geometerplus.zlibrary.core.drm.EncryptionMethod;
 import org.geometerplus.zlibrary.core.library.ZLibrary;
 import org.geometerplus.zlibrary.core.options.*;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
@@ -35,6 +36,7 @@ import org.geometerplus.zlibrary.text.view.*;
 import org.geometerplus.fbreader.book.*;
 import org.geometerplus.fbreader.bookmodel.*;
 import org.geometerplus.fbreader.fbreader.options.*;
+import org.geometerplus.fbreader.formats.FormatPlugin;
 
 public final class FBReaderApp extends ZLApplication {
 	public final MiscOptions MiscOptions = new MiscOptions();
@@ -219,7 +221,7 @@ public final class FBReaderApp extends ZLApplication {
 		}
 	}
 
-	synchronized void openBookInternal(Book book, Bookmark bookmark, boolean force) {
+	private synchronized void openBookInternal(Book book, Bookmark bookmark, boolean force) {
 		if (book == null) {
 			book = Collection.getRecentBook(0);
 			if (book == null || !book.File.exists()) {
@@ -279,6 +281,22 @@ public final class FBReaderApp extends ZLApplication {
 
 		getViewWidget().reset();
 		getViewWidget().repaint();
+
+		try {
+			final String method = book.getPlugin().readEncryptionMethod(book);
+			if (!EncryptionMethod.NONE.equals(method)) {
+				System.err.println("UNSUPPORTED ALGORITHM: " + method);
+				/*
+				UIUtil.showErrorMessage(
+					FBReader.this,
+					"unsupportedEncryptionMethod",
+					myBook.File.getPath()
+				);
+				*/
+			}
+		} catch (BookReadingException e) {
+			// ignore
+		}
 		
 		ZLLogUtil.bookOpen(book);
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2010-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,32 +17,22 @@
  * 02110-1301, USA.
  */
 
-package org.geometerplus.android.fbreader;
+#ifndef __OEBENCRYPTIONREADER_H__
+#define __OEBENCRYPTIONREADER_H__
 
-import android.content.Intent;
-import android.content.ActivityNotFoundException;
-import android.net.Uri;
+#include <string>
+#include <vector>
 
-import org.geometerplus.fbreader.fbreader.FBReaderApp;
+#include <shared_ptr.h>
+#include <ZLFile.h>
 
-class RunPluginAction extends FBAndroidAction {
-	private final Uri myUri;
+class FileEncryptionInfo;
 
-	RunPluginAction(FBReader baseActivity, FBReaderApp fbreader, Uri uri) {
-		super(baseActivity, fbreader);
-		myUri = uri;
-	}
+class OEBEncryptionReader {
 
-	@Override
-	protected void run(Object ... params) {
-		if (myUri == null) {
-			return;
-		}
-		try {
-			OrientationUtil.startActivity(
-				BaseActivity, new Intent("android.fbreader.action.plugin.RUN", myUri)
-			);
-		} catch (ActivityNotFoundException e) {
-		}
-	}
-}
+public:
+	std::vector<shared_ptr<FileEncryptionInfo> > readEncryptionInfos(const ZLFile &file);
+	std::string readEncryptionMethod(const ZLFile &file);
+};
+
+#endif /* __OEBENCRYPTIONREADER_H__ */

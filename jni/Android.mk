@@ -29,7 +29,7 @@ include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE                  := NativeFormats-v3
+LOCAL_MODULE                  := NativeFormats-v4
 LOCAL_CFLAGS                  := -Wall
 LOCAL_LDLIBS                  := -lz -llog
 LOCAL_STATIC_LIBRARIES        := expat
@@ -47,6 +47,7 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/zlibrary/core/src/encoding/JavaEncodingConverter.cpp \
 	NativeFormats/zlibrary/core/src/encoding/ZLEncodingCollection.cpp \
 	NativeFormats/zlibrary/core/src/encoding/ZLEncodingConverter.cpp \
+	NativeFormats/zlibrary/core/src/encryption/FileEncryptionInfo.cpp \
 	NativeFormats/zlibrary/core/src/filesystem/ZLDir.cpp \
 	NativeFormats/zlibrary/core/src/filesystem/ZLFSManager.cpp \
 	NativeFormats/zlibrary/core/src/filesystem/ZLFile.cpp \
@@ -109,6 +110,7 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/fbreader/src/formats/oeb/NCXReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBBookReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBCoverReader.cpp \
+	NativeFormats/fbreader/src/formats/oeb/OEBEncryptionReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBMetaInfoReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBPlugin.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBTextStream.cpp \
@@ -151,6 +153,7 @@ LOCAL_C_INCLUDES              := \
 	$(LOCAL_PATH)/NativeFormats/util \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/constants \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/encoding \
+	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/encryption \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/filesystem \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/image \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/language \
