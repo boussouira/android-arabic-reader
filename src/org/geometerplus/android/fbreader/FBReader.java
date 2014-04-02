@@ -59,6 +59,7 @@ import org.geometerplus.fbreader.fbreader.options.CancelMenuHelper;
 import org.geometerplus.fbreader.tips.TipsManager;
 
 import org.geometerplus.android.fbreader.api.*;
+import org.geometerplus.android.fbreader.httpd.DataService;
 import org.geometerplus.android.fbreader.library.BookInfoActivity;
 import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
 import org.geometerplus.android.fbreader.tips.TipsActivity;
@@ -66,10 +67,6 @@ import org.geometerplus.android.fbreader.tips.TipsActivity;
 import org.geometerplus.android.util.*;
 
 public final class FBReader extends Activity implements ZLApplicationWindow {
-	public static final String ACTION_OPEN_BOOK = "android.fbreader.action.VIEW";
-	public static final String BOOK_KEY = "fbreader.book";
-	public static final String BOOKMARK_KEY = "fbreader.bookmark";
-
 	public static final String BOOK_PATH_KEY = "BookPath";
 	static final int ACTION_BAR_COLOR = Color.DKGRAY;
 
@@ -80,13 +77,12 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 	public static final int RESULT_REPAINT = RESULT_FIRST_USER + 1;
 
 	public static void openBookActivity(Context context, Book book, Bookmark bookmark) {
-		context.startActivity(
-			new Intent(context, FBReader.class)
-				.setAction(ACTION_OPEN_BOOK)
-				.putExtra(BOOK_KEY, SerializerUtil.serialize(book))
-				.putExtra(BOOKMARK_KEY, SerializerUtil.serialize(bookmark))
-				.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-		);
+		final Intent intent = new Intent(context, FBReader.class)
+			.setAction(FBReaderIntents.Action.VIEW)
+			.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		FBReaderIntents.putBookExtra(intent, book);
+		FBReaderIntents.putBookmarkExtra(intent, bookmark);
+		context.startActivity(intent);
 	}
 
 	private static ZLAndroidLibrary getZLibrary() {
@@ -99,9 +95,11 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 	private RelativeLayout myRootView;
 	private ZLAndroidWidget myMainView;
 
-	private boolean myShowStatusBarFlag;
-	private boolean myShowActionBarFlag;
-	private boolean myActionBarIsVisible;
+	private volatile boolean myShowStatusBarFlag;
+	private volatile boolean myShowActionBarFlag;
+	private volatile boolean myActionBarIsVisible;
+
+	final DataService.Connection DataConnection = new DataService.Connection();
 
 	private static final String PLUGIN_ACTION_PREFIX = "___";
 	private final List<PluginApi.ActionInfo> myPluginActions =
@@ -137,13 +135,22 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 			return;
 		}
 
-		myBook = SerializerUtil.deserializeBook(intent.getStringExtra(BOOK_KEY));
-		final Bookmark bookmark =
-			SerializerUtil.deserializeBookmark(intent.getStringExtra(BOOKMARK_KEY));
+		myBook = FBReaderIntents.getBookExtra(intent);
+		final Bookmark bookmark = FBReaderIntents.getBookmarkExtra(intent);
 		if (myBook == null) {
 			final Uri data = intent.getData();
 			if (data != null) {
 				myBook = createBookForFile(ZLFile.createFileByPath(data.getPath()));
+			}
+		}
+		if (myBook != null) {
+			ZLFile file = myBook.File;
+			if (!file.exists()) {
+				if (file.getPhysicalFile() != null) {
+					file = file.getPhysicalFile();
+				}
+				UIUtil.showErrorMessage(this, "fileNotFound", file.getPath());
+				myBook = null;
 			}
 		}
 		Config.Instance().runOnStart(new Runnable() {
@@ -189,6 +196,10 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 					public void run() {
 						//new TipRunner().start();
 						DictionaryUtil.init(FBReader.this, null);
+						final Intent intent = getIntent();
+						if (intent != null && FBReaderIntents.Action.PLUGIN.equals(intent.getAction())) {
+							new RunPluginAction(FBReader.this, myFBReaderApp, intent.getData()).run();
+						}
 					}
 				});
 			}
@@ -198,17 +209,29 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 	@Override
 	protected void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-
 		Thread.setDefaultUncaughtExceptionHandler(new UncaughtExceptionHandler(this));
+
+		bindService(
+			new Intent(this, DataService.class),
+			DataConnection,
+			DataService.BIND_AUTO_CREATE
+		);
+
+		final Config config = Config.Instance();
+		config.runOnStart(new Runnable() {
+			public void run() {
+				config.requestAllValuesForGroup("Options");
+				config.requestAllValuesForGroup("Style");
+				config.requestAllValuesForGroup("LookNFeel");
+				config.requestAllValuesForGroup("Fonts");
+				config.requestAllValuesForGroup("Colors");
+				config.requestAllValuesForGroup("Files");
+			}
+		});
 
 		final ZLAndroidLibrary zlibrary = getZLibrary();
 		myShowStatusBarFlag = zlibrary.ShowStatusBarOption.getValue();
 		myShowActionBarFlag = zlibrary.ShowActionBarOption.getValue();
-		if (!Config.Instance().isInitialized()) {
-			final SharedPreferences preferences = getSharedPreferences("fbreader.ui", MODE_PRIVATE);
-			myShowStatusBarFlag = preferences.getBoolean("statusBar", myShowStatusBarFlag);
-			myShowActionBarFlag = preferences.getBoolean("actionBar", myShowActionBarFlag);
-		}
 		myActionBarIsVisible = myShowActionBarFlag;
 
 		getWindow().setFlags(
@@ -280,6 +303,7 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 		myFBReaderApp.addAction(ActionCode.SELECTION_BOOKMARK, new SelectionBookmarkAction(this, myFBReaderApp));
 
 		myFBReaderApp.addAction(ActionCode.PROCESS_HYPERLINK, new ProcessHyperlinkAction(this, myFBReaderApp));
+		myFBReaderApp.addAction(ActionCode.OPEN_VIDEO, new OpenVideoAction(this, myFBReaderApp));
 
 		myFBReaderApp.addAction(ActionCode.SHOW_CANCEL_MENU, new ShowCancelMenuAction(this, myFBReaderApp));
 
@@ -312,12 +336,14 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 		} else if (Intent.ACTION_VIEW.equals(action)
 				   && data != null && "fbreader-action".equals(data.getScheme())) {
 			myFBReaderApp.runAction(data.getEncodedSchemeSpecificPart(), data.getFragment());
-		} else if (Intent.ACTION_VIEW.equals(action) || ACTION_OPEN_BOOK.equals(action)) {
+		} else if (Intent.ACTION_VIEW.equals(action) || FBReaderIntents.Action.VIEW.equals(action)) {
 			getCollection().bindToService(this, new Runnable() {
 				public void run() {
 					openBook(intent, null, true);
 				}
 			});
+		} else if (FBReaderIntents.Action.PLUGIN.equals(action)) {
+			new RunPluginAction(this, myFBReaderApp, data).run();
 		} else if (Intent.ACTION_SEARCH.equals(action)) {
 			final String pattern = intent.getStringExtra(SearchManager.QUERY);
 			final Runnable runnable = new Runnable() {
@@ -377,10 +403,9 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 					finish();
 					startActivity(new Intent(FBReader.this, FBReader.class));
 				}
-				getSharedPreferences("fbreader.ui", MODE_PRIVATE).edit()
-					.putBoolean("statusBar", showStatusBar)
-					.putBoolean("actionBar", showActionBar)
-					.commit();
+				zlibrary.ShowStatusBarOption.saveSpecialValue();
+				zlibrary.ShowActionBarOption.saveSpecialValue();
+				myFBReaderApp.ViewOptions.ColorProfileName.saveSpecialValue();
 				SetScreenOrientationAction.setOrientation(FBReader.this, zlibrary.getOrientationOption().getValue());
 			}
 		});
@@ -465,6 +490,16 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 				if (getZLibrary().DisableButtonLightsOption.getValue()) {
 					setButtonLight(false);
 				}
+
+				getCollection().bindToService(FBReader.this, new Runnable() {
+					public void run() {
+						final BookModel model = myFBReaderApp.Model;
+						if (model == null || model.Book == null) {
+							return;
+						}
+						onPreferencesUpdate(myFBReaderApp.Collection.getBookById(model.Book.getId()));
+					}
+				});
 			}
 		});
 
@@ -475,16 +510,6 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 		hideBars();
 
 		ApiServerImplementation.sendEvent(this, ApiListener.EVENT_READ_MODE_OPENED);
-
-		getCollection().bindToService(this, new Runnable() {
-			public void run() {
-				final BookModel model = myFBReaderApp.Model;
-				if (model == null || model.Book == null) {
-					return;
-				}
-				onPreferencesUpdate(myFBReaderApp.Collection.getBookById(model.Book.getId()));
-			}
-		});
 	}
 
 	@Override
@@ -512,6 +537,7 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 	@Override
 	protected void onDestroy() {
 		getCollection().unbind();
+		unbindService(DataConnection);
 		super.onDestroy();
 	}
 
@@ -577,7 +603,7 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 			case REQUEST_PREFERENCES:
 				if (resultCode != RESULT_DO_NOTHING) {
 					invalidateOptionsMenu();
-					final Book book = BookInfoActivity.bookByIntent(data);
+					final Book book = data != null ? FBReaderIntents.getBookExtra(data) : null;
 					if (book != null) {
 						getCollection().bindToService(this, new Runnable() {
 							public void run() {
@@ -597,7 +623,7 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 		final CancelMenuHelper.ActionType type;
 		try {
 			type = CancelMenuHelper.ActionType.valueOf(
-				intent.getStringExtra(CancelActivity.TYPE_KEY)
+				intent.getStringExtra(FBReaderIntents.Key.TYPE)
 			);
 		} catch (Exception e) {
 			// invalid (or null) type value
@@ -605,19 +631,15 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 		}
 		Bookmark bookmark = null;
 		if (type == CancelMenuHelper.ActionType.returnTo) {
-			try {
-				bookmark = SerializerUtil.deserializeBookmark(
-					intent.getStringExtra(CancelActivity.BOOKMARK_KEY)
-				);
-			} catch (Exception e) {
-				// invalid (or null) bookmark value
+			bookmark = FBReaderIntents.getBookmarkExtra(intent);
+			if (bookmark == null) {
 				return;
 			}
 		}
 		myFBReaderApp.runCancelAction(type, bookmark);
 	}
 
-	private Menu addSubMenu(Menu menu, String id) {
+	private Menu addSubmenu(Menu menu, String id) {
 		return menu.addSubMenu(ZLResource.resource("menu").getResource(id).getValue());
 	}
 
@@ -650,35 +672,25 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 		addMenuItem(menu, actionId, null, null, false);
 	}
 
+	private void fillMenu(Menu menu, List<MenuNode> nodes) {
+		for (MenuNode n : nodes) {
+			if (n instanceof MenuNode.Item) {
+				final Integer iconId = ((MenuNode.Item)n).IconId;
+				if (iconId != null) {
+					addMenuItem(menu, n.Code, iconId);
+				} else {
+					addMenuItem(menu, n.Code);
+				}
+			} else /* if (n instanceof MenuNode.Submenu) */ {
+				final Menu submenu = addSubmenu(menu, n.Code);
+				fillMenu(submenu, ((MenuNode.Submenu)n).Children);
+			}
+		}
+	}
+
 	private void setupMenu(Menu menu) {
-		addMenuItem(menu, ActionCode.SHOW_LIBRARY, R.drawable.ic_menu_library);
-		if (DeviceType.Instance() == DeviceType.YOTA_PHONE) {
-			addMenuItem(menu, ActionCode.YOTA_SWITCH_TO_BACK_SCREEN, R.drawable.ic_menu_p2b);
-			//addMenuItem(menu, ActionCode.YOTA_SWITCH_TO_FRONT_SCREEN, R.drawable.ic_menu_p2b);
-		}
-		addMenuItem(menu, ActionCode.SHOW_TOC, R.drawable.ic_menu_toc);
-		addMenuItem(menu, ActionCode.SHOW_BOOKMARKS, R.drawable.ic_menu_bookmarks);
-		addMenuItem(menu, ActionCode.SEARCH, R.drawable.ic_menu_search);
-		addMenuItem(menu, ActionCode.SWITCH_TO_NIGHT_PROFILE, R.drawable.ic_menu_night);
-		addMenuItem(menu, ActionCode.SWITCH_TO_DAY_PROFILE, R.drawable.ic_menu_day);
-		addMenuItem(menu, ActionCode.SHARE_BOOK, R.drawable.ic_menu_search);
-		addMenuItem(menu, ActionCode.SHOW_PREFERENCES,  android.R.drawable.ic_menu_preferences);
-		addMenuItem(menu, ActionCode.SHOW_BOOK_INFO);
-		final Menu subMenu = addSubMenu(menu, "screenOrientation");
-		addMenuItem(subMenu, ActionCode.SET_SCREEN_ORIENTATION_SYSTEM);
-		addMenuItem(subMenu, ActionCode.SET_SCREEN_ORIENTATION_SENSOR);
-		addMenuItem(subMenu, ActionCode.SET_SCREEN_ORIENTATION_PORTRAIT);
-		addMenuItem(subMenu, ActionCode.SET_SCREEN_ORIENTATION_LANDSCAPE);
-		if (ZLibrary.Instance().supportsAllOrientations()) {
-			addMenuItem(subMenu, ActionCode.SET_SCREEN_ORIENTATION_REVERSE_PORTRAIT);
-			addMenuItem(subMenu, ActionCode.SET_SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
-		}
+		fillMenu(menu, MenuData.topLevelNodes());
 
-		addMenuItem(menu, ActionCode.SHOW_NETWORK_LIBRARY, R.drawable.ic_menu_networklibrary);
-
-		addMenuItem(menu, ActionCode.INCREASE_FONT);
-		addMenuItem(menu, ActionCode.DECREASE_FONT);
-		addMenuItem(menu, ActionCode.OPEN_WEB_HELP);
 		synchronized (myPluginActions) {
 			int index = 0;
 			for (PluginApi.ActionInfo info : myPluginActions) {
@@ -706,8 +718,7 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 
 	private void setStatusBarVisibility(boolean visible) {
 		final ZLAndroidLibrary zlibrary = getZLibrary();
-		if (DeviceType.Instance() != DeviceType.KINDLE_FIRE_1ST_GENERATION &&
-			!zlibrary.ShowStatusBarOption.getValue()) {
+		if (DeviceType.Instance() != DeviceType.KINDLE_FIRE_1ST_GENERATION && !myShowStatusBarFlag) {
 			myMainView.setPreserveSize(visible);
 			if (visible) {
 				getWindow().addFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
@@ -732,7 +743,7 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 		}
 
 		final ZLAndroidLibrary zlibrary = getZLibrary();
-		if (!zlibrary.ShowActionBarOption.getValue()) {
+		if (!myShowActionBarFlag) {
 			getActionBar().hide();
 			myActionBarIsVisible = false;
 			invalidateOptionsMenu();
@@ -885,6 +896,16 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 
 	// methods from ZLApplicationWindow interface
 	@Override
+	public void showErrorMessage(String key) {
+		UIUtil.showErrorMessage(this, key);
+	}
+
+	@Override
+	public void showErrorMessage(String key, String parameter) {
+		UIUtil.showErrorMessage(this, key, parameter);
+	}
+
+	@Override
 	public void runWithMessage(String key, Runnable action, Runnable postAction) {
 		UIUtil.runWithMessage(this, key, action, postAction, false);
 	}
@@ -953,9 +974,10 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 		exception.printStackTrace();
 
 		final Intent intent = new Intent(
-			"android.fbreader.action.ERROR",
+			FBReaderIntents.Action.ERROR,
 			new Uri.Builder().scheme(exception.getClass().getSimpleName()).build()
 		);
+		intent.setPackage(FBReaderIntents.DEFAULT_PACKAGE);
 		intent.putExtra(ErrorKeys.MESSAGE, exception.getMessage());
 		final StringWriter stackTrace = new StringWriter();
 		exception.printStackTrace(new PrintWriter(stackTrace));
@@ -989,13 +1011,10 @@ public final class FBReader extends Activity implements ZLApplicationWindow {
 		final Intent intent = new Intent(this, FBReaderYotaService.class);
 		intent.putExtra(
 			FBReaderYotaService.KEY_BACK_SCREEN_IS_ACTIVE,
-			myFBReaderApp.MiscOptions.YotaDrawOnBackScreen.getValue()
+			myFBReaderApp.ViewOptions.YotaDrawOnBackScreen.getValue()
 		);
 		if (myFBReaderApp.Model != null) {
-			intent.putExtra(
-				FBReaderYotaService.KEY_CURRENT_BOOK,
-				SerializerUtil.serialize(myFBReaderApp.Model.Book)
-			);
+			FBReaderIntents.putBookExtra(intent, myFBReaderApp.Model.Book);
 		}
 		try {
 			startService(intent);

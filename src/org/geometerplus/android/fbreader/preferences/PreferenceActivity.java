@@ -56,16 +56,23 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 
 	@Override
 	protected void init(Intent intent) {
+		final Config config = Config.Instance();
+		config.requestAllValuesForGroup("Style");
+		config.requestAllValuesForGroup("Options");
+		config.requestAllValuesForGroup("LookNFeel");
+		config.requestAllValuesForGroup("Fonts");
+		config.requestAllValuesForGroup("Files");
+		config.requestAllValuesForGroup("Scrolling");
+		config.requestAllValuesForGroup("Colors");
 		setResult(FBReader.RESULT_REPAINT);
 
-		final FBReaderApp fbReader = (FBReaderApp)FBReaderApp.Instance();
 		final ViewOptions viewOptions = new ViewOptions();
 		final MiscOptions miscOptions = new MiscOptions();
-		final FooterOptions footerOptions = fbReader.FooterOptions;
+		final FooterOptions footerOptions = viewOptions.getFooterOptions();
 		final PageTurningOptions pageTurningOptions = new PageTurningOptions();
 		final ImageOptions imageOptions = new ImageOptions();
-		final ColorProfile profile = fbReader.getColorProfile();
-		final ZLTextStyleCollection collection = fbReader.TextStyleCollection;
+		final ColorProfile profile = viewOptions.getColorProfile();
+		final ZLTextStyleCollection collection = viewOptions.getTextStyleCollection();
 		final ZLKeyBindings keyBindings = new ZLKeyBindings();
 
 		final ZLAndroidLibrary androidLibrary = (ZLAndroidLibrary)ZLAndroidLibrary.Instance();
@@ -349,6 +356,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		final ZLPreferenceSet bgPreferences = new ZLPreferenceSet();
 
 		final Screen cssScreen = createPreferenceScreen("css");
+		cssScreen.addOption(baseStyle.UseCSSFontFamilyOption, "fontFamily");
 		cssScreen.addOption(baseStyle.UseCSSFontSizeOption, "fontSize");
 		cssScreen.addOption(baseStyle.UseCSSTextAlignmentOption, "textAlignment");
 

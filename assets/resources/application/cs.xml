@@ -48,7 +48,7 @@
 		<node name="deleteBook" value="Odstranit knihu"/>
 		<node name="addToFavorites" value="Přidat do oblíbených"/>
 		<node name="removeFromFavorites" value="Odebrat z oblíbených"/>
-		<node name="removeFromRecents" value="Remove from recent list" toBeTranslated="true"/>
+		<node name="removeFromRecents" value="Odebrat ze seznamu posledních"/>
 		<node name="markAsRead" value="Označit jako přečtené"/>
 		<node name="markAsUnread" value="Označit jako nepřečtené"/>
 	</node>
@@ -318,6 +318,11 @@
 			<node name="books" value="Adresář s knihami"/>
 			<node name="fonts" value="Adresář s písmy"/>
 			<node name="wallpapers" value="Adresář s tapetami"/>
+			<node name="bookPath" value="Where to seek for books" toBeTranslated="true"/>
+			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true"/>
+			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true"/>
+			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true"/>
+			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true"/>
 		</node>
 		<node name="appearance" value="Vzhled">
 			<node name="summary" value="Otáčení, stavový řádek"/>
@@ -558,6 +563,10 @@
 		</node>
 		<node name="css" value="CSS">
 			<node name="summary" value="Použít/ignorovat hodnoty definované v CSS"/>
+			<node name="fontFamily" value="Font family" toBeTranslated="true">
+				<node name="summaryOn" value="Use font family defined in CSS" toBeTranslated="true"/>
+				<node name="summaryOff" value="Ignore font family defined in CSS" toBeTranslated="true"/>
+			</node>
 			<node name="fontSize" value="Velikost písma">
 				<node name="summaryOn" value="Použít velikost písma definovanou v CSS"/>
 				<node name="summaryOff" value="Ignorovat velikost písma definovanou v CSS"/>
@@ -750,13 +759,13 @@
 				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
 		</node>
-		<node name="eink" value="E-ink screen" toBeTranslated="true">
-			<node name="summary" value="Specific options for e-ink screens" toBeTranslated="true"/>
-			<node name="enableFastRefresh" value="Fast refresh mode" toBeTranslated="true">
-				<node name="summaryOn" value="Use fast (but not very clean) screen update" toBeTranslated="true"/>
-				<node name="summaryOff" value="Use complete (clean, but slow) screen update" toBeTranslated="true"/>
+		<node name="eink" value="Displej s elektronickým inkoustem">
+			<node name="summary" value="Specifické možnosti pro displej s elektronickým inkoustem"/>
+			<node name="enableFastRefresh" value="Režim rychlého obnovení">
+				<node name="summaryOn" value="Použít rychlou (ale ne moc čistou) aktualizaci displeje"/>
+				<node name="summaryOff" value="Použít kompletní (čistou, ale pomalou) aktualizaci displeje"/>
 			</node>
-			<node name="interval" value="Number of fast updates between complete refreshes" toBeTranslated="true"/>
+			<node name="interval" value="Počet ryclých aktualizací mezi úplnými obnoveními"/>
 		</node>
 	</node>
 	<node name="dialog">
@@ -862,6 +871,16 @@
 		</node>
 	</node>
 	<node name="errorMessage">
+		<node name="nativeCodeFailure" value="Chyba %s v nativním kódu během čtení '%s'"/>
+		<node name="errorReadingFile" value="Došlo k chybě během čtení '%s'"/>
+		<node name="errorReadingZip" value="Došlo k chybě během rozbalování '%s'"/>
+		<node name="pluginNotFound" value="Žádný doplněk pro '%s'"/>
+		<node name="unknownPluginType" value="Neznámý typ doplňku: %s"/>
+		<node name="fileNotFound" value="Soubor nebyl nalezen: %s"/>
+		<node name="unsupportedEncryptionMethod" value="File %s is encrypted with method that is not supported by FBReader. Some pages are not readable" toBeTranslated="true"/>
+		<node name="opfFileNotFound" value="OPF nebyl nalezen v %s"/>
+		<node name="unsupportedFileFormat" value="Formát souboru není podporován pro '%s'"/>
+		<node name="errorParsingRtf" value="Chyba analýzy RTF v: %s"/>
 		<node name="cannotRunAndroidMarket" value="Android Market není přístupný. Nainstalujte %s ručně"/>
 		<node name="textNotFound" value="V knize není bohužel žádný vhodný text"/>
 		<node name="bookNotFound" value="V knihovně nejsou bohužel žádné vhodné knihy"/>
@@ -874,6 +893,8 @@
 		<node name="emptyCatalog" value="Katalog je bohužel prázdný"/>
 		<node name="emptyBasket" value="Váš košík je bohužel prázdný"/>
 		<node name="emptyNetworkSearchResults" value="Nebyly nalezeny žádné knihy"/>
+		<node name="videoServiceNotWorking" value="Video service is not available, sorry" toBeTranslated="true"/>
+		<node name="videoPlayerNotFound" value="There is no installed video player on this device, sorry" toBeTranslated="true"/>
 	</node>
 	<node name="external">
 		<node name="browser" value="Prohlížeč"/>
@@ -899,41 +920,35 @@
 			<node name="title" value="Problém FBReaderu"/>
 		</node>
 	</node>
-	<node name="bookReadingException">
-		<node name="errorReadingFile" value="Došlo k chybě během čtení '%s'"/>
-		<node name="errorReadingZip" value="Došlo k chybě během rozbalování '%s'"/>
-		<node name="pluginNotFound" value="Žádný doplněk pro '%s'"/>
-		<node name="unknownPluginType" value="Neznámý typ doplňku: %s"/>
-		<node name="fileNotFound" value="Soubor nebyl nalezen: %s"/>
-		<node name="opfFileNotFound" value="OPF nebyl nalezen v %s"/>
-		<node name="unsupportedFileFormat" value="Formát souboru není podporován pro '%s'"/>
-		<node name="errorParsingRtf" value="Chyba analýzy RTF v: %s"/>
-	</node>
 	<node name="links">
 		<node name="faqPage" value="http://fbreader.org/faq-page"/>
 	</node>
-	<node name="plugins" value="Install plugins" toBeTranslated="true">
-		<node name="litres" value="LitRes" toBeTranslated="true">
-			<node name="summary" value="Russian book store" toBeTranslated="true"/>
+	<node name="plugins" value="Instalovat doplňky">
+		<node name="noMorePlugins" value="Bohužel, právě nemáme žádné nové doplňky"/>
+		<node name="litres" value="LitRes">
+			<node name="summary" value="Ruské knihkupectví"/>
 		</node>
-		<node name="tts-plus" value="TTS+" toBeTranslated="true">
-			<node name="summary" value="Read aloud" toBeTranslated="true"/>
+		<node name="tts-plus" value="TTS+">
+			<node name="summary" value="Čte nahlas"/>
 		</node>
-		<node name="local-opds-scanner" value="Local OPDS Scanner" toBeTranslated="true">
-			<node name="summary" value="Look for books in the local network" toBeTranslated="true"/>
+		<node name="local-opds-scanner" value="Local OPDS Scanner">
+			<node name="summary" value="Hledá knihy v místní síti"/>
 		</node>
-		<node name="bookshelf" value="Bookshelf" toBeTranslated="true">
-			<node name="summary" value="Thumbnail library view" toBeTranslated="true"/>
+		<node name="bookshelf" value="Bookshelf">
+			<node name="summary" value="Zobrazí knihovnu v režimu náhledů"/>
 		</node>
-		<node name="opds-server" value="OPDS Server" toBeTranslated="true">
-			<node name="summary" value="Serve books from your device" toBeTranslated="true"/>
+		<node name="opds-server" value="OPDS Server">
+			<node name="summary" value="Dodá knihy z vašeho zařízení"/>
 		</node>
-		<node name="widgets" value="Widgets" toBeTranslated="true">
-			<node name="summary" value="Add books to your home screen" toBeTranslated="true"/>
+		<node name="widgets" value="Widgety">
+			<node name="summary" value="Přidá knihy na domovskou obrazovku"/>
 		</node>
-		<node name="pdf" value="PDF" toBeTranslated="true">
-			<node name="summary" value="Read books in PDF format" toBeTranslated="true"/>
+		<node name="pdf" value="PDF">
+			<node name="summary" value="Čte knihy ve formátu PDF"/>
 		</node>
+	</node>
+	<node name="drm">
+		<node name="encryptedSection" value="Encrypted section" toBeTranslated="true"/>
 	</node>
 	<node name="yota">
 		<node name="frontScreenMessage" value="Pro čtení knihy obraťte zařízení. Pro navrácení textu na tento displej stiskněte tlačítko dole."/>

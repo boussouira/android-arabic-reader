@@ -292,7 +292,7 @@
 		<node name="toggleFullscreen" value="Full Screen"/>
 		<node name="bookmarks" value="Bookmarks"/>
 		<node name="help" value="Help"/>
-		<node name="plugins" value="Plugins"/>
+		<node name="plugins" value="Install plugins"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="File name"/>
@@ -309,6 +309,11 @@
 			<node name="books" value="Books directory"/>
 			<node name="fonts" value="Fonts directory"/>
 			<node name="wallpapers" value="Wallpapers directory"/>
+			<node name="bookPath" value="Where to seek for books"/>
+			<node name="downloadDir" value="Where to store downloaded books"/>
+			<node name="fontPath" value="Where to seek for fonts"/>
+			<node name="wallpaperPath" value="Where to seek for background images"/>
+			<node name="tempDir" value="Where to store temporary files"/>
 		</node>
 		<node name="appearance" value="Appearance">
 			<node name="summary" value="Display settings, status bar, button lights"/>
@@ -549,6 +554,10 @@
 		</node>
 		<node name="css" value="CSS">
 			<node name="summary" value="Apply/ignore values defined in CSS"/>
+			<node name="fontFamily" value="Font family">
+				<node name="summaryOn" value="Use font family defined in CSS"/>
+				<node name="summaryOff" value="Ignore font family defined in CSS"/>
+			</node>
 			<node name="fontSize" value="Font size">
 				<node name="summaryOn" value="Apply font size defined in CSS"/>
 				<node name="summaryOff" value="Ignore font size defined in CSS"/>
@@ -853,6 +862,16 @@
 		</node>
 	</node>
 	<node name="errorMessage">
+		<node name="nativeCodeFailure" value="Error %s in native code during reading '%s'"/>
+		<node name="errorReadingFile" value="Error occured during reading '%s'"/>
+		<node name="errorReadingZip" value="Error occured during extracting '%s'"/>
+		<node name="pluginNotFound" value="No plugin for '%s'"/>
+		<node name="unknownPluginType" value="Unknown plugin type: %s"/>
+		<node name="fileNotFound" value="File not found: %s"/>
+		<node name="unsupportedEncryptionMethod" value="File %s is encrypted with method that is not supported by FBReader. Some pages are not readable"/>
+		<node name="opfFileNotFound" value="OPF is not found in %s"/>
+		<node name="unsupportedFileFormat" value="File format is not supported for '%s'"/>
+		<node name="errorParsingRtf" value="Rtf parsing error in: %s"/>
 		<node name="cannotRunAndroidMarket" value="Cannot access Android Market. Please, install %s manually"/>
 		<node name="textNotFound" value="There is no suitable text in the book, sorry"/>
 		<node name="bookNotFound" value="There are no suitable books in the library, sorry"/>
@@ -865,6 +884,8 @@
 		<node name="emptyCatalog" value="Catalog is empty, sorry"/>
 		<node name="emptyBasket" value="Your basket is empty, sorry"/>
 		<node name="emptyNetworkSearchResults" value="No books found, sorry"/>
+		<node name="videoServiceNotWorking" value="Video service is not available, sorry"/>
+		<node name="videoPlayerNotFound" value="There is no installed video player on this device, sorry"/>
 	</node>
 	<node name="external">
 		<node name="browser" value="Browser"/>
@@ -890,20 +911,11 @@
 			<node name="title" value="FBReader issue"/>
 		</node>
 	</node>
-	<node name="bookReadingException">
-		<node name="errorReadingFile" value="Error occured during reading '%s'"/>
-		<node name="errorReadingZip" value="Error occured during extracting '%s'"/>
-		<node name="pluginNotFound" value="No plugin for '%s'"/>
-		<node name="unknownPluginType" value="Unknown plugin type: %s"/>
-		<node name="fileNotFound" value="File is not found: %s"/>
-		<node name="opfFileNotFound" value="OPF is not found in %s"/>
-		<node name="unsupportedFileFormat" value="File format is not supported for '%s'"/>
-		<node name="errorParsingRtf" value="Rtf parsing error in: %s"/>
-	</node>
 	<node name="links">
 		<node name="faqPage" value="http://fbreader.org/faq-page"/>
 	</node>
 	<node name="plugins" value="Install plugins">
+		<node name="noMorePlugins" value="We have no new plugins at the moment, sorry"/>
 		<node name="litres" value="LitRes">
 			<node name="summary" value="Russian book store"/>
 		</node>
@@ -925,6 +937,9 @@
 		<node name="pdf" value="PDF">
 			<node name="summary" value="Read books in PDF format"/>
 		</node>
+	</node>
+	<node name="drm">
+		<node name="encryptedSection" value="Encrypted section"/>
 	</node>
 	<node name="yota">
 		<node name="frontScreenMessage" value="Turn the device over to read your book. To return text to this screen, press the button below."/>

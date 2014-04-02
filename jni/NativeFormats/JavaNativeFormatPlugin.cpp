@@ -20,6 +20,7 @@
 #include <AndroidUtil.h>
 #include <JniEnvelope.h>
 #include <ZLFileImage.h>
+#include <FileEncryptionInfo.h>
 
 #include "fbreader/src/bookmodel/BookModel.h"
 #include "fbreader/src/formats/FormatPlugin.h"
@@ -114,20 +115,31 @@ static void fillLanguageAndEncoding(JNIEnv* env, jobject javaBook, Book &book) {
 }
 
 extern "C"
-JNIEXPORT jboolean JNICALL Java_org_geometerplus_fbreader_formats_NativeFormatPlugin_readMetaInfoNative(JNIEnv* env, jobject thiz, jobject javaBook) {
+JNIEXPORT jint JNICALL Java_org_geometerplus_fbreader_formats_NativeFormatPlugin_readMetaInfoNative(JNIEnv* env, jobject thiz, jobject javaBook) {
 	shared_ptr<FormatPlugin> plugin = findCppPlugin(thiz);
 	if (plugin.isNull()) {
-		return JNI_FALSE;
+		return 1;
 	}
 
 	shared_ptr<Book> book = Book::loadFromJavaBook(env, javaBook);
 
 	if (!plugin->readMetaInfo(*book)) {
-		return JNI_FALSE;
+		return 2;
 	}
 
 	fillMetaInfo(env, javaBook, *book);
-	return JNI_TRUE;
+	return 0;
+}
+
+extern "C"
+JNIEXPORT jstring JNICALL Java_org_geometerplus_fbreader_formats_NativeFormatPlugin_readEncryptionMethod(JNIEnv* env, jobject thiz, jobject javaBook) {
+	shared_ptr<FormatPlugin> plugin = findCppPlugin(thiz);
+	if (plugin.isNull()) {
+		return AndroidUtil::createJavaString(env, EncryptionMethod::UNSUPPORTED);
+	}
+
+	shared_ptr<Book> book = Book::loadFromJavaBook(env, javaBook);
+	return AndroidUtil::createJavaString(env, plugin->readEncryptionMethod(*book));
 }
 
 extern "C"
@@ -252,10 +264,10 @@ static void initTOC(JNIEnv *env, jobject javaModel, const ContentsTree &tree) {
 }
 
 extern "C"
-JNIEXPORT jboolean JNICALL Java_org_geometerplus_fbreader_formats_NativeFormatPlugin_readModelNative(JNIEnv* env, jobject thiz, jobject javaModel) {
+JNIEXPORT jint JNICALL Java_org_geometerplus_fbreader_formats_NativeFormatPlugin_readModelNative(JNIEnv* env, jobject thiz, jobject javaModel) {
 	shared_ptr<FormatPlugin> plugin = findCppPlugin(thiz);
 	if (plugin.isNull()) {
-		return JNI_FALSE;
+		return 1;
 	}
 
 	jobject javaBook = AndroidUtil::Field_NativeBookModel_Book->value(javaModel);
@@ -263,15 +275,15 @@ JNIEXPORT jboolean JNICALL Java_org_geometerplus_fbreader_formats_NativeFormatPl
 	shared_ptr<Book> book = Book::loadFromJavaBook(env, javaBook);
 	shared_ptr<BookModel> model = new BookModel(book, javaModel);
 	if (!plugin->readModel(*model)) {
-		return JNI_FALSE;
+		return 2;
 	}
 	if (!model->flush()) {
 		AndroidUtil::throwCachedCharStorageException("Cannot write file from native code");
-		return JNI_FALSE;
+		return 3;
 	}
 
 	if (!initInternalHyperlinks(env, javaModel, *model)) {
-		return JNI_FALSE;
+		return 4;
 	}
 
 	initTOC(env, javaModel, *model->contentsTree());
@@ -279,11 +291,11 @@ JNIEXPORT jboolean JNICALL Java_org_geometerplus_fbreader_formats_NativeFormatPl
 	shared_ptr<ZLTextModel> textModel = model->bookTextModel();
 	jobject javaTextModel = createTextModel(env, javaModel, *textModel);
 	if (javaTextModel == 0) {
-		return JNI_FALSE;
+		return 5;
 	}
 	AndroidUtil::Method_NativeBookModel_setBookTextModel->call(javaModel, javaTextModel);
 	if (env->ExceptionCheck()) {
-		return JNI_FALSE;
+		return 6;
 	}
 	env->DeleteLocalRef(javaTextModel);
 
@@ -292,15 +304,51 @@ JNIEXPORT jboolean JNICALL Java_org_geometerplus_fbreader_formats_NativeFormatPl
 	for (; it != footnotes.end(); ++it) {
 		jobject javaFootnoteModel = createTextModel(env, javaModel, *it->second);
 		if (javaFootnoteModel == 0) {
-			return JNI_FALSE;
+			return 7;
 		}
 		AndroidUtil::Method_NativeBookModel_setFootnoteModel->call(javaModel, javaFootnoteModel);
 		if (env->ExceptionCheck()) {
-			return JNI_FALSE;
+			return 8;
 		}
 		env->DeleteLocalRef(javaFootnoteModel);
 	}
-	return JNI_TRUE;
+
+	const std::vector<std::vector<std::string> > familyLists = model->fontManager().familyLists();
+	for (std::vector<std::vector<std::string> >::const_iterator it = familyLists.begin(); it != familyLists.end(); ++it) {
+		const std::vector<std::string> &lst = *it;
+		jobjectArray jList = env->NewObjectArray(lst.size(), AndroidUtil::Class_java_lang_String.j(), 0);
+		for (std::size_t i = 0; i < lst.size(); ++i) {
+			jstring jString = AndroidUtil::createJavaString(env, lst[i]);
+    	env->SetObjectArrayElement(jList, i, jString);
+			env->DeleteLocalRef(jString);
+		}
+		AndroidUtil::Method_NativeBookModel_registerFontFamilyList->call(javaModel, jList);
+		env->DeleteLocalRef(jList);
+	}
+
+	const std::map<std::string,shared_ptr<FontEntry> > entries = model->fontManager().entries();
+	for (std::map<std::string,shared_ptr<FontEntry> >::const_iterator it = entries.begin(); it != entries.end(); ++it) {
+		if (it->second.isNull()) {
+			continue;
+		}
+		jstring family = AndroidUtil::createJavaString(env, it->first);
+		jstring normal = AndroidUtil::createJavaString(env, it->second->Normal);
+		jstring bold = AndroidUtil::createJavaString(env, it->second->Bold);
+		jstring italic = AndroidUtil::createJavaString(env, it->second->Italic);
+		jstring boldItalic = AndroidUtil::createJavaString(env, it->second->BoldItalic);
+
+		AndroidUtil::Method_NativeBookModel_registerFontEntry->call(
+			javaModel, family, normal, bold, italic, boldItalic
+		);
+
+		if (boldItalic != 0) env->DeleteLocalRef(boldItalic);
+		if (italic != 0) env->DeleteLocalRef(italic);
+		if (bold != 0) env->DeleteLocalRef(bold);
+		if (normal != 0) env->DeleteLocalRef(normal);
+		env->DeleteLocalRef(family);
+	}
+
+	return 0;
 }
 
 extern "C"

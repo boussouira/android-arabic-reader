@@ -29,7 +29,7 @@ include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE                  := NativeFormats-v3
+LOCAL_MODULE                  := NativeFormats-v4
 LOCAL_CFLAGS                  := -Wall
 LOCAL_LDLIBS                  := -lz -llog
 LOCAL_STATIC_LIBRARIES        := expat
@@ -47,6 +47,7 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/zlibrary/core/src/encoding/JavaEncodingConverter.cpp \
 	NativeFormats/zlibrary/core/src/encoding/ZLEncodingCollection.cpp \
 	NativeFormats/zlibrary/core/src/encoding/ZLEncodingConverter.cpp \
+	NativeFormats/zlibrary/core/src/encryption/FileEncryptionInfo.cpp \
 	NativeFormats/zlibrary/core/src/filesystem/ZLDir.cpp \
 	NativeFormats/zlibrary/core/src/filesystem/ZLFSManager.cpp \
 	NativeFormats/zlibrary/core/src/filesystem/ZLFile.cpp \
@@ -82,6 +83,9 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/zlibrary/text/src/model/ZLCachedMemoryAllocator.cpp \
 	NativeFormats/zlibrary/text/src/model/ZLTextModel.cpp \
 	NativeFormats/zlibrary/text/src/model/ZLTextParagraph.cpp \
+	NativeFormats/zlibrary/text/src/model/ZLVideoEntry.cpp \
+	NativeFormats/zlibrary/text/src/fonts/FontManager.cpp \
+	NativeFormats/zlibrary/text/src/fonts/FontMap.cpp \
 	NativeFormats/zlibrary/ui/src/android/filesystem/JavaFSDir.cpp \
 	NativeFormats/zlibrary/ui/src/android/filesystem/JavaInputStream.cpp \
 	NativeFormats/zlibrary/ui/src/android/filesystem/ZLAndroidFSManager.cpp \
@@ -98,8 +102,11 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/fbreader/src/formats/fb2/FB2Reader.cpp \
 	NativeFormats/fbreader/src/formats/fb2/FB2TagManager.cpp \
 	NativeFormats/fbreader/src/formats/fb2/FB2UidReader.cpp \
+	NativeFormats/fbreader/src/formats/css/CSSInputStream.cpp \
+	NativeFormats/fbreader/src/formats/css/StringInputStream.cpp \
 	NativeFormats/fbreader/src/formats/css/StyleSheetParser.cpp \
 	NativeFormats/fbreader/src/formats/css/StyleSheetTable.cpp \
+	NativeFormats/fbreader/src/formats/css/StyleSheetUtil.cpp \
 	NativeFormats/fbreader/src/formats/html/HtmlBookReader.cpp \
 	NativeFormats/fbreader/src/formats/html/HtmlDescriptionReader.cpp \
 	NativeFormats/fbreader/src/formats/html/HtmlEntityCollection.cpp \
@@ -109,6 +116,7 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/fbreader/src/formats/oeb/NCXReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBBookReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBCoverReader.cpp \
+	NativeFormats/fbreader/src/formats/oeb/OEBEncryptionReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBMetaInfoReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBPlugin.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBTextStream.cpp \
@@ -151,6 +159,7 @@ LOCAL_C_INCLUDES              := \
 	$(LOCAL_PATH)/NativeFormats/util \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/constants \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/encoding \
+	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/encryption \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/filesystem \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/image \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/language \
@@ -158,6 +167,7 @@ LOCAL_C_INCLUDES              := \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/logger \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/util \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/xml \
-	$(LOCAL_PATH)/NativeFormats/zlibrary/text/src/model
+	$(LOCAL_PATH)/NativeFormats/zlibrary/text/src/model \
+	$(LOCAL_PATH)/NativeFormats/zlibrary/text/src/fonts
 
 include $(BUILD_SHARED_LIBRARY)

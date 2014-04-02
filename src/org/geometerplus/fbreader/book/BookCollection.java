@@ -64,6 +64,9 @@ public class BookCollection extends AbstractBookCollection {
 		if (plugin == null) {
 			return null;
 		}
+		if (!plugin.type().Builtin && bookFile != bookFile.getPhysicalFile()) {
+			return null;
+		}
 		try {
 			bookFile = plugin.realBookFile(bookFile);
 		} catch (BookReadingException e) {
@@ -114,7 +117,7 @@ public class BookCollection extends AbstractBookCollection {
 		}
 
 		book = myDatabase.loadBook(id);
-		if (book == null || !book.File.exists()) {
+		if (book == null || book.File == null || !book.File.exists()) {
 			return null;
 		}
 		book.loadLists(myDatabase);
@@ -130,7 +133,7 @@ public class BookCollection extends AbstractBookCollection {
 			return null;
 		}
 
-		FileInfoSet fileInfos = new FileInfoSet(myDatabase, physicalFile);
+		final FileInfoSet fileInfos = new FileInfoSet(myDatabase, physicalFile);
 		if (fileInfos.check(physicalFile, physicalFile != bookFile)) {
 			// loaded from db
 			addBook(book, false);
@@ -358,7 +361,7 @@ public class BookCollection extends AbstractBookCollection {
 	}
 
 	public Book getRecentBook(int index) {
-		List<Long> recentIds = myDatabase.loadRecentBookIds();
+		final List<Long> recentIds = myDatabase.loadRecentBookIds();
 		return recentIds.size() > index ? getBookById(recentIds.get(index)) : null;
 	}
 
