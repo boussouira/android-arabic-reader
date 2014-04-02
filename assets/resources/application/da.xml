@@ -51,9 +51,6 @@
 		<node name="removeFromRecents" value="Remove from recent list" toBeTranslated="true"/>
 		<node name="markAsRead" value="Marker som læst"/>
 		<node name="markAsUnread" value="Marker som ikke læst"/>
-		<node name="fileTreeAddLibrary" value="Ekstra FB-læser bibliotek">
-			<node name="summary" value="FB-Læser bogbibliotek"/>
-		</node>
 	</node>
 	<node name="networkLibrary" value="FB-Læser netværksbibliotek">
 		<node name="byAuthor" value="Efter forfatter">
@@ -309,13 +306,14 @@
 	<node name="Preferences">
 		<node name="directories" value="Biblioteker">
 			<node name="summary" value="Biblioteker for filsøgning"/>
-			<node name="temp" value="Katalog for midlertidige filer"/>
-			<node name="bookPath" value="Bogbiblioteker"/>
-			<node name="fontPath" value="Skrifttype-biblioteker"/>
-			<node name="wallpaperPath" value="Tapet-biblioteker"/>
 			<node name="books" value="Bogbibliotek"/>
 			<node name="fonts" value="Skrifttype-bibliotek"/>
 			<node name="wallpapers" value="Tapet-bibliotek"/>
+			<node name="bookPath" value="Bogbiblioteker"/>
+			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true"/>
+			<node name="fontPath" value="Skrifttype-biblioteker"/>
+			<node name="wallpaperPath" value="Tapet-biblioteker"/>
+			<node name="tempDir" value="Katalog for midlertidige filer"/>
 		</node>
 		<node name="appearance" value="Fremtoning">
 			<node name="summary" value="Vis indstillinger, statuslinje, knaplys"/>
@@ -556,6 +554,10 @@
 		</node>
 		<node name="css" value="CSS">
 			<node name="summary" value="Brug/ignorer værdier defineret i CSS"/>
+			<node name="fontFamily" value="Font family" toBeTranslated="true">
+				<node name="summaryOn" value="Use font family defined in CSS" toBeTranslated="true"/>
+				<node name="summaryOff" value="Ignore font family defined in CSS" toBeTranslated="true"/>
+			</node>
 			<node name="fontSize" value="Skriftstørrelse">
 				<node name="summaryOn" value="Brug skriftstørrelse defineret i CSS"/>
 				<node name="summaryOff" value="Ignorer skriftstørrelse defineret i CSS"/>
@@ -881,6 +883,7 @@
 		<node name="pluginNotFound" value="Ingen plugin for '%s'"/>
 		<node name="unknownPluginType" value="Ukendt plugin-type  %s"/>
 		<node name="fileNotFound" value="Filen blev ikke fundet: %s"/>
+		<node name="unsupportedEncryptionMethod" value="File %s is encrypted with method that is not supported by FBReader. Some pages are not readable" toBeTranslated="true"/>
 		<node name="opfFileNotFound" value="OPF blev ikke fundet i %s"/>
 		<node name="unsupportedFileFormat" value="Filformatet understøttes ikke for '%s'"/>
 		<node name="errorParsingRtf" value="RTF-parsingfejl i: %s"/>
@@ -902,6 +905,8 @@
 		<node name="formatExists" value="Filtypen understøttes allerede af %s"/>
 		<node name="unzipFailed" value="Det mislykkedes at udpakke bogen til ekstern brug"/>
 		<node name="noPlugin" value="Installer plugin for at læse denne filtype"/>
+		<node name="videoServiceNotWorking" value="Video service is not available, sorry" toBeTranslated="true"/>
+		<node name="videoPlayerNotFound" value="There is no installed video player on this device, sorry" toBeTranslated="true"/>
 	</node>
 	<node name="external">
 		<node name="browser" value="Browser"/>
@@ -953,6 +958,9 @@
 		<node name="pdf" value="PDF" toBeTranslated="true">
 			<node name="summary" value="Read books in PDF format" toBeTranslated="true"/>
 		</node>
+	</node>
+	<node name="drm">
+		<node name="encryptedSection" value="Encrypted section" toBeTranslated="true"/>
 	</node>
 	<node name="yota">
 		<node name="frontScreenMessage" value="Turn the device over to read your book. To return text to this screen, press the button below." toBeTranslated="true"/>

@@ -21,6 +21,7 @@ package org.geometerplus.zlibrary.text.model;
 
 import java.util.*;
 
+import org.geometerplus.zlibrary.core.fonts.FontManager;
 import org.geometerplus.zlibrary.core.image.ZLImage;
 import org.geometerplus.zlibrary.core.util.*;
 
@@ -40,6 +41,8 @@ public class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Feature {
 	protected final Map<String,ZLImage> myImageMap;
 
 	private ArrayList<ZLTextMark> myMarks;
+
+	private final FontManager myFontManager;
 
 	final class EntryIteratorImpl implements ZLTextParagraph.EntryIterator {
 		private int myCounter;
@@ -63,6 +66,9 @@ public class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Feature {
 
 		// ImageEntry
 		private ZLImageEntry myImageEntry;
+
+		// VideoEntry
+		private ZLVideoEntry myVideoEntry;
 
 		// StyleEntry
 		private ZLTextStyleEntry myStyleEntry;
@@ -114,6 +120,10 @@ public class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Feature {
 			return myImageEntry;
 		}
 
+		public ZLVideoEntry getVideoEntry() {
+			return myVideoEntry;
+		}
+
 		public ZLTextStyleEntry getStyleEntry() {
 			return myStyleEntry;
 		}
@@ -163,11 +173,11 @@ public class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Feature {
 				}
 				case ZLTextParagraph.Entry.HYPERLINK_CONTROL:
 				{
-					short kind = (short)data[dataOffset++];
+					final short kind = (short)data[dataOffset++];
 					myControlKind = (byte)kind;
 					myControlIsStart = true;
 					myHyperlinkType = (byte)(kind >> 8);
-					short labelLength = (short)data[dataOffset++];
+					final short labelLength = (short)data[dataOffset++];
 					myHyperlinkId = new String(data, dataOffset, labelLength);
 					dataOffset += labelLength;
 					break;
@@ -206,9 +216,7 @@ public class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Feature {
 						entry.setAlignmentType((byte)(value & 0xFF));
 					}
 					if (ZLTextStyleEntry.isFeatureSupported(mask, FONT_FAMILY)) {
-						final short familyLength = (short)data[dataOffset++];
-						entry.setFontFamily(new String(data, dataOffset, familyLength));
-						dataOffset += familyLength;
+						entry.setFontFamilies(myFontManager, (short)data[dataOffset++]);
 					}
 					if (ZLTextStyleEntry.isFeatureSupported(mask, FONT_STYLE_MODIFIER)) {
 						final short value = (short)data[dataOffset++];
@@ -223,6 +231,24 @@ public class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Feature {
 				case ZLTextParagraph.Entry.RESET_BIDI:
 					// No data
 					break;
+				case ZLTextParagraph.Entry.AUDIO:
+					// No data
+					break;
+				case ZLTextParagraph.Entry.VIDEO:
+				{
+					myVideoEntry = new ZLVideoEntry();
+					final short mapSize = (short)data[dataOffset++];
+					for (short i = 0; i < mapSize; ++i) {
+						short len = (short)data[dataOffset++];
+						final String mime = new String(data, dataOffset, len);
+						dataOffset += len;
+						len = (short)data[dataOffset++];
+						final String src = new String(data, dataOffset, len);
+						dataOffset += len;
+						myVideoEntry.addSource(mime, src);
+					}
+					break;
+				}
 			}
 			++myCounter;
 			myDataOffset = dataOffset;
@@ -238,7 +264,8 @@ public class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Feature {
 		int[] textSizes,
 		byte[] paragraphKinds,
 		CharStorage storage,
-		Map<String,ZLImage> imageMap
+		Map<String,ZLImage> imageMap,
+		FontManager fontManager
 	) {
 		myId = id;
 		myLanguage = language;
@@ -249,6 +276,7 @@ public class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Feature {
 		myParagraphKinds = paragraphKinds;
 		myStorage = storage;
 		myImageMap = imageMap;
+		myFontManager = fontManager;
 	}
 
 	public final String getId() {

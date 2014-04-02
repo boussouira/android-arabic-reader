@@ -309,6 +309,11 @@
 			<node name="books" value="پوشه کتابها"/>
 			<node name="fonts" value="پوشه فونتها"/>
 			<node name="wallpapers" value="پوشه تصاویر"/>
+			<node name="bookPath" value="Where to seek for books" toBeTranslated="true"/>
+			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true"/>
+			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true"/>
+			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true"/>
+			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true"/>
 		</node>
 		<node name="appearance" value="نمایش">
 			<node name="summary" value="تنظیمات نمایش, نوار وضعیت, نور کلیدها"/>
@@ -549,6 +554,10 @@
 		</node>
 		<node name="css" value="CSS">
 			<node name="summary" value="اجرا / رد مقادير تعريف شده در CSS"/>
+			<node name="fontFamily" value="Font family" toBeTranslated="true">
+				<node name="summaryOn" value="Use font family defined in CSS" toBeTranslated="true"/>
+				<node name="summaryOff" value="Ignore font family defined in CSS" toBeTranslated="true"/>
+			</node>
 			<node name="fontSize" value="اندازه فونت">
 				<node name="summaryOn" value="اجراي اندازه فونت تعريف شده در CSS "/>
 				<node name="summaryOff" value="رد اندازه فونت تعريف شده در CSS"/>
@@ -859,6 +868,7 @@
 		<node name="pluginNotFound" value="پلاگینی وجود ندارد برای '%s'"/>
 		<node name="unknownPluginType" value="نوع پلاگین ناشناخته است: %s"/>
 		<node name="fileNotFound" value="فایل پیدا نشد: %s"/>
+		<node name="unsupportedEncryptionMethod" value="File %s is encrypted with method that is not supported by FBReader. Some pages are not readable" toBeTranslated="true"/>
 		<node name="opfFileNotFound" value="OPF در %s پیدا نشد"/>
 		<node name="unsupportedFileFormat" value="فرمت فایل پشتیبانی نمیشود برای '%s'"/>
 		<node name="errorParsingRtf" value="Rtf parsing error in: %s" toBeTranslated="true"/>
@@ -874,6 +884,8 @@
 		<node name="emptyCatalog" value="متاسفانه كاتالوگ خالي است"/>
 		<node name="emptyBasket" value="متاسفانه سبدشما خالي است"/>
 		<node name="emptyNetworkSearchResults" value="متاسفانه كتابي يافت نشد"/>
+		<node name="videoServiceNotWorking" value="Video service is not available, sorry" toBeTranslated="true"/>
+		<node name="videoPlayerNotFound" value="There is no installed video player on this device, sorry" toBeTranslated="true"/>
 	</node>
 	<node name="external">
 		<node name="browser" value="مرورگر"/>
@@ -925,6 +937,9 @@
 		<node name="pdf" value="PDF" toBeTranslated="true">
 			<node name="summary" value="Read books in PDF format" toBeTranslated="true"/>
 		</node>
+	</node>
+	<node name="drm">
+		<node name="encryptedSection" value="Encrypted section" toBeTranslated="true"/>
 	</node>
 	<node name="yota">
 		<node name="frontScreenMessage" value="Turn the device over to read your book. To return text to this screen, press the button below." toBeTranslated="true"/>

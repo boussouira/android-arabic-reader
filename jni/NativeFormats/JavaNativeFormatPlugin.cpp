@@ -312,6 +312,42 @@ JNIEXPORT jint JNICALL Java_org_geometerplus_fbreader_formats_NativeFormatPlugin
 		}
 		env->DeleteLocalRef(javaFootnoteModel);
 	}
+
+	const std::vector<std::vector<std::string> > familyLists = model->fontManager().familyLists();
+	for (std::vector<std::vector<std::string> >::const_iterator it = familyLists.begin(); it != familyLists.end(); ++it) {
+		const std::vector<std::string> &lst = *it;
+		jobjectArray jList = env->NewObjectArray(lst.size(), AndroidUtil::Class_java_lang_String.j(), 0);
+		for (std::size_t i = 0; i < lst.size(); ++i) {
+			jstring jString = AndroidUtil::createJavaString(env, lst[i]);
+    	env->SetObjectArrayElement(jList, i, jString);
+			env->DeleteLocalRef(jString);
+		}
+		AndroidUtil::Method_NativeBookModel_registerFontFamilyList->call(javaModel, jList);
+		env->DeleteLocalRef(jList);
+	}
+
+	const std::map<std::string,shared_ptr<FontEntry> > entries = model->fontManager().entries();
+	for (std::map<std::string,shared_ptr<FontEntry> >::const_iterator it = entries.begin(); it != entries.end(); ++it) {
+		if (it->second.isNull()) {
+			continue;
+		}
+		jstring family = AndroidUtil::createJavaString(env, it->first);
+		jstring normal = AndroidUtil::createJavaString(env, it->second->Normal);
+		jstring bold = AndroidUtil::createJavaString(env, it->second->Bold);
+		jstring italic = AndroidUtil::createJavaString(env, it->second->Italic);
+		jstring boldItalic = AndroidUtil::createJavaString(env, it->second->BoldItalic);
+
+		AndroidUtil::Method_NativeBookModel_registerFontEntry->call(
+			javaModel, family, normal, bold, italic, boldItalic
+		);
+
+		if (boldItalic != 0) env->DeleteLocalRef(boldItalic);
+		if (italic != 0) env->DeleteLocalRef(italic);
+		if (bold != 0) env->DeleteLocalRef(bold);
+		if (normal != 0) env->DeleteLocalRef(normal);
+		env->DeleteLocalRef(family);
+	}
+
 	return 0;
 }
 

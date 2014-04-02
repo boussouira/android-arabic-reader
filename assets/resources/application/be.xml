@@ -315,6 +315,11 @@
 			<node name="books" value="Каталёґ кніг"/>
 			<node name="fonts" value="Каталёґ шрыфтоў"/>
 			<node name="wallpapers" value="Каталёґ шпалераў"/>
+			<node name="bookPath" value="Where to seek for books" toBeTranslated="true"/>
+			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true"/>
+			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true"/>
+			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true"/>
+			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true"/>
 		</node>
 		<node name="appearance" value="Выгляд">
 			<node name="summary" value="Налады экрану, паліцы стану, сьвятла кнопак"/>
@@ -555,6 +560,10 @@
 		</node>
 		<node name="css" value="CSS">
 			<node name="summary" value="Ужыць ці праіґнараваць значэньні з CSS"/>
+			<node name="fontFamily" value="Font family" toBeTranslated="true">
+				<node name="summaryOn" value="Use font family defined in CSS" toBeTranslated="true"/>
+				<node name="summaryOff" value="Ignore font family defined in CSS" toBeTranslated="true"/>
+			</node>
 			<node name="fontSize" value="Памер шрыфту">
 				<node name="summaryOn" value="Ужыць памер шрыфту з CSS"/>
 				<node name="summaryOff" value="Праіґнараваць памер шрыфту з CSS"/>
@@ -865,6 +874,7 @@
 		<node name="pluginNotFound" value="Няма ўбудовы для '%s'"/>
 		<node name="unknownPluginType" value="Невядомы тып убудовы: %s"/>
 		<node name="fileNotFound" value="Файл ня знойдзены: %s"/>
+		<node name="unsupportedEncryptionMethod" value="File %s is encrypted with method that is not supported by FBReader. Some pages are not readable" toBeTranslated="true"/>
 		<node name="opfFileNotFound" value="OPF ня знойдзены ў %s"/>
 		<node name="unsupportedFileFormat" value="Фармат файла не падтрымліваецца для '%s'"/>
 		<node name="errorParsingRtf" value="Памылка разбору rtf у: %s"/>
@@ -880,6 +890,8 @@
 		<node name="emptyCatalog" value="Каталёґ пусты, прабачце"/>
 		<node name="emptyBasket" value="Ваш кошык пусты, прабачце"/>
 		<node name="emptyNetworkSearchResults" value="Кнігі ня знойдзеныя, прабачце"/>
+		<node name="videoServiceNotWorking" value="Video service is not available, sorry" toBeTranslated="true"/>
+		<node name="videoPlayerNotFound" value="There is no installed video player on this device, sorry" toBeTranslated="true"/>
 	</node>
 	<node name="external">
 		<node name="browser" value="Аглядальнік"/>
@@ -931,6 +943,9 @@
 		<node name="pdf" value="PDF" toBeTranslated="true">
 			<node name="summary" value="Read books in PDF format" toBeTranslated="true"/>
 		</node>
+	</node>
+	<node name="drm">
+		<node name="encryptedSection" value="Encrypted section" toBeTranslated="true"/>
 	</node>
 	<node name="yota">
 		<node name="frontScreenMessage" value="Turn the device over to read your book. To return text to this screen, press the button below." toBeTranslated="true"/>

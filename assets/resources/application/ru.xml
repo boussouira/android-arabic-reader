@@ -314,6 +314,11 @@
 			<node name="books" value="Каталог с книгами"/>
 			<node name="fonts" value="Каталог со шрифтами"/>
 			<node name="wallpapers" value="Каталог с обоями"/>
+			<node name="bookPath" value="Где лежат книги"/>
+			<node name="downloadDir" value="Куда сохранять загруженные книги"/>
+			<node name="fontPath" value="Где лежат шрифты"/>
+			<node name="wallpaperPath" value="Где лежат рисунки для фона"/>
+			<node name="tempDir" value="Где создавать временные файлы"/>
 		</node>
 		<node name="appearance" value="Внешний вид">
 			<node name="summary" value="Экран, строка состояния, подсветка кнопок"/>
@@ -554,6 +559,10 @@
 		</node>
 		<node name="css" value="CSS">
 			<node name="summary" value="Использовать ли форматирование CSS"/>
+			<node name="fontFamily" value="Названия шрифтов">
+				<node name="summaryOn" value="Использовать шрифты, указанные в CSS"/>
+				<node name="summaryOff" value="Игнорировать указания шрифтов в CSS"/>
+			</node>
 			<node name="fontSize" value="Размер шрифта">
 				<node name="summaryOn" value="Использовать размер шрифта, заданный в CSS"/>
 				<node name="summaryOff" value="Игнорировать размер шрифта, заданный в CSS"/>
@@ -858,12 +867,13 @@
 		</node>
 	</node>
 	<node name="errorMessage">
-		<node name="nativeCodeFailure" value="Error %s in native code during reading '%s'" toBeTranslated="true"/>
+		<node name="nativeCodeFailure" value="Ошибка %s в нативном коде при чтении '%s'"/>
 		<node name="errorReadingFile" value="Ошибка при чтении '%s'"/>
 		<node name="errorReadingZip" value="Ошибка при разархивировании '%s'"/>
 		<node name="pluginNotFound" value="Нет плагина для '%s'"/>
 		<node name="unknownPluginType" value="Неизвестный тип плагина: %s"/>
 		<node name="fileNotFound" value="Не найти файл: %s"/>
+		<node name="unsupportedEncryptionMethod" value="Файл %s зашифрован методом, неизвестным FBReader. Некоторые или все страницы могут быть недоступны"/>
 		<node name="opfFileNotFound" value="Не удалось найти OPF в %s"/>
 		<node name="unsupportedFileFormat" value="Не поддерживается формат файла '%s'"/>
 		<node name="errorParsingRtf" value="Ошибка при чтении RTF-файла %s"/>
@@ -879,6 +889,8 @@
 		<node name="emptyCatalog" value="Каталог пуст"/>
 		<node name="emptyBasket" value="В корзине нет книг"/>
 		<node name="emptyNetworkSearchResults" value="Не найдено ни одной книги"/>
+		<node name="videoServiceNotWorking" value="Просмотр видео не работает"/>
+		<node name="videoPlayerNotFound" value="Не удалось отыскать видеопроигрыватель"/>
 	</node>
 	<node name="external">
 		<node name="browser" value="браузере"/>
@@ -930,6 +942,9 @@
 		<node name="pdf" value="PDF">
 			<node name="summary" value="Чтение файлов PDF"/>
 		</node>
+	</node>
+	<node name="drm">
+		<node name="encryptedSection" value="Этот раздел зашифрован"/>
 	</node>
 	<node name="yota">
 		<node name="frontScreenMessage" value="Переверните телефон, чтобы увидеть текст книги. Если вы хотите читать на этом экране, нажмите на кнопку."/>

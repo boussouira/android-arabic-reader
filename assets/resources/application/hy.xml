@@ -314,6 +314,11 @@
 			<node name="books" value="Գրքեր"/>
 			<node name="fonts" value="Տառատեսակներ"/>
 			<node name="wallpapers" value="Պաստառներ"/>
+			<node name="bookPath" value="Where to seek for books" toBeTranslated="true"/>
+			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true"/>
+			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true"/>
+			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true"/>
+			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true"/>
 		</node>
 		<node name="appearance" value="Արտաքին տեսք">
 			<node name="summary" value="Էկրանի, վիճակագոտու, ստեղների կարգավորումներ"/>
@@ -554,6 +559,10 @@
 		</node>
 		<node name="css" value="CSS">
 			<node name="summary" value="Գործածե՞լ CSS ձևաչափով"/>
+			<node name="fontFamily" value="Font family" toBeTranslated="true">
+				<node name="summaryOn" value="Use font family defined in CSS" toBeTranslated="true"/>
+				<node name="summaryOff" value="Ignore font family defined in CSS" toBeTranslated="true"/>
+			</node>
 			<node name="fontSize" value="Տառատեսակի չափը">
 				<node name="summaryOn" value="Կիրառել CSS-ում տրվող տառատեսակի չափը"/>
 				<node name="summaryOff" value="Մերժել CSS-ում տրվող տառատեսակի չափը"/>
@@ -864,6 +873,7 @@
 		<node name="pluginNotFound" value="'%s'-ի համար խրվակ չկա"/>
 		<node name="unknownPluginType" value="%s խրվակի անհայտ տեսակ"/>
 		<node name="fileNotFound" value="%s նիշքը չգտնվեց"/>
+		<node name="unsupportedEncryptionMethod" value="File %s is encrypted with method that is not supported by FBReader. Some pages are not readable" toBeTranslated="true"/>
 		<node name="opfFileNotFound" value="%s-ում OPF չգտնվեց"/>
 		<node name="unsupportedFileFormat" value="'%s' նիշքերը չեն աջակցվում'"/>
 		<node name="errorParsingRtf" value="Սխալ %s RTF-նիշքը կարդալիս"/>
@@ -879,6 +889,8 @@
 		<node name="emptyCatalog" value="Գրացուցակը դատարկ է"/>
 		<node name="emptyBasket" value="Զամբյուղը դատարկ է"/>
 		<node name="emptyNetworkSearchResults" value="Ոչ մի գիրք չգտնվեց"/>
+		<node name="videoServiceNotWorking" value="Video service is not available, sorry" toBeTranslated="true"/>
+		<node name="videoPlayerNotFound" value="There is no installed video player on this device, sorry" toBeTranslated="true"/>
 	</node>
 	<node name="external">
 		<node name="browser" value="դիտարկիչ"/>
@@ -930,6 +942,9 @@
 		<node name="pdf" value="PDF" toBeTranslated="true">
 			<node name="summary" value="Read books in PDF format" toBeTranslated="true"/>
 		</node>
+	</node>
+	<node name="drm">
+		<node name="encryptedSection" value="Encrypted section" toBeTranslated="true"/>
 	</node>
 	<node name="yota">
 		<node name="frontScreenMessage" value="Turn the device over to read your book. To return text to this screen, press the button below." toBeTranslated="true"/>

@@ -309,6 +309,11 @@
 			<node name="books" value="Books directory"/>
 			<node name="fonts" value="Fonts directory"/>
 			<node name="wallpapers" value="Wallpapers directory"/>
+			<node name="bookPath" value="Where to seek for books"/>
+			<node name="downloadDir" value="Where to store downloaded books"/>
+			<node name="fontPath" value="Where to seek for fonts"/>
+			<node name="wallpaperPath" value="Where to seek for background images"/>
+			<node name="tempDir" value="Where to store temporary files"/>
 		</node>
 		<node name="appearance" value="Appearance">
 			<node name="summary" value="Display settings, status bar, button lights"/>
@@ -549,6 +554,10 @@
 		</node>
 		<node name="css" value="CSS">
 			<node name="summary" value="Apply/ignore values defined in CSS"/>
+			<node name="fontFamily" value="Font family">
+				<node name="summaryOn" value="Use font family defined in CSS"/>
+				<node name="summaryOff" value="Ignore font family defined in CSS"/>
+			</node>
 			<node name="fontSize" value="Font size">
 				<node name="summaryOn" value="Apply font size defined in CSS"/>
 				<node name="summaryOff" value="Ignore font size defined in CSS"/>
@@ -875,6 +884,8 @@
 		<node name="emptyCatalog" value="Catalog is empty, sorry"/>
 		<node name="emptyBasket" value="Your basket is empty, sorry"/>
 		<node name="emptyNetworkSearchResults" value="No books found, sorry"/>
+		<node name="videoServiceNotWorking" value="Video service is not available, sorry"/>
+		<node name="videoPlayerNotFound" value="There is no installed video player on this device, sorry"/>
 	</node>
 	<node name="external">
 		<node name="browser" value="Browser"/>
@@ -926,6 +937,9 @@
 		<node name="pdf" value="PDF">
 			<node name="summary" value="Read books in PDF format"/>
 		</node>
+	</node>
+	<node name="drm">
+		<node name="encryptedSection" value="Encrypted section"/>
 	</node>
 	<node name="yota">
 		<node name="frontScreenMessage" value="Turn the device over to read your book. To return text to this screen, press the button below."/>

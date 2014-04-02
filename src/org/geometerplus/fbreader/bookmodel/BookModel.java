@@ -19,8 +19,11 @@
 
 package org.geometerplus.fbreader.bookmodel;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.geometerplus.zlibrary.core.fonts.FontEntry;
+import org.geometerplus.zlibrary.core.fonts.FontManager;
 import org.geometerplus.zlibrary.text.model.*;
 
 import org.geometerplus.fbreader.book.Book;
@@ -52,6 +55,7 @@ public abstract class BookModel {
 
 	public final Book Book;
 	public final TOCTree TOCTree = new TOCTree();
+	public final FontManager FontManager = new FontManager();
 
 	public static final class Label {
 		public final String ModelId;
@@ -92,5 +96,17 @@ public abstract class BookModel {
 			}
 		}
 		return label;
+	}
+
+	public void registerFontFamilyList(String[] families) {
+		FontManager.index(Arrays.asList(families));
+	}
+
+	public void registerFontEntry(String family, FontEntry entry) {
+		FontManager.Entries.put(family, entry);
+	}
+
+	public void registerFontEntry(String family, String normal, String bold, String italic, String boldItalic) {
+		registerFontEntry(family, new FontEntry(family, normal, bold, italic, boldItalic));
 	}
 }
