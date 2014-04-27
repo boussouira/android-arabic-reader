@@ -37,6 +37,7 @@ JavaClass AndroidUtil::Class_java_io_InputStream("java/io/InputStream");
 
 JavaClass AndroidUtil::Class_ZLibrary("org/geometerplus/zlibrary/core/library/ZLibrary");
 JavaClass AndroidUtil::Class_ZLFile("org/geometerplus/zlibrary/core/filesystem/ZLFile");
+JavaClass AndroidUtil::Class_FileInfo("org/geometerplus/zlibrary/core/fonts/FileInfo");
 JavaClass AndroidUtil::Class_FileEncryptionInfo("org/geometerplus/zlibrary/core/drm/FileEncryptionInfo");
 JavaClass AndroidUtil::Class_ZLFileImage("org/geometerplus/zlibrary/core/image/ZLFileImage");
 JavaClass AndroidUtil::Class_ZLTextModel("org/geometerplus/zlibrary/text/model/ZLTextModel");
@@ -95,11 +96,12 @@ shared_ptr<StringMethod> AndroidUtil::Method_ZLFile_getPath;
 shared_ptr<BooleanMethod> AndroidUtil::Method_ZLFile_isDirectory;
 shared_ptr<LongMethod> AndroidUtil::Method_ZLFile_size;
 
+shared_ptr<Constructor> AndroidUtil::Constructor_FileInfo;
 shared_ptr<Constructor> AndroidUtil::Constructor_FileEncryptionInfo;
 
 shared_ptr<Constructor> AndroidUtil::Constructor_ZLFileImage;
 
-shared_ptr<StaticObjectMethod> AndroidUtil::StaticMethod_Paths_cacheDirectory;
+shared_ptr<StaticObjectMethod> AndroidUtil::StaticMethod_Paths_tempDirectory;
 
 shared_ptr<ObjectField> AndroidUtil::Field_Book_File;
 shared_ptr<StringMethod> AndroidUtil::Method_Book_getTitle;
@@ -125,8 +127,6 @@ shared_ptr<VoidMethod> AndroidUtil::Method_NativeBookModel_setFootnoteModel;
 shared_ptr<VoidMethod> AndroidUtil::Method_NativeBookModel_addImage;
 shared_ptr<VoidMethod> AndroidUtil::Method_NativeBookModel_registerFontFamilyList;
 shared_ptr<VoidMethod> AndroidUtil::Method_NativeBookModel_registerFontEntry;
-
-//shared_ptr<StaticObjectMethod> AndroidUtil::StaticMethod_BookReadingException_throwForFile;
 
 JNIEnv *AndroidUtil::getEnv() {
 	JNIEnv *env;
@@ -178,11 +178,12 @@ bool AndroidUtil::init(JavaVM* jvm) {
 	Method_ZLFile_getPath = new StringMethod(Class_ZLFile, "getPath", "()");
 	Method_ZLFile_size = new LongMethod(Class_ZLFile, "size", "()");
 
+	Constructor_FileInfo = new Constructor(Class_FileInfo, "(Ljava/lang/String;Lorg/geometerplus/zlibrary/core/drm/FileEncryptionInfo;)V");
 	Constructor_FileEncryptionInfo = new Constructor(Class_FileEncryptionInfo, "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
 
 	Constructor_ZLFileImage = new Constructor(Class_ZLFileImage, "(Ljava/lang/String;Lorg/geometerplus/zlibrary/core/filesystem/ZLFile;Ljava/lang/String;[I[ILorg/geometerplus/zlibrary/core/drm/FileEncryptionInfo;)V");
 
-	StaticMethod_Paths_cacheDirectory = new StaticObjectMethod(Class_Paths, "cacheDirectory", Class_java_lang_String, "()");
+	StaticMethod_Paths_tempDirectory = new StaticObjectMethod(Class_Paths, "tempDirectory", Class_java_lang_String, "()");
 
 	Field_Book_File = new ObjectField(Class_Book, "File", Class_ZLFile);
 	Method_Book_getTitle = new StringMethod(Class_Book, "getTitle", "()");
@@ -207,21 +208,14 @@ bool AndroidUtil::init(JavaVM* jvm) {
 	Method_NativeBookModel_setFootnoteModel = new VoidMethod(Class_NativeBookModel, "setFootnoteModel", "(Lorg/geometerplus/zlibrary/text/model/ZLTextModel;)");
 	Method_NativeBookModel_addImage = new VoidMethod(Class_NativeBookModel, "addImage", "(Ljava/lang/String;Lorg/geometerplus/zlibrary/core/image/ZLImage;)");
 	Method_NativeBookModel_registerFontFamilyList = new VoidMethod(Class_NativeBookModel, "registerFontFamilyList", "([Ljava/lang/String;)");
-	Method_NativeBookModel_registerFontEntry = new VoidMethod(Class_NativeBookModel, "registerFontEntry", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)");
-
-/*
-	Class_BookReadingException = new JavaClass(env, "org/geometerplus/fbreader/bookmodel/BookReadingException");
-	StaticMethod_BookReadingException_throwForFile = new StaticVoidMethod(Class_BookReadingException, "throwForFile", "(Ljava/lang/String;Lorg/geometerplus/zlibrary/core/filesystem/ZLFile;)V") );
-*/
+	Method_NativeBookModel_registerFontEntry = new VoidMethod(Class_NativeBookModel, "registerFontEntry", "(Ljava/lang/String;Lorg/geometerplus/zlibrary/core/fonts/FileInfo;Lorg/geometerplus/zlibrary/core/fonts/FileInfo;Lorg/geometerplus/zlibrary/core/fonts/FileInfo;Lorg/geometerplus/zlibrary/core/fonts/FileInfo;)");
 
 	return true;
 }
 
 jobject AndroidUtil::createJavaFile(JNIEnv *env, const std::string &path) {
-	jstring javaPath = createJavaString(env, path);
-	jobject javaFile = StaticMethod_ZLFile_createFileByPath->call(javaPath);
-	env->DeleteLocalRef(javaPath);
-	return javaFile;
+	JString javaPath(env, path, false);
+	return StaticMethod_ZLFile_createFileByPath->call(javaPath.j());
 }
 
 jobject AndroidUtil::createJavaEncryptionInfo(JNIEnv *env, shared_ptr<FileEncryptionInfo> info) {
@@ -229,25 +223,18 @@ jobject AndroidUtil::createJavaEncryptionInfo(JNIEnv *env, shared_ptr<FileEncryp
 		return 0;
 	}
 
-	jstring uri = createJavaString(env, info->Uri);
-	jstring method = createJavaString(env, info->Method);
-	jstring algorithm = createJavaString(env, info->Algorithm);
-	jstring contentId = createJavaString(env, info->ContentId);
+	JString uri(env, info->Uri, false);
+	JString method(env, info->Method, false);
+	JString algorithm(env, info->Algorithm, false);
+	JString contentId(env, info->ContentId, false);
 
-	jobject javaInfo = Constructor_FileEncryptionInfo->call(uri, method, algorithm, contentId);
-
-	env->DeleteLocalRef(contentId);
-	env->DeleteLocalRef(algorithm);
-	env->DeleteLocalRef(method);
-	env->DeleteLocalRef(uri);
-
-	return javaInfo;
+	return Constructor_FileEncryptionInfo->call(uri.j(), method.j(), algorithm.j(), contentId.j());
 }
 
 jobject AndroidUtil::createJavaImage(JNIEnv *env, const ZLFileImage &image) {
-	jstring javaMimeType = createJavaString(env, image.mimeType());
+	JString javaMimeType(env, image.mimeType());
 	jobject javaFile = createJavaFile(env, image.file().path());
-	jstring javaEncoding = createJavaString(env, image.encoding());
+	JString javaEncoding(env, image.encoding());
 
 	std::vector<jint> offsets, sizes;
 	const ZLFileImage::Blocks &blocks = image.blocks();
@@ -261,7 +248,7 @@ jobject AndroidUtil::createJavaImage(JNIEnv *env, const ZLFileImage &image) {
 	jobject javaEncryptionInfo = createJavaEncryptionInfo(env, image.encryptionInfo());
 
 	jobject javaImage = Constructor_ZLFileImage->call(
-		javaMimeType, javaFile, javaEncoding,
+		javaMimeType.j(), javaFile, javaEncoding.j(),
 		javaOffsets, javaSizes, javaEncryptionInfo
 	);
 
@@ -269,9 +256,7 @@ jobject AndroidUtil::createJavaImage(JNIEnv *env, const ZLFileImage &image) {
 		env->DeleteLocalRef(javaEncryptionInfo);
 	}
 
-	env->DeleteLocalRef(javaEncoding);
 	env->DeleteLocalRef(javaFile);
-	env->DeleteLocalRef(javaMimeType);
 	env->DeleteLocalRef(javaOffsets);
 	env->DeleteLocalRef(javaSizes);
 
@@ -288,8 +273,14 @@ std::string AndroidUtil::fromJavaString(JNIEnv *env, jstring from) {
 	return result;
 }
 
-jstring AndroidUtil::createJavaString(JNIEnv* env, shared_ptr<std::string> str) {
-	return str.isNull() ? 0 : createJavaString(env, *str);
+JString::JString(JNIEnv* env, const std::string &str, bool emptyIsNull) : myEnv(env) {
+	myJ = (emptyIsNull && str.empty()) ? 0 : env->NewStringUTF(str.c_str());
+}
+
+JString::~JString() {
+	if (myJ != 0) {
+		myEnv->DeleteLocalRef(myJ);
+	}
 }
 
 jstring AndroidUtil::createJavaString(JNIEnv* env, const std::string &str) {
@@ -332,24 +323,3 @@ jbyteArray AndroidUtil::createJavaByteArray(JNIEnv *env, const std::vector<jbyte
 	env->SetByteArrayRegion(array, 0, size, &data.front());
 	return array;
 }
-
-void AndroidUtil::throwRuntimeException(const std::string &message) {
-	getEnv()->ThrowNew(Class_java_lang_RuntimeException.j(), message.c_str());
-}
-
-void AndroidUtil::throwCachedCharStorageException(const std::string &message) {
-	getEnv()->ThrowNew(Class_CachedCharStorageException.j(), message.c_str());
-}
-
-/*
-void AndroidUtil::throwBookReadingException(const std::string &resourceId, const ZLFile &file) {
-	JNIEnv *env = getEnv();
-	env->CallStaticVoidMethod(
-		StaticMethod_BookReadingException_throwForFile,
-		AndroidUtil::createJavaString(env, resourceId),
-		AndroidUtil::createJavaFile(env, file.path())
-	);
-	// TODO: possible memory leak
-	// TODO: clear ZLFile object reference
-}
-*/

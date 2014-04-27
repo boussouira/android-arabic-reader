@@ -26,6 +26,7 @@ import android.content.res.AssetManager;
 import android.graphics.Typeface;
 
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.fonts.FileInfo;
 import org.geometerplus.zlibrary.core.fonts.FontEntry;
 import org.geometerplus.zlibrary.core.util.ZLTTFInfoDetector;
 import org.geometerplus.zlibrary.core.xml.ZLStringMap;
@@ -229,6 +230,7 @@ public final class AndroidFontUtil {
 
 	private static String alias(String family, boolean bold, boolean italic) {
 		final StringBuilder builder = new StringBuilder(Paths.tempDirectory());
+		builder.append("/");
 		builder.append(family);
 		if (bold) {
 			builder.append("-bold");
@@ -239,11 +241,11 @@ public final class AndroidFontUtil {
 		return builder.append(".font").toString();
 	}
 
-	private static boolean copy(String from, String to) {
+	private static boolean copy(FileInfo from, String to) {
 		InputStream is = null;
 		OutputStream os = null;
 		try {
-			is = ZLFile.createFileByPath(from).getInputStream();
+			is = ZLFile.createFileByPath(from.Path).getInputStream(from.EncryptionInfo);
 			os = new FileOutputStream(to);
 			final byte[] buffer = new byte[8192];
 			while (true) {
@@ -254,7 +256,7 @@ public final class AndroidFontUtil {
 				os.write(buffer, 0, len);
 			}
 			return true;
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return false;
 		} finally {
 			try {
@@ -274,16 +276,17 @@ public final class AndroidFontUtil {
 		final Spec spec = new Spec(entry, bold, italic);
 		Object cached = ourCachedEmbeddedTypefaces.get(spec);
 		if (cached == null) {
-			final String fileName = entry.fileName(bold, italic);
-			if (fileName != null) {
+			final FileInfo fileInfo = entry.fileInfo(bold, italic);
+			if (fileInfo != null) {
 				final String realFileName = alias(entry.Family, bold, italic);
-				if (copy(fileName, realFileName)) {
+				if (copy(fileInfo, realFileName)) {
 					try {
 						cached = Typeface.createFromFile(realFileName);
 					} catch (Throwable t) {
 						// ignore
 					}
 				}
+				new File(realFileName).delete();
 			}
 			ourCachedEmbeddedTypefaces.put(spec, cached != null ? cached : NULL_OBJECT);
 		}
@@ -310,5 +313,6 @@ public final class AndroidFontUtil {
 	public static void clearFontCache() {
 		ourTypefaces.clear();
 		ourFileSet = null;
+		ourCachedEmbeddedTypefaces.clear();
 	}
 }

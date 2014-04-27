@@ -44,6 +44,22 @@ class ZLFile;
 class FileEncryptionInfo;
 class ZLFileImage;
 
+class JString {
+
+public:
+	JString(JNIEnv* env, const std::string &str, bool emptyIsNull = true);
+	jstring j();
+	~JString();
+
+private:
+	JNIEnv *myEnv;
+	jstring myJ;
+
+private:
+	JString(const JString&);
+	const JString& operator = (const JString&);
+};
+
 class AndroidUtil {
 
 private:
@@ -60,6 +76,7 @@ public:
 	static JavaClass Class_java_io_InputStream;
 	static JavaClass Class_ZLibrary;
 	static JavaClass Class_ZLFile;
+	static JavaClass Class_FileInfo;
 	static JavaClass Class_FileEncryptionInfo;
 	static JavaClass Class_ZLFileImage;
 	static JavaClass Class_ZLTextModel;
@@ -101,6 +118,7 @@ public:
 	static shared_ptr<BooleanMethod> Method_ZLFile_isDirectory;
 	static shared_ptr<LongMethod> Method_ZLFile_size;
 
+	static shared_ptr<Constructor> Constructor_FileInfo;
 	static shared_ptr<Constructor> Constructor_FileEncryptionInfo;
 
 	static shared_ptr<Constructor> Constructor_ZLFileImage;
@@ -121,7 +139,7 @@ public:
 	//static shared_ptr<ObjectMethod> Method_JavaEncodingCollection_getEncoding_int;
 	static shared_ptr<BooleanMethod> Method_JavaEncodingCollection_providesConverterFor;
 
-	static shared_ptr<StaticObjectMethod> StaticMethod_Paths_cacheDirectory;
+	static shared_ptr<StaticObjectMethod> StaticMethod_Paths_tempDirectory;
 
 	static shared_ptr<ObjectField> Field_Book_File;
 	static shared_ptr<StringMethod> Method_Book_getTitle;
@@ -148,14 +166,11 @@ public:
 	static shared_ptr<VoidMethod> Method_NativeBookModel_registerFontFamilyList;
 	static shared_ptr<VoidMethod> Method_NativeBookModel_registerFontEntry;
 
-	//static shared_ptr<StaticObjectMethod> StaticMethod_BookReadingException_throwForFile;
-
 public:
 	static bool init(JavaVM* jvm);
 	static JNIEnv *getEnv();
 
 	static std::string fromJavaString(JNIEnv *env, jstring from);
-	static jstring createJavaString(JNIEnv* env, shared_ptr<std::string>);
 	static jstring createJavaString(JNIEnv* env, const std::string &str);
 	static std::string convertNonUtfString(const std::string &str);
 
@@ -165,10 +180,8 @@ public:
 
 	static jintArray createJavaIntArray(JNIEnv *env, const std::vector<jint> &data);
 	static jbyteArray createJavaByteArray(JNIEnv *env, const std::vector<jbyte> &data);
-
-	static void throwRuntimeException(const std::string &message);
-	static void throwCachedCharStorageException(const std::string &message);
-	//static void throwBookReadingException(const std::string &resourceId, const ZLFile &file);
 };
+
+inline jstring JString::j() { return myJ; }
 
 #endif /* __ANDROIDUTIL_H__ */

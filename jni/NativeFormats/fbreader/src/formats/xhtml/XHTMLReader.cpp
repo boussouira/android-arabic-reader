@@ -229,7 +229,7 @@ void XHTMLTagStyleAction::doAtStart(XHTMLReader &reader, const char **xmlattribu
 
 	if (reader.myReadState == XHTML_READ_NOTHING) {
 		reader.myReadState = XHTML_READ_STYLE;
-		reader.myTableParser = new StyleSheetTableParser(reader.myPathPrefix, reader.myStyleSheetTable, reader.myFontMap);
+		reader.myTableParser = new StyleSheetTableParser(reader.myPathPrefix, reader.myStyleSheetTable, reader.myFontMap, reader.myEncryptionMap);
 		ZLLogger::Instance().println("CSS", "parsing style tag content");
 	}
 }
@@ -649,15 +649,7 @@ bool XHTMLReader::readFile(const ZLFile &file, const std::string &referenceName)
 	myStyleParser = new StyleSheetSingleStyleParser(myPathPrefix);
 	myTableParser.reset();
 
-	shared_ptr<ZLInputStream> stream = file.inputStream(myEncryptionMap);
-	if (!stream.isNull()) {
-		return readDocument(file.inputStream(myEncryptionMap));
-	} else {
-		if (file.exists() && !myEncryptionMap.isNull()) {
-			myModelReader.insertEncryptedSectionParagraph();
-		}
-		return false;
-	}
+	return readDocument(file.inputStream(myEncryptionMap));
 }
 
 bool XHTMLReader::addTextStyleEntry(const std::string tag, const std::string aClass) {
@@ -673,6 +665,7 @@ bool XHTMLReader::addTextStyleEntry(const std::string tag, const std::string aCl
 void XHTMLReader::addTextStyleEntry(const ZLTextStyleEntry &entry) {
 	if (!entry.isFeatureSupported(ZLTextStyleEntry::FONT_FAMILY)) {
 		myModelReader.addStyleEntry(entry);
+		return;
 	}
 
 	bool doFixFamiliesList = false;
