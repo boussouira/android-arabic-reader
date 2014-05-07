@@ -26,6 +26,7 @@ import org.geometerplus.zlibrary.text.view.style.ZLTextStyleCollection;
 import org.geometerplus.fbreader.fbreader.FBView;
 
 public class ViewOptions {
+	public final ZLBooleanOption LTRBookSupport;
 	public final ZLBooleanOption TwoColumnView;
 	public final ZLIntegerRangeOption LeftMargin;
 	public final ZLIntegerRangeOption RightMargin;
@@ -48,6 +49,8 @@ public class ViewOptions {
 		final int y = zlibrary.getHeightInPixels();
 		final int horMargin = Math.min(dpi / 5, Math.min(x, y) / 30);
 
+		LTRBookSupport =
+			new ZLBooleanOption("Options", "enableLTR", false);
 		TwoColumnView =
 			new ZLBooleanOption("Options", "TwoColumnView", x * x + y * y >= 42 * dpi * dpi);
 		LeftMargin =

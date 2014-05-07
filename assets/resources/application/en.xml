@@ -304,6 +304,13 @@
 		<node name="series" value="Series"/>
 	</node>
 	<node name="Preferences">
+		<node name="arabic" value="Arabic">
+			<node name="summary" value="Arabic specific options" />
+			<node name="enableLTR" value="LTR books suuport">
+				<node name="summaryOn" value="Left To Right books will be supported" />
+				<node name="summaryOff" value="Left To Right books won't be supported" />
+			</node>
+		</node>
 		<node name="directories" value="Directories">
 			<node name="summary" value="Directories to seek for files"/>
 			<node name="bookPath" value="Where to seek for books">

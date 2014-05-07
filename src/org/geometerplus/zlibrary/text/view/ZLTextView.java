@@ -23,6 +23,7 @@ import java.util.*;
 
 import org.geometerplus.zlibrary.core.application.ZLApplication;
 import org.geometerplus.zlibrary.core.filesystem.ZLFile;
+import org.geometerplus.zlibrary.core.options.ZLBooleanOption;
 import org.geometerplus.zlibrary.core.util.RationalNumber;
 import org.geometerplus.zlibrary.core.util.ZLColor;
 import org.geometerplus.zlibrary.core.view.ZLPaintContext;
@@ -60,7 +61,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 	private ZLTextRegion.Soul mySelectedRegionSoul;
 	private boolean myHighlightSelectedRegion = true;
 
-	private boolean myRTLMode = false;
+	private boolean myRTLMode = true;
 	private final ZLTextSelection mySelection = new ZLTextSelection(this);
 	private final Set<ZLTextHighlighting> myHighlightings =
 		Collections.synchronizedSet(new TreeSet<ZLTextHighlighting>());
@@ -85,7 +86,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 				myCurrentPage.moveStartCursor(ZLTextParagraphCursor.cursor(myModel, 0));
 			}
 
-			myRTLMode = myModel.getLanguage().equals("ar");
+			myRTLMode = (!(new ZLBooleanOption("Options", "enableLTR", false).getValue()) || myModel.getLanguage().equals("ar"));
 		}
 		Application.getViewWidget().reset();
 	}
@@ -462,7 +463,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 			return;
 		}
 
-		myRTLMode = myModel.getLanguage().equals("ar");
+		myRTLMode = (!(new ZLBooleanOption("Options", "enableLTR", false).getValue()) || myModel.getLanguage().equals("ar"));
 
 		ZLTextPage page;
 		switch (pageIndex) {
