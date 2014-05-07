@@ -29,7 +29,7 @@ import android.view.*;
 import android.widget.*;
 
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-import org.geometerplus.zlibrary.ui.android.R;
+import net.sourceforge.arabicReader.R;
 
 public class FolderListDialogActivity extends ListActivity {
 	interface Key {
