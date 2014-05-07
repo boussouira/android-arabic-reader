@@ -9,7 +9,7 @@
 			<node name="summary" value="عرض الكتب حسب المؤلف"/>
 		</node>
 		<node name="byTitle" value="العنوان">
-			<node name="summary" value="عرض الكتب حسب العنوان"></node>
+			<node name="summary" value="عرض الكتب حسب العنوان"/>
 		</node>
 		<node name="bySeries" value="الرقم التسلسلي">
 			<node name="summary" value="عرض حسب الرقم التسلسلي"/>
@@ -40,7 +40,7 @@
 		</node>
 		<node name="menu">
 			<node name="localSearch" value="بحث"/>
- 			<node name="rescan" value="إعادة الفحص"/>
+			<node name="rescan" value="إعادة الفحص"/>
 		</node>
 		<node name="openBook" value="فتح الكتاب"/>
 		<node name="showBookInfo" value="معلومات حول الكتاب"/>
@@ -48,6 +48,7 @@
 		<node name="deleteBook" value="حذف الكتاب"/>
 		<node name="addToFavorites" value="اضافة الكتاب للمفضلة"/>
 		<node name="removeFromFavorites" value="حذف من المفضلة"/>
+		<node name="removeFromRecents" value="حذف من لائحة أحدث الكتب"/>
 		<node name="markAsRead" value="تعليم كمقروء"/>
 		<node name="markAsUnread" value="تعليم كغير مقروء"/>
 	</node>
@@ -71,6 +72,9 @@
 		</node>
 		<node name="found" value="Found">
 			<node name="summary" value="نتائج البحث: %s"/>
+		</node>
+		<node name="recent" value="احدث الكتالوجات">
+			<node name="summary" value="كتلوجات زرتها حديثا"/>
 		</node>
 		<node name="openCatalog" value="فتح الكتالوج"/>
 		<node name="networkSearch" value="بحث"/>
@@ -114,6 +118,7 @@
 		<node name="removeCustomCatalog" value="حذف الكتالوج"/>
 		<node name="addCustomCatalog" value="إضافة كتالوج"/>
 		<node name="addCustomCatalogSummary" value="إضافة كتالوج OPDS يدويا"/>
+		<node name="disableCatalog" value="الغاء الكتالوج"/>
 		<node name="confirmQuestions">
 			<node name="read" value="هل تريد فتح النسخة المحلية؟"/>
 			<node name="download" value="هل تريد تحميل هذا الكتاب؟"/>
@@ -130,7 +135,14 @@
 			<node name="title" value="إضافة كتالوج"/>
 			<node name="editUrl" value="إضافة رابط يجوي"/>
 		</node>
+		<node name="manageCatalogs" value="تعديل الكتالوجات">
+			<node name="summary" toBeTranslated="true"
+				value="Configure your catalogs list"/>
+			<node name="enabled" toBeTranslated="true" value="تفعيل"/>
+			<node name="disabled" toBeTranslated="true" value="الغاء"/>
+		</node>
 		<node name="menu">
+			<node name="openRoot" toBeTranslated="true" value="Root catalog"/>
 			<node name="networkSearch" value="بحث"/>
 			<node name="reload" value="إعادة تحميل"/>
 			<node name="signIn" value="تسجي الدخول"/>
@@ -139,6 +151,9 @@
 			<node name="topup" value="Top up account"/>
 			<node name="addCustomCatalog" value="إضافة كتالوج"/>
 			<node name="refreshCatalogsList" value="إعادة تحميل الكتالوج"/>
+			<node name="manageCatalogs" toBeTranslated="true" value="Manage catalogs"/>
+			<node name="clearBasket" toBeTranslated="true" value="Clear basket"/>
+			<node name="buyAllBooks" toBeTranslated="true" value="Buy all books"/>
 			<node name="languages" value="Language filter"/>
 			<node name="clearBasket" value="تفريغ السلة"/>
 			<node name="buyAllBooks" value="شراء كل الكتب"/>
@@ -147,7 +162,8 @@
 	<node name="buyBook">
 		<node name="title" value="Purchase book"/>
 		<node name="titleSeveralBooks" value="Purchase books"/>
-		<node name="confirm" value="Are you sure you want to buy &#10;“%s”?"/>
+		<node name="confirm" value="Are you sure you want to buy 
+“%s”?"/>
 		<node name="confirmSeveralBooks" value="Are you sure you want to buy %s books?"/>
 		<node name="alreadyBought" value="Book is already bought"/>
 		<node name="notAuthorized" value="Authorization required"/>
@@ -221,16 +237,29 @@
 		<node name="forward" value="الامام"/>
 		<node name="close" value="اغلاق البرنامج"/>
 	</node>
+	<node name="style" value="الستايل %s"/>
 	<node name="highlightingStyleMenu">
-		<node name="style" value="Style %s"/>
+		<node name="editStyle" value="تعديل الستايل…"/>
 		<node name="deleteBookmark" value="حذف العلامة المرجعية"/>
+		<node name="style" value="الستايل %s"/>
+		<node name="deleteBookmark" value="حذف العلامة المرجعية"/>
+	</node>
+	<node name="editStyle">
+		<node name="name" value="اسم الستايل"/>
+		<node name="invisible" value="غير مرئي">
+			<node name="summaryOn" value="لا تميز العلامة المرجعية"/>
+			<node name="summaryOff" value="تمييز العلامة المرجعية"/>
+		</node>
+		<node name="bgColor" value="لون الخلفية"/>
 	</node>
 	<node name="selection" value="Selection">
 		<node name="copyToClipboard" value="نسخ الى الحافظ"/>
 		<node name="openInDictionary" value="فتح في القاموس"/>
 		<node name="quoteFrom" value="اقتباس من %s"/>
-		<node name="textInBuffer" value="تم نسخ:&#10;%s"/>
-		<node name="bookmarkCreated" value="تم حفظ العلامة المرجعية:&#10;%s"/>
+		<node name="textInBuffer" value="تم نسخ:
+%s"/>
+		<node name="bookmarkCreated" value="تم حفظ العلامة المرجعية:
+%s"/>
 		<node name="clearSelection" value="مسح"/>
 	</node>
 	<node name="sharing">
@@ -243,6 +272,10 @@
 		<node name="toc" value="الفهرس"/>
 		<node name="day" value="مضيء"/>
 		<node name="night" value="مظلم"/>
+		<node name="yotaSwitchToBackScreen" 
+			value="Switch to back screen"/>
+		<node name="yotaSwitchToFrontScreen" toBeTranslated="true"
+			value="Switch to front screen"/>
 		<node name="networkLibrary" value="مكتبة الشبكة"/>
 		<node name="navigate" value="التنقل بين الصفحات">
 			<node name="toc" value="فهرس الكتاب"/>
@@ -269,6 +302,8 @@
 		<node name="decreaseFont" value="تصغير الخط"/>
 		<node name="toggleFullscreen" value="كل الشاشة"/>
 		<node name="bookmarks" value="العلامات المرجعية"/>
+		<node name="help" value="مساعدة"/>
+		<node name="plugins" value="تنصيب اضافة"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="اسم الملف"/>
@@ -282,13 +317,28 @@
 	<node name="Preferences">
 		<node name="directories" value="المجلدات">
 			<node name="summary" value="المجلدات التي يتم البحث فيها عن الملفات"/>
+			<node name="bookPath" value="أين يبحث البرنامج عن الكتب">
+				<node name="chooserTitle" value="مجلد الكتب"/>
+			</node>
+			<node name="downloadDir" value="أين يحفظ البرنامج الكتب المحملة من الانترنيت">
+				<node name="chooserTitle" value="مجلد الكتب"/>
+			</node>
+			<node name="fontPath" value="أين يبحث البرنامج عن الخطوط">
+				<node name="chooserTitle" value="مجلد الخطوط"/>
+			</node>
+			<node name="wallpaperPath" value="أين يبحث البرنامج عن صور الخلفية">
+				<node name="chooserTitle" value="مجلد الصور"/>
+			</node>
+			<node name="tempDir" value="أين يحفظ البرنامج الملفات المؤقتة">
+				<node name="chooserTitle" value="مجلد الملفات المؤقتة"/>
+			</node>
 			<node name="books" value="مجلد الكتب"/>
 			<node name="fonts" value="مجلد الخطوط"/>
 			<node name="wallpapers" value="مجلد الخلفيات"/>
 		</node>
 		<node name="appearance" value="المظهر">
 			<node name="summary" value="إعدادات العرض، شريط المهام"/>
- 			<node name="language" value="لغة واجهة البرنامج"/>
+			<node name="language" value="لغة واجهة البرنامج"/>
 			<node name="screenOrientation" value="اتجاه الشاشة">
 				<node name="system" value="حسب النظام"/>
 				<node name="sensor" value="حسب الجهاز"/>
@@ -312,6 +362,10 @@
 			<node name="showStatusBarWhenMenuIsActive" value="عرض شريط الحالة عن إظهار القائمة">
 				<node name="summaryOn" value="عرض شريط الحالة عن إظهار القائمة"/>
 				<node name="summaryOff" value="لا تعرض شريط الحالة عن إظهار القائمة"/>
+			</node>
+			<node name="fullscreenMode" value="وضع ملئ الشاشة">
+				<node name="summaryOn" value="اخفاء شريط التنقل"/>
+				<node name="summaryOff" value="عرض شرسط التنقل"/>
 			</node>
 			<node name="disableButtonLights" value="إطفاء ضوء أزرار الهاتف">
 				<node name="summaryOn" value="إطفاء ضوء الأزرار"/>
@@ -521,6 +575,10 @@
 		</node>
 		<node name="css" value="CSS">
 			<node name="summary" value="تطبيق أو تجاهل الستايلات الموجودة في CSS"/>
+			<node name="fontFamily" value="نوع الخط">
+				<node name="summaryOn" value="استخدام نوع الخط الموجود في CSS"/>
+				<node name="summaryOff"	value="تجاهل نوع الخط الموجود في CSS"/>
+			</node>
 			<node name="fontSize" value="حجم الخط">
 				<node name="summaryOn" value="تطبيق حجم الخط الموجود في CSS"/>
 				<node name="summaryOff" value="تجاهل حجم الخط الموجود في CSS"/>
@@ -631,11 +689,15 @@
 			<node name="summary" value="اعدادات القواميس"/>
 			<node name="dictionary" value="القاموس"/>
 			<node name="translator" value="المترجم"/>
+			<node name="targetLanguage" value="ترجمة الى">
+				<node name="any" value="كل اللغات"/>
+			</node>
 			<node name="tappingAction" value="Long tapping action">
 				<node name="doNothing" value="Long tapping does nothing"/>
 				<node name="selectSingleWord" value="Long tapping selects single word"/>
 				<node name="startSelecting" value="Long tapping initiates selecting"/>
-				<node name="openDictionary" value="Long tapping selects single word, release opens dictionary"/>
+				<node name="openDictionary"
+					value="Long tapping selects single word, release opens dictionary"/>
 			</node>
 			<node name="navigateOverAllWords" value="Navigate over all words">
 				<node name="summaryOn" value="Key navigation visits all words"/>
@@ -654,6 +716,13 @@
 				<node name="none" value="بدون"/>
 				<node name="covers" value="الغلاف فقط"/>
 				<node name="all" value="الكل"/>
+			</node>
+			<node name="matchBackground" 
+				value="Match background intensity">
+				<node name="summaryOn" toBeTranslated="true"
+					value="Adjust image color according background"/>
+				<node name="summaryOff" toBeTranslated="true"
+					value="Do not adjust image color"/>
 			</node>
 		</node>
 		<node name="cancelMenu" value="قائمة الخروج">
@@ -705,6 +774,23 @@
 			<node name="twitter" value="تابعنا على تويتر">
 				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
+			<node name="facebook" value="تابعنا على الفايسبوك">
+				<node name="url" value="https://www.facebook.com/ArabicReaderAndroid"/>
+			</node>
+			<node name="thirdParty" toBeTranslated="true" value="Third-party libraries"/>
+		</node>
+		<node name="eink" toBeTranslated="true" value="E-ink screen">
+			<node name="summary" toBeTranslated="true"
+				value="Specific options for e-ink screens"/>
+			<node name="enableFastRefresh" toBeTranslated="true"
+				value="Fast refresh mode">
+				<node name="summaryOn" toBeTranslated="true"
+					value="Use fast (but not very clean) screen update"/>
+				<node name="summaryOff" toBeTranslated="true"
+					value="Use complete (clean, but slow) screen update"/>
+			</node>
+			<node name="interval" toBeTranslated="true"
+				value="Number of fast updates between complete refreshes"/>
 		</node>
 	</node>
 	<node name="dialog">
@@ -747,23 +833,23 @@
 		<node name="redownloadFileBox">
 			<node name="message" value="الملف موجود مسبقا، هل تريد إعادة تحميله؟"/>
 		</node>
-        <node name="waitMessage">
-            <node name="downloadingFile" value="تحميل كتاب %s"/>
-            <node name="search" value="جاري البحث..."/>
-            <node name="loadInfo" value="جاري جمع معلومات حول الكتاب..."/>
-            <node name="loadingBook" value="جاري فتح الكتاب..."/>
-            <node name="loadingBookList" value="جاري فتح المكتبة..."/>
-            <node name="creatingBooksDatabase" value="انشاء قاعدة بيانات الكتب..."/>
-            <node name="updatingBooksDatabase" value="تحديث قاعدة بيانات الكتب..."/>
-            <node name="loadingNetworkLibrary" value="فتح المكتبة..."/>
-            <node name="authentication" value="Authentication. Please, wait..."/>
-            <node name="signOut" value="Signing out. Please, wait..."/>
-            <node name="purchaseBook" value="Purchase book. Please, wait..."/>
-            <node name="loadingCatalogInfo" value="Loading catalog information. Please, wait..."/>
-            <node name="loadingNetworkBookInfo" value="Loading book information. Please, wait..."/>
-            <node name="updatingCatalogsList" value="Updating catalogs list. Please, wait..."/>
-            <node name="updatingAccountInformation" value="Updating account information. Please, wait..."/>
-        </node>
+		<node name="waitMessage">
+			<node name="downloadingFile" value="تحميل كتاب %s"/>
+			<node name="search" value="جاري البحث..."/>
+			<node name="loadInfo" value="جاري جمع معلومات حول الكتاب..."/>
+			<node name="loadingBook" value="جاري فتح الكتاب..."/>
+			<node name="loadingBookList" value="جاري فتح المكتبة..."/>
+			<node name="creatingBooksDatabase" value="انشاء قاعدة بيانات الكتب..."/>
+			<node name="updatingBooksDatabase" value="تحديث قاعدة بيانات الكتب..."/>
+			<node name="loadingNetworkLibrary" value="فتح المكتبة..."/>
+			<node name="authentication" value="Authentication. Please, wait..."/>
+			<node name="signOut" value="Signing out. Please, wait..."/>
+			<node name="purchaseBook" value="Purchase book. Please, wait..."/>
+			<node name="loadingCatalogInfo" value="Loading catalog information. Please, wait..."/>
+			<node name="loadingNetworkBookInfo" value="Loading book information. Please, wait..."/>
+			<node name="updatingCatalogsList" value="Updating catalogs list. Please, wait..."/>
+			<node name="updatingAccountInformation" value="Updating account information. Please, wait..."/>
+		</node>
 		<node name="networkError">
 			<node name="internalError" value="Internal server error"/>
 			<node name="purchaseNotEnoughMoney" value="Not enough money"/>
@@ -771,10 +857,13 @@
 			<node name="purchaseAlreadyPurchased" value="Already purchased"/>
 			<node name="bookNotPurchased" value="Book was not purchased"/>
 			<node name="downloadLimitExceeded" value="Download limit exceeded"/>
-			<node name="noUserEmail" value="No user was registered&#10;with specified e-mail address"/>
+			<node name="noUserEmail"
+				value="No user was registered
+with specified e-mail address"/>
 			<node name="unsupportedOperation" value="Unsupported operation"/>
 			<node name="notAnOPDS" value="This is not an OPDS catalog"/>
-			<node name="noRequiredInformation" value="Required information is not specified in the catalog"/>
+			<node name="noRequiredInformation"
+				value="Required information is not specified in the catalog"/>
 			<node name="cacheDirectoryError" value="Unable to create cache directory"/>
 		</node>
 		<node name="AuthenticationDialog">
@@ -804,13 +893,65 @@
 		</node>
 		<node name="tips">
 			<node name="title" value="Tip of the day"/>
-			<node name="initializationText" value="Would you like to read FBReader daily tips? New tips would be downloaded from FBReader site. Expected network traffic is 1-2 kilobytes per week.&#10;&#10;Enable tips?"/>
+			<node name="initializationText"
+				value="Would you like to read FBReader daily tips? New tips would be downloaded from FBReader site. Expected network traffic is 1-2 kilobytes per week.
+
+Enable tips?"/>
 			<node name="dontShowAgain" value="Don't show again"/>
 			<node name="more" value="Next tip"/>
 		</node>
+		<node name="screenHint">
+			<node name="message1" toBeTranslated="true"
+				value="FBReader works in fullscreen mode by default. Tap center third of the screen to show controls. You can change this behaviour in “Appearance” section of the Settings dialog."/>
+			<node name="message2" toBeTranslated="true"
+				value="Well done! Now tap the center third again to hide the controls and this hint. If you want to keep controls on the screen during reading, select “Show action bar” option in “Appearance” section of the Settings dialog."/>
+		</node>
+		<node name="folderList">
+			<node name="addFolder" toBeTranslated="true" value="Add folder"/>
+			<node name="removeDialog" toBeTranslated="true" value="Remove folder">
+				<node name="message" toBeTranslated="true"
+					value="Remove “%s” from the list?"/>
+			</node>
+			<node name="duplicate" toBeTranslated="true"
+				value="“%s” is already in the list"/>
+		</node>
+		<node name="fileChooser">
+			<node name="root" toBeTranslated="true" value="Root"/>
+			<node name="newFolder" toBeTranslated="true" value="New folder"/>
+			<node name="folderNameHint" toBeTranslated="true" value="Folder name"/>
+			<node name="menu">
+				<node name="origin" toBeTranslated="true" value="Origin"/>
+				<node name="reload" toBeTranslated="true" value="Reload"/>
+			</node>
+			<node name="sortBy" toBeTranslated="true" value="Sort by">
+				<node name="name" toBeTranslated="true" value="Name"/>
+				<node name="size" toBeTranslated="true" value="Size"/>
+				<node name="date" toBeTranslated="true" value="Date"/>
+			</node>
+			<node name="permissionDenied" toBeTranslated="true" value="Permission denied"/>
+		</node>
 	</node>
 	<node name="errorMessage">
-		<node name="cannotRunAndroidMarket" value="Cannot access Android Market. Please, install %s manually"/>
+		<node name="nativeCodeFailure" toBeTranslated="true"
+			value="Error %s in native code during reading '%s'"/>
+		<node name="errorReadingFile" toBeTranslated="true"
+			value="Error occured during reading '%s'"/>
+		<node name="errorReadingZip" toBeTranslated="true"
+			value="Error occured during extracting '%s'"/>
+		<node name="pluginNotFound" toBeTranslated="true" value="No plugin for '%s'"/>
+		<node name="unknownPluginType" toBeTranslated="true"
+			value="Unknown plugin type: %s"/>
+		<node name="fileNotFound" toBeTranslated="true" value="File not found: %s"/>
+		<node name="unsupportedEncryptionMethod" toBeTranslated="true"
+			value="File %s is encrypted with method that is not supported by FBReader. Some pages are not readable"/>
+		<node name="opfFileNotFound" toBeTranslated="true"
+			value="OPF is not found in %s"/>
+		<node name="unsupportedFileFormat" toBeTranslated="true"
+			value="File format is not supported for '%s'"/>
+		<node name="errorParsingRtf" toBeTranslated="true"
+			value="Rtf parsing error in: %s"/>
+		<node name="cannotRunAndroidMarket"
+			value="Cannot access Android Market. Please, install %s manually"/>
 		<node name="textNotFound" value="لم يتم العثور على ما يطبق بحثك"/>
 		<node name="bookNotFound" value="لم يتم العثور على الكتاب الذي تبحث عنه"/>
 		<node name="bookmarkNotFound" value="لم يتم العثور على العلامة المرجعية التي تبحث عنها"/>
@@ -822,6 +963,10 @@
 		<node name="emptyCatalog" value="Catalog is empty, sorry"/>
 		<node name="emptyBasket" value="Your basket is empty, sorry"/>
 		<node name="emptyNetworkSearchResults" value="لم يتم العثور على الكتاب الذي تبحث عنه"/>
+		<node name="videoServiceNotWorking" toBeTranslated="true"
+			value="Video service is not available, sorry"/>
+		<node name="videoPlayerNotFound" toBeTranslated="true"
+			value="There is no installed video player on this device, sorry"/>
 	</node>
 	<node name="external">
 		<node name="browser" value="Browser"/>
@@ -835,17 +980,61 @@
 	<node name="crash">
 		<node name="fixBooksDirectory">
 			<node name="title" value="FBReader issue"/>
-			<node name="text" value="FBReader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or enter another directory name below."/>
+			<node name="text"
+				value="FBReader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or enter another directory name below."/>
 		</node>
 		<node name="missingNativeLibrary">
 			<node name="title" value="FBReader issue"/>
-			<node name="text" value="FBReader can not load native library. May be it is not properly installed. If the issue persists please try to reinstall FBReader."/>
+			<node name="text"
+				value="FBReader can not load native library. May be it is not properly installed. If the issue persists please try to reinstall FBReader."/>
 		</node>
 	</node>
 	<node name="error">
 		<node name="bookReading">
 			<node name="title" value="FBReader issue"/>
 		</node>
+	</node>
+	<node name="links">
+		<node name="faqPage" toBeTranslated="true"
+			value="http://fbreader.org/faq-page"/>
+	</node>
+	<node name="plugins" toBeTranslated="true" value="Install plugins">
+		<node name="noMorePlugins" toBeTranslated="true"
+			value="We have no new plugins at the moment, sorry"/>
+		<node name="litres" toBeTranslated="true" value="LitRes">
+			<node name="summary" toBeTranslated="true" value="Russian book store"/>
+		</node>
+		<node name="tts-plus" toBeTranslated="true" value="TTS+">
+			<node name="summary" toBeTranslated="true" value="Read aloud"/>
+		</node>
+		<node name="local-opds-scanner" toBeTranslated="true"
+			value="Local OPDS Scanner">
+			<node name="summary" toBeTranslated="true"
+				value="Look for books in the local network"/>
+		</node>
+		<node name="bookshelf" toBeTranslated="true" value="Bookshelf">
+			<node name="summary" toBeTranslated="true" value="Thumbnail library view"/>
+		</node>
+		<node name="opds-server" toBeTranslated="true" value="OPDS Server">
+			<node name="summary" toBeTranslated="true"
+				value="Serve books from your device"/>
+		</node>
+		<node name="widgets" toBeTranslated="true" value="Widgets">
+			<node name="summary" toBeTranslated="true"
+				value="Add books to your home screen"/>
+		</node>
+		<node name="pdf" toBeTranslated="true" value="PDF">
+			<node name="summary" toBeTranslated="true" value="Read books in PDF format"/>
+		</node>
+	</node>
+	<node name="drm">
+		<node name="encryptedSection" toBeTranslated="true" value="Encrypted section"/>
+	</node>
+	<node name="yota">
+		<node name="frontScreenMessage" toBeTranslated="true"
+			value="Turn the device over to read your book. To return text to this screen, press the button below."/>
+		<node name="frontScreenButton" toBeTranslated="true"
+			value="Switch to this screen"/>
 	</node>
 	<node name="bookReadingException">
 		<node name="errorReadingFile" value="حدث خطأ أثناء قراءة '%s'"/>
