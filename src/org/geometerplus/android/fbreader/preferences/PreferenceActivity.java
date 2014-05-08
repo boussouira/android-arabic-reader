@@ -24,8 +24,8 @@ import java.util.*;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.view.KeyEvent;
 import android.os.Build;
+import android.view.KeyEvent;
 
 import org.geometerplus.zlibrary.core.application.ZLKeyBindings;
 import org.geometerplus.zlibrary.core.language.Language;
@@ -46,12 +46,22 @@ import org.geometerplus.fbreader.tips.TipsManager;
 import org.geometerplus.android.fbreader.DictionaryUtil;
 import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.android.fbreader.libraryService.BookCollectionShadow;
+import org.geometerplus.android.fbreader.preferences.fileChooser.FileChooserCollection;
 
 import org.geometerplus.android.util.DeviceType;
 
 public class PreferenceActivity extends ZLPreferenceActivity {
+	private final FileChooserCollection myChooserCollection = new FileChooserCollection(this);
+
 	public PreferenceActivity() {
 		super("Preferences");
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			myChooserCollection.update(requestCode, data);
+		}
 	}
 
 	@Override
@@ -82,12 +92,8 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 			String.valueOf(new DecimalFormatSymbols(Locale.getDefault()).getDecimalSeparator());
 
 		final Screen directoriesScreen = createPreferenceScreen("directories");
-		directoriesScreen.addPreference(new ZLStringListOptionPreference(
-			this, Paths.BookPathOption, directoriesScreen.Resource, "books"
-		) {
-			protected void setValue(String value) {
-				super.setValue(value);
-
+		final Runnable libraryUpdater = new Runnable() {
+			public void run() {
 				final BookCollectionShadow collection = new BookCollectionShadow();
 				collection.bindToService(PreferenceActivity.this, new Runnable() {
 					public void run() {
@@ -96,12 +102,23 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 					}
 				});
 			}
-		});
-		directoriesScreen.addPreference(new ZLStringListOptionPreference(
-			this, Paths.FontPathOption, directoriesScreen.Resource, "fonts"
+		};
+		directoriesScreen.addPreference(myChooserCollection.createPreference(
+			directoriesScreen.Resource, "bookPath", Paths.BookPathOption, libraryUpdater
 		));
-		directoriesScreen.addPreference(new ZLStringListOptionPreference(
-			this, Paths.WallpaperPathOption, directoriesScreen.Resource, "wallpapers"
+		directoriesScreen.addPreference(myChooserCollection.createPreference(
+			directoriesScreen.Resource, "downloadDir", Paths.DownloadsDirectoryOption, libraryUpdater
+		));
+		final PreferenceSet fontReloader = new PreferenceSet.Reloader();
+		directoriesScreen.addPreference(myChooserCollection.createPreference(
+			directoriesScreen.Resource, "fontPath", Paths.FontPathOption, fontReloader
+		));
+		final PreferenceSet wallpaperReloader = new PreferenceSet.Reloader();
+		directoriesScreen.addPreference(myChooserCollection.createPreference(
+			directoriesScreen.Resource, "wallpaperPath", Paths.WallpaperPathOption, wallpaperReloader
+		));
+		directoriesScreen.addPreference(myChooserCollection.createPreference(
+			directoriesScreen.Resource, "tempDir", Paths.TempDirectoryOption, null
 		));
 
 		final Screen appearanceScreen = createPreferenceScreen("appearance");
@@ -171,29 +188,34 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 			appearanceScreen.addOption(androidLibrary.EnableFullscreenModeOption, "fullscreenMode");
 		}
 		appearanceScreen.addOption(androidLibrary.DisableButtonLightsOption, "disableButtonLights");
-		
+
 		if (DeviceType.Instance().isEInk()) {
 			final EInkOptions einkOptions = new EInkOptions();
 			final Screen einkScreen = createPreferenceScreen("eink");
-			final ZLPreferenceSet einkPreferences = new ZLPreferenceSet();
-			
+			final PreferenceSet einkPreferences = new PreferenceSet.Enabler() {
+				@Override
+				protected Boolean detectState() {
+					return einkOptions.EnableFastRefresh.getValue();
+				}
+			};
+
 			einkScreen.addPreference(new ZLBooleanPreference(
 				this, einkOptions.EnableFastRefresh, einkScreen.Resource, "enableFastRefresh"
 			) {
 				@Override
 				protected void onClick() {
 					super.onClick();
-					einkPreferences.setEnabled(einkOptions.EnableFastRefresh.getValue());
+					einkPreferences.run();
 				}
 			});
-	
+
 			final ZLIntegerRangePreference updateIntervalPreference = new ZLIntegerRangePreference(
 				this, einkScreen.Resource.getResource("interval"), einkOptions.UpdateInterval
 			);
 			einkScreen.addPreference(updateIntervalPreference);
-	
+
 			einkPreferences.add(updateIntervalPreference);
-			einkPreferences.setEnabled(einkOptions.EnableFastRefresh.getValue());
+			einkPreferences.run();
 		}
 
 		final Screen textScreen = createPreferenceScreen("text");
@@ -208,10 +230,14 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		fontPropertiesScreen.addOption(ZLAndroidPaintContext.SubpixelOption, "subpixel");
 
 		final ZLTextBaseStyle baseStyle = collection.getBaseStyle();
-		textScreen.addPreference(new FontOption(
+
+		final FontPreference fontPreference = new FontPreference(
 			this, textScreen.Resource, "font",
 			baseStyle.FontFamilyOption, false
-		));
+		);
+		textScreen.addPreference(fontPreference);
+		fontReloader.add(fontPreference);
+
 		textScreen.addPreference(new ZLIntegerRangePreference(
 			this, textScreen.Resource.getResource("fontSize"),
 			baseStyle.FontSizeOption
@@ -279,7 +305,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 					? (ZLTextFullStyleDecoration)decoration : null;
 
 			final Screen formatScreen = moreStylesScreen.createPreferenceScreen(decoration.getName());
-			formatScreen.addPreference(new FontOption(
+			formatScreen.addPreference(new FontPreference(
 				this, textScreen.Resource, "font",
 				decoration.FontFamilyOption, true
 			));
@@ -352,8 +378,18 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 			}
 		}
 
-		final ZLPreferenceSet footerPreferences = new ZLPreferenceSet();
-		final ZLPreferenceSet bgPreferences = new ZLPreferenceSet();
+		final PreferenceSet footerPreferences = new PreferenceSet.Enabler() {
+			@Override
+			protected Boolean detectState() {
+				return viewOptions.ScrollbarType.getValue() == FBView.SCROLLBAR_SHOW_AS_FOOTER;
+			}
+		};
+		final PreferenceSet bgPreferences = new PreferenceSet.Enabler() {
+			@Override
+			protected Boolean detectState() {
+				return "".equals(profile.WallpaperOption.getValue());
+			}
+		};
 
 		final Screen cssScreen = createPreferenceScreen("css");
 		cssScreen.addOption(baseStyle.UseCSSFontFamilyOption, "fontFamily");
@@ -368,15 +404,16 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 			@Override
 			protected void onDialogClosed(boolean result) {
 				super.onDialogClosed(result);
-				bgPreferences.setEnabled("".equals(getValue()));
+				bgPreferences.run();
 			}
 		};
 		colorsScreen.addPreference(wallpaperPreference);
+		wallpaperReloader.add(wallpaperPreference);
 
 		bgPreferences.add(
 			colorsScreen.addOption(profile.BackgroundOption, "backgroundColor")
 		);
-		bgPreferences.setEnabled("".equals(profile.WallpaperOption.getValue()));
+		bgPreferences.run();
 		colorsScreen.addOption(profile.HighlightingOption, "highlighting");
 		colorsScreen.addOption(profile.RegularTextOption, "text");
 		colorsScreen.addOption(profile.HyperlinkTextOption, "hyperlink");
@@ -417,9 +454,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 			@Override
 			protected void onDialogClosed(boolean result) {
 				super.onDialogClosed(result);
-				footerPreferences.setEnabled(
-					findIndexOfValue(getValue()) == FBView.SCROLLBAR_SHOW_AS_FOOTER
-				);
+				footerPreferences.run();
 			}
 		});
 
@@ -433,13 +468,11 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		footerPreferences.add(statusLineScreen.addOption(footerOptions.ShowProgress, "showProgress"));
 		footerPreferences.add(statusLineScreen.addOption(footerOptions.ShowClock, "showClock"));
 		footerPreferences.add(statusLineScreen.addOption(footerOptions.ShowBattery, "showBattery"));
-		footerPreferences.add(statusLineScreen.addPreference(new FontOption(
+		footerPreferences.add(statusLineScreen.addPreference(new FontPreference(
 			this, statusLineScreen.Resource, "font",
 			footerOptions.Font, false
 		)));
-		footerPreferences.setEnabled(
-			viewOptions.ScrollbarType.getValue() == FBView.SCROLLBAR_SHOW_AS_FOOTER
-		);
+		footerPreferences.run();
 
 		/*
 		final Screen colorProfileScreen = createPreferenceScreen("colorProfile");
@@ -456,7 +489,12 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		scrollingScreen.addOption(pageTurningOptions.FingerScrolling, "fingerScrolling");
 		scrollingScreen.addOption(miscOptions.EnableDoubleTap, "enableDoubleTapDetection");
 
-		final ZLPreferenceSet volumeKeysPreferences = new ZLPreferenceSet();
+		final PreferenceSet volumeKeysPreferences = new PreferenceSet.Enabler() {
+			@Override
+			protected Boolean detectState() {
+				return keyBindings.hasBinding(KeyEvent.KEYCODE_VOLUME_UP, false);
+			}
+		};
 		scrollingScreen.addPreference(new ZLCheckBoxPreference(
 			this, scrollingScreen.Resource, "volumeKeys"
 		) {
@@ -474,7 +512,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 					keyBindings.bindKey(KeyEvent.KEYCODE_VOLUME_DOWN, false, FBReaderApp.NoAction);
 					keyBindings.bindKey(KeyEvent.KEYCODE_VOLUME_UP, false, FBReaderApp.NoAction);
 				}
-				volumeKeysPreferences.setEnabled(isChecked());
+				volumeKeysPreferences.run();
 			}
 		});
 		volumeKeysPreferences.add(scrollingScreen.addPreference(new ZLCheckBoxPreference(
@@ -498,7 +536,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 				}
 			}
 		}));
-		volumeKeysPreferences.setEnabled(keyBindings.hasBinding(KeyEvent.KEYCODE_VOLUME_UP, false));
+		volumeKeysPreferences.run();
 
 		scrollingScreen.addOption(pageTurningOptions.Animation, "animation");
 		scrollingScreen.addPreference(new AnimationSpeedPreference(
@@ -609,5 +647,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		aboutScreen.addPreference(new UrlPreference(this, aboutScreen.Resource, "site"));
 		aboutScreen.addPreference(new UrlPreference(this, aboutScreen.Resource, "email"));
 		aboutScreen.addPreference(new UrlPreference(this, aboutScreen.Resource, "twitter"));
+		aboutScreen.addPreference(new UrlPreference(this, aboutScreen.Resource, "facebook"));
+		aboutScreen.addPreference(new ThirdPartyLibrariesPreference(this, aboutScreen.Resource, "thirdParty"));
 	}
 }

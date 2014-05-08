@@ -100,7 +100,7 @@
 		<node name="topup" value="Попуни налог (тренутно: %s)"/>
 		<node name="topupTitle" value="Попуна налога"/>
 		<node name="topupViaBrowser" value="Отвори страницу у прегледачу"/>
-		<node name="authorizationMenuTitle" value="Одабир радње"/>
+		<node name="authorisationMenuTitle" value="Одабир радње"/>
 		<node name="topupSummary" value="Тренутно: %s"/>
 		<node name="basket" value="Корпа"/>
 		<node name="basketSummaryEmpty" value="Нема књига"/>
@@ -161,7 +161,7 @@
 		<node name="confirm" value="Желите ли да купите &#10;„%s“?"/>
 		<node name="confirmSeveralBooks" value="Желите ли да купите %s књиге?"/>
 		<node name="alreadyBought" value="Већ сте купили књигу"/>
-		<node name="notAuthorized" value="Потребна је провера идентитета"/>
+		<node name="notAuthorised" value="Потребна је провера идентитета"/>
 		<node name="noAccountInformation" value="Не могу да учитам стање налога"/>
 		<node name="unsufficientFunds" value="Ова књига кошта %0 а ви имате само %1"/>
 		<node name="zeroFunds" value="Ова књига кошта %0"/>
@@ -306,14 +306,21 @@
 	<node name="Preferences">
 		<node name="directories" value="Фасцикле">
 			<node name="summary" value="Фасцикле за тражење датотека."/>
-			<node name="books" value="Фасцикла са књигама"/>
-			<node name="fonts" value="Фасцикла са фонтовима"/>
-			<node name="wallpapers" value="Фасцикла са позадинама"/>
-			<node name="bookPath" value="Where to seek for books" toBeTranslated="true"/>
-			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true"/>
-			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true"/>
-			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true"/>
-			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true"/>
+			<node name="bookPath" value="Where to seek for books" toBeTranslated="true">
+				<node name="chooserTitle" value="Фасцикла са књигама"/>
+			</node>
+			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true">
+				<node name="chooserTitle" value="Фасцикла са књигама"/>
+			</node>
+			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true">
+				<node name="chooserTitle" value="Фасцикла са фонтовима"/>
+			</node>
+			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true">
+				<node name="chooserTitle" value="Фасцикла са позадинама"/>
+			</node>
+			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true">
+				<node name="chooserTitle" value="Temp files folder" toBeTranslated="true"/>
+			</node>
 		</node>
 		<node name="appearance" value="Изглед">
 			<node name="summary" value="Приказ подешавања, траке стања и осветљења дугмади."/>
@@ -749,6 +756,10 @@
 			<node name="twitter" value="Пратите нас на Твитеру">
 				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
+			<node name="facebook" value="FBReader on facebook" toBeTranslated="true">
+				<node name="url" value="https://facebook.com/fbreader"/>
+			</node>
+			<node name="thirdParty" value="Third-party libraries" toBeTranslated="true"/>
 		</node>
 		<node name="eink" value="E-ink screen" toBeTranslated="true">
 			<node name="summary" value="Specific options for e-ink screens" toBeTranslated="true"/>
@@ -776,7 +787,7 @@
 			<node name="topup" value="Попуни"/>
 			<node name="pay" value="Купи"/>
 			<node name="refresh" value="Освежи"/>
-			<node name="authorize" value="Одобри"/>
+			<node name="authorise" value="Одобри"/>
 			<node name="resetPosition" value="Поништи положај"/>
 			<node name="sendReport" value="Пошаљи извештај"/>
 			<node name="addToFavorites" value="Додај у омиљене"/>
@@ -860,6 +871,32 @@
 			<node name="dontShowAgain" value="Не приказуј поново"/>
 			<node name="more" value="Следећи савет"/>
 		</node>
+		<node name="screenHint">
+			<node name="message1" value="FBReader works in fullscreen mode by default. Tap center third of the screen to show controls. You can change this behaviour in “Appearance” section of the Settings dialog." toBeTranslated="true"/>
+			<node name="message2" value="Well done! Now tap the center third again to hide the controls and this hint. If you want to keep controls on the screen during reading, select “Show action bar” option in “Appearance” section of the Settings dialog." toBeTranslated="true"/>
+		</node>
+		<node name="folderList">
+			<node name="addFolder" value="Add folder" toBeTranslated="true"/>
+			<node name="removeDialog" value="Remove folder" toBeTranslated="true">
+				<node name="message" value="Remove “%s” from the list?" toBeTranslated="true"/>
+			</node>
+			<node name="duplicate" value="“%s” is already in the list" toBeTranslated="true"/>
+		</node>
+		<node name="fileChooser">
+			<node name="root" value="Root" toBeTranslated="true"/>
+			<node name="newFolder" value="New folder" toBeTranslated="true"/>
+			<node name="folderNameHint" value="Folder name" toBeTranslated="true"/>
+			<node name="menu">
+				<node name="origin" value="Origin" toBeTranslated="true"/>
+				<node name="reload" value="Reload" toBeTranslated="true"/>
+			</node>
+			<node name="sortBy" value="Sort by" toBeTranslated="true">
+				<node name="name" value="Name" toBeTranslated="true"/>
+				<node name="size" value="Size" toBeTranslated="true"/>
+				<node name="date" value="Date" toBeTranslated="true"/>
+			</node>
+			<node name="permissionDenied" value="Permission denied" toBeTranslated="true"/>
+		</node>
 	</node>
 	<node name="errorMessage">
 		<node name="nativeCodeFailure" value="Error %s in native code during reading '%s'" toBeTranslated="true"/>
@@ -899,7 +936,7 @@
 	<node name="crash">
 		<node name="fixBooksDirectory">
 			<node name="title" value="Проблем с FBReader-ом"/>
-			<node name="text" value="FBReader-ова привремена фасцикла није доступна за писање. Можда сте заборавили да убаците или избаците меморијску картицу. Исправите овај проблем или унесите назив друге фасцикле испод."/>
+			<node name="text" value="FBReader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or select another directory." toBeTranslated="true"/>
 		</node>
 		<node name="missingNativeLibrary">
 			<node name="title" value="Проблем с FBReader-ом"/>

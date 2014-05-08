@@ -100,7 +100,7 @@
 		<node name="topup" value="Φόρτωση χρημάτων στον λογαρισμό (αυτήν την ώρα: %s)"/>
 		<node name="topupTitle" value="Φόρτωση χρημάτων"/>
 		<node name="topupViaBrowser" value="Άνοιγμα σελίδας στο Browser"/>
-		<node name="authorizationMenuTitle" value="Επιλογή ενέργειας"/>
+		<node name="authorisationMenuTitle" value="Επιλογή ενέργειας"/>
 		<node name="topupSummary" value="Αυτή την στιγμή: %s"/>
 		<node name="basket" value="καλάθι αγοράς"/>
 		<node name="basketSummaryEmpty" value="δεν υπάρχουν βιβλία"/>
@@ -157,7 +157,7 @@
 		<node name="confirm" value="Θέλετε να αγοράσετε αυτό το βιβλίο &#10;“%s”&#10; ;"/>
 		<node name="confirmSeveralBooks" value="Θέλεται να αγοράσετε αυτο τα βιβλία %s ;"/>
 		<node name="alreadyBought" value="Το βιβλίο έχει ήδη αγοραστεί"/>
-		<node name="notAuthorized" value="Απαιτήτε εξουσιοδότηση"/>
+		<node name="notAuthorised" value="Απαιτήτε εξουσιοδότηση"/>
 		<node name="noAccountInformation" value="Κατάσταση λογαριασμού δεν μπορεί να φορτοθεί"/>
 		<node name="unsufficientFunds" value="Αυτή η αγορά κοστίζει %0 ενώ εσεις έχετε μόνο %1"/>
 		<node name="zeroFunds" value="Αυτή η αγορά κοστίζει %0"/>
@@ -296,14 +296,21 @@
 	<node name="Preferences">
 		<node name="directories" value="Ευρετήρια">
 			<node name="summary" value="Ευρετήρια, στα οποία θα γίνει η αναζήτηση."/>
-			<node name="books" value="Βιβλία"/>
-			<node name="fonts" value="Γραμματοσειρά"/>
-			<node name="wallpapers" value="Φόντα"/>
-			<node name="bookPath" value="Where to seek for books" toBeTranslated="true"/>
-			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true"/>
-			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true"/>
-			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true"/>
-			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true"/>
+			<node name="bookPath" value="Where to seek for books" toBeTranslated="true">
+				<node name="chooserTitle" value="Books folder" toBeTranslated="true"/>
+			</node>
+			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true">
+				<node name="chooserTitle" value="Books folder" toBeTranslated="true"/>
+			</node>
+			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true">
+				<node name="chooserTitle" value="Fonts folder" toBeTranslated="true"/>
+			</node>
+			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true">
+				<node name="chooserTitle" value="Images folder" toBeTranslated="true"/>
+			</node>
+			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true">
+				<node name="chooserTitle" value="Temp files folder" toBeTranslated="true"/>
+			</node>
 		</node>
 		<node name="appearance" value="Εμφάνιση">
 			<node name="summary" value="προςανατολισμός, γραμμή κατάστασης"/>
@@ -747,6 +754,10 @@
 			<node name="twitter" value="Twitter">
 				<node name="url" value="http://twitter.com/fbreader"/>
 			</node>
+			<node name="facebook" value="FBReader on facebook" toBeTranslated="true">
+				<node name="url" value="https://facebook.com/fbreader"/>
+			</node>
+			<node name="thirdParty" value="Third-party libraries" toBeTranslated="true"/>
 		</node>
 		<node name="eink" value="E-ink screen" toBeTranslated="true">
 			<node name="summary" value="Specific options for e-ink screens" toBeTranslated="true"/>
@@ -774,7 +785,7 @@
 			<node name="topup" value="Μεταβίβασε λεφτά στον λογιαρισμό"/>
 			<node name="pay" value="Πλήρωσε"/>
 			<node name="refresh" value="Ενημέρωσε"/>
-			<node name="authorize" value="Εξουσιοδότησε"/>
+			<node name="authorise" value="Εξουσιοδότησε"/>
 			<node name="resetPosition" value="Αναίρεση θέσης"/>
 			<node name="sendReport" value="στείλε αναφορά"/>
 			<node name="addToFavorites" value="Τοποθέτησε βιβλίο στα αγαπημένα"/>
@@ -858,6 +869,32 @@
 			<node name="dontShowAgain" value="Να μην εμφανιστεί ξανά"/>
 			<node name="more" value="Επόμενη συμβουλή"/>
 		</node>
+		<node name="screenHint">
+			<node name="message1" value="FBReader works in fullscreen mode by default. Tap center third of the screen to show controls. You can change this behaviour in “Appearance” section of the Settings dialog." toBeTranslated="true"/>
+			<node name="message2" value="Well done! Now tap the center third again to hide the controls and this hint. If you want to keep controls on the screen during reading, select “Show action bar” option in “Appearance” section of the Settings dialog." toBeTranslated="true"/>
+		</node>
+		<node name="folderList">
+			<node name="addFolder" value="Add folder" toBeTranslated="true"/>
+			<node name="removeDialog" value="Remove folder" toBeTranslated="true">
+				<node name="message" value="Remove “%s” from the list?" toBeTranslated="true"/>
+			</node>
+			<node name="duplicate" value="“%s” is already in the list" toBeTranslated="true"/>
+		</node>
+		<node name="fileChooser">
+			<node name="root" value="Root" toBeTranslated="true"/>
+			<node name="newFolder" value="New folder" toBeTranslated="true"/>
+			<node name="folderNameHint" value="Folder name" toBeTranslated="true"/>
+			<node name="menu">
+				<node name="origin" value="Origin" toBeTranslated="true"/>
+				<node name="reload" value="Reload" toBeTranslated="true"/>
+			</node>
+			<node name="sortBy" value="Sort by" toBeTranslated="true">
+				<node name="name" value="Name" toBeTranslated="true"/>
+				<node name="size" value="Size" toBeTranslated="true"/>
+				<node name="date" value="Date" toBeTranslated="true"/>
+			</node>
+			<node name="permissionDenied" value="Permission denied" toBeTranslated="true"/>
+		</node>
 	</node>
 	<node name="errorMessage">
 		<node name="nativeCodeFailure" value="Error %s in native code during reading '%s'" toBeTranslated="true"/>
@@ -897,7 +934,7 @@
 	<node name="crash">
 		<node name="fixBooksDirectory">
 			<node name="title" value="Πρόβλημα FBReader"/>
-			<node name="text" value="Δέν υπάρχει πρόσβαση στο αρχείο Cache του FBReader. Πιθανόν να έχετε αφαιρέσει την κάρτα μνήμης ή το σύστημα δεν έχει πρόσβαση. Παρακαλώ διορθώστε το πρόβλημα η επλέξτε στο κάτω μέρος ενα διαφορετικό όνομα για το αρχείο."/>
+			<node name="text" value="FBReader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or select another directory." toBeTranslated="true"/>
 		</node>
 		<node name="missingNativeLibrary">
 			<node name="title" value="Πρόβλημα FBReader"/>

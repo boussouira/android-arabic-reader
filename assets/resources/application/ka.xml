@@ -100,7 +100,7 @@
 		<node name="topup" value="ანგარიშის შევსება (ბალანსი: %s)"/>
 		<node name="topupTitle" value="გადახდა"/>
 		<node name="topupViaBrowser" value="ბრაუზერის ფანჯარაში"/>
-		<node name="authorizationMenuTitle" value="ამოირჩიეთ ქმედება"/>
+		<node name="authorisationMenuTitle" value="ამოირჩიეთ ქმედება"/>
 		<node name="topupSummary" value="მიმდინარე ანგარიში: %s"/>
 		<node name="basket" value="კალათა"/>
 		<node name="basketSummaryEmpty" value="ცარიელი კალათა"/>
@@ -165,7 +165,7 @@
 		<node name="confirm" value="დარწმუნებული ხართ, რომ გნებავთ წიგნის შეძენა&#10;«%s»?"/>
 		<node name="confirmSeveralBooks" value="დარწმუნებული ხართ, რომ გნებავთ შეიძინოთ %s წიგნები?"/>
 		<node name="alreadyBought" value="წიგნი უკვე ნაყიდია"/>
-		<node name="notAuthorized" value="საჭიროა ავტორიზაცია"/>
+		<node name="notAuthorised" value="საჭიროა ავტორიზაცია"/>
 		<node name="noAccountInformation" value="ვერ მოხერხდა ანგარიშის შემოწმება"/>
 		<node name="unsufficientFunds" value="საყიდლად საჭიროა %0, ხოლო ანგარიშზეა მხოლოდ %1"/>
 		<node name="zeroFunds" value="ყიდვისთვის საჭიროა %0"/>
@@ -311,14 +311,21 @@
 	<node name="Preferences">
 		<node name="directories" value="კატალოგები">
 			<node name="summary" value="სად მოიძებნოს ფაილები"/>
-			<node name="books" value="კატალოგი წიგნებით"/>
-			<node name="fonts" value="კატალოგი შრიფტებით"/>
-			<node name="wallpapers" value="კატალოგი ფონის სურათებით"/>
-			<node name="bookPath" value="Where to seek for books" toBeTranslated="true"/>
-			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true"/>
-			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true"/>
-			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true"/>
-			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true"/>
+			<node name="bookPath" value="Where to seek for books" toBeTranslated="true">
+				<node name="chooserTitle" value="კატალოგი წიგნებით"/>
+			</node>
+			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true">
+				<node name="chooserTitle" value="კატალოგი წიგნებით"/>
+			</node>
+			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true">
+				<node name="chooserTitle" value="კატალოგი შრიფტებით"/>
+			</node>
+			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true">
+				<node name="chooserTitle" value="კატალოგი ფონის სურათებით"/>
+			</node>
+			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true">
+				<node name="chooserTitle" value="Temp files folder" toBeTranslated="true"/>
+			</node>
 		</node>
 		<node name="appearance" value="გარეგნობა">
 			<node name="summary" value="ეკრანი, სტატუს ბარი, ღილაკების განათება"/>
@@ -754,6 +761,10 @@
 			<node name="twitter" value="გამოგვყევით ტვიტერზე">
 				<node name="url" value="http://twitter.com/arabic_reader_ru"/>
 			</node>
+			<node name="facebook" value="FBReader on facebook" toBeTranslated="true">
+				<node name="url" value="https://facebook.com/fbreader"/>
+			</node>
+			<node name="thirdParty" value="Third-party libraries" toBeTranslated="true"/>
 		</node>
 		<node name="eink" value="E-ink screen" toBeTranslated="true">
 			<node name="summary" value="Specific options for e-ink screens" toBeTranslated="true"/>
@@ -781,7 +792,7 @@
 			<node name="topup" value="ანგარიშის შევსება"/>
 			<node name="pay" value="გადახდა"/>
 			<node name="refresh" value="განახლება"/>
-			<node name="authorize" value="ავტორიზაცია"/>
+			<node name="authorise" value="ავტორიზაცია"/>
 			<node name="resetPosition" value="უკან"/>
 			<node name="sendReport" value="შეტყობინების გაგზავნა"/>
 			<node name="addToFavorites" value="რჩეულებში დამატება"/>
@@ -865,6 +876,32 @@
 			<node name="dontShowAgain" value="მეტჯერ აღარ მანახო"/>
 			<node name="more" value="მეტი"/>
 		</node>
+		<node name="screenHint">
+			<node name="message1" value="FBReader works in fullscreen mode by default. Tap center third of the screen to show controls. You can change this behaviour in “Appearance” section of the Settings dialog." toBeTranslated="true"/>
+			<node name="message2" value="Well done! Now tap the center third again to hide the controls and this hint. If you want to keep controls on the screen during reading, select “Show action bar” option in “Appearance” section of the Settings dialog." toBeTranslated="true"/>
+		</node>
+		<node name="folderList">
+			<node name="addFolder" value="Add folder" toBeTranslated="true"/>
+			<node name="removeDialog" value="Remove folder" toBeTranslated="true">
+				<node name="message" value="Remove “%s” from the list?" toBeTranslated="true"/>
+			</node>
+			<node name="duplicate" value="“%s” is already in the list" toBeTranslated="true"/>
+		</node>
+		<node name="fileChooser">
+			<node name="root" value="Root" toBeTranslated="true"/>
+			<node name="newFolder" value="New folder" toBeTranslated="true"/>
+			<node name="folderNameHint" value="Folder name" toBeTranslated="true"/>
+			<node name="menu">
+				<node name="origin" value="Origin" toBeTranslated="true"/>
+				<node name="reload" value="Reload" toBeTranslated="true"/>
+			</node>
+			<node name="sortBy" value="Sort by" toBeTranslated="true">
+				<node name="name" value="Name" toBeTranslated="true"/>
+				<node name="size" value="Size" toBeTranslated="true"/>
+				<node name="date" value="Date" toBeTranslated="true"/>
+			</node>
+			<node name="permissionDenied" value="Permission denied" toBeTranslated="true"/>
+		</node>
 	</node>
 	<node name="errorMessage">
 		<node name="nativeCodeFailure" value="Error %s in native code during reading '%s'" toBeTranslated="true"/>
@@ -904,7 +941,7 @@
 	<node name="crash">
 		<node name="fixBooksDirectory">
 			<node name="title" value="FBReader-ის პრობლემა"/>
-			<node name="text" value="FBReader ვერ ინახავს დროებით ფაილებს. შეიძლება დაგავიწყდათ მეხსიერების ბარათის ჩადება მოწყობილობაში, ან მასზე არ არის წვდომა კომპიუტერთან შეერთების გამო. გთხოვთ მოაგვაროთ ეს პრობლემა, ან შეიყვანეთ კატალოგის სხვა სახელი დროებითი ფაილებისთვის."/>
+			<node name="text" value="FBReader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or select another directory." toBeTranslated="true"/>
 		</node>
 		<node name="missingNativeLibrary">
 			<node name="title" value="FBReader-ის პრობლემა"/>

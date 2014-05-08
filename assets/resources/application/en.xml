@@ -100,7 +100,7 @@
 		<node name="topup" value="Top up account (currently: %s)"/>
 		<node name="topupTitle" value="Top up account"/>
 		<node name="topupViaBrowser" value="Open page in browser"/>
-		<node name="authorizationMenuTitle" value="Select action"/>
+		<node name="authorisationMenuTitle" value="Select action"/>
 		<node name="topupSummary" value="Currently: %s"/>
 		<node name="basket" value="Basket"/>
 		<node name="basketSummaryEmpty" value="No books"/>
@@ -161,7 +161,7 @@
 		<node name="confirm" value="Are you sure you want to buy &#10;“%s”?"/>
 		<node name="confirmSeveralBooks" value="Are you sure you want to buy %s books?"/>
 		<node name="alreadyBought" value="Book is already bought"/>
-		<node name="notAuthorized" value="Authorization required"/>
+		<node name="notAuthorised" value="Authorisation required"/>
 		<node name="noAccountInformation" value="Cannot load account state"/>
 		<node name="unsufficientFunds" value="This purchase costs %0 and you have only %1"/>
 		<node name="zeroFunds" value="This purchase costs %0"/>
@@ -306,14 +306,21 @@
 	<node name="Preferences">
 		<node name="directories" value="Directories">
 			<node name="summary" value="Directories to seek for files"/>
-			<node name="books" value="Books directory"/>
-			<node name="fonts" value="Fonts directory"/>
-			<node name="wallpapers" value="Wallpapers directory"/>
-			<node name="bookPath" value="Where to seek for books"/>
-			<node name="downloadDir" value="Where to store downloaded books"/>
-			<node name="fontPath" value="Where to seek for fonts"/>
-			<node name="wallpaperPath" value="Where to seek for background images"/>
-			<node name="tempDir" value="Where to store temporary files"/>
+			<node name="bookPath" value="Where to seek for books">
+				<node name="chooserTitle" value="Books folder"/>
+			</node>
+			<node name="downloadDir" value="Where to store downloaded books">
+				<node name="chooserTitle" value="Books folder"/>
+			</node>
+			<node name="fontPath" value="Where to seek for fonts">
+				<node name="chooserTitle" value="Fonts folder"/>
+			</node>
+			<node name="wallpaperPath" value="Where to seek for background images">
+				<node name="chooserTitle" value="Images folder"/>
+			</node>
+			<node name="tempDir" value="Where to store temporary files">
+				<node name="chooserTitle" value="Temp files folder"/>
+			</node>
 		</node>
 		<node name="appearance" value="Appearance">
 			<node name="summary" value="Display settings, status bar, button lights"/>
@@ -749,6 +756,10 @@
 			<node name="twitter" value="Follow us at twitter">
 				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
+			<node name="facebook" value="FBReader on facebook">
+				<node name="url" value="https://facebook.com/fbreader"/>
+			</node>
+			<node name="thirdParty" value="Third-party libraries"/>
 		</node>
 		<node name="eink" value="E-ink screen">
 			<node name="summary" value="Specific options for e-ink screens"/>
@@ -776,7 +787,7 @@
 			<node name="topup" value="Top up"/>
 			<node name="pay" value="Pay"/>
 			<node name="refresh" value="Refresh"/>
-			<node name="authorize" value="Authorize"/>
+			<node name="authorise" value="Authorise"/>
 			<node name="resetPosition" value="Reset position"/>
 			<node name="sendReport" value="Send report"/>
 			<node name="addToFavorites" value="Add to favorites"/>
@@ -860,6 +871,32 @@
 			<node name="dontShowAgain" value="Don't show again"/>
 			<node name="more" value="Next tip"/>
 		</node>
+		<node name="screenHint">
+			<node name="message1" value="FBReader works in fullscreen mode by default. Tap center third of the screen to show controls. You can change this behaviour in “Appearance” section of the Settings dialog."/>
+			<node name="message2" value="Well done! Now tap the center third again to hide the controls and this hint. If you want to keep controls on the screen during reading, select “Show action bar” option in “Appearance” section of the Settings dialog."/>
+		</node>
+		<node name="folderList">
+			<node name="addFolder" value="Add folder"/>
+			<node name="removeDialog" value="Remove folder">
+				<node name="message" value="Remove “%s” from the list?"/>
+			</node>
+			<node name="duplicate" value="“%s” is already in the list"/>
+		</node>
+		<node name="fileChooser">
+			<node name="root" value="Root"/>
+			<node name="newFolder" value="New folder"/>
+			<node name="folderNameHint" value="Folder name"/>
+			<node name="menu">
+				<node name="origin" value="Origin"/>
+				<node name="reload" value="Reload"/>
+			</node>
+			<node name="sortBy" value="Sort by">
+				<node name="name" value="Name"/>
+				<node name="size" value="Size"/>
+				<node name="date" value="Date"/>
+			</node>
+			<node name="permissionDenied" value="Permission denied"/>
+		</node>
 	</node>
 	<node name="errorMessage">
 		<node name="nativeCodeFailure" value="Error %s in native code during reading '%s'"/>
@@ -899,7 +936,7 @@
 	<node name="crash">
 		<node name="fixBooksDirectory">
 			<node name="title" value="FBReader issue"/>
-			<node name="text" value="FBReader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or enter another directory name below."/>
+			<node name="text" value="FBReader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or select another directory."/>
 		</node>
 		<node name="missingNativeLibrary">
 			<node name="title" value="FBReader issue"/>

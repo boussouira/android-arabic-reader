@@ -23,6 +23,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public abstract class MenuNode implements Cloneable, Serializable {
+	public static final long serialVersionUID = 42L;
+
 	public final String Code;
 	public String OptionalTitle;
 
@@ -33,6 +35,8 @@ public abstract class MenuNode implements Cloneable, Serializable {
 	public abstract MenuNode clone();
 
 	public static final class Item extends MenuNode {
+		public static final long serialVersionUID = 43L;
+
 		public final Integer IconId;
 	
 		public Item(String code, Integer iconId) {
@@ -50,6 +54,8 @@ public abstract class MenuNode implements Cloneable, Serializable {
 	}
 
 	public static class Submenu extends MenuNode {
+		public static final long serialVersionUID = 44L;
+
 		public final ArrayList<MenuNode> Children = new ArrayList<MenuNode>();
 
 		public Submenu(String code) {

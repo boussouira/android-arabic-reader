@@ -100,7 +100,7 @@
 		<node name="topup" value="重新输入账号(目前: %s)"/>
 		<node name="topupTitle" value="重新输入账号"/>
 		<node name="topupViaBrowser" value="在浏览器中打开页面"/>
-		<node name="authorizationMenuTitle" value="选择操作"/>
+		<node name="authorisationMenuTitle" value="选择操作"/>
 		<node name="topupSummary" value="当前: %s"/>
 		<node name="basket" value="购物篮"/>
 		<node name="basketSummaryEmpty" value="没有书籍"/>
@@ -157,7 +157,7 @@
 		<node name="confirm" value="确认购买%s书籍?"/>
 		<node name="confirmSeveralBooks" value="确认购买%s书籍?"/>
 		<node name="alreadyBought" value="该书已经买过"/>
-		<node name="notAuthorized" value="需要授权"/>
+		<node name="notAuthorised" value="需要授权"/>
 		<node name="noAccountInformation" value="无法加载账号状态"/>
 		<node name="unsufficientFunds" value="你这次买了 %0 ，但是你现在只有 %1"/>
 		<node name="zeroFunds" value="你这次买了 %0"/>
@@ -296,14 +296,21 @@
 	<node name="Preferences">
 		<node name="directories" value="文件夹设定">
 			<node name="summary" value="相关文件夹位置设定"/>
-			<node name="books" value="书文存放位置"/>
-			<node name="fonts" value="字体存放位置"/>
-			<node name="wallpapers" value="墙纸存放位置"/>
-			<node name="bookPath" value="Where to seek for books" toBeTranslated="true"/>
-			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true"/>
-			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true"/>
-			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true"/>
-			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true"/>
+			<node name="bookPath" value="Where to seek for books" toBeTranslated="true">
+				<node name="chooserTitle" value="书文存放位置"/>
+			</node>
+			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true">
+				<node name="chooserTitle" value="书文存放位置"/>
+			</node>
+			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true">
+				<node name="chooserTitle" value="字体存放位置"/>
+			</node>
+			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true">
+				<node name="chooserTitle" value="墙纸存放位置"/>
+			</node>
+			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true">
+				<node name="chooserTitle" value="Temp files folder" toBeTranslated="true"/>
+			</node>
 		</node>
 		<node name="appearance" value="呈现方式">
 			<node name="summary" value="旋转，状态工具条"/>
@@ -739,6 +746,10 @@
 			<node name="twitter" value="关注我们的twitter">
 				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
+			<node name="facebook" value="FBReader on facebook" toBeTranslated="true">
+				<node name="url" value="https://facebook.com/fbreader"/>
+			</node>
+			<node name="thirdParty" value="Third-party libraries" toBeTranslated="true"/>
 		</node>
 		<node name="eink" value="E-ink screen" toBeTranslated="true">
 			<node name="summary" value="Specific options for e-ink screens" toBeTranslated="true"/>
@@ -766,7 +777,7 @@
 			<node name="topup" value="重新输入账号"/>
 			<node name="pay" value="支付"/>
 			<node name="refresh" value="刷新"/>
-			<node name="authorize" value="授权"/>
+			<node name="authorise" value="授权"/>
 			<node name="resetPosition" value="重置位置"/>
 			<node name="sendReport" value="发送报告"/>
 			<node name="addToFavorites" value="收藏到我的超爱"/>
@@ -850,6 +861,32 @@
 			<node name="dontShowAgain" value="不要再显示"/>
 			<node name="more" value="下个提示"/>
 		</node>
+		<node name="screenHint">
+			<node name="message1" value="FBReader works in fullscreen mode by default. Tap center third of the screen to show controls. You can change this behaviour in “Appearance” section of the Settings dialog." toBeTranslated="true"/>
+			<node name="message2" value="Well done! Now tap the center third again to hide the controls and this hint. If you want to keep controls on the screen during reading, select “Show action bar” option in “Appearance” section of the Settings dialog." toBeTranslated="true"/>
+		</node>
+		<node name="folderList">
+			<node name="addFolder" value="Add folder" toBeTranslated="true"/>
+			<node name="removeDialog" value="Remove folder" toBeTranslated="true">
+				<node name="message" value="Remove “%s” from the list?" toBeTranslated="true"/>
+			</node>
+			<node name="duplicate" value="“%s” is already in the list" toBeTranslated="true"/>
+		</node>
+		<node name="fileChooser">
+			<node name="root" value="Root" toBeTranslated="true"/>
+			<node name="newFolder" value="New folder" toBeTranslated="true"/>
+			<node name="folderNameHint" value="Folder name" toBeTranslated="true"/>
+			<node name="menu">
+				<node name="origin" value="Origin" toBeTranslated="true"/>
+				<node name="reload" value="Reload" toBeTranslated="true"/>
+			</node>
+			<node name="sortBy" value="Sort by" toBeTranslated="true">
+				<node name="name" value="Name" toBeTranslated="true"/>
+				<node name="size" value="Size" toBeTranslated="true"/>
+				<node name="date" value="Date" toBeTranslated="true"/>
+			</node>
+			<node name="permissionDenied" value="Permission denied" toBeTranslated="true"/>
+		</node>
 	</node>
 	<node name="errorMessage">
 		<node name="nativeCodeFailure" value="Error %s in native code during reading '%s'" toBeTranslated="true"/>
@@ -889,7 +926,7 @@
 	<node name="crash">
 		<node name="fixBooksDirectory">
 			<node name="title" value="FBReader 问题"/>
-			<node name="text" value="FBReader缓存目录无法写入，或许你忘了插入或已拔出内存卡。请处理这个问题，或者进入下面的另一个文件夹。"/>
+			<node name="text" value="FBReader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or select another directory." toBeTranslated="true"/>
 		</node>
 		<node name="missingNativeLibrary">
 			<node name="title" value="FBReader 问题"/>
