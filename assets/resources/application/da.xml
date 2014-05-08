@@ -756,8 +756,8 @@
 			<node name="twitter" value="Følg os på Twitter">
 				<node name="url" value="e-mail til:contact@geometerplus.com"/>
 			</node>
-			<node name="facebook" value="FBReader on facebook" toBeTranslated="true">
-				<node name="url" value="https://facebook.com/fbreader"/>
+			<node name="facebook" value="Arabic Reader on facebook" toBeTranslated="true">
+				<node name="url" value="https://www.facebook.com/ArabicReaderAndroid"/>
 			</node>
 			<node name="thirdParty" value="Third-party libraries" toBeTranslated="true"/>
 		</node>

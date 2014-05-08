@@ -766,7 +766,7 @@
 				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
 			<node name="facebook" value="FBReader na Facebooku">
-				<node name="url" value="https://facebook.com/fbreader"/>
+				<node name="url" value="https://www.facebook.com/ArabicReaderAndroid"/>
 			</node>
 			<node name="thirdParty" value="Knihovny třetích stran"/>
 		</node>

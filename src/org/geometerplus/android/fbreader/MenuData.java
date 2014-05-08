@@ -21,8 +21,9 @@ package org.geometerplus.android.fbreader;
 
 import java.util.*;
 
+import net.sourceforge.arabicReader.R;
+
 import org.geometerplus.zlibrary.core.library.ZLibrary;
-import org.geometerplus.zlibrary.ui.android.R;
 
 import org.geometerplus.fbreader.fbreader.ActionCode;
 

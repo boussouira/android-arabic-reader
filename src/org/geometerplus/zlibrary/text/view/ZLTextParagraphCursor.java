@@ -24,6 +24,7 @@ import org.vimgadgets.linebreak.LineBreaker;
 
 import org.geometerplus.zlibrary.core.image.*;
 import org.geometerplus.zlibrary.core.util.ZLArabicUtils;
+import org.geometerplus.zlibrary.core.options.ZLBooleanOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 import org.geometerplus.zlibrary.text.model.*;
 
@@ -42,7 +43,7 @@ public final class ZLTextParagraphCursor {
 		private Processor(ZLTextParagraph paragraph, String language, List<ZLTextMark> marks, int paragraphIndex, ArrayList<ZLTextElement> elements) {
 			myParagraph = paragraph;
 			myLanguage = language;
-			myRTLMode = myLanguage.equals("ar");
+			myRTLMode = (!(new ZLBooleanOption("Options", "enableLTR", false).getValue()) || myLanguage.equals("ar"));
 			myLineBreaker = new LineBreaker(language);
 			myElements = elements;
 			myMarks = marks;

@@ -216,7 +216,7 @@ public class BookInfoActivity extends Activity implements MenuItem.OnMenuItemCli
 		setupInfoPair(R.id.book_tags, "tags", buffer, tagNames.size());
 		String language = book.getLanguage();
 		
-		if(ZLArabicUtils.arabicCharCount(book.getTitle()) > 0.5 && (language == null || !language.equals("ar"))) {
+		if(language == null && ZLArabicUtils.arabicCharCount(book.getTitle()) > 0.5) {
 			language = "ar";
 		}
 		

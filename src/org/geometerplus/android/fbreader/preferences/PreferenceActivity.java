@@ -91,6 +91,14 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		final String decimalSeparator =
 			String.valueOf(new DecimalFormatSymbols(Locale.getDefault()).getDecimalSeparator());
 
+		final Screen ArabicScreen = createPreferenceScreen("arabic");
+		ArabicScreen.addPreference(new ZLBooleanPreference(
+				this,
+				viewOptions.LTRBookSupport,
+				ArabicScreen.Resource,
+				"enableLTR"
+			));
+		
 		final Screen directoriesScreen = createPreferenceScreen("directories");
 		final Runnable libraryUpdater = new Runnable() {
 			public void run() {
