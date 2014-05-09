@@ -499,7 +499,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		final ArrayList<ZLTextLineInfo> lineInfos = page.LineInfos;
 		final int[] labels = new int[lineInfos.size() + 1];
 		int x = (myRTLMode
-				? (page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth())
+				? ((page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth()) + getLeftMargin())
 				: getLeftMargin());
 
 		int y = getTopMargin();
@@ -519,7 +519,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		}
 
 		x = (myRTLMode
-				? (page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth())
+				? ((page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth()) + getLeftMargin())
 				: getLeftMargin());
 		y = getTopMargin();
 		index = 0;
@@ -537,8 +537,9 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		}
 
 		x = (myRTLMode
-				? (page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth())
-				: getLeftMargin());		y = getTopMargin();
+				? ((page.twoColumnView() ? page.getTextWidth() * 2 + getSpaceBetweenColumns() : page.getTextWidth()) + getLeftMargin())
+				: getLeftMargin());
+		y = getTopMargin();
 		index = 0;
 		for (ZLTextLineInfo info : lineInfos) {
 			drawTextLine(page, info, labels[index], labels[index + 1]);
@@ -1254,7 +1255,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		boolean changeStyle = true;
 
 		if(myRTLMode)
-			x -= info.RightIndent;
+			x -= info.LeftIndent;
 		else
 			x += info.LeftIndent;
 
