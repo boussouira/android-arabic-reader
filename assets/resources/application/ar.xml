@@ -908,32 +908,30 @@ Enable tips?"/>
 			<node name="more" value="Next tip"/>
 		</node>
 		<node name="screenHint">
-			<node name="message1" toBeTranslated="true"
-				value="FBReader works in fullscreen mode by default. Tap center third of the screen to show controls. You can change this behaviour in “Appearance” section of the Settings dialog."/>
+			<node name="message1" value="القارئ العربي يشغل كامل الشاشة بشكل افتراضي. اضغط في منتصف الشاشة لإظهار أزرار التحكم. يمكنك تغيير هذا الوضع من قائمة “المظهر” في نافذة الإعدادات."/>
 			<node name="message2" toBeTranslated="true"
-				value="Well done! Now tap the center third again to hide the controls and this hint. If you want to keep controls on the screen during reading, select “Show action bar” option in “Appearance” section of the Settings dialog."/>
+				value="أحسنت! الآن أعد الضغط على نفس المكان لإخفاء أزرار التحكم وهذه الرسالة."/>
 		</node>
 		<node name="folderList">
-			<node name="addFolder" toBeTranslated="true" value="Add folder"/>
-			<node name="removeDialog" toBeTranslated="true" value="Remove folder">
-				<node name="message" toBeTranslated="true"
-					value="Remove “%s” from the list?"/>
+			<node name="addFolder" value="اضافة مجلد"/>
+			<node name="removeDialog" value="حذف مجلد">
+				<node name="message" value="حذف “%s” من اللائحة؟"/>
 			</node>
 			<node name="duplicate" toBeTranslated="true"
-				value="“%s” is already in the list"/>
+				value="“%s” موجود مسبقا في اللائحة"/>
 		</node>
 		<node name="fileChooser">
-			<node name="root" toBeTranslated="true" value="Root"/>
-			<node name="newFolder" toBeTranslated="true" value="New folder"/>
-			<node name="folderNameHint" toBeTranslated="true" value="Folder name"/>
+			<node name="root" value="الجذر"/>
+			<node name="newFolder" value="مجلد جديد"/>
+			<node name="folderNameHint" value="اسم المجلد"/>
 			<node name="menu">
-				<node name="origin" toBeTranslated="true" value="Origin"/>
-				<node name="reload" toBeTranslated="true" value="Reload"/>
+				<node name="origin" value="الأصل"/>
+				<node name="reload" value="إعادة التحميل"/>
 			</node>
-			<node name="sortBy" toBeTranslated="true" value="Sort by">
-				<node name="name" toBeTranslated="true" value="Name"/>
-				<node name="size" toBeTranslated="true" value="Size"/>
-				<node name="date" toBeTranslated="true" value="Date"/>
+			<node name="sortBy" value="فرز حسب">
+				<node name="name" value="الاسم"/>
+				<node name="size" value="الحجم"/>
+				<node name="date" value="التاريخ"/>
 			</node>
 			<node name="permissionDenied" toBeTranslated="true" value="Permission denied"/>
 		</node>
