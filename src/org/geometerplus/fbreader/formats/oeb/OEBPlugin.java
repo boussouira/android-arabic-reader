@@ -70,6 +70,7 @@ public class OEBPlugin extends JavaFormatPlugin {
 	public void readModel(BookModel model) throws BookReadingException {
 		model.Book.File.setCached(true);
 		new OEBBookReader(model).readBook(getOpfFile(model.Book.File));
+		model.Book.File.setCached(false);
 	}
 
 	@Override
@@ -83,10 +84,13 @@ public class OEBPlugin extends JavaFormatPlugin {
 
 	@Override
 	public String readAnnotation(ZLFile file) {
+		file.setCached(true);
 		try {
 			return new OEBAnnotationReader().readAnnotation(getOpfFile(file));
 		} catch (BookReadingException e) {
 			return null;
+		} finally {
+			file.setCached(false);
 		}
 	}
 

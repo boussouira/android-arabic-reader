@@ -118,7 +118,8 @@ public final class FBReaderApp extends ZLApplication {
 
 	public void openBook(final Book book, final Bookmark bookmark, final Runnable postAction) {
 		if (book != null || Model == null) {
-			runWithMessage("loadingBook", new Runnable() {
+			final SynchronousExecutor executor = createExecutor("loadingBook");
+			executor.execute(new Runnable() {
 				public void run() {
 					openBookInternal(book, bookmark, false);
 					if (book != null) {
@@ -132,7 +133,8 @@ public final class FBReaderApp extends ZLApplication {
 
 	public void reloadBook() {
 		if (Model != null && Model.Book != null) {
-			runWithMessage("loadingBook", new Runnable() {
+			final SynchronousExecutor executor = createExecutor("loadingBook");
+			executor.execute(new Runnable() {
 				public void run() {
 					openBookInternal(Model.Book, null, true);
 				}

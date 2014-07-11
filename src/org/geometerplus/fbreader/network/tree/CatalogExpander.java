@@ -26,6 +26,7 @@ import org.geometerplus.fbreader.network.authentication.NetworkAuthenticationMan
 
 class CatalogExpander extends NetworkItemsLoader {
 	private final Authenticator myAuthenticator;
+	private volatile boolean myAuthenticationRequested;
 	private final boolean myResumeNotLoad;
 
 	CatalogExpander(NetworkCatalogTree tree, Authenticator authenticator, boolean resumeNotLoad) {
@@ -51,12 +52,14 @@ class CatalogExpander extends NetworkItemsLoader {
 
 	@Override
 	public void load() throws ZLNetworkException {
+		myAuthenticationRequested = false;
 		if (myResumeNotLoad) {
 			getTree().Item.resumeLoading(this);
 		} else {
 			try {
 				getTree().Item.loadChildren(this);
 			} catch (NetworkCatalogItem.AuthorisationFailed f) {
+				myAuthenticationRequested = true;
 				if (myAuthenticator != null) {
 					myAuthenticator.run(f.URL);
 				}
@@ -70,7 +73,7 @@ class CatalogExpander extends NetworkItemsLoader {
 			getTree().clearCatalog();
 		} else {
 			getTree().removeUnconfirmedItems();
-			if (!interrupted) {
+			if (!interrupted && !myAuthenticationRequested) {
 				if (exception != null) {
 					NetworkLibrary.Instance().fireModelChangedEvent(
 						NetworkLibrary.ChangeListener.Code.NetworkError, exception.getMessage()

@@ -45,8 +45,17 @@ public final class ZLPhysicalFile extends ZLFile {
 	}
 
 	@Override
+	public long lastModified() {
+		return myFile.lastModified();
+	}
+
+	private Boolean myIsDirectory;
+	@Override
 	public boolean isDirectory() {
-		return myFile.isDirectory();
+		if (myIsDirectory == null) {
+			myIsDirectory = myFile.isDirectory();
+		}
+		return myIsDirectory;
 	}
 
 	@Override
@@ -62,14 +71,18 @@ public final class ZLPhysicalFile extends ZLFile {
 		return myFile;
 	}
 
+	private String myPath;
 	@Override
 	public String getPath() {
-		try {
-			return myFile.getCanonicalPath();
-		} catch (Exception e) {
-			// should be never thrown
-			return myFile.getPath();
+		if (myPath == null) {
+			try {
+				myPath = myFile.getCanonicalPath();
+			} catch (Exception e) {
+				// should be never thrown
+				myPath = myFile.getPath();
+			}
 		}
+		return myPath;
 	}
 
 	@Override
