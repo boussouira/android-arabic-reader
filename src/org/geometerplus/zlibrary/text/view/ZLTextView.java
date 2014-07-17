@@ -1090,7 +1090,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		ZLTextStyle storedStyle = getTextStyle();
 
 		info.LeftIndent = storedStyle.getLeftIndent(metrics());
-		info.RightIndent = getTextStyle().getRightIndent();
+		info.RightIndent = getTextStyle().getRightIndent(metrics());
 
 		if (isFirstLine) {
 			info.LeftIndent += storedStyle.getFirstLineIndent(metrics());
@@ -1277,20 +1277,20 @@ public abstract class ZLTextView extends ZLTextViewBase {
 
 		final int maxWidth = page.getTextWidth();
 		switch (getTextStyle().getAlignment()) {
-			case ZLTextAlignmentType.ALIGN_RIGHT:
-				x += maxWidth - getTextStyle().getRightIndent() - info.Width;
+			case ZLTextAlignmentType.ALIGN_LEFT:
+				x += maxWidth - getTextStyle().getRightIndent(metrics()) - info.Width;
 				break;
 			case ZLTextAlignmentType.ALIGN_CENTER:
-				x += (maxWidth - getTextStyle().getRightIndent() - info.Width) / 2;
+				x += (maxWidth - getTextStyle().getRightIndent(metrics()) - info.Width) / 2;
 				break;
 			case ZLTextAlignmentType.ALIGN_JUSTIFY:
 				if (!endOfParagraph && (paragraphCursor.getElement(info.EndElementIndex) != ZLTextElement.AfterParagraph)) {
-					fullCorrection = maxWidth - getTextStyle().getRightIndent() - info.Width;
+					fullCorrection = maxWidth - getTextStyle().getRightIndent(metrics()) - info.Width;
 				}
 				break;
 			case ZLTextAlignmentType.ALIGN_RIGHT:
 				if(!myRTLMode)
-					x += maxWidth - getTextStyle().getRightIndent() - info.Width;
+					x += maxWidth - getTextStyle().getRightIndent(metrics()) - info.Width;
 				break;
 			case ZLTextAlignmentType.ALIGN_UNDEFINED:
 				break;
