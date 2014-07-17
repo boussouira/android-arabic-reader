@@ -744,7 +744,7 @@
 				<node name="url" value="http://arabicreader.sourceforge.net"/>
 			</node>
 			<node name="email" value="给我们发送邮件">
-				<node name="url" value="mailto:justroftest@gmail.com"/>
+				<node name="url" value="mailto:ma7dev@gmail.com"/>
 			</node>
 			<node name="twitter" value="关注我们的twitter">
 				<node name="url" value="http://twitter.com/arabic_reader"/>

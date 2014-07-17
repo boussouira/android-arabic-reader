@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- English FBReaderJ resources, by Geometer Plus -->
 <resources>
-	<node name="library" value="FBReader library">
+	<node name="library" value="Arabic Reader library">
 		<node name="unknownAuthor" value="Unknown author"/>
 		<node name="booksWithNoTags" value="Books with no tags"/>
 		<node name="demo" value="sample"/>
@@ -35,8 +35,8 @@
 		<node name="fileTreeCard" value="Memory card">
 			<node name="summary" value="Files on memory card, external or built-in"/>
 		</node>
-		<node name="fileTreeLibrary" value="FBReader library">
-			<node name="summary" value="FBReader books directory"/>
+		<node name="fileTreeLibrary" value="Arabic Reader library">
+			<node name="summary" value="Arabic Reader books directory"/>
 		</node>
 		<node name="menu">
 			<node name="localSearch" value="Search"/>
@@ -52,7 +52,7 @@
 		<node name="markAsRead" value="Mark as read"/>
 		<node name="markAsUnread" value="Mark as unread"/>
 	</node>
-	<node name="networkLibrary" value="FBReader network library">
+	<node name="networkLibrary" value="Arabic Reader network library">
 		<node name="byAuthor" value="By author">
 			<node name="summary" value="Books sorted by author"/>
 		</node>
@@ -761,7 +761,7 @@
 				<node name="url" value="http://arabicreader.sourceforge.net"/>
 			</node>
 			<node name="email" value="Send us an e-mail">
-				<node name="url" value="mailto:justroftest@gmail.com"/>
+				<node name="url" value="mailto:ma7dev@gmail.com"/>
 			</node>
 			<node name="twitter" value="Follow us at twitter">
 				<node name="url" value="http://twitter.com/arabic_reader"/>
@@ -861,7 +861,7 @@
 			<node name="register" value="Sign up"/>
 		</node>
 		<node name="CustomCatalogDialog">
-			<node name="title" value="FBReader: add custom catalog"/>
+			<node name="title" value="Arabic Reader: add custom catalog"/>
 			<node name="catalogTitle" value="Title"/>
 			<node name="catalogUrl" value="URL"/>
 			<node name="catalogSummary" value="Summary"/>
@@ -879,12 +879,12 @@
 		</node>
 		<node name="tips">
 			<node name="title" value="Tip of the day"/>
-			<node name="initializationText" value="Would you like to read FBReader daily tips? New tips would be downloaded from FBReader site. Expected network traffic is 1-2 kilobytes per week.&#10;&#10;Enable tips?"/>
+			<node name="initializationText" value="Would you like to read Arabic Reader daily tips? New tips would be downloaded from Arabic Reader site. Expected network traffic is 1-2 kilobytes per week.&#10;&#10;Enable tips?"/>
 			<node name="dontShowAgain" value="Don't show again"/>
 			<node name="more" value="Next tip"/>
 		</node>
 		<node name="screenHint">
-			<node name="message1" value="FBReader works in fullscreen mode by default. Tap center third of the screen to show controls. You can change this behaviour in “Appearance” section of the Settings dialog."/>
+			<node name="message1" value="Arabic Reader works in fullscreen mode by default. Tap center third of the screen to show controls. You can change this behaviour in “Appearance” section of the Settings dialog."/>
 			<node name="message2" value="Well done! Now tap the center third again to hide the controls and this hint. If you want to keep controls on the screen during reading, select “Show action bar” option in “Appearance” section of the Settings dialog."/>
 		</node>
 		<node name="folderList">
@@ -917,7 +917,7 @@
 		<node name="pluginNotFound" value="No plugin for '%s'"/>
 		<node name="unknownPluginType" value="Unknown plugin type: %s"/>
 		<node name="fileNotFound" value="File not found: %s"/>
-		<node name="unsupportedEncryptionMethod" value="File %s is encrypted with method that is not supported by FBReader. Some pages are not readable"/>
+		<node name="unsupportedEncryptionMethod" value="File %s is encrypted with method that is not supported by Arabic Reader. Some pages are not readable"/>
 		<node name="opfFileNotFound" value="OPF is not found in %s"/>
 		<node name="unsupportedFileFormat" value="File format is not supported for '%s'"/>
 		<node name="errorParsingRtf" value="Rtf parsing error in: %s"/>
@@ -947,17 +947,17 @@
 	</node>
 	<node name="crash">
 		<node name="fixBooksDirectory">
-			<node name="title" value="FBReader issue"/>
-			<node name="text" value="FBReader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or select another directory."/>
+			<node name="title" value="Arabic Reader issue"/>
+			<node name="text" value="Arabic Reader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or select another directory."/>
 		</node>
 		<node name="missingNativeLibrary">
-			<node name="title" value="FBReader issue"/>
-			<node name="text" value="FBReader can not load native library. May be it is not properly installed. If the issue persists please try to reinstall FBReader."/>
+			<node name="title" value="Arabic Reader issue"/>
+			<node name="text" value="Arabic Reader can not load native library. May be it is not properly installed. If the issue persists please try to reinstall Arabic Reader."/>
 		</node>
 	</node>
 	<node name="error">
 		<node name="bookReading">
-			<node name="title" value="FBReader issue"/>
+			<node name="title" value="Arabic Reader issue"/>
 		</node>
 	</node>
 	<node name="links">

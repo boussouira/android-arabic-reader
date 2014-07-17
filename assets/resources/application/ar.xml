@@ -877,7 +877,7 @@
 		</node>
 		<node name="tips">
 			<node name="title" value="Tip of the day" toBeTranslated="true"/>
-			<node name="initializationText" value="Would you like to read FBReader daily tips? New tips would be downloaded from FBReader site. Expected network traffic is 1-2 kilobytes per week.  Enable tips?" toBeTranslated="true"/>
+			<node name="initializationText" value="Would you like to read Arabic Reader daily tips? New tips would be downloaded from Arabic Reader site. Expected network traffic is 1-2 kilobytes per week.  Enable tips?" toBeTranslated="true"/>
 			<node name="dontShowAgain" value="Don't show again" toBeTranslated="true"/>
 			<node name="more" value="Next tip" toBeTranslated="true"/>
 		</node>
@@ -915,7 +915,7 @@
 		<node name="pluginNotFound" value="No plugin for '%s'" toBeTranslated="true"/>
 		<node name="unknownPluginType" value="Unknown plugin type: %s" toBeTranslated="true"/>
 		<node name="fileNotFound" value="File not found: %s" toBeTranslated="true"/>
-		<node name="unsupportedEncryptionMethod" value="File %s is encrypted with method that is not supported by FBReader. Some pages are not readable" toBeTranslated="true"/>
+		<node name="unsupportedEncryptionMethod" value="File %s is encrypted with method that is not supported by Arabic Reader. Some pages are not readable" toBeTranslated="true"/>
 		<node name="opfFileNotFound" value="OPF is not found in %s" toBeTranslated="true"/>
 		<node name="unsupportedFileFormat" value="File format is not supported for '%s'" toBeTranslated="true"/>
 		<node name="errorParsingRtf" value="Rtf parsing error in: %s" toBeTranslated="true"/>
@@ -945,17 +945,17 @@
 	</node>
 	<node name="crash">
 		<node name="fixBooksDirectory">
-			<node name="title" value="FBReader issue" toBeTranslated="true"/>
-			<node name="text" value="FBReader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or enter another directory name below." toBeTranslated="true"/>
+			<node name="title" value="Arabic Reader issue" toBeTranslated="true"/>
+			<node name="text" value="Arabic Reader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or enter another directory name below." toBeTranslated="true"/>
 		</node>
 		<node name="missingNativeLibrary">
-			<node name="title" value="FBReader issue" toBeTranslated="true"/>
-			<node name="text" value="FBReader can not load native library. May be it is not properly installed. If the issue persists please try to reinstall FBReader." toBeTranslated="true"/>
+			<node name="title" value="Arabic Reader issue" toBeTranslated="true"/>
+			<node name="text" value="Arabic Reader can not load native library. May be it is not properly installed. If the issue persists please try to reinstall Arabic Reader." toBeTranslated="true"/>
 		</node>
 	</node>
 	<node name="error">
 		<node name="bookReading">
-			<node name="title" value="FBReader issue" toBeTranslated="true"/>
+			<node name="title" value="Arabic Reader issue" toBeTranslated="true"/>
 		</node>
 	</node>
 	<node name="links">
