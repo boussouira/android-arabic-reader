@@ -890,7 +890,10 @@ public abstract class ZLTextView extends ZLTextViewBase {
 				left = selectionStartArea.XStart;
 			}
 			if (selectionEndArea.compareTo(toArea) > 0) {
-				right = x + page.getTextWidth() - 1;
+				if(myRTLMode)
+					right = x - page.getTextWidth() + 1;
+				else
+					right = x + page.getTextWidth() - 1;
 				bottom += info.VSpaceAfter;
 			} else {
 				right = selectionEndArea.XEnd;
