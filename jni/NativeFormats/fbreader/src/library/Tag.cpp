@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2009-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -80,7 +80,7 @@ shared_ptr<Tag> Tag::cloneSubTag(shared_ptr<Tag> tag, shared_ptr<Tag> oldparent,
 	}
 
 	if (levels.empty()) {
-		return 0;		
+		return 0;
 	}
 
 	shared_ptr<Tag> res = newparent;

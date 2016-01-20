@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,6 @@
 #include "BookModel.h"
 
 #include "../library/Book.h"
-#include "../library/Library.h"
 
 BookReader::BookReader(BookModel &model) : myModel(model) {
 	myCurrentTextModel = 0;
@@ -53,7 +52,7 @@ void BookReader::setFootnoteTextModel(const std::string &id) {
 		myCurrentTextModel = (*it).second;
 	} else {
 		if (myFootnotesAllocator.isNull()) {
-			myFootnotesAllocator = new ZLCachedMemoryAllocator(8192, Library::Instance().cacheDirectory(), "footnotes");
+			myFootnotesAllocator = new ZLCachedMemoryAllocator(8192, myModel.CacheDir, "footnotes");
 		}
 		myCurrentTextModel = new ZLTextPlainModel(id, myModel.myBookTextModel->language(), myFootnotesAllocator, myModel.myFontManager);
 		myModel.myFootnotes.insert(std::make_pair(id, myCurrentTextModel));
@@ -123,17 +122,17 @@ void BookReader::addControl(FBTextKind kind, bool start) {
 	}
 }
 
-void BookReader::addStyleEntry(const ZLTextStyleEntry &entry, const std::vector<std::string> &fontFamilies) {
+void BookReader::addStyleEntry(const ZLTextStyleEntry &entry, const std::vector<std::string> &fontFamilies, unsigned char depth) {
 	if (paragraphIsOpen()) {
 		flushTextBufferToParagraph();
-		myCurrentTextModel->addStyleEntry(entry, fontFamilies);
+		myCurrentTextModel->addStyleEntry(entry, fontFamilies, depth);
 	}
 }
 
-void BookReader::addStyleEntry(const ZLTextStyleEntry &entry) {
+void BookReader::addStyleEntry(const ZLTextStyleEntry &entry, unsigned char depth) {
 	if (paragraphIsOpen()) {
 		flushTextBufferToParagraph();
-		myCurrentTextModel->addStyleEntry(entry);
+		myCurrentTextModel->addStyleEntry(entry, depth);
 	}
 }
 
@@ -156,9 +155,12 @@ void BookReader::addHyperlinkControl(FBTextKind kind, const std::string &label) 
 	std::string type;
 	switch (myHyperlinkKind) {
 		case INTERNAL_HYPERLINK:
-		case FOOTNOTE:
 			myHyperlinkType = HYPERLINK_INTERNAL;
 			type = "internal";
+			break;
+		case FOOTNOTE:
+			myHyperlinkType = HYPERLINK_FOOTNOTE;
+			type = "footnote";
 			break;
 		case EXTERNAL_HYPERLINK:
 			myHyperlinkType = HYPERLINK_EXTERNAL;
@@ -232,7 +234,7 @@ void BookReader::addImage(const std::string &id, shared_ptr<const ZLImage> image
 
 	jobject javaImage = AndroidUtil::createJavaImage(env, (const ZLFileImage&)*image);
 	JString javaId(env, id);
-	AndroidUtil::Method_NativeBookModel_addImage->call(myModel.myJavaModel, javaId.j(), javaImage);
+	AndroidUtil::Method_BookModel_addImage->call(myModel.myJavaModel, javaId.j(), javaImage);
 
 	env->DeleteLocalRef(javaImage);
 }
@@ -244,6 +246,12 @@ void BookReader::addVideoEntry(const ZLVideoEntry &entry) {
 		beginParagraph();
 		myCurrentTextModel->addVideoEntry(entry);
 		endParagraph();
+	}
+}
+
+void BookReader::addExtensionEntry(const std::string &action, const std::map<std::string,std::string> &data) {
+	if (myCurrentTextModel != 0) {
+		myCurrentTextModel->addExtensionEntry(action, data);
 	}
 }
 
@@ -260,6 +268,10 @@ void BookReader::insertEndParagraph(ZLTextParagraph::Kind kind) {
 
 void BookReader::insertEndOfSectionParagraph() {
 	insertEndParagraph(ZLTextParagraph::END_OF_SECTION_PARAGRAPH);
+}
+
+void BookReader::insertPseudoEndOfSectionParagraph() {
+	insertEndParagraph(ZLTextParagraph::PSEUDO_END_OF_SECTION_PARAGRAPH);
 }
 
 void BookReader::insertEndOfTextParagraph() {

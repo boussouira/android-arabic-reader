@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,17 +40,17 @@ void HtmlDescriptionReader::endDocumentHandler() {
 }
 
 bool HtmlDescriptionReader::tagHandler(const HtmlTag &tag) {
-	if (tag.Name == "TITLE") {
+	if (tag.Name == "title") {
 		if (myReadTitle && !tag.Start) {
 			myBook.setTitle(myBuffer);
 			myBuffer.erase();
 		}
 		myReadTitle = tag.Start && myBook.title().empty();
 		return true;
-	} else if (tag.Start && tag.Name == "META") {
+	} else if (tag.Start && tag.Name == "meta") {
 		std::vector<HtmlAttribute>::const_iterator it = tag.Attributes.begin();
 		for (; it != tag.Attributes.end(); ++it) {
-			if (it->Name == "CONTENT") {
+			if (it->Name == "content") {
 				break;
 			}
 		}
@@ -71,7 +71,7 @@ bool HtmlDescriptionReader::tagHandler(const HtmlTag &tag) {
 			}
 		}
 	}
-	return tag.Name != "BODY";
+	return tag.Name != "body";
 }
 
 bool HtmlDescriptionReader::characterDataHandler(const char *text, std::size_t len, bool) {

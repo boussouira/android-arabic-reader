@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,7 +68,7 @@ public:
 	};
 
 public:
-	BookModel(const shared_ptr<Book> book, jobject javaModel);
+	BookModel(const shared_ptr<Book> book, jobject javaModel, const std::string &cacheDir);
 	~BookModel();
 
 	void setHyperlinkMatcher(shared_ptr<HyperlinkMatcher> matcher);
@@ -85,6 +85,9 @@ public:
 	const FontManager &fontManager() const;
 
 	bool flush();
+
+public:
+	const std::string CacheDir;
 
 private:
 	const shared_ptr<Book> myBook;

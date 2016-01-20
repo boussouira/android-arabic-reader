@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,6 +53,17 @@ public:
 		const std::string myName;
 	};
 
+	class IgnoreCaseNamePredicate : public NamePredicate {
+
+	public:
+		IgnoreCaseNamePredicate(const std::string &lowerCaseName);
+		bool accepts(const ZLXMLReader &reader, const char *name) const;
+		bool accepts(const ZLXMLReader &reader, const std::string &name) const;
+
+	private:
+		const std::string myLowerCaseName;
+	};
+
 	class FullNamePredicate : public NamePredicate {
 
 	public:
@@ -93,6 +104,7 @@ public:
 
 	const char *attributeValue(const char **xmlattributes, const char *name) const;
 	const char *attributeValue(const char **xmlattributes, const NamePredicate &predicate) const;
+	std::map<std::string,std::string> attributeMap(const char **xmlattributes) const;
 
 private:
 	void initialize(const char *encoding = 0);

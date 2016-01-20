@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,9 +27,9 @@ class FB2Plugin : public FormatPlugin {
 public:
 	FB2Plugin();
 	~FB2Plugin();
-	bool providesMetaInfo() const;
+	bool providesMetainfo() const;
 	const std::string supportedFileType() const;
-	bool readMetaInfo(Book &book) const;
+	bool readMetainfo(Book &book) const;
 	bool readUids(Book &book) const;
 	bool readLanguageAndEncoding(Book &book) const;
 	bool readModel(BookModel &model) const;
@@ -38,6 +38,6 @@ public:
 
 inline FB2Plugin::FB2Plugin() {}
 inline FB2Plugin::~FB2Plugin() {}
-inline bool FB2Plugin::providesMetaInfo() const { return true; }
+inline bool FB2Plugin::providesMetainfo() const { return true; }
 
 #endif /* __FB2PLUGIN_H__ */

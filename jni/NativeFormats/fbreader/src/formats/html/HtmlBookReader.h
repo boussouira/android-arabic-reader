@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 #define __HTMLBOOKREADER_H__
 
 #include <stack>
+#include <vector>
 
 #include <shared_ptr.h>
 
@@ -33,15 +34,25 @@
 class BookModel;
 class PlainTextFormat;
 class StyleSheetParser;
+class ZLTextStyleEntry;
 
 class HtmlTagAction;
 
 class HtmlBookReader : public HtmlReader {
 
 public:
+	struct TagData {
+		std::vector<shared_ptr<ZLTextStyleEntry> > StyleEntries;
+
+		void addEntry(shared_ptr<ZLTextStyleEntry> entry);
+	};
+
+public:
 	HtmlBookReader(const std::string &baseDirectoryPath, BookModel &model, const PlainTextFormat &format, const std::string &encoding);
 	~HtmlBookReader();
 	void setFileName(const std::string fileName);
+	shared_ptr<StyleSheetParser> createCSSParser();
+	size_t listStackDepth() const;
 
 protected:
 	virtual shared_ptr<HtmlTagAction> createAction(const std::string &tag);
@@ -73,6 +84,7 @@ private:
 	bool myProcessPreTag;
 	bool myIgnoreTitles;
 	std::stack<int> myListNumStack;
+	std::vector<shared_ptr<TagData> > myTagDataStack;
 
 	StyleSheetTable myStyleSheetTable;
 	shared_ptr<StyleSheetParser> myStyleSheetParser;

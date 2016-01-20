@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,4 +69,25 @@ std::vector<std::string> StyleSheetUtil::splitCommaSeparatedList(const std::stri
 	}
 
 	return split;
+}
+
+ZLTextStyleEntry::DisplayCode StyleSheetUtil::displayCode(const std::string &data) {
+	if (data.empty()) {
+		return ZLTextStyleEntry::DC_NOT_DEFINED;
+	}
+
+	static const char* values[] = {
+		"inline", "block", "flex", "inline-block", "inline-flex",
+		"inline-table", "list-item", "run-in", "table", "table-caption",
+		"table-column-group", "table-header-group", "table-footer-group",
+		"table-row-group", "table-cell", "table-column", "table-row",
+		"none", "initial", "inherit"
+	};
+	int index = sizeof(values) / sizeof(const char*) - 1;
+	for (; index >= 0; --index) {
+		if (data == values[index]) {
+			return (ZLTextStyleEntry::DisplayCode)index;
+		}
+	}
+	return ZLTextStyleEntry::DC_NOT_DEFINED;
 }

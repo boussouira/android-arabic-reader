@@ -69,6 +69,7 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/zlibrary/core/src/library/ZLibrary.cpp \
 	NativeFormats/zlibrary/core/src/logger/ZLLogger.cpp \
 	NativeFormats/zlibrary/core/src/util/ZLFileUtil.cpp \
+	NativeFormats/zlibrary/core/src/util/ZLLanguageUtil.cpp \
 	NativeFormats/zlibrary/core/src/util/ZLStringUtil.cpp \
 	NativeFormats/zlibrary/core/src/util/ZLUnicodeUtil.cpp \
 	NativeFormats/zlibrary/core/src/xml/ZLAsynchronousInputStream.cpp \
@@ -104,6 +105,7 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/fbreader/src/formats/fb2/FB2TagManager.cpp \
 	NativeFormats/fbreader/src/formats/fb2/FB2UidReader.cpp \
 	NativeFormats/fbreader/src/formats/css/CSSInputStream.cpp \
+	NativeFormats/fbreader/src/formats/css/CSSSelector.cpp \
 	NativeFormats/fbreader/src/formats/css/StringInputStream.cpp \
 	NativeFormats/fbreader/src/formats/css/StyleSheetParser.cpp \
 	NativeFormats/fbreader/src/formats/css/StyleSheetTable.cpp \
@@ -125,6 +127,19 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/fbreader/src/formats/oeb/OEBUidReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OPFReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/XHTMLImageFinder.cpp \
+	NativeFormats/fbreader/src/formats/pdb/BitReader.cpp \
+	NativeFormats/fbreader/src/formats/pdb/DocDecompressor.cpp \
+	NativeFormats/fbreader/src/formats/pdb/HtmlMetainfoReader.cpp \
+	NativeFormats/fbreader/src/formats/pdb/HuffDecompressor.cpp \
+	NativeFormats/fbreader/src/formats/pdb/MobipocketHtmlBookReader.cpp \
+	NativeFormats/fbreader/src/formats/pdb/MobipocketPlugin.cpp \
+	NativeFormats/fbreader/src/formats/pdb/PalmDocLikePlugin.cpp \
+	NativeFormats/fbreader/src/formats/pdb/PalmDocLikeStream.cpp \
+	NativeFormats/fbreader/src/formats/pdb/PalmDocStream.cpp \
+	NativeFormats/fbreader/src/formats/pdb/PdbPlugin.cpp \
+	NativeFormats/fbreader/src/formats/pdb/PdbReader.cpp \
+	NativeFormats/fbreader/src/formats/pdb/PdbStream.cpp \
+	NativeFormats/fbreader/src/formats/pdb/SimplePdbPlugin.cpp \
 	NativeFormats/fbreader/src/formats/rtf/RtfBookReader.cpp \
 	NativeFormats/fbreader/src/formats/rtf/RtfDescriptionReader.cpp \
 	NativeFormats/fbreader/src/formats/rtf/RtfPlugin.cpp \
@@ -139,6 +154,7 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/fbreader/src/formats/util/MiscUtil.cpp \
 	NativeFormats/fbreader/src/formats/util/XMLTextStream.cpp \
 	NativeFormats/fbreader/src/formats/xhtml/XHTMLReader.cpp \
+	NativeFormats/fbreader/src/formats/xhtml/XHTMLTagInfo.cpp \
 	NativeFormats/fbreader/src/formats/doc/DocBookReader.cpp \
 	NativeFormats/fbreader/src/formats/doc/DocMetaInfoReader.cpp \
 	NativeFormats/fbreader/src/formats/doc/DocPlugin.cpp \
@@ -151,10 +167,10 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/fbreader/src/formats/doc/OleUtil.cpp \
 	NativeFormats/fbreader/src/formats/doc/DocInlineImageReader.cpp \
 	NativeFormats/fbreader/src/formats/doc/DocFloatImageReader.cpp \
+	NativeFormats/fbreader/src/formats/doc/DocAnsiConverter.cpp \
 	NativeFormats/fbreader/src/library/Author.cpp \
 	NativeFormats/fbreader/src/library/Book.cpp \
 	NativeFormats/fbreader/src/library/Comparators.cpp \
-	NativeFormats/fbreader/src/library/Library.cpp \
 	NativeFormats/fbreader/src/library/Tag.cpp \
 	NativeFormats/fbreader/src/library/UID.cpp
 

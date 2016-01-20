@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Belarusian FBReaderJ resources by Usievaїad їorny -->
+<!-- Belarusian FBReaderJ resources by Usievaład Čorny -->
 <resources>
 	<node name="library" value="Бібліятэка FBReader">
 		<node name="unknownAuthor" value="Невядомы аўтар"/>
@@ -21,38 +21,67 @@
 			<node name="summary" value="Апошнія адчыненыя кнігі"/>
 		</node>
 		<node name="favorites" value="Упадабанае">
-			<node name="summary" value="Мае вылучаныя кнігі"/>
+			<node name="summary" value="Мае ўпадабаныя кнігі"/>
+		</node>
+		<node name="chooseView" value="Выбраць выгляд"/>
+		<node name="wideCardsView" value="Шырокія карткі"/>
+		<node name="smallCardsView" value="Невялікія карткі"/>
+		<node name="tinyCardsView" value="Малыя карткі"/>
+		<node name="coversView" value="Вокладкі"/>
+		<node name="oldView" value="Клясычны"/>
+		<node name="bookshelfView" value="Кніжная паліца">
+			<node name="summary" value="Пераключыць на выгляд мініятур"/>
 		</node>
 		<node name="found" value="Знойдзена">
 			<node name="summary" value="Вынікі пошуку для: %s"/>
+		</node>
+		<node name="sync" value="Сынхранізацыя">
+			<node name="summary" value="Кнігі па стане сынхранізацыі"/>
+			<node name="sync-success" value="Сынхранізавана">
+				<node name="summary" value="Кнігі пасьпяхова заладаваныя на сэрвэр"/>
+			</node>
+			<node name="sync-failure" value="Сынхранізацыя няўдалая">
+				<node name="summary" value="Кнігі не заладаваныя на сэрвэр праз памылкі"/>
+			</node>
+			<node name="sync-deleted" value="Выдалена з сэрвэру">
+				<node name="summary" value="Кнігі больш не даступныя з сэрвэру"/>
+			</node>
+			<node name="sync-tosync" value="Не сынхранізавана">
+				<node name="summary" value="Кнігі для заладаваньня на сэрвэр"/>
+			</node>
 		</node>
 		<node name="fileTree" value="Файлавае дрэва">
 			<node name="summary" value="Агледзець файлавую сыстэму"/>
 		</node>
 		<node name="fileTreeRoot" value="Прылада">
-			<node name="summary" value="Уся файлавая сыстэма прылады"/>
+			<node name="summary" value="Уся файлавая сыстэма"/>
 		</node>
 		<node name="fileTreeCard" value="Карта памяці">
-			<node name="summary" value="Карта памяці ўстаўленая ў прыладу"/>
+			<node name="withIndex" value="Карта памяці #%s"/>
+			<node name="summary" value="Файлы на карце памяці, зьнешняй ці ўбудаванай"/>
 		</node>
 		<node name="fileTreeLibrary" value="Бібліятэка FBReader">
-			<node name="summary" value="Каталёґ кніг FBReader"/>
+			<node name="summary" value="Тэчка кніг FBReader"/>
 		</node>
-		<node name="menu">
-			<node name="localSearch" value="Пошук"/>
-			<node name="rescan" value="Rescan" toBeTranslated="true"/>
-		</node>
+		<node name="localSearch" value="Пошук"/>
+		<node name="rescan" value="Пераглядзець"/>
 		<node name="openBook" value="Адчыніць кнігу"/>
 		<node name="showBookInfo" value="Інфармацыя кнігі"/>
 		<node name="shareBook" value="Абагуліць кнігу"/>
 		<node name="deleteBook" value="Выдаліць кнігу"/>
 		<node name="addToFavorites" value="Дадаць да ўпадабанага"/>
 		<node name="removeFromFavorites" value="Прыбраць з упадабанага"/>
-		<node name="removeFromRecents" value="Remove from recent list" toBeTranslated="true"/>
-		<node name="markAsRead" value="Mark as read" toBeTranslated="true"/>
-		<node name="markAsUnread" value="Mark as unread" toBeTranslated="true"/>
+		<node name="removeFromRecents" value="Прыбраць са сьпісу апошніх"/>
+		<node name="markAsRead" value="Пазначыць як прачытаную"/>
+		<node name="markAsUnread" value="Пазначыць як непрачытаную"/>
+		<node name="deleteAll" value="Выдаліць усе"/>
+		<node name="uploadAgain" value="Заладаваць зноў"/>
+		<node name="tryAgain" value="Паспрабаваць зноў"/>
 	</node>
 	<node name="networkLibrary" value="Сеткавая бібліятэка FBReader">
+		<node name="sync" value="Кніжная сетка FBReader®">
+			<node name="summary" value="Мой асабісты каталёг"/>
+		</node>
 		<node name="byAuthor" value="Па аўтары">
 			<node name="summary" value="Кнігі адсартаваныя па аўтары"/>
 		</node>
@@ -67,22 +96,22 @@
 		</node>
 		<node name="search" value="Пошук">
 			<node name="summary" value="Шукаць кнігі на %s"/>
-			<node name="summaryAllCatalogs" value="Шукаць кнігі ва ўсіх каталёґах"/>
+			<node name="summaryAllCatalogs" value="Шукаць кнігі ва ўсіх каталёгах"/>
 			<node name="summaryInProgress" value="Выконваецца пошук"/>
 		</node>
 		<node name="found" value="Знойдзена">
 			<node name="summary" value="Вынікі пошуку для: %s"/>
 		</node>
-		<node name="recent" value="Recent catalogs" toBeTranslated="true">
-			<node name="summary" value="Catalogs you visited recently" toBeTranslated="true"/>
+		<node name="recent" value="Апошнія каталёгі">
+			<node name="summary" value="Апошнія наведаныя каталёгі"/>
 		</node>
-		<node name="openCatalog" value="Адчыніць каталёґ"/>
+		<node name="openCatalog" value="Адчыніць каталёг"/>
 		<node name="networkSearch" value="Пошук"/>
 		<node name="showResults" value="Паказаць вынікі"/>
 		<node name="showBooks" value="Паказаць кнігі"/>
 		<node name="download" value="Зладаваць"/>
-		<node name="read" value="Чытаць лякальную копію"/>
-		<node name="delete" value="Выдаліць лякальную копію"/>
+		<node name="read" value="Чытаць зладаваную копію"/>
+		<node name="delete" value="Выдаліць зладаваную копію"/>
 		<node name="readDemo" value="Чытаць узор"/>
 		<node name="deleteDemo" value="Выдаліць узор"/>
 		<node name="downloadDemo" value="Зладаваць узор"/>
@@ -97,64 +126,62 @@
 		<node name="stopSearching" value="Спыніць пошук"/>
 		<node name="signIn" value="Увайсьці"/>
 		<node name="signOut" value="Выйсьці (%s)"/>
+		<node name="signUp" value="Зарэгістравацца"/>
+		<node name="quickBuy" value="Хуткая купля"/>
 		<node name="topup" value="Папоўніць рахунак (зараз: %s)"/>
 		<node name="topupTitle" value="Папоўніць рахунак"/>
-		<node name="topupViaBrowser" value="Адчыніць бачыну ў аглядальніку"/>
+		<node name="topupViaBrowser" value="Адчыніць старонку ў аглядальніку"/>
 		<node name="authorisationMenuTitle" value="Абраць дзеяньне"/>
 		<node name="topupSummary" value="Зараз: %s"/>
 		<node name="basket" value="Кошык"/>
 		<node name="basketSummaryEmpty" value="Няма кніг"/>
 		<node name="basketSummaryCountOnly" value="%0 кніг">
-			<node condition="modrange 11 19 100" value="%0 кніг"/>
-			<node condition="mod 1 10" value="%0 кніга"/>
-			<node condition="modrange 2 4 10" value="%0 кнігі"/>
+			<node condition="value 1" value="%0 кніга"/>
 		</node>
 		<node name="basketSummary" value="%0 кніг (%1)">
-			<node condition="modrange 11 19 100" value="%0 кніг (%1)"/>
-			<node condition="mod 1 10" value="%0 кніга (%1)"/>
-			<node condition="modrange 2 4 10" value="%0 кнігі (%1)"/>
+			<node condition="value 1" value="%0 кніга (%1)"/>
 		</node>
 		<node name="alreadyDownloading" value="Кніга зладоўваецца"/>
 		<node name="alreadyDownloadingDemo" value="Узор зладоўваецца"/>
 		<node name="stoppingCatalogLoading" value="Спыненьне ладаваньня"/>
 		<node name="stoppingNetworkSearch" value="Спыненьне пошуку"/>
-		<node name="editCustomCatalog" value="Рэдаґаваць каталёґ"/>
-		<node name="removeCustomCatalog" value="Выдаліць каталёґ"/>
-		<node name="addCustomCatalog" value="Дадаць каталёґ"/>
-		<node name="addCustomCatalogSummary" value="Дадаць уручную дапасаваны каталёґ OPDS (адкрытай сыстэмы дастаўленьня публікацыяў)"/>
-		<node name="disableCatalog" value="Disable catalog" toBeTranslated="true"/>
+		<node name="editCustomCatalog" value="Рэдагаваць каталёг"/>
+		<node name="removeCustomCatalog" value="Выдаліць каталёг"/>
+		<node name="addCustomCatalog" value="Дадаць каталёг"/>
+		<node name="addCustomCatalogSummary" value="Дадаць уручную дапасаваны каталёг OPDS (адкрытай сыстэмы дастаўленьня публікацыяў)"/>
+		<node name="disableCatalog" value="Выключыць каталёг"/>
 		<node name="confirmQuestions">
-			<node name="read" value="Чытаць лякальную копію?"/>
-			<node name="download" value="Зладаваць гэтую кнігу?"/>
+			<node name="read" value="Чытаць зладаваную копію?"/>
+			<node name="download" value="Зладаваць кнігу?"/>
 			<node name="readDemo" value="Чытаць узор?"/>
 			<node name="downloadDemo" value="Зладаваць узор?"/>
 			<node name="buy" value="Купіць кнігу? (%s)"/>
-			<node name="openInBrowser" value="Адчыніць гэты каталёґ у аглядальніку?"/>
+			<node name="openInBrowser" value="Адчыніць спасылку ў аглядальніку?"/>
 		</node>
-		<node name="downloadingCatalogs" value="Зладаваньне каталёґаў"/>
+		<node name="downloadingCatalogs" value="Зладаваньне каталёгаў"/>
 		<!-- used as notification title -->
 		<node name="searchingNetwork" value="Пошук кніг у сетцы"/>
 		<!-- used as notification title -->
 		<node name="addCatalog">
-			<node name="title" value="Дадаць каталёґ"/>
+			<node name="title" value="Дадаць каталёг"/>
 			<node name="editUrl" value="Увесьці адрас уручную"/>
 		</node>
-		<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true">
-			<node name="summary" value="Configure your catalogs list" toBeTranslated="true"/>
-			<node name="enabled" value="Enabled" toBeTranslated="true"/>
-			<node name="disabled" value="Disabled" toBeTranslated="true"/>
+		<node name="manageCatalogs" value="Кіраваць каталёгамі">
+			<node name="summary" value="Наладзьце Вашыя каталёгі"/>
+			<node name="enabled" value="Уключана"/>
+			<node name="disabled" value="Выключана"/>
 		</node>
 		<node name="menu">
-			<node name="openRoot" value="Root catalog" toBeTranslated="true"/>
+			<node name="openRoot" value="Каранёвы каталёг"/>
 			<node name="networkSearch" value="Пошук"/>
 			<node name="reload" value="Перазаладаваць"/>
 			<node name="signIn" value="Увайсьці"/>
-			<node name="signUp" value="Зарэґістравацца"/>
+			<node name="signUp" value="Зарэгістравацца"/>
 			<node name="signOut" value="Выйсьці (%s)"/>
 			<node name="topup" value="Папоўніць рахунак"/>
-			<node name="addCustomCatalog" value="Дадаць каталёґ"/>
-			<node name="refreshCatalogsList" value="Абнавіць каталёґі"/>
-			<node name="manageCatalogs" value="Manage catalogs" toBeTranslated="true"/>
+			<node name="addCustomCatalog" value="Дадаць каталёг"/>
+			<node name="refreshCatalogsList" value="Абнавіць каталёгі"/>
+			<node name="manageCatalogs" value="Кіраваць каталёгамі"/>
 			<node name="clearBasket" value="Ачысьціць кошык"/>
 			<node name="buyAllBooks" value="Купіць усе кнігі"/>
 		</node>
@@ -162,19 +189,19 @@
 	<node name="buyBook">
 		<node name="title" value="Набыць кнігу"/>
 		<node name="titleSeveralBooks" value="Набыць кнігі"/>
-		<node name="confirm" value="Вы сапраўды жадаеце купіць  «%s»?"/>
+		<node name="confirm" value="Вы сапраўды жадаеце купіць&#10;«%s»?"/>
 		<node name="confirmSeveralBooks" value="Вы сапраўды жадаеце купіць %s кніг?"/>
-		<node name="alreadyBought" value="Кніга ўжо купленая"/>
+		<node name="alreadyBought" value="Кнігі ўжо набытыя"/>
 		<node name="notAuthorised" value="Патрабуецца ўпаўнаважаньне"/>
-		<node name="noAccountInformation" value="Немагчыма заладаваць стану рахунку"/>
-		<node name="unsufficientFunds" value="Гэты набытак каштуе %0, а ў Вас толькі %1"/>
+		<node name="noAccountInformation" value="Немагчыма заладаваць зьвесткі конту"/>
+		<node name="unsufficientFunds" value="Гэты набытак каштуе %0, Ваш балянс — %1"/>
 		<node name="zeroFunds" value="Гэты набытак каштуе %0"/>
 	</node>
 	<node name="bookInfo">
 		<node name="bookInfo" value="Інфармацыя кнігі"/>
 		<node name="fileInfo" value="Інфармацыя файла"/>
 		<node name="description" value="Апісаньне"/>
-		<node name="noDescription" value="Няма даступнага апісаньня."/>
+		<node name="noDescription" value="Няма даступнага апісаньня"/>
 		<node name="annotation" value="Анатацыя"/>
 		<node name="title" value="Назва:"/>
 		<node name="authors" value="Аўтары:">
@@ -191,26 +218,24 @@
 		<node name="size" value="Памер:"/>
 		<node name="time" value="Апошняе зьмяненьне:"/>
 		<node name="sizeInBytes" value="%s байтаў">
-			<node condition="modrange 11 19 100" value="%s байтаў"/>
-			<node condition="mod 1 10" value="%s байт"/>
-			<node condition="modrange 2 4 10" value="%s байты"/>
+			<node condition="value 1" value="%s байт"/>
 		</node>
 		<node name="sizeInKiloBytes" value="%s кБ"/>
-		<node name="catalog" value="Каталёґ:"/>
+		<node name="catalog" value="Каталёг:"/>
 		<node name="extraLinks" value="Зьвязаныя спасылкі"/>
 		<node name="menu">
-			<node name="edit" value="Рэдаґаваць"/>
+			<node name="edit" value="Рэдагаваць"/>
 		</node>
 	</node>
 	<node name="bookDownloader">
-		<node name="tickerSuccess" value="Кніга зладаваная"/>
-		<node name="tickerError" value="Памылка зладаваньня кнігі"/>
-		<node name="contentSuccess" value="Зладаваньне скончанае"/>
-		<node name="contentError" value="Зладаваньне няўдалае"/>
-		<node name="downloadingStarted" value="Зладаваньне кнігі пачатае"/>
+		<node name="downloadCompleteTicker" value="Кніга зладаваная"/>
+		<node name="downloadFailedTicker" value="Памылка зладаваньня кнігі"/>
+		<node name="downloadComplete" value="Зладаваньне скончанае"/>
+		<node name="downloadFailed" value="Зладаваньне няўдалае"/>
+		<node name="downloadStarted" value="Зладаваньне кнігі пачатае"/>
 		<node name="alreadyDownloading" value="Кніга ўжо зладоўваецца"/>
-		<node name="cannotCreateDirectory" value="Немагчыма стварыць каталёґ %s"/>
-		<node name="cannotCreateFile" value="Немагчыма стварыць файл %s"/>
+		<node name="cannotCreateDirectory" value="Немагчыма стварыць тэчку «%s»"/>
+		<node name="cannotCreateFile" value="Немагчыма стварыць файл «%s»"/>
 	</node>
 	<node name="tocView">
 		<node name="expandTree" value="Разгарнуць дрэва"/>
@@ -220,14 +245,23 @@
 	<node name="bookmarksView">
 		<node name="thisBook" value="Гэтая кніга"/>
 		<node name="allBooks" value="Усе кнігі"/>
-		<node name="found" value="Знойдзена"/>
 		<node name="new" value="Новая закладка"/>
-		<node name="open" value="Адчыніць"/>
-		<node name="edit" value="Рэдаґаваць закладку"/>
-		<node name="delete" value="Выдаліць закладку"/>
-		<node name="menu">
-			<node name="search" value="Пошук"/>
-		</node>
+		<node name="openBook" value="Адчыніць"/>
+		<node name="editBookmark" value="Рэдагаваць закладку"/>
+		<node name="deleteBookmark" value="Выдаліць закладку"/>
+		<node name="search" value="Пошук"/>
+	</node>
+	<node name="editBookmark">
+		<node name="text" value="Тэкст"/>
+		<node name="style" value="Стыль"/>
+		<node name="delete" value="Выдаліць"/>
+		<node name="deleteBookmark" value="Выдаліць закладку"/>
+		<node name="saveText" value="Захаваць тэкст"/>
+		<node name="editStyle" value="Рэдагаваць стыль…"/>
+	</node>
+	<node name="toast">
+		<node name="more" value="Больш"/>
+		<node name="offline" value="Па-за сеткай"/>
 	</node>
 	<node name="cancelMenu">
 		<node name="library" value="Адчыніць бібліятэку"/>
@@ -238,44 +272,41 @@
 		<node name="forward" value="Наперад"/>
 		<node name="close" value="Зачыніць FBReader"/>
 	</node>
-	<node name="style" value="Style %s" toBeTranslated="true"/>
-	<node name="highlightingStyleMenu">
-		<node name="editStyle" value="Edit style…" toBeTranslated="true"/>
-		<node name="deleteBookmark" value="Выдаліць закладку"/>
-	</node>
-	<node name="editStyle">
-		<node name="name" value="Style name" toBeTranslated="true"/>
-		<node name="invisible" value="Invisible" toBeTranslated="true">
-			<node name="summaryOn" value="Do not highlight bookmarks" toBeTranslated="true"/>
-			<node name="summaryOff" value="Highlight bookmarks" toBeTranslated="true"/>
+	<node name="style" value="Стыль «%s»"/>
+	<node name="editStyle" value="Рэдагаваць стыль">
+		<node name="name" value="Назва стылю"/>
+		<node name="invisible" value="Нябачны">
+			<node name="summaryOn" value="Не вылучаць закладкі"/>
+			<node name="summaryOff" value="Вылучаць закладкі"/>
 		</node>
-		<node name="bgColor" value="Background color" toBeTranslated="true"/>
+		<node name="bgColor" value="Колер фону"/>
 	</node>
 	<node name="selection" value="Вылучэньне">
-		<node name="copyToClipboard" value="Скапіяваць у кішэню"/>
-		<node name="openInDictionary" value="Адчыніць у слоўніку"/>
 		<node name="quoteFrom" value="Цытата з %s"/>
-		<node name="textInBuffer" value="Скапіявана ў кішэню: %s"/>
-		<node name="bookmarkCreated" value="Закладка створаная: %s"/>
-		<node name="clearSelection" value="Ачысьціць"/>
+		<node name="textInBuffer" value="Скапіявана ў кішэню:&#10;%s"/>
 	</node>
 	<node name="sharing">
-		<node name="sharedFrom" value="Абагулена праз &lt;a href=&quot;http://arabicreader.sourceforge.net&quot;&gt;FBReader&lt;/a&gt;"/>
+		<node name="sharedFrom" value="Абагулена праз &lt;a href=&quot;https://fbreader.org/&quot;&gt;FBReader&lt;/a&gt;"/>
 	</node>
 	<node name="menu">
+		<node name="installPremium" value="Upgrade to Premium" toBeTranslated="true"/>
+		<node name="openPremium" value="Open FBReader Premium" toBeTranslated="true"/>
+		<node name="premium" value="FBReader Premium dialog" toBeTranslated="true"/>
+		<node name="whatsnew" value="What's new" toBeTranslated="true"/>
+		<node name="openStartScreen" value="Пачатковы экран"/>
 		<node name="preferences" value="Налады"/>
 		<node name="bookInfo" value="Інфармацыя кнігі"/>
 		<node name="library" value="Бібліятэка"/>
 		<node name="toc" value="Зьмест"/>
 		<node name="day" value="Дзень"/>
 		<node name="night" value="Ноч"/>
-		<node name="yotaSwitchToBackScreen" value="Switch to back screen" toBeTranslated="true"/>
-		<node name="yotaSwitchToFrontScreen" value="Switch to front screen" toBeTranslated="true"/>
+		<node name="dayNight" value="Дзень/ноч"/>
+		<node name="yotaSwitchToBackScreen" value="Пераключыцца на задні экран"/>
+		<node name="yotaSwitchToFrontScreen" value="Пераключыцца на пярэдні экран"/>
 		<node name="networkLibrary" value="Сеткавая бібліятэка"/>
 		<node name="navigate" value="Перайсьці">
 			<node name="toc" value="Зьмест"/>
 			<node name="gotoHome" value="Перайсьці ў пачатак дакумэнта"/>
-			<node name="gotoPageNumber" value="Перайсьці да бачыны…"/>
 			<node name="gotoSectionStart" value="Перайсьці ў пачатак разьдзелу тэксту"/>
 			<node name="gotoSectionEnd" value="Перайсьці ў канец разьдзелу тэксту"/>
 			<node name="nextTOCSection" value="Да наступнага элемэнта зьместу"/>
@@ -288,17 +319,19 @@
 		<node name="rotate" value="Павярнуць экран"/>
 		<node name="screenOrientation" value="Арыентацыя экрану"/>
 		<node name="screenOrientationSystem" value="Сыстэмная"/>
-		<node name="screenOrientationSensor" value="Адпаведна з арыентацыяй прылады"/>
+		<node name="screenOrientationSensor" value="Самарушнае паварочваньне"/>
 		<node name="screenOrientationPortrait" value="Вэртыкальная"/>
 		<node name="screenOrientationLandscape" value="Гарызантальная"/>
 		<node name="screenOrientationReversePortrait" value="Перавернутая вэртыкальная"/>
 		<node name="screenOrientationReverseLandscape" value="Перавернутая гарызантальная"/>
 		<node name="increaseFont" value="Наблізіць"/>
 		<node name="decreaseFont" value="Падаліць"/>
-		<node name="toggleFullscreen" value="Поўны экран"/>
+		<node name="changeFontSize" value="Набліжэньне"/>
+		<node name="toggleFullscreen" value="Поўнаэкранны рэжым"/>
 		<node name="bookmarks" value="Закладкі"/>
-		<node name="help" value="Help" toBeTranslated="true"/>
-		<node name="plugins" value="Install plugins" toBeTranslated="true"/>
+		<node name="help" value="Дапамога"/>
+		<node name="plugins" value="Усталяваць убудовы"/>
+		<node name="gotoPageNumber" value="Перайсьці да старонкі…"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="Назва файла"/>
@@ -309,39 +342,63 @@
 		<node name="tags" value="Цэтлік(і)"/>
 		<node name="series" value="Сэрыі"/>
 	</node>
-	<node name="Preferences">
-		<node name="directories" value="Каталёґі">
-			<node name="summary" value="Каталёґі для пошуку файлаў"/>
-			<node name="bookPath" value="Where to seek for books" toBeTranslated="true">
-				<node name="chooserTitle" value="Каталёґ кніг"/>
+	<node name="Preferences" value="Налады FBReader">
+		<node name="sync" value="Сынхранізацыя">
+			<node name="summary" value="Налады кніжнай сеткі"/>
+			<node name="site" value="Больш пра сынхранізацыю">
+				<node name="url" value="https://books.fbreader.org/help.html"/>
 			</node>
-			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true">
-				<node name="chooserTitle" value="Каталёґ кніг"/>
+			<node name="enable" value="Уключыць сынхранізацыю">
+				<node name="summaryOn" value="Сынхранізаваць маю бібліятэку з сэрвэрам кніжнай сеткі FBReader"/>
+				<node name="summaryOnWithAccount" value="Сынхранізаваць маю бібліятэку як %s"/>
+				<node name="summaryOff" value="Не сынхранізаваць маю бібліятэку з сэрвэрам кніжнай сеткі FBReader"/>
 			</node>
-			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true">
-				<node name="chooserTitle" value="Каталёґ шрыфтоў"/>
+			<node name="values">
+				<node name="always" value="Заўсёды"/>
+				<node name="viaWifi" value="Калі прылада злучана праз Wi-Fi"/>
+				<node name="never" value="Ніколі"/>
 			</node>
-			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true">
-				<node name="chooserTitle" value="Каталёґ шпалераў"/>
+			<node name="uploadAllBooks" value="Заладаваць усе кнігі на сэрвэр"/>
+			<node name="downloadAllBooks" value="Зладаваць усе кнігі з сэрвэра"/>
+			<node name="downloadCurrentBook" value="Зладаваць гэтую кнігу з сэрвэра"/>
+			<node name="positions" value="Сынхранізаваць месцы чытаньня"/>
+			<node name="bookmarks" value="Сынхранізаваць закладкі"/>
+			<node name="customShelves" value="Synchronise custom shelves" toBeTranslated="true"/>
+			<node name="metainfo" value="Сынхранізаваць мэтазьвесткі (назву, цэтлікі, інш.)"/>
+			<node name="changeCurrentBook" value="Зьмяніць гэтую кнігу">
+				<node name="summaryOn" value="Адчыніць гэтую кнігу на ўсіх прыладах"/>
+				<node name="summaryOff" value="Сынхранізаваць месцы чытаньня, але не адчыняць гэтую кнігу на ўсіх прыладах"/>
 			</node>
-			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true">
-				<node name="chooserTitle" value="Temp files folder" toBeTranslated="true"/>
+		</node>
+		<node name="directories" value="Тэчкі">
+			<node name="summary" value="Тэчкі для пошуку файлаў"/>
+			<node name="bookPath" value="Дзе шукаць кнігі">
+				<node name="chooserTitle" value="Тэчка кніг"/>
+			</node>
+			<node name="downloadDir" value="Дзе захоўваць зладаваныя кнігі">
+				<node name="chooserTitle" value="Тэчка кніг"/>
+			</node>
+			<node name="fontPath" value="Дзе шукаць шрыфты">
+				<node name="chooserTitle" value="Тэчка шрыфтоў"/>
+			</node>
+			<node name="tempDir" value="Дзе захоўваць часовыя файлы">
+				<node name="chooserTitle" value="Тэчка часовых файлаў"/>
 			</node>
 		</node>
 		<node name="appearance" value="Выгляд">
 			<node name="summary" value="Налады экрану, паліцы стану, сьвятла кнопак"/>
-			<node name="language" value="Interface language" toBeTranslated="true"/>
+			<node name="language" value="Мова інтэрфэйсу"/>
 			<node name="screenOrientation" value="Арыентацыя экрану">
 				<node name="system" value="Сыстэмная"/>
-				<node name="sensor" value="Адпаведна з арыентацыяй прылады"/>
+				<node name="sensor" value="Самарушнае паварочваньне"/>
 				<node name="portrait" value="Вэртыкальная"/>
 				<node name="landscape" value="Гарызантальная"/>
 				<node name="reversePortrait" value="Перавернутая вэртыкальная"/>
 				<node name="reverseLandscape" value="Перавернутая гарызантальная"/>
 			</node>
 			<node name="autoOrientation" value="Самарушнае паварочваньне">
-				<node name="summaryOn" value="Экран будзе паварочвацца, калі карыстальнік рухае прыладу"/>
-				<node name="summaryOff" value="Экран ня будзе паварочвацца, калі карыстальнік рухае прыладу"/>
+				<node name="summaryOn" value="Экран будзе паварочвацца, калі карыстальнік паварочвае прыладу"/>
+				<node name="summaryOff" value="Экран ня будзе паварочвацца, калі карыстальнік паварочвае прыладу"/>
 			</node>
 			<node name="showStatusBar" value="Паказваць паліцу стану">
 				<node name="summaryOn" value="Паказваць паліцу стану падчас чытаньня"/>
@@ -351,23 +408,23 @@
 				<node name="summaryOn" value="Паказваць паліцу дзеяньняў падчас чытаньня"/>
 				<node name="summaryOff" value="Хаваць паліцу дзеяньняў падчас чытаньня"/>
 			</node>
-			<node name="showStatusBarWhenMenuIsActive" value="Паказваць паліцу стану, калі мэню актыўнае">
-				<node name="summaryOn" value="Паказваць паліцу стану, калі актывуецца мэню"/>
-				<node name="summaryOff" value="Не паказваць паліцу стану, калі актывуецца мэню"/>
+			<node name="showStatusBarWhenMenuIsActive" value="Паказваць ці хаваць паліцу стану, калі мэню актыўнае">
+				<node name="summaryOn" value="Паказваць паліцу стану, калі мэню актыўнае"/>
+				<node name="summaryOff" value="Не паказваць паліцу стану, калі мэню актыўнае"/>
 			</node>
-			<node name="fullscreenMode" value="Fullscreen mode" toBeTranslated="true">
-				<node name="summaryOn" value="Hide navigation controls" toBeTranslated="true"/>
-				<node name="summaryOff" value="Show navigation controls" toBeTranslated="true"/>
+			<node name="fullscreenMode" value="Поўнаэкранны рэжым">
+				<node name="summaryOn" value="Хаваць элемэнты навігацыі"/>
+				<node name="summaryOff" value="Паказваць элемэнты навігацыі"/>
 			</node>
 			<node name="disableButtonLights" value="Выключаць сьвятло кнопак падчас чытаньня">
-				<node name="summaryOn" value="Выключаць сьвятло кнопак (не працуе на некаторых прыладах)"/>
-				<node name="summaryOff" value="Не спрабаваць выключаць сьвятло кнопак"/>
+				<node name="summaryOn" value="Выключаць сьвятло кнопак (большасьць прылад)"/>
+				<node name="summaryOff" value="Не выключаць сьвятло кнопак"/>
 			</node>
-			<node name="twoColumnView" value="Two column view" toBeTranslated="true">
-				<node name="summaryOn" value="Display text in two columns when device is held horizontally" toBeTranslated="true"/>
-				<node name="summaryOff" value="Always display text in one column" toBeTranslated="true"/>
+			<node name="twoColumnView" value="Выгляд двума слупкамі">
+				<node name="summaryOn" value="Паказваць тэкст двума слупкамі ў гарызантальным стане"/>
+				<node name="summaryOff" value="Заўсёды паказваць тэкст адным слупком"/>
 			</node>
-			<node name="allowScreenBrightnessAdjustment" value="Рэґуляваньне яркасьці экрану">
+			<node name="allowScreenBrightnessAdjustment" value="Рэгуляваньне яркасьці экрану">
 				<node name="summaryOn" value="Перасоўваньнем пальца ўверх-уніз па левым баку экрану"/>
 				<node name="summaryOff" value="Выключана"/>
 			</node>
@@ -379,7 +436,11 @@
 			</node>
 			<node name="dontTurnScreenOffDuringCharging" value="Не даваць экрану гаснуць падчас зараджаньня">
 				<node name="summaryOn" value="Не даваць экрану гаснуць, калі прылада зараджаецца"/>
-				<node name="summaryOff" value="Выключаць экран, нават калі прылада зараджаецца"/>
+				<node name="summaryOff" value="Даваць экрану гаснуць, калі прылада зараджаецца"/>
+			</node>
+			<node name="enableBookMenuSwipeGesture" value="Enable swipe gesture for the book menu" toBeTranslated="true">
+				<node name="summaryOn" value="Swipe in from the left edge to open book menu" toBeTranslated="true"/>
+				<node name="summaryOff" value="Use three-line (“hamburger”) button to open book menu" toBeTranslated="true"/>
 			</node>
 		</node>
 		<node name="text" value="Тэкст">
@@ -390,9 +451,9 @@
 					<node name="summaryOn" value="Згладжваньне ўключанае"/>
 					<node name="summaryOff" value="Згладжваньне выключанае"/>
 				</node>
-				<node name="deviceKerning" value="Рэґуляваньне міжлітар’я">
-					<node name="summaryOn" value="Рэґуляваньне міжлітар’я ўключанае"/>
-					<node name="summaryOff" value="Рэґуляваньне міжлітар’я выключанае"/>
+				<node name="deviceKerning" value="Рэгуляваньне міжлітар’я">
+					<node name="summaryOn" value="Рэгуляваньне міжлітар’я ўключанае"/>
+					<node name="summaryOff" value="Рэгуляваньне міжлітар’я выключанае"/>
 				</node>
 				<node name="dithering" value="Размываньне">
 					<node name="summaryOn" value="Размываньне колераў уключанае"/>
@@ -407,7 +468,7 @@
 					<node name="summaryOff" value="Папіксэльнае паліраваньне выключанае"/>
 				</node>
 			</node>
-			<node name="font" value="Ґарнітура">
+			<node name="font" value="Гарнітура">
 				<node name="inherit" value="&lt;unchanged&gt;"/>
 			</node>
 			<node name="fontSize" value="Памер шрыфту"/>
@@ -427,9 +488,9 @@
 				<node name="normal" value="звычайны"/>
 				<node name="inherit" value="&lt;unchanged&gt;"/>
 			</node>
-			<node name="textDecoration" value="Text decoration" toBeTranslated="true">
-				<node name="inherit" value="&lt;unchanged&gt;" toBeTranslated="true"/>
-				<node name="none" value="no decorations" toBeTranslated="true"/>
+			<node name="textDecoration" value="Аздабленьне тэксту">
+				<node name="inherit" value="&lt;unchanged&gt;"/>
+				<node name="none" value="без аздабленьня"/>
 				<node name="underline" value="падкрэсьлены"/>
 				<node name="line-through" value="закрэсьлены"/>
 			</node>
@@ -439,8 +500,8 @@
 			<node name="alignment" value="Раўнаваньне">
 				<node name="left" value="Выраўнаваць зьлева"/>
 				<node name="right" value="Выраўнаваць справа"/>
-				<node name="center" value="Цэнтраваць"/>
-				<node name="justify" value="Выпрастаць"/>
+				<node name="center" value="Адцэнтраваны"/>
+				<node name="justify" value="Выпрастаны"/>
 				<node name="inherit" value="&lt;unchanged&gt;"/>
 			</node>
 			<node name="autoHyphenations" value="Самарушныя пераносы">
@@ -448,23 +509,23 @@
 				<node name="summaryOff" value="Не пераносіць словы самарушна"/>
 			</node>
 			<node name="allowHyphenations" value="Дазволіць пераносы">
-				<node name="auto" value="пераносіць словы"/>
-				<node name="none" value="не пераносіць словы"/>
+				<node name="auto" value="Пераносіць словы"/>
+				<node name="none" value="Не пераносіць словы"/>
 				<node name="inherit" value="&lt;unchanged&gt;"/>
 			</node>
 			<node name="firstLineIndent" value="Водступ першага радка"/>
-			<node name="spaceBefore" value="Прастора пасьля"/>
-			<node name="spaceAfter" value="Прастора перад"/>
+			<node name="spaceBefore" value="Прастора перад абзацам"/>
+			<node name="spaceAfter" value="Прастора пасьля абзаца"/>
 			<node name="leftIndent" value="Левы водступ"/>
 			<node name="rightIndent" value="Правы водступ"/>
-			<node name="verticalAlignment" value="Vertical alignment" toBeTranslated="true"/>
+			<node name="verticalAlignment" value="Вэртыкальнае раўнаваньне"/>
 			<node name="more" value="Больш стыляў">
-				<node name="summary" value="Падзяляць налады на назвы, эпіґрафы і гэтак далей"/>
+				<node name="summary" value="Падзяляць налады на назвы, эпіграфы і гэтак далей"/>
 				<node name="Regular Paragraph" value="Звычайны абзац">
 					<node name="summary" value=""/>
 				</node>
-				<node name="xhtml-tag-p" value="EPub Paragraph" toBeTranslated="true">
-					<node name="summary" value="&lt;p&gt; XHTML tag content" toBeTranslated="true"/>
+				<node name="xhtml-tag-p" value="Абзац EPub">
+					<node name="summary" value="Зьмесьціва тэга &lt;p&gt; XHTML"/>
 				</node>
 				<node name="Title" value="Назва">
 					<node name="summary" value=""/>
@@ -481,7 +542,7 @@
 				<node name="Annotation" value="Анатацыя">
 					<node name="summary" value=""/>
 				</node>
-				<node name="Epigraph" value="Эпіґраф">
+				<node name="Epigraph" value="Эпіграф">
 					<node name="summary" value=""/>
 				</node>
 				<node name="Stanza" value="Страфа">
@@ -564,41 +625,70 @@
 				</node>
 			</node>
 		</node>
+		<node name="toast" value="Выплыўныя вокны">
+			<node name="summary" value="Вокны зносак, інш."/>
+			<node name="showFootnoteToast" value="Паказваць зьвязаны тэкст у выплыўным акне">
+				<node name="never" value="Ніколі"/>
+				<node name="footnotesOnly" value="Толькі для зносак"/>
+				<node name="footnotesAndSuperscripts" value="Для зносак і надрадковых спасылак"/>
+				<node name="allInternalLinks" value="Для ўсіх унутраных спасылак"/>
+			</node>
+			<node name="footnoteToastDuration" value="Колькі паказваць зьвязанае выкно"/>
+			<node name="fontSizePercent" value="Памер шрыфту (працэнт ад звычайнага тэксту)"/>
+		</node>
 		<node name="css" value="CSS">
-			<node name="summary" value="Ужыць ці праіґнараваць значэньні з CSS"/>
-			<node name="fontFamily" value="Font family" toBeTranslated="true">
-				<node name="summaryOn" value="Use font family defined in CSS" toBeTranslated="true"/>
-				<node name="summaryOff" value="Ignore font family defined in CSS" toBeTranslated="true"/>
+			<node name="summary" value="Ужыць ці праігнараваць значэньні з CSS"/>
+			<node name="fontFamily" value="Гарнітура">
+				<node name="summaryOn" value="Выкарыстоўваць гарнітуру з CSS"/>
+				<node name="summaryOff" value="Праігнараваць гарнітуру з CSS"/>
 			</node>
 			<node name="fontSize" value="Памер шрыфту">
 				<node name="summaryOn" value="Ужыць памер шрыфту з CSS"/>
-				<node name="summaryOff" value="Праіґнараваць памер шрыфту з CSS"/>
+				<node name="summaryOff" value="Праігнараваць памер шрыфту з CSS"/>
 			</node>
 			<node name="textAlignment" value="Раўнаваньне тэксту">
 				<node name="summaryOn" value="Ужыць раўнаваньне тэксту з CSS"/>
-				<node name="summaryOff" value="Праіґнараваць раўнаваньне тэксту з CSS"/>
+				<node name="summaryOff" value="Праігнараваць раўнаваньне тэксту з CSS"/>
 			</node>
-			<node name="margins" value="Margins" toBeTranslated="true">
-				<node name="summaryOn" value="Apply margins defined in CSS" toBeTranslated="true"/>
-				<node name="summaryOff" value="Ignore margins defined in CSS" toBeTranslated="true"/>
+			<node name="margins" value="Палі">
+				<node name="summaryOn" value="Ужыць палі з CSS"/>
+				<node name="summaryOff" value="Праігнараваць палі з CSS"/>
 			</node>
 		</node>
 		<node name="colors" value="Колеры й шпалеры">
 			<node name="summary" value="Налады колераў"/>
 			<node name="background" value="Фон">
+				<node name="chooser">
+					<node name="solidColor" value="Суцэльны колер…"/>
+					<node name="predefined" value="Перадвызначаная тэкстура…"/>
+					<node name="selectFile" value="Выбраць файл…"/>
+				</node>
 				<node name="solidColor" value="Суцэльны колер"/>
 				<node name="leather" value="Скура"/>
 				<node name="sepia" value="Сэпія"/>
 				<node name="wood" value="Драўніна"/>
+				<node name="sand" value="Пясок"/>
+				<node name="hardpaper" value="Цьвёрдая папера"/>
 			</node>
-			<node name="backgroundColor" value="Колер фону"/>
+			<node name="fillMode" value="Рэжым запаўненьня">
+				<node name="tile" value="Кафля"/>
+				<node name="tileMirror" value="Люстраная кафля"/>
+				<node name="fullscreen" value="Поўны экран"/>
+				<node name="stretch" value="Расьцягнуць, каб запоўніць экран"/>
+				<node name="tileVertically" value="Расьцягнуць гарызантальна, закафляваць вэртыкальна"/>
+				<node name="tileHorizontally" value="Расьцягнуць вэртыкальна, закафляваць гарызантальна"/>
+			</node>
 			<node name="selectionBackground" value="Фон вылучэньня"/>
 			<node name="selectionForeground" value="Вылучаны тэкст"/>
 			<node name="text" value="Звычайны тэкст"/>
 			<node name="hyperlink" value="Тэкст спасылкі"/>
 			<node name="hyperlinkVisited" value="Тэкст наведанай спасылкі"/>
-			<node name="highlighting" value="Фон вынікаў пошуку"/>
-			<node name="footer" value="Прыпятак"/>
+			<node name="highlightingForeground" value="Вынікі пошуку"/>
+			<node name="highlightingBackground" value="Фон вынікаў пошуку"/>
+			<node name="footerOldStyle" value="Прыпятак (стары выгляд)"/>
+			<node name="footerBackground" value="Фон прыпятка"/>
+			<node name="footerForeground" value="Тэкст прыпятка"/>
+			<node name="footerForegroundUnread" value="Лінія прыпятка"/>
 		</node>
 		<node name="margins" value="Палі">
 			<node name="summary" value="Палі тэксту"/>
@@ -606,25 +696,32 @@
 			<node name="right" value="Правае поле"/>
 			<node name="top" value="Верхняе поле"/>
 			<node name="bottom" value="Ніжняе поле"/>
-			<node name="spaceBetweenColumns" value="Space between columns" toBeTranslated="true"/>
+			<node name="spaceBetweenColumns" value="Міжслупковая адлегласьць"/>
 		</node>
-		<node name="scrollBar" value="Паказальнік праґрэсу">
+		<node name="scrollBar" value="Паказальнік прагрэсу">
 			<node name="summary" value="Налады гартача і прыпятка"/>
 			<node name="scrollbarType" value="Тып гартача">
 				<node name="hide" value="Хаваць"/>
 				<node name="show" value="Вэртыкальны лятунок"/>
-				<node name="showAsProgress" value="Вэртыкальная паліца праґрэсу"/>
+				<node name="showAsProgress" value="Вэртыкальная паліца прагрэсу"/>
 				<node name="showAsFooter" value="Гарызантальны прыпятак"/>
+				<node name="showAsFooterOldStyle" value="Гарызантальны прыпятак (стары выгляд)"/>
 			</node>
 			<node name="footerHeight" value="Вышыня прыпятка"/>
-			<node name="footerColor" value="Колер прыпятка"/>
+			<node name="footerOldStyleColor" value="Колер прыпятка (стары выгляд)"/>
+			<node name="footerBackgroundColor" value="Колер фону прыяптка"/>
+			<node name="footerForegroundColor" value="Колер шрыфту прыпятка"/>
+			<node name="footerForegroundUnreadColor" value="Колер лініі прыпятка"/>
 			<node name="tocMarks" value="Паказваць пазнакі зьместу">
 				<node name="summaryOn" value="Паказваць пазнакі зьместу ў прыпятку"/>
 				<node name="summaryOff" value="Не паказваць пазнакі зьместу ў прыпятку"/>
 			</node>
-			<node name="showProgress" value="Паказваць нумар бачыны">
-				<node name="summaryOn" value="Паказваць нумар бачыны ў прыпятку"/>
-				<node name="summaryOff" value="Не паказваць нумар бачыны ў прыпятку"/>
+			<node name="tocMarksMaxNumber" value="Найбольшая колькасьць пазнак зьместу для паказу"/>
+			<node name="showProgress" value="Паказваць прагрэс чытаньня">
+				<node name="dontDisplay" value="Не паказваць"/>
+				<node name="asPages" value="Як нумар старонкі"/>
+				<node name="asPercentage" value="Як працэнт"/>
+				<node name="asPagesAndPercentage" value="Як нумар старонкі і працэнт"/>
 			</node>
 			<node name="showBattery" value="Паказваць узровень батарэі">
 				<node name="summaryOn" value="Паказваць узровень батарэі ў прыпятку"/>
@@ -634,44 +731,45 @@
 				<node name="summaryOn" value="Паказваць гадзіньнік у прыпятку"/>
 				<node name="summaryOff" value="Не паказваць гадзіньнік у прыпятку"/>
 			</node>
-			<node name="font" value="Ґарнітура"/>
+			<node name="font" value="Гарнітура"/>
 		</node>
-		<node name="scrolling" value="Гартаньне бачынаў">
-			<node name="summary" value="Як гартаць бачыны"/>
-			<node name="fingerScrolling" value="Гартаньне бачынаў крананьнямі">
+		<node name="scrolling" value="Гартаньне старонак">
+			<node name="summary" value="Як гартаць старонкі"/>
+			<node name="fingerScrolling" value="Гартаньне старонак дотыкам">
 				<node name="byTap" value="Гартаць дотыкам"/>
 				<node name="byFlick" value="Гартаць перацягваньнем"/>
 				<node name="byTapAndFlick" value="Гартаць дотыкам ці перацягваньнем"/>
 			</node>
 			<node name="enableDoubleTapDetection" value="Падвойны дотык">
-				<node name="summaryOn" value="Падвойны дотык выклікае навіґацыйны дыялёґ ці мэню"/>
-				<node name="summaryOff" value="Іґнараваць падвойныя дотыкі"/>
+				<node name="summaryOn" value="Падвойны дотык выклікае навігацыйны дыялёг ці мэню"/>
+				<node name="summaryOff" value="Ігнараваць падвойныя дотыкі"/>
 			</node>
-			<node name="volumeKeys" value="Гартаць бачыны гучнасьцю">
+			<node name="volumeKeys" value="Гартаць старонкі гучнасьцю">
 				<node name="summaryOn" value="Карыстаць клявішы гучнасьці для гартаньня"/>
-				<node name="summaryOff" value="Пакінуць клявішы гучнасьці для гуку"/>
+				<node name="summaryOff" value="Карыстаць клявішы гучнасьці для гуку"/>
 			</node>
 			<node name="invertVolumeKeys" value="Інвэртаваць кірунак клявіш гуку">
-				<node name="summaryOn" value="«Гучней» («цішэй») вядзе да папярэдняй (наступнай) бачыны"/>
-				<node name="summaryOff" value="«Цішэй» («гучней») вядзе да наступнай (папярэдняй) бачыны"/>
+				<node name="summaryOn" value="«Гучней» («цішэй») вядзе да папярэдняй (наступнай) старонкі"/>
+				<node name="summaryOff" value="«Цішэй» («гучней») вядзе да наступнай (папярэдняй) старонкі"/>
 			</node>
 			<node name="animation" value="Анімацыя">
 				<node name="none" value="Без анімацыі"/>
 				<node name="curl" value="Гартаньне"/>
 				<node name="slide" value="Ссоўваньне"/>
+				<node name="slideOldStyle" value="Ссоўваньне (стары выгляд)"/>
 				<node name="shift" value="Пераход"/>
 			</node>
 			<node name="animationSpeed" value="Хуткасьць анімацыі">
-				<node name="fast" value="хуткая"/>
-				<node name="slow" value="павольная"/>
+				<node name="fast" value="Хуткая"/>
+				<node name="slow" value="Павольная"/>
 			</node>
 			<node name="horizontal" value="Гарызантальнае гартаньне">
-				<node name="summaryOn" value="Гартаць бачыны гарызантальна"/>
-				<node name="summaryOff" value="Гартаць бачыны вэртыкальна"/>
+				<node name="summaryOn" value="Гартаць старонкі гарызантальна"/>
+				<node name="summaryOff" value="Гартаць старонкі вэртыкальна"/>
 			</node>
 		</node>
 		<node name="tapZones" value="Зоны дотыкаў">
-			<node name="summary" value="Дзеяньні дотыку пальцам"/>
+			<node name="summary" value="Дзеяньня дотыкаў"/>
 			<node name="tapZonesScheme" value="Схема зонаў дотыкаў">
 				<node name="left_to_right" value="Перацягваньне зьлева ўправа"/>
 				<node name="right_to_left" value="Перацягваньне справа ўлева"/>
@@ -680,28 +778,39 @@
 				<node name="custom" value="Дапасаваная…"/>
 			</node>
 		</node>
-		<node name="dictionary" value="Слоўнік">
-			<node name="summary" value="Налады слоўніку"/>
-			<node name="dictionary" value="Слоўнік"/>
-			<node name="translator" value="Перакладнік"/>
-			<node name="targetLanguage" value="Translate to" toBeTranslated="true">
-				<node name="any" value="all languages" toBeTranslated="true"/>
+		<node name="dictionary" value="Слоўнік і пераклад">
+			<node name="summary" value="налады перакладу"/>
+			<node name="dictionary" value="Паглядзець слова ў"/>
+			<node name="translator" value="Перакласьці фразу праз"/>
+			<node name="translateOffline" value="Google Translate: карыстаць пазасеткавы пераклад, калі ўсталяваны">
+				<node name="always" value="Заўсёды"/>
+				<node name="onError" value="Самарушна, калі сеткавы пераклад няўдалы"/>
+				<node name="ask" value="Спытаць, калі сеткавы пераклад няўдалы"/>
+				<node name="never" value="Ніколі"/>
 			</node>
-			<node name="tappingAction" value="Дзеяньне доўгага дотыку">
+			<node name="translationToastDuration" value="Колькі паказваць вакно перакладу"/>
+			<node name="errorToastDuration" value="Колькі паказваць паведамленьне пра памылку"/>
+			<node name="sourceLanguage" value="Перакласьці">
+				<node name="detect" value="Аўтаматычна вызначаць мову"/>
+			</node>
+			<node name="targetLanguage" value="Перакласьці на">
+				<node name="any" value="Усе мовы"/>
+			</node>
+			<node name="longTapAction" value="Дзеяньне доўгага дотыку">
 				<node name="doNothing" value="Доўгі дотык нічога ня робіць"/>
 				<node name="selectSingleWord" value="Доўгі дотык вылучае адно слова"/>
 				<node name="startSelecting" value="Доўгі дотык пачынае вылучэньне"/>
 				<node name="openDictionary" value="Доўгі дотык вылучае адно слова, адпусканьне адчыняе слоўнік"/>
 			</node>
-			<node name="navigateOverAllWords" value="Ісьці па ўсіх словах">
-				<node name="summaryOn" value="Ключавая навіґацыя па ўсіх словах"/>
-				<node name="summaryOff" value="Ключавая навіґацыя толькі па спасылках"/>
+			<node name="navigateOverAllWords" value="Ключавая навігацыя па-нал словамі">
+				<node name="summaryOn" value="Ключавая навігацыя па ўсіх словах"/>
+				<node name="summaryOff" value="Ключавая навігацыя толькі па спасылках"/>
 			</node>
 		</node>
 		<node name="images" value="Выявы">
 			<node name="summary" value="Налады адлюстраваньня выяваў"/>
 			<node name="backgroundColor" value="Колер фону для прагляду выявы"/>
-			<node name="tappingAction" value="Дзеяньне доўгага дотыку">
+			<node name="longTapAction" value="Дзеяньне доўгага дотыку">
 				<node name="doNothing" value="Доўгі дотык нічога ня робіць"/>
 				<node name="selectImage" value="Доўгі дотык вылучае выяву"/>
 				<node name="openImageView" value="Доўгі дотык адчыняе прагляд выявы"/>
@@ -711,12 +820,32 @@
 				<node name="covers" value="Толькі вокладкі"/>
 				<node name="all" value="Усе"/>
 			</node>
-			<node name="matchBackground" value="Match background intensity" toBeTranslated="true">
-				<node name="summaryOn" value="Adjust image color according background" toBeTranslated="true"/>
-				<node name="summaryOff" value="Do not adjust image color" toBeTranslated="true"/>
+			<node name="matchBackground" value="Адпаведнасьць інтэнсіўнасьці фону">
+				<node name="summaryOn" value="Карэктаваць колер выявы адпаведна з фонам"/>
+				<node name="summaryOff" value="Не карэктаваць колер выявы"/>
 			</node>
 		</node>
-		<node name="cancelMenu" value="Мэню касацыі">
+		<node name="menu" value="Мэню">
+			<node name="summary" value="Configure main screen menu" toBeTranslated="true"/>
+			<node name="backgroundCover" value="Use book cover as background" toBeTranslated="true">
+				<node name="summaryOn" value="Show cover in the book menu" toBeTranslated="true"/>
+				<node name="summaryOff" value="Keep background clear" toBeTranslated="true"/>
+			</node>
+			<node name="bookMenuStatusItem" value="Status item" toBeTranslated="true">
+				<node name="summaryOn" value="Show status item in the book menu" toBeTranslated="true"/>
+				<node name="summaryOff" value="Hide status item" toBeTranslated="true"/>
+			</node>
+			<node name="items" value="Menu items" toBeTranslated="true">
+				<node name="summary" value="Change items order" toBeTranslated="true"/>
+				<node name="bookMenuUpperSection" value="Book menu (upper section)" toBeTranslated="true"/>
+				<node name="bookMenuLowerSection" value="Book menu (lower section)" toBeTranslated="true"/>
+				<node name="toolbarOrMainMenu" value="Toolbar or main menu" toBeTranslated="true"/>
+				<node name="mainMenu" value="Main menu" toBeTranslated="true"/>
+				<node name="enabled" value="Enabled" toBeTranslated="true"/>
+				<node name="disabled" value="Disabled" toBeTranslated="true"/>
+			</node>
+		</node>
+		<node name="cancelMenu" value="Мэню касаваньня">
 			<node name="summary" value="Сьпіс дзеяньняў кнопкі «Назад»"/>
 			<node name="library" value="Бібліятэка">
 				<node name="summaryOn" value="Паказваць «Адчыніць бібліятэку»"/>
@@ -737,12 +866,12 @@
 			<node name="backKeyAction" value="Дзеяньне клявішы «Назад»">
 				<node name="exit" value="Зачыніць FBReader"/>
 				<node name="goBack" value="Перайсьці назад"/>
-				<node name="cancelMenu" value="Паказаць мэню касацыі"/>
+				<node name="cancelMenu" value="Паказаць мэню касаваньня"/>
 			</node>
 			<node name="backKeyLongPressAction" value="Дзеяньне клявішы «Назад», доўгі націск">
 				<node name="exit" value="Зачыніць FBReader"/>
 				<node name="goBack" value="Перайсьці назад"/>
-				<node name="cancelMenu" value="Паказаць мэню касацыі"/>
+				<node name="cancelMenu" value="Паказаць мэню касаваньня"/>
 				<node name="none" value="Няма дзеяньня"/>
 			</node>
 		</node>
@@ -750,50 +879,55 @@
 			<node name="summary" value="Налады штодзённых падказак"/>
 			<node name="showTips" value="Паказваць падказкі">
 				<node name="summaryOn" value="Паказваць штодзённыя падказкі"/>
-				<node name="summaryOff" value="Не паказваць"/>
+				<node name="summaryOff" value="Не паказваць штодзённыя падказкі"/>
 			</node>
 		</node>
 		<node name="about" value="Пра FBReader">
 			<node name="summary" value="Вэрсія й кантакты"/>
 			<node name="version" value="Вэрсія"/>
 			<node name="site" value="Наведаць наш сайт">
-				<node name="url" value="http://arabicreader.sourceforge.net"/>
+				<node name="url" value="https://fbreader.org/"/>
 			</node>
 			<node name="email" value="Даслаць нам ліст">
-				<node name="url" value="mailto:ma7dev@gmail.com"/>
+				<node name="url" value="mailto:contact@fbreader.org"/>
 			</node>
-			<node name="twitter" value="Чытайце нас у Twitter">
-				<node name="url" value="http://twitter.com/arabic_reader_ru"/>
+			<node name="googleplus" value="Далучыцца да суполкі FBReader у Google+">
+				<node name="url" value="https://plus.google.com/communities/115894899404862312312"/>
 			</node>
-			<node name="facebook" value="Arabic Reader on facebook" toBeTranslated="true">
-				<node name="url" value="https://www.facebook.com/ArabicReaderAndroid"/>
+			<node name="twitter" value="Сачыце за намі ў Twitter">
+				<node name="url" value="https://twitter.com/fbreader"/>
 			</node>
-			<node name="thirdParty" value="Third-party libraries" toBeTranslated="true"/>
+			<node name="facebook" value="FBReader у Facebook">
+				<node name="url" value="https://facebook.com/fbreader"/>
+			</node>
+			<node name="thirdParty" value="Пабочныя бібліятэкі"/>
 		</node>
-		<node name="eink" value="E-ink screen" toBeTranslated="true">
-			<node name="summary" value="Specific options for e-ink screens" toBeTranslated="true"/>
-			<node name="enableFastRefresh" value="Fast refresh mode" toBeTranslated="true">
-				<node name="summaryOn" value="Use fast (but not very clean) screen update" toBeTranslated="true"/>
-				<node name="summaryOff" value="Use complete (clean, but slow) screen update" toBeTranslated="true"/>
+		<node name="eink" value="Экран e-ink">
+			<node name="summary" value="Адмысловыя налады для экранаў e-ink"/>
+			<node name="enableFastRefresh" value="Рэжым хуткага абнаўленьня">
+				<node name="summaryOn" value="Карыстаць хуткае (ня вельмі чыстае) абнаўленьне экрану"/>
+				<node name="summaryOff" value="Карыстаць поўнае (чыстае і павольнае) абнаўленьне экрану"/>
 			</node>
-			<node name="interval" value="Number of fast updates between complete refreshes" toBeTranslated="true"/>
+			<node name="interval" value="Колькасьць хуткіх абнаўленьняў паміж поўнымі абнаўленьнямі"/>
 		</node>
 	</node>
 	<node name="dialog">
 		<node name="button">
+			<node name="noThanks" value="Не, дзякуй"/>
 			<node name="install" value="Усталяваць"/>
 			<node name="update" value="Абнавіць"/>
 			<node name="skip" value="Прапусьціць"/>
 			<node name="buy" value="Купіць"/>
 			<node name="buyAndDownload" value="Купіць і зладаваць"/>
+			<node name="download" value="Зладаваць"/>
 			<node name="continue" value="Працягнуць"/>
-			<node name="editUrl" value="Рэдаґаваць адрас"/>
+			<node name="editUrl" value="Рэдагаваць адрас"/>
 			<node name="tryAgain" value="Паспрабаваць зноў"/>
 			<node name="openBook" value="Чытаць"/>
-			<node name="editInfo" value="Рэдаґаваць"/>
+			<node name="edit" value="Рэдагаваць"/>
 			<node name="reloadInfo" value="Перазаладаваць"/>
 			<node name="shareBook" value="Абагуліць"/>
-			<node name="topup" value="Папоўніць"/>
+			<node name="topup" value="Папоўніць рахунак"/>
 			<node name="pay" value="Заплаціць"/>
 			<node name="refresh" value="Абнавіць"/>
 			<node name="authorise" value="Упаўнаважыцца"/>
@@ -801,26 +935,63 @@
 			<node name="sendReport" value="Даслаць справаздачу"/>
 			<node name="addToFavorites" value="Дадаць да ўпадабанага"/>
 			<node name="removeFromFavorites" value="Прыбраць з упадабанага"/>
-			<node name="markAsRead" value="Mark as read" toBeTranslated="true"/>
-			<node name="markAsUnread" value="Mark as unread" toBeTranslated="true"/>
+			<node name="markAsRead" value="Пазначыць як прачытаную"/>
+			<node name="markAsUnread" value="Пазначыць як непрачытаную"/>
+			<node name="plugin" value="Plugin" toBeTranslated="true"/>
+			<node name="premium" value="Premium" toBeTranslated="true"/>
 		</node>
+		<node name="gotoPage" value="Перайсьці да старонкі"/>
 		<node name="plugin">
 			<node name="installTitle" value="Усталяваць убудову"/>
 			<node name="updateTitle" value="Абнавіць убудову"/>
 			<node name="dontAskAgain" value="Не пытаць зноў"/>
+		</node>
+		<node name="backgroundAuthentication">
+			<node name="message" value="Патрабуецца спраўджаньне"/>
+		</node>
+		<node name="missingDictionary" value="Адсутнічае %s">
+			<node name="install" value="Усталяваць %s"/>
+			<node name="configure" value="Наладзіць пераклад"/>
+			<node name="skip" value="Прапусьціць"/>
 		</node>
 		<node name="installDictionary">
 			<node name="title" value="Усталяваць слоўнік"/>
 			<node name="message" value="Жадаеце ўсталяваць %s?"/>
 		</node>
 		<node name="deleteBookBox">
-			<node name="message" value="Кніга будзе незваротна выдаленая. Вы ўпэўненыя?"/>
+			<node name="message" value="Файл будзе незваротна выдалены. Вы ўпэўненыя?"/>
+		</node>
+		<node name="deleteMultipleBookBox">
+			<node name="title" value="Выдаліць кнігі"/>
+			<node name="message" value="Файлы (%s) будуць незваротна выдалены. Вы ўпэўненыя?"/>
 		</node>
 		<node name="redownloadFileBox">
 			<node name="message" value="Файл ужо існуе. Перазладаваць?"/>
 		</node>
+		<node name="litresUserRegistration">
+			<node name="title" value="Зарэгістравацца"/>
+			<node name="login" value="Імя карыстальніка"/>
+			<node name="password" value="Пароль"/>
+			<node name="confirmPassword" value="Пацьверджаньне пароля"/>
+			<node name="email" value="Электронны адрас"/>
+		</node>
+		<node name="litresAutoSignIn">
+			<node name="title" value="Уваход"/>
+			<node name="email" value="Электронны адрас"/>
+			<node name="actions">
+				<node name="title" value="Немагчыма ўвайсьці з электронным адрасам %s"/>
+				<node name="recover" value="Аднавіць інфармацыю конту"/>
+				<node name="signIn" value="Увайсьці ўручную"/>
+				<node name="anotherEmail" value="Выбраць іншы электронны адрас"/>
+			</node>
+			<node name="signedIn" value="Вы ўвайшлі з электронным адрасам %s."/>
+			<node name="registrationSuccessful" value="Мы стварылі конт ЛітРэс для Вас. Падрабязная інфармацыя выслана на %s"/>
+			<node name="passwordSent" value="Інфармацыя пра Ваш конт даслана на %s. Калі ласка, праверце Вашую пошту."/>
+		</node>
 		<node name="waitMessage">
-			<node name="downloadingFile" value="Зладаваньне кнігі %s"/>
+			<node name="translating" value="Перакладаньне…"/>
+			<node name="tryConnect" value="Спроба злучэньня…"/>
+			<node name="downloadingBook" value="Зладаваньне кнігі «%s»"/>
 			<node name="search" value="Пошук. Калі ласка, пачакайце…"/>
 			<node name="loadInfo" value="Ладаваньне інфармацыі. Калі ласка, пачакайце…"/>
 			<node name="loadingBook" value="Адчыненьне кнігі. Калі ласка, пачакайце…"/>
@@ -831,43 +1002,54 @@
 			<node name="authentication" value="Спраўджаньне. Калі ласка, пачакайце…"/>
 			<node name="signOut" value="Выхад. Калі ласка, пачакайце…"/>
 			<node name="purchaseBook" value="Набыцьцё кнігі. Калі ласка, пачакайце…"/>
-			<node name="loadingCatalogInfo" value="Ладаваньне інфармацыі каталёґу. Калі ласка, пачакайце…"/>
+			<node name="loadingCatalogInfo" value="Ладаваньне інфармацыі каталёгу. Калі ласка, пачакайце…"/>
 			<node name="loadingNetworkBookInfo" value="Ладаваньне інфармацыі кнігі. Калі ласка, пачакайце…"/>
-			<node name="updatingCatalogsList" value="Абнаўленьне сьпісу каталёґу. Калі ласка, пачакайце…"/>
-			<node name="updatingAccountInformation" value="Абнаўленьне інфармацыі рахунку. Калі ласка, пачакайце…"/>
-			<node name="initDRMEngine" value="Initialising DRM engine. Please, wait…" toBeTranslated="true"/>
-			<node name="acquireLicense" value="Acquiring license. Please, wait…" toBeTranslated="true"/>
+			<node name="updatingCatalogsList" value="Абнаўленьне сьпісу каталёгу. Калі ласка, пачакайце…"/>
+			<node name="updatingAccountInformation" value="Абнаўленьне інфармацыі конту. Калі ласка, пачакайце…"/>
+			<node name="initDRMEngine" value="Ініцыялізацыя DRM-рухавіка. Калі ласка, пачакайце…"/>
+			<node name="acquireLicence" value="Набыцьцё ліцэнзіі. Калі ласка, пачакайце…"/>
+			<node name="registerUser" value="Рэгістрацыя новага конту. Калі ласка, пачакайце…"/>
+			<node name="autoSignIn" value="Уваход. Калі ласка, пачакайце…"/>
+			<node name="recoverPassword" value="Аднаўленьне пароля. Калі ласка, пачакайце…"/>
 		</node>
 		<node name="networkError">
 			<node name="internalError" value="Унутраная памылка сэрвэра"/>
-			<node name="purchaseNotEnoughMoney" value="Бракуе ґрошай"/>
+			<node name="purchaseNotEnoughMoney" value="Бракуе грошай"/>
 			<node name="purchaseMissingBook" value="Адсутнічае кніга"/>
 			<node name="purchaseAlreadyPurchased" value="Ужо набыта"/>
 			<node name="bookNotPurchased" value="Кніга не набытая"/>
 			<node name="downloadLimitExceeded" value="Перавышаная мяжа зладаваньня"/>
-			<node name="noUserEmail" value="Няма зарэґістраванага карыстальніка з азначаным электронным адрасам"/>
+			<node name="noUserForEmail" value="Няма зарэгістраванага карыстальніка з такім адрасам"/>
 			<node name="unsupportedOperation" value="Непадтрыманая апэрацыя"/>
-			<node name="notAnOPDS" value="Гэта не каталёґ OPDS (адкрытай сыстэмы дастаўленьня публікацыяў)"/>
-			<node name="noRequiredInformation" value="Патрэбная інфармацыя не азначаная ў каталёґу"/>
-			<node name="cacheDirectoryError" value="Немагчыма стварыць кэшавы каталёґ"/>
+			<node name="notAnOPDS" value="Гэта не каталёг OPDS (адкрытай сыстэмы дастаўленьня публікацыяў)"/>
+			<node name="noRequiredInformation" value="Патрэбная інфармацыя не азначаная ў каталёгу"/>
+			<node name="cacheDirectoryError" value="Немагчыма стварыць кэшавую тэчку"/>
+			<node name="usernameAlreadyInUse" value="Імя карытсальніка ўжо занятае"/>
+			<node name="usernameNotSpecified" value="Імя карытсальніка не павінна быць пустым"/>
+			<node name="passwordNotSpecified" value="Пароль не павінен быць пустым"/>
+			<node name="passwordsDoNotMatch" value="Паролі не супадаюць"/>
+			<node name="emailNotSpecified" value="Электронны адрас пусты"/>
+			<node name="emailAlreadyInUse" value="Электронны адрас ужо выкарыстоўваецца"/>
+			<node name="invalidEMail" value="Хібны электронны адрас"/>
+			<node name="tooManyRegistrations" value="Зашмат рэгсітрацый з Вашага адраса IP;&#10;калі ласка, паспрабуйце пра пару хвілін"/>
 		</node>
 		<node name="AuthenticationDialog">
 			<node name="title" value="Спраўджаньне"/>
 			<node name="unencryptedWarning" value="Ваш пароль будзе дасланы незашыфраваным"/>
 			<node name="login" value="Імя карыстальніка"/>
 			<node name="password" value="Пароль"/>
-			<node name="loginIsEmpty" value="Імя карыстальніка ня можа быць пустым"/>
-			<node name="register" value="Зарэґістравацца"/>
+			<node name="loginIsEmpty" value="Імя карытсальніка не павінна быць пустым"/>
+			<node name="register" value="Зарэгістравацца"/>
 		</node>
 		<node name="CustomCatalogDialog">
-			<node name="title" value="FBReader: дадаць дапасаваны каталёґ"/>
+			<node name="title" value="FBReader: дадаць дапасаваны каталёг"/>
 			<node name="catalogTitle" value="Назва"/>
 			<node name="catalogUrl" value="Адрас"/>
 			<node name="catalogSummary" value="Падсумаваньне"/>
-			<node name="catalogTitleExample" value="Прыклад: Каталёґ праекту Ґутэнбэрґ"/>
-			<node name="catalogUrlExample" value="Прыклад: http://m.gutenberg.org/"/>
+			<node name="catalogTitleExample" value="Узор: Каталёг праекту Ґутэнбэрґ"/>
+			<node name="catalogUrlExample" value="Узор: http://m.gutenberg.org/"/>
 			<node name="catalogSummaryExample" value="Прыклад: Агульнадаступныя кнігі"/>
-			<node name="titleIsEmpty" value="Назва ня можа быць пустым"/>
+			<node name="titleIsEmpty" value="Назва не павінна быць пустой"/>
 			<node name="urlIsEmpty" value="Адрас ня можа быць пустым"/>
 			<node name="invalidUrl" value="Хібны адрас"/>
 			<node name="titleAlreadyExists" value="Азначаная назва ўжо выкарыстоўваецца"/>
@@ -878,80 +1060,105 @@
 		</node>
 		<node name="tips">
 			<node name="title" value="Падказка дню"/>
-			<node name="initializationText" value="Ці жадаеце Вы чытаць штодзённыя падказкі FBReader? Новыя падказкі будуць зладоўвацца з сайту FBReader. Чаканы расход трафіку — каля 1–2 кБ на тыдзень.  Уключыць падказкі? "/>
+			<node name="initializationText" value="Ці жадаеце Вы чытаць штодзённыя падказкі FBReader? Новыя падказкі будуць зладоўвацца з сайту FBReader. Чаканы расход трафіку — каля 1–2 кБ на тыдзень.&#10;&#10;Уключыць падказкі?"/>
 			<node name="dontShowAgain" value="Не паказваць зноў"/>
 			<node name="more" value="Наступная падказка"/>
 		</node>
 		<node name="screenHint">
-			<node name="message1" value="FBReader works in fullscreen mode by default. Tap center third of the screen to show controls. You can change this behaviour in “Appearance” section of the Settings dialog." toBeTranslated="true"/>
-			<node name="message2" value="Well done! Now tap the center third again to hide the controls and this hint. If you want to keep controls on the screen during reading, select “Show action bar” option in “Appearance” section of the Settings dialog." toBeTranslated="true"/>
+			<node name="message1" value="FBReader па стандарце працуе ў поўнаэкранным рэжыме. Краніце цэнтральную траціну экрану, каб убачыць элемэнты кіраваньня. Вы можаце зьмяніць гэта ў разьдзеле «Выгляд» наладаў."/>
+			<node name="message2" value="Выдатна! Цяпер зноў краніце цэнтральную траціну, каб схаваць гэтую падказку й элемэнты кіраваньня. Калі ж Вы жадаеце пакінуць іх на экране, то пастаўце птушку «Паказваць паліцу дзеяньняў» у разьдзеле «Выгляд» наладаў."/>
 		</node>
 		<node name="folderList">
-			<node name="addFolder" value="Add folder" toBeTranslated="true"/>
-			<node name="removeDialog" value="Remove folder" toBeTranslated="true">
-				<node name="message" value="Remove “%s” from the list?" toBeTranslated="true"/>
+			<node name="addFolder" value="Дадаць тэчку"/>
+			<node name="removeDialog" value="Выдаліць тэчку">
+				<node name="message" value="Прыбраць «%s» са сьпісу?"/>
 			</node>
-			<node name="duplicate" value="“%s” is already in the list" toBeTranslated="true"/>
+			<node name="duplicate" value="«%s» ужо ў сьпісе"/>
+		</node>
+		<node name="editList">
+			<node name="edit" value="Рэдагаваць"/>
+			<node name="remove" value="Прыбраць"/>
+		</node>
+		<node name="editTags" value="Цэтлікі">
+			<node name="addTag" value="Дадаць цэтлік"/>
+			<node name="editTag" value="Рэдагаваць цэтлік"/>
+			<node name="removeTag" value="Прыбраць цэтлік">
+				<node name="message" value="Прыбраць цэтлік «%s» са сьпісу?"/>
+			</node>
+		</node>
+		<node name="editAuthors" value="Аўтары">
+			<node name="addAuthor" value="Дадаць аўтара"/>
+			<node name="editAuthor" value="Рэдагаваць аўтара"/>
+			<node name="removeAuthor" value="Прыбраць аўтара">
+				<node name="message" value="Прыбраць аўтара «%s» са сьпісу?"/>
+			</node>
 		</node>
 		<node name="fileChooser">
-			<node name="root" value="Root" toBeTranslated="true"/>
-			<node name="newFolder" value="New folder" toBeTranslated="true"/>
-			<node name="folderNameHint" value="Folder name" toBeTranslated="true"/>
+			<node name="root" value="Корань"/>
+			<node name="newFolder" value="Новая тэчка"/>
+			<node name="folderNameHint" value="Назва тэчкі"/>
 			<node name="menu">
-				<node name="origin" value="Origin" toBeTranslated="true"/>
-				<node name="reload" value="Reload" toBeTranslated="true"/>
+				<node name="origin" value="Паходжаньне"/>
+				<node name="reload" value="Перазаладаваць"/>
 			</node>
-			<node name="sortBy" value="Sort by" toBeTranslated="true">
-				<node name="name" value="Name" toBeTranslated="true"/>
-				<node name="size" value="Size" toBeTranslated="true"/>
-				<node name="date" value="Date" toBeTranslated="true"/>
+			<node name="sortBy" value="Сартаваць па">
+				<node name="name" value="Назва"/>
+				<node name="size" value="Памер"/>
+				<node name="date" value="Дата"/>
 			</node>
-			<node name="permissionDenied" value="Permission denied" toBeTranslated="true"/>
+			<node name="permissionDenied" value="Не дазволена"/>
+		</node>
+		<node name="missingPlugin" value="Адсутнічае ўбудова">
+			<node name="message" value="Няма ўбудовы для файлаў «%s». Усталяваць яе?"/>
+		</node>
+		<node name="licensing" value="Не ліцэнзавана">
+			<node name="message" value="%s не ліцэнзавана. Купіць зараз на Google Play?"/>
+		</node>
+		<node name="retryLicensing" value="Праверка ліцэнзіі">
+			<node name="message" value="Немагчыма праверыць ліцэнзію %s. Паспрабаваць зноў?"/>
 		</node>
 	</node>
 	<node name="errorMessage">
-		<node name="nativeCodeFailure" value="Error %s in native code during reading '%s'" toBeTranslated="true"/>
-		<node name="errorReadingFile" value="Адбылася памылка падчас чытаньня '%s'"/>
-		<node name="errorReadingZip" value="Адбылася памылка падчас выманьня '%s'"/>
+		<node name="nativeCodeFailure" value="Памылка %s у родным кодзе падчас чытаньня «%s»"/>
+		<node name="errorReadingFile" value="Адбылася памылка падчас чытаньня «%s»"/>
+		<node name="errorReadingZip" value="Адбылася памылка падчас выманьня «%s»"/>
 		<node name="pluginNotFound" value="Няма ўбудовы для '%s'"/>
 		<node name="unknownPluginType" value="Невядомы тып убудовы: %s"/>
 		<node name="fileNotFound" value="Файл ня знойдзены: %s"/>
-		<node name="unsupportedEncryptionMethod" value="File %s is encrypted with method that is not supported by FBReader. Some pages are not readable" toBeTranslated="true"/>
+		<node name="unsupportedEncryptionMethod" value="Файл «%s» зашыфраваны спосабам, які не падтрымлівае FBReader. Некаторыя старонкі нечытэльныя"/>
 		<node name="opfFileNotFound" value="OPF ня знойдзены ў %s"/>
-		<node name="unsupportedFileFormat" value="Фармат файла не падтрымліваецца для '%s'"/>
+		<node name="unsupportedFileFormat" value="Фармат файла не падтрымліваецца для «%s»"/>
 		<node name="errorParsingRtf" value="Памылка разбору rtf у: %s"/>
-		<node name="cannotRunAndroidMarket" value="Няма доступу да рынку Android. Калі ласка, усталюйце %s уручную"/>
-		<node name="textNotFound" value="Няма адпаведнага тэксту ў кнізе, прабачце"/>
-		<node name="bookNotFound" value="Няма адпаведных кніг у бібліятэцы, прабачце"/>
-		<node name="bookmarkNotFound" value="Няма адпаведных закладак, прабачце"/>
-		<node name="cannotOpenBook" value="Немагчыма адчыніць гэтую кнігу зараз, прабачце"/>
-		<node name="dictionaryIsNotInstalled" value="Слоўнік не ўсталяваны, прабачце"/>
-		<node name="permissionDenied" value="Адмоўлена ў дазволе, прабачце"/>
-		<node name="noFavorites" value="Ваш сьпіс упадабанага пусты, прабачце"/>
-		<node name="noSeries" value="There are no books in series, sorry" toBeTranslated="true"/>
-		<node name="emptyCatalog" value="Каталёґ пусты, прабачце"/>
-		<node name="emptyBasket" value="Ваш кошык пусты, прабачце"/>
-		<node name="emptyNetworkSearchResults" value="Кнігі ня знойдзеныя, прабачце"/>
-		<node name="videoServiceNotWorking" value="Video service is not available, sorry" toBeTranslated="true"/>
-		<node name="videoPlayerNotFound" value="There is no installed video player on this device, sorry" toBeTranslated="true"/>
+		<node name="cannotRunAndroidMarket" value="Няма доступу да Google Play. Калі ласка, усталюйце %s уручную"/>
+		<node name="textNotFound" value="Адпаведны тэкст ня знойдзены"/>
+		<node name="bookNotFound" value="Няма адпаведных кніг у бібліятэцы"/>
+		<node name="bookmarkNotFound" value="Няма адпаведных закладак"/>
+		<node name="cannotOpenBook" value="Немагчыма адчыніць гэтую кнігу зараз"/>
+		<node name="dictionaryIsNotInstalled" value="Слоўнік не ўсталяваны"/>
+		<node name="permissionDenied" value="Не дазволена"/>
+		<node name="noFavorites" value="Ваш сьпіс упадабанага пусты"/>
+		<node name="noSeries" value="Няма кніг з сэрыі"/>
+		<node name="emptyCatalog" value="Каталёг пусты"/>
+		<node name="emptyBasket" value="Ваш кошык пусты"/>
+		<node name="emptyNetworkSearchResults" value="Кнігі ня знойдзеныя"/>
+		<node name="videoServiceNotWorking" value="Відэаслужба недаступная"/>
+		<node name="videoPlayerNotFound" value="На прыладзе не ўсталяваны прайгравальнік"/>
+		<node name="bookIsMissingTitle" value="Адсутнічае кніга"/>
+		<node name="bookIsMissing" value="Кніга «%s» ня знойдзена на прыладзе"/>
+		<node name="downloadFailed" value="Зладаваньне няўдалае"/>
 	</node>
 	<node name="external">
 		<node name="browser" value="Аглядальнік"/>
 		<node name="defaultBrowser" value="Стандартны аглядальнік"/>
 	</node>
-	<node name="mobipocketPlugin">
-		<node name="unknown" value="Невядомая памылка"/>
-		<node name="unsupportedCompressionMethod" value="Непадтрыманы спосаб сьціску"/>
-		<node name="encryptedFile" value="Файл абаронены DRM (кіраваньнем лічбавымі правамі)"/>
-	</node>
 	<node name="crash">
 		<node name="fixBooksDirectory">
 			<node name="title" value="Праблема FBReader"/>
-			<node name="text" value="FBReader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or select another directory." toBeTranslated="true"/>
+			<node name="text" value="Запіс у кэш FBReader. Калі ласка, пераканайцеся, што карта памяці ўстаўлена правільна, альбо выберыце іншую тэчку."/>
 		</node>
 		<node name="missingNativeLibrary">
 			<node name="title" value="Праблема FBReader"/>
-			<node name="text" value="FBReader ня можа заладаваць родную бібліятэку. Магчыма, яна няправільна ўсталяваная. Калі праблема застаецца, калі ласка, паспрабуйце пераўсталяваць FBReader."/>
+			<node name="text" value="FBReader ня можа заладаваць родную бібліятэку. Калі праблема застаецца, калі ласка, паспрабуйце пераўсталяваць FBReader."/>
 		</node>
 	</node>
 	<node name="error">
@@ -960,42 +1167,93 @@
 		</node>
 	</node>
 	<node name="links">
-		<node name="faqPage" value="http://ru.fbreader.org/faq-page"/>
+		<node name="faqPage" value="https://fbreader.org/faq-page"/>
 	</node>
-	<node name="plugins" value="Install plugins" toBeTranslated="true">
-		<node name="noMorePlugins" value="We have no new plugins at the moment, sorry" toBeTranslated="true"/>
-		<node name="litres" value="LitRes" toBeTranslated="true">
-			<node name="summary" value="Russian book store" toBeTranslated="true"/>
+	<node name="plugins" value="Усталяваць убудовы">
+		<node name="noMorePlugins" value="Зараз няма новых убудоваў, прабачце"/>
+		<node name="litres" value="LitRes">
+			<node name="summary" value="Расейская кніжная крама"/>
 		</node>
-		<node name="tts-plus" value="TTS+" toBeTranslated="true">
-			<node name="summary" value="Read aloud" toBeTranslated="true"/>
+		<node name="tts_plus" value="TTS+">
+			<node name="summary" value="Чытайце ўголас"/>
 		</node>
-		<node name="local-opds-scanner" value="Local OPDS Scanner" toBeTranslated="true">
-			<node name="summary" value="Look for books in the local network" toBeTranslated="true"/>
+		<node name="calibre_server_integration" value="Злучэньне з Calibre">
+			<node name="summary" value="Злучыцца з сэрвэрам Calibre ў Вашай лякальнай сетцы"/>
 		</node>
-		<node name="bookshelf" value="Bookshelf" toBeTranslated="true">
-			<node name="summary" value="Thumbnail library view" toBeTranslated="true"/>
+		<node name="local_opds_scanner" value="Лякальны праглядальнік OPDS">
+			<node name="summary" value="Пошук кніг у лякальнай сетцы"/>
 		</node>
-		<node name="opds-server" value="OPDS Server" toBeTranslated="true">
-			<node name="summary" value="Serve books from your device" toBeTranslated="true"/>
+		<node name="bookshelf" value="Кніжная паліца">
+			<node name="summary" value="Бібліятэка ў выглядзе мініятур"/>
 		</node>
-		<node name="widgets" value="Widgets" toBeTranslated="true">
-			<node name="summary" value="Add books to your home screen" toBeTranslated="true"/>
+		<node name="opds_server" value="Сэрвэр OPDS">
+			<node name="summary" value="Дазваляць прыладзе дзейнічаць як сэрвэру"/>
 		</node>
-		<node name="pdf" value="PDF" toBeTranslated="true">
-			<node name="summary" value="Read books in PDF format" toBeTranslated="true"/>
+		<node name="widgets" value="Віджэты">
+			<node name="summary" value="Кнігі на галоўны экран"/>
+		</node>
+		<node name="pdf" value="PDF">
+			<node name="summary" value="Чытаньне кніг фармату PDF"/>
+		</node>
+		<node name="djvu" value="DjVu">
+			<node name="summary" value="Чытаньне кніг фармату DjVu"/>
+		</node>
+		<node name="cbr" value="Коміксы">
+			<node name="summary" value="Чытаць коміксы (CBR, CBZ)"/>
 		</node>
 	</node>
 	<node name="drm">
-		<node name="encryptedSection" value="Encrypted section" toBeTranslated="true"/>
+		<node name="encryptedSection" value="Зашыфраваная частка"/>
 	</node>
 	<node name="yota">
-		<node name="frontScreenMessage" value="Turn the device over to read your book. To return text to this screen, press the button below." toBeTranslated="true"/>
-		<node name="frontScreenButton" value="Switch to this screen" toBeTranslated="true"/>
+		<node name="frontScreenMessage" value="Перавярніце прыладу, каб чытаць кнігу. Каб вярнуць тэкст на гэты экран, націсьніце кнопку зьнізу."/>
+		<node name="frontScreenButton" value="Пераключыцца на гэты экран"/>
 	</node>
 	<node name="hint">
-		<node name="positiveLength" value="E.g.: 20px, 10pt, 0.8em, 1ex, 120%%" toBeTranslated="true"/>
-		<node name="length" value="E.g.: -2px, 10pt, -0.8em, 1.1ex, -40%%" toBeTranslated="true"/>
-		<node name="percent" value="E.g.: 125%%" toBeTranslated="true"/>
+		<node name="positiveLength" value="Напрыклад: 20px, 10pt, 0.8em, 1ex, 120%"/>
+		<node name="length" value="Напрыклад: -2px, 10pt, -0.8em, 1.1ex, -40%"/>
+		<node name="percent" value="Напрыклад: 125%"/>
+	</node>
+	<node name="duration">
+		<node name="duration1" value="1 сэкунда"/>
+		<node name="duration3" value="3 сэкунды"/>
+		<node name="duration5" value="5 сэкунд"/>
+		<node name="duration10" value="10 сэкунд"/>
+		<node name="duration20" value="20 сэкунд"/>
+		<node name="duration40" value="40 сэкунд"/>
+		<node name="duration60" value="1 хвіліна"/>
+		<node name="duration300" value="5 хвілін"/>
+	</node>
+	<node name="textSearchPopup">
+		<node name="findPrevious" value="Previous occurence" toBeTranslated="true"/>
+		<node name="findNext" value="Next occurence" toBeTranslated="true"/>
+		<node name="close" value="Close" toBeTranslated="true"/>
+	</node>
+	<node name="selectionPopup">
+		<node name="copyToClipboard" value="Скапіяваць у кішэню"/>
+		<node name="share" value="Share text" toBeTranslated="true"/>
+		<node name="openInDictionary" value="Адчыніць у слоўніку"/>
+		<node name="translate" value="Translate" toBeTranslated="true"/>
+		<!-- this is a verb: make a bookmark -->
+		<node name="bookmark" value="Bookmark" toBeTranslated="true"/>
+		<node name="close" value="Close" toBeTranslated="true"/>
+	</node>
+	<node name="dictanErrors">
+		<node name="unknown" value="Невядомая памылка"/>
+		<node name="noArticle" value="Ня знойдзена артукла для «%s»"/>
+		<node name="cannotOpenDictionary" value="Немагчыма адчыніць слоўнік"/>
+		<node name="noDictionarySelected" value="Слоўнік ня выбраны; калі ласка, наладзьце яго."/>
+	</node>
+	<node name="premium" value="Прэміюмнае выданьне FBReader">
+		<node name="shortTitle" value="FBReader Прэміюм"/>
+		<node name="conflict" value="Выглядае на тое, што ўсталяваныя і FBReader, і FBReader Прэміюм. Які Вы жадаеце запусьціць?"/>
+	</node>
+	<node name="widget">
+		<node name="simple">
+			<node name="selectIcon" value="Выбраць значок віджэта"/>
+			<node name="selectAction" value="Абраць дзеяньне"/>
+			<node name="book" value="Чытаць кнігу"/>
+			<node name="library" value="Адчыніць бібліятэку"/>
+		</node>
 	</node>
 </resources>

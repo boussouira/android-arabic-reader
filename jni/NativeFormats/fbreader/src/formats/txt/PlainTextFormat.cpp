@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -97,7 +97,7 @@ void PlainTextFormatDetector::detect(ZLInputStream &stream, PlainTextFormat &for
 	unsigned int currentLineLength = 0;
 	unsigned int currentLineIndent = 0;
 	int currentNumberOfEmptyLines = -1;
-	
+
 	char *buffer = new char[BUFFER_SIZE];
 	int length;
 	char previous = 0;
@@ -127,7 +127,7 @@ void PlainTextFormatDetector::detect(ZLInputStream &stream, PlainTextFormat &for
 				if (!currentLineIsEmpty) {
 					stringIndentTable[std::min(currentLineIndent, tableSize - 1)]++;
 				}
-				
+
 				currentLineIsEmpty = true;
 				currentLineLength = 0;
 				currentLineIndent = 0;
@@ -182,8 +182,8 @@ void PlainTextFormatDetector::detect(ZLInputStream &stream, PlainTextFormat &for
 		}
 		if (emptyLinesBeforeNewSection > 0) {
 			for (index = tableSize - 1; index > 0; --index) {
-				emptyLinesTable[index - 1] += emptyLinesTable[index];	
-				emptyLinesBeforeShortStringTable[index - 1] += emptyLinesBeforeShortStringTable[index];	
+				emptyLinesTable[index - 1] += emptyLinesTable[index];
+				emptyLinesBeforeShortStringTable[index - 1] += emptyLinesBeforeShortStringTable[index];
 			}
 			for (index = emptyLinesBeforeNewSection; index < tableSize; ++index) {
 				if ((emptyLinesBeforeShortStringTable[index] > 2) &&

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2009-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -58,7 +58,7 @@ private:
 	bool myInitialized;
 	bool myEof;
 
-private: 
+private:
 	// disable copying
 	ZLAsynchronousInputStream(const ZLAsynchronousInputStream &);
 	const ZLAsynchronousInputStream &operator = (const ZLAsynchronousInputStream &);

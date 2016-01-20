@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 
 #include <vector>
 #include <list>
+#include <map>
 #include <stack>
 #include <string>
 
@@ -50,6 +51,7 @@ public:
 	void unsetTextModel();
 
 	void insertEndOfSectionParagraph();
+	void insertPseudoEndOfSectionParagraph();
 	void insertEndOfTextParagraph();
 	void insertEncryptedSectionParagraph();
 
@@ -61,8 +63,8 @@ public:
 	void endParagraph();
 	bool paragraphIsOpen() const;
 	void addControl(FBTextKind kind, bool start);
-	void addStyleEntry(const ZLTextStyleEntry &entry);
-	void addStyleEntry(const ZLTextStyleEntry &entry, const std::vector<std::string> &fontFamilies);
+	void addStyleEntry(const ZLTextStyleEntry &entry, unsigned char depth);
+	void addStyleEntry(const ZLTextStyleEntry &entry, const std::vector<std::string> &fontFamilies, unsigned char depth);
 	void addStyleCloseEntry();
 	void addHyperlinkControl(FBTextKind kind, const std::string &label);
 	void addHyperlinkLabel(const std::string &label);
@@ -73,6 +75,7 @@ public:
 	void addImage(const std::string &id, shared_ptr<const ZLImage> image);
 
 	void addVideoEntry(const ZLVideoEntry &entry);
+	void addExtensionEntry(const std::string &action, const std::map<std::string,std::string> &data);
 
 	void beginContentsParagraph(int referenceNumber = -1);
 	void endContentsParagraph();

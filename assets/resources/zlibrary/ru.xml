@@ -15,7 +15,6 @@
 			<node name="somethingWrongMessage" value="Ошибка при работе с %s"/>
 			<node name="couldntCreateDirectoryMessage" value="Не удалось создать каталог %s"/>
 			<node name="couldntCreateFileMessage" value="Не удалось создать файл %s"/>
-			<node name="couldntConnectToNetworkMessage" value="Не удалось соединиться с сетью"/>
 			<node name="couldntConnectMessage" value="Не удалось соединиться с сайтом %s"/>
 			<node name="couldntResolveHostMessage" value="Не удаётся найти сайт %s"/>
 			<node name="authenticationFailed" value="Ошибка авторизации"/>
@@ -23,6 +22,7 @@
 			<node name="invalidURL" value="Неправильный URL"/>
 			<node name="hostCantBeReached" value="Сайт %s недоступен"/>
 			<node name="connectionRefused" value="Соединение закрыто сайтом %s"/>
+			<node name="networkNotAvailable" value="Нет соединения с сетью"/>
 		</node>
 	</node>
 	<node name="color">
@@ -41,6 +41,7 @@
 		<node name="de-traditional" value="немецкий (старая орфография)"/>
 		<node name="el" value="греческий"/>
 		<node name="en" value="английский"/>
+		<node name="en_US" value="английский (США)"/>
 		<node name="eo" value="эсперанто"/>
 		<node name="es" value="испанский"/>
 		<node name="eu" value="баскский"/>
@@ -53,7 +54,9 @@
 		<node name="hy" value="армянский"/>
 		<node name="id" value="индонезийский"/>
 		<node name="it" value="итальянский"/>
+		<node name="ja" value="японский"/>
 		<node name="ka" value="грузинский"/>
+		<node name="ko" value="корейский"/>
 		<node name="lt" value="литовский"/>
 		<node name="nb" value="норвежский"/>
 		<node name="nl" value="голландский"/>

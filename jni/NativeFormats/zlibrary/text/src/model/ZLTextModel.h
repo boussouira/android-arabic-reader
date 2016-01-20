@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,10 @@
 
 #include <jni.h>
 
-#include <vector>
-#include <string>
 #include <algorithm>
+#include <string>
+#include <vector>
+#include <map>
 
 #include <ZLHyperlinkType.h>
 #include <ZLTextParagraph.h>
@@ -67,8 +68,8 @@ public:
 	ZLTextMark previousMark(ZLTextMark position) const;
 */
 	void addControl(ZLTextKind textKind, bool isStart);
-	void addStyleEntry(const ZLTextStyleEntry &entry);
-	void addStyleEntry(const ZLTextStyleEntry &entry, const std::vector<std::string> &fontFamilies);
+	void addStyleEntry(const ZLTextStyleEntry &entry, unsigned char depth);
+	void addStyleEntry(const ZLTextStyleEntry &entry, const std::vector<std::string> &fontFamilies, unsigned char depth);
 	void addStyleCloseEntry();
 	void addHyperlinkControl(ZLTextKind textKind, ZLHyperlinkType hyperlinkType, const std::string &label);
 	void addText(const std::string &text);
@@ -77,6 +78,7 @@ public:
 	void addFixedHSpace(unsigned char length);
 	void addBidiReset();
 	void addVideoEntry(const ZLVideoEntry &entry);
+	void addExtensionEntry(const std::string &action, const std::map<std::string,std::string> &data);
 
 	void flush();
 

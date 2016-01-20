@@ -205,6 +205,8 @@ public class FileChooserActivity extends Activity {
     public static final String _SelectFile = _ClassName + ".select_file";
 
     public static final String _TextResources = _ClassName + ".text_resources";
+    public static final String _ShowNewFolderButton = _ClassName + ".show_new_folder_button";
+    public static final String _FilenameRegExp = _ClassName + ".file_regexp";
     // ---------------------------------------------------------
 
     /**
@@ -298,7 +300,8 @@ public class FileChooserActivity extends Activity {
     private ImageView mViewSort;
 
     private HashMap<String, String> mTextResources; 
-       
+    private String mFilenameRegexp; 
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -306,6 +309,7 @@ public class FileChooserActivity extends Activity {
          * THEME
          */
 
+        /*
         if (getIntent().hasExtra(_Theme)) {
             int theme;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -316,6 +320,7 @@ public class FileChooserActivity extends Activity {
                 theme = getIntent().getIntExtra(_Theme, android.R.style.Theme);
             setTheme(theme);
         }
+        */
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.afc_file_chooser);
@@ -346,6 +351,10 @@ public class FileChooserActivity extends Activity {
         mViewSort = (ImageView) findViewById(R.id.afc_filechooser_activity_button_sort);
         mViewFoldersView = (ImageView) findViewById(R.id.afc_filechooser_activity_button_folders_view);
         mViewCreateFolder = (ImageView) findViewById(R.id.afc_filechooser_activity_button_create_folder);
+        if (!getIntent().getBooleanExtra(_ShowNewFolderButton, true)) {
+            mViewCreateFolder.setVisibility(View.GONE);
+        }
+        mFilenameRegexp = getIntent().getStringExtra(_FilenameRegExp);
         mViewGoBack = (ImageView) findViewById(R.id.afc_filechooser_activity_button_go_back);
         mViewGoForward = (ImageView) findViewById(R.id.afc_filechooser_activity_button_go_forward);
         mViewLocations = (ViewGroup) findViewById(R.id.afc_filechooser_activity_view_locations);
@@ -449,6 +458,11 @@ public class FileChooserActivity extends Activity {
     @Override
     public void onBackPressed() {
         IFile currentLoc = getLocation();
+        if (currentLoc == null || mHistory == null) {
+            super.onBackPressed();
+            return;
+        }
+
         IFile preLoc = null;
         while (currentLoc.equalsToPath(preLoc = mHistory.prevOf(currentLoc)))
             mHistory.remove(preLoc);
@@ -744,7 +758,7 @@ public class FileChooserActivity extends Activity {
             mFileAdapter.clear();
 
         mFileAdapter = new IFileAdapter(FileChooserActivity.this, new ArrayList<IFileDataModel>(),
-                mFileProvider.getFilterMode(), mIsMultiSelection);
+                mFileProvider.getFilterMode(), mFilenameRegexp, mIsMultiSelection);
         /*
          * API 13+ does not recognize AbsListView.setAdapter(), so we cast it to
          * explicit class
@@ -789,10 +803,10 @@ public class FileChooserActivity extends Activity {
         if(mIsActionBar){
             viewGroupFooterContainer.setVisibility(View.VISIBLE);
             viewGroupFooterBottom.setVisibility(View.VISIBLE);
-            if(mFileProvider.getFilterMode() != IFileProvider.FilterMode.FilesOnly){
+            if (mFileProvider.getFilterMode() != IFileProvider.FilterMode.FilesOnly) {
                 mBtnOk.setVisibility(View.VISIBLE);
                 mBtnOk.setOnClickListener(mBtnOk_ActionBar_OnClickListener);
-            }else{
+            } else {
                 mBtnOk.setVisibility(View.GONE);
             }
             mBtnCancel.setVisibility(View.VISIBLE);
@@ -1034,8 +1048,14 @@ public class FileChooserActivity extends Activity {
                             return;
                         }
 
-                        IFile dir = mFileProvider.fromPath(String
-                                .format("%s/%s", getLocation().getAbsolutePath(), name));
+                        final IFileProvider fileProvider = mFileProvider;
+                        final IFile location = getLocation();
+                        if (fileProvider == null || location == null) {
+                            return;
+                        }
+
+                        IFile dir = fileProvider.fromPath(String
+                                .format("%s/%s", location.getAbsolutePath(), name));
                         if (dir.mkdir()) {
                             Dlg.toast(FileChooserActivity.this, getString(R.string.afc_msg_done), Dlg._LengthShort);
                             setLocation(getLocation(), null);
@@ -1362,7 +1382,7 @@ public class FileChooserActivity extends Activity {
                  * navigation buttons
                  */
                 createLocationButtons(path);
-				
+
                 /*
                  * update UI elements
                  */
@@ -1465,8 +1485,8 @@ public class FileChooserActivity extends Activity {
      * @param files
      *            list of {@link IFile}
      */
-    private void doFinish(IFile... files) {
-        List<IFile> list = new ArrayList<IFile>();
+    private void doFinish(IFile ... files) {
+        final List<IFile> list = new ArrayList<IFile>();
         for (IFile f : files)
             list.add(f);
         doFinish((ArrayList<IFile>) list);
@@ -1483,17 +1503,20 @@ public class FileChooserActivity extends Activity {
         // set results
         switch(mFileProvider.getFilterMode()){
             case FilesOnly:
-                if(files == null || files.isEmpty()){
+                if (files == null || files.isEmpty()) {
                     setResult(RESULT_CANCELED);
                     finish();
                     return;
                 }
                 break;
             case DirectoriesOnly:
-                if(((File)getLocation()).canWrite()){
+            {
+                final File file = (File)getLocation();
+                if (file != null && file.canWrite()) {
                     returnPath = getLocation().getAbsolutePath();
                 }
                 break;
+            }
             case FilesAndDirectories:
                 if(files == null || files.isEmpty()){
                     returnPath = getLocation().getAbsolutePath();
@@ -1504,15 +1527,23 @@ public class FileChooserActivity extends Activity {
                 break;
         }
         
+		boolean hasData = false;
         Intent intent = new Intent();
-        if(returnPath != null)
+        if (returnPath != null) {
             intent.putExtra(_FolderPath, returnPath);
+			hasData = true;
+		}
         
-        if(files != null){
+        if (files != null) {
             intent.putExtra(_Results, files);
-        }else{
+			hasData = true;
+        } else {
             intent.putExtra(_Results, new ArrayList<IFile>());
         }
+
+		if (!hasData) {
+			return;
+		}
 
         // return flags for further use (in case the caller needs)
         intent.putExtra(_FilterMode, mFileProvider.getFilterMode());
@@ -1654,9 +1685,9 @@ public class FileChooserActivity extends Activity {
         final boolean isDirectoryWriteable = ((File)dir).canWrite();
         mViewCreateFolder.setEnabled(isDirectoryWriteable);
         mBtnOk.setEnabled(
-			isDirectoryWriteable ||
-        	mFileProvider.getFilterMode() == IFileProvider.FilterMode.AnyDirectories
-		);
+            isDirectoryWriteable ||
+            mFileProvider.getFilterMode() == IFileProvider.FilterMode.AnyDirectories
+        );
     }
     
     private final View.OnLongClickListener mBtnGoBackForwardOnLongClickListener = new View.OnLongClickListener() {
@@ -1885,13 +1916,18 @@ public class FileChooserActivity extends Activity {
                 return;
             }// double tap to choose files
             else {
-                if (mIsMultiSelection)
+                if (mIsMultiSelection) {
                     return;
+                }
 
-                if (mIsSaveDialog)
+                if (mIsSaveDialog) {
                     doCheckSaveasFilenameAndFinish(data.getFile().getName());
-                else
-                    doFinish(data.getFile());
+                } else {
+                    final IFileAdapter.Bag bag = (IFileAdapter.Bag)view.getTag();
+                    if (bag != null && bag.mIsAccessible) {
+                        doFinish(data.getFile());
+                    }
+                }
             }// single tap to choose files
         }// onItemClick()
     };// mViewFilesOnItemClickListener

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,13 @@
 
 #include <string>
 
+#include <ZLTextStyleEntry.h>
+
 struct StyleSheetUtil {
 	static std::string strip(const std::string &data);
 	static std::vector<std::string> splitCommaSeparatedList(const std::string &data);
+
+	static ZLTextStyleEntry::DisplayCode displayCode(const std::string &data);
 };
 
 #endif /* __STYLESHEETUTIL_H__ */

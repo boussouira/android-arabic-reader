@@ -15,7 +15,6 @@
 			<node name="somethingWrongMessage" value="Noget går galt for %s"/>
 			<node name="couldntCreateDirectoryMessage" value="Kunne ikke oprette en mappe %s"/>
 			<node name="couldntCreateFileMessage" value="Kunne ikke oprette en fil %s"/>
-			<node name="couldntConnectToNetworkMessage" value="Kunne ikke få forbindelse til netværket"/>
 			<node name="couldntConnectMessage" value="Kunne ikke få forbindelse til vært %s"/>
 			<node name="couldntResolveHostMessage" value="Kunne ikke løse problem med vært %s"/>
 			<node name="authenticationFailed" value="Godkendelse mislykkedes"/>
@@ -23,6 +22,7 @@
 			<node name="invalidURL" value="Ugyldig URL"/>
 			<node name="hostCantBeReached" value="Vært %s kan ikke nås"/>
 			<node name="connectionRefused" value="Forbindelse blev afvist af %s"/>
+			<node name="networkNotAvailable" value="Network is not available" toBeTranslated="true"/>
 		</node>
 	</node>
 	<node name="color">
@@ -41,6 +41,7 @@
 		<node name="de-traditional" value="Tysk (traditionel retskrivning)"/>
 		<node name="el" value="Græsk"/>
 		<node name="en" value="Engelsk"/>
+		<node name="en_US" value="English (US)" toBeTranslated="true"/>
 		<node name="eo" value="Esperanto"/>
 		<node name="es" value="Spansk"/>
 		<node name="eu" value="Basque" toBeTranslated="true"/>
@@ -53,7 +54,9 @@
 		<node name="hy" value="Armenian" toBeTranslated="true"/>
 		<node name="id" value="Indonesisk"/>
 		<node name="it" value="Italiensk"/>
+		<node name="ja" value="Japanese" toBeTranslated="true"/>
 		<node name="ka" value="Georgisk"/>
+		<node name="ko" value="Korean" toBeTranslated="true"/>
 		<node name="lt" value="Litauisk"/>
 		<node name="nb" value="Norsk"/>
 		<node name="nl" value="Hollandsk"/>

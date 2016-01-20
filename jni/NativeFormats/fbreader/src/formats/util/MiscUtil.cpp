@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,11 @@ FBTextKind MiscUtil::referenceType(const std::string &link) {
 		ZLStringUtil::stringStartsWith(lowerCasedLink, "ftp://");
 
 	if (!isFileReference) {
-		return ZLStringUtil::stringStartsWith(lowerCasedLink, "mailto:") ? EXTERNAL_HYPERLINK : INTERNAL_HYPERLINK;
+		return
+			ZLStringUtil::stringStartsWith(lowerCasedLink, "mailto:") ||
+			ZLStringUtil::stringStartsWith(lowerCasedLink, "fbreader-action:") ||
+			ZLStringUtil::stringStartsWith(lowerCasedLink, "com-fbreader-action:")
+				? EXTERNAL_HYPERLINK : INTERNAL_HYPERLINK;
 	}
 	/*static const std::string FeedBooksPrefix0 = "http://feedbooks.com/book/stanza/";
 	static const std::string FeedBooksPrefix1 = "http://www.feedbooks.com/book/stanza/";

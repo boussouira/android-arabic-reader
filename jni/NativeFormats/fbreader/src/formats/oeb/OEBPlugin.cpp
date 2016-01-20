@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -70,7 +70,7 @@ void ContainerFileReader::startElementHandler(const char *tag, const char **attr
 OEBPlugin::~OEBPlugin() {
 }
 
-bool OEBPlugin::providesMetaInfo() const {
+bool OEBPlugin::providesMetainfo() const {
 	return true;
 }
 
@@ -124,9 +124,9 @@ ZLFile OEBPlugin::opfFile(const ZLFile &oebFile) {
 	return ZLFile::NO_FILE;
 }
 
-bool OEBPlugin::readMetaInfo(Book &book) const {
+bool OEBPlugin::readMetainfo(Book &book) const {
 	const ZLFile &file = book.file();
-	return OEBMetaInfoReader(book).readMetaInfo(opfFile(file));
+	return OEBMetaInfoReader(book).readMetainfo(opfFile(file));
 }
 
 std::vector<shared_ptr<FileEncryptionInfo> > OEBPlugin::readEncryptionInfos(Book &book) const {

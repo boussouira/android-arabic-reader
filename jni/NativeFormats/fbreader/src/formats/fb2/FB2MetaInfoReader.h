@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ class FB2MetaInfoReader : public FB2Reader {
 
 public:
 	FB2MetaInfoReader(Book &book);
-	bool readMetaInfo();
+	bool readMetainfo();
 
 	void startElementHandler(int tag, const char **attributes);
 	void endElementHandler(int tag);

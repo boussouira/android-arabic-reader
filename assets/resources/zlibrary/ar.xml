@@ -11,18 +11,18 @@
 		<node name="networkError">
 			<node name="title" value="خطأ في الشبكة"/>
 			<node name="unknownErrorMessage" value="خطأ غير معروف"/>
-			<node name="operationTimedOutMessage" value="Operation is timed out" toBeTranslated="true"/>
-			<node name="somethingWrongMessage" value="Something goes wrong for %s" toBeTranslated="true"/>
+			<node name="operationTimedOutMessage" value="Operation has timed out" toBeTranslated="true"/>
+			<node name="somethingWrongMessage" value="Something went wrong with %s" toBeTranslated="true"/>
 			<node name="couldntCreateDirectoryMessage" value="لا يمكن إنشاء المجلد %s"/>
 			<node name="couldntCreateFileMessage" value="لا يمكن إنشاء الملف %s"/>
-			<node name="couldntConnectToNetworkMessage" value="لا يمكن الإتصال بالشبكة"/>
 			<node name="couldntConnectMessage" value="لايمكن الإتصال بالمضيف %s"/>
-			<node name="couldntResolveHostMessage" value="Couldn't resolve host %s" toBeTranslated="true"/>
+			<node name="couldntResolveHostMessage" value="Failed to resolve host %s" toBeTranslated="true"/>
 			<node name="authenticationFailed" value="Authentication failed" toBeTranslated="true"/>
 			<node name="unsupportedProtocol" value="Unsupported protocol" toBeTranslated="true"/>
 			<node name="invalidURL" value="Invalid URL" toBeTranslated="true"/>
 			<node name="hostCantBeReached" value="Host %s cannot be reached" toBeTranslated="true"/>
 			<node name="connectionRefused" value="Connection was refused by %s" toBeTranslated="true"/>
+			<node name="networkNotAvailable" value="Network is not available" toBeTranslated="true"/>
 		</node>
 	</node>
 	<node name="color">
@@ -41,6 +41,7 @@
 		<node name="de-traditional" value="الألماني (كتابة تقليدية)"/>
 		<node name="el" value="اليونانية"/>
 		<node name="en" value="الإنجليزية"/>
+		<node name="en_US" value="English (US)" toBeTranslated="true"/>
 		<node name="eo" value="الإسبرانتو"/>
 		<node name="es" value="الإسبانية"/>
 		<node name="eu" value="Basque" toBeTranslated="true"/>
@@ -53,7 +54,9 @@
 		<node name="hy" value="Armenian" toBeTranslated="true"/>
 		<node name="id" value="الأندونيسية"/>
 		<node name="it" value="الإيطالية"/>
+		<node name="ja" value="Japanese" toBeTranslated="true"/>
 		<node name="ka" value="Georgian"/>
+		<node name="ko" value="Korean" toBeTranslated="true"/>
 		<node name="lt" value="اللتوانية"/>
 		<node name="nb" value="النرويجية"/>
 		<node name="nl" value="الهولندية"/>

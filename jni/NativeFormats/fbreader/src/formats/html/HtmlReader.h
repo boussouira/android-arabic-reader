@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,6 +51,7 @@ public:
 		~HtmlTag();
 		void addAttribute(const std::string &name);
 		void setLastAttributeValue(const std::string &value);
+		const std::string *find(const std::string &name) const;
 
 	private:
 		HtmlTag(const HtmlTag&);

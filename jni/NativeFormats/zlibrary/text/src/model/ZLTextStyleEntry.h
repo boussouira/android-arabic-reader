@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,6 +36,7 @@ public:
 		SIZE_UNIT_PIXEL,
 		SIZE_UNIT_POINT,
 		SIZE_UNIT_EM_100,
+		SIZE_UNIT_REM_100,
 		SIZE_UNIT_EX_100,
 		SIZE_UNIT_PERCENT
 	};
@@ -61,16 +62,45 @@ public:
 	};
 
 	enum Feature {
-		LENGTH_LEFT_INDENT =                0,
-		LENGTH_RIGHT_INDENT =               1,
-		LENGTH_FIRST_LINE_INDENT =          2,
-		LENGTH_SPACE_BEFORE =               3,
-		LENGTH_SPACE_AFTER =                4,
-		LENGTH_FONT_SIZE =                  5,
-		NUMBER_OF_LENGTHS =                 6,
+		LENGTH_PADDING_LEFT =               0,
+		LENGTH_PADDING_RIGHT =              1,
+		LENGTH_MARGIN_LEFT =                2,
+		LENGTH_MARGIN_RIGHT =               3,
+		LENGTH_FIRST_LINE_INDENT =          4,
+		LENGTH_SPACE_BEFORE =               5,
+		LENGTH_SPACE_AFTER =                6,
+		LENGTH_FONT_SIZE =                  7,
+		LENGTH_VERTICAL_ALIGN =             8,
+		NUMBER_OF_LENGTHS =                 9,
 		ALIGNMENT_TYPE =                    NUMBER_OF_LENGTHS,
 		FONT_FAMILY =                       NUMBER_OF_LENGTHS + 1,
 		FONT_STYLE_MODIFIER =               NUMBER_OF_LENGTHS + 2,
+		NON_LENGTH_VERTICAL_ALIGN =         NUMBER_OF_LENGTHS + 3,
+		DISPLAY =                           NUMBER_OF_LENGTHS + 4 // 11; max = 15
+	};
+
+	enum DisplayCode {
+		DC_NOT_DEFINED = -1,
+		DC_INLINE,
+		DC_BLOCK,
+		DC_FLEX,
+		DC_INLINE_BLOCK,
+		DC_INLINE_FLEX,
+		DC_INLINE_TABLE,
+		DC_LIST_ITEM,
+		DC_RUN_IN,
+		DC_TABLE,
+		DC_TABLE_CAPTION,
+		DC_TABLE_COLUMN_GROUP,
+		DC_TABLE_HEADER_GROUP,
+		DC_TABLE_FOOTER_GROUP,
+		DC_TABLE_ROW_GROUP,
+		DC_TABLE_CELL,
+		DC_TABLE_COLUMN,
+		DC_TABLE_ROW,
+		DC_NONE,
+		DC_INITIAL,
+		DC_INHERIT
 	};
 
 private:
@@ -101,6 +131,14 @@ public:
 	const std::vector<std::string> &fontFamilies() const;
 	void setFontFamilies(const std::vector<std::string> &fontFamilies);
 
+	unsigned char verticalAlignCode() const;
+	void setVerticalAlignCode(unsigned char code);
+
+	DisplayCode displayCode() const;
+	void setDisplayCode(DisplayCode code);
+
+	shared_ptr<ZLTextStyleEntry> start() const;
+	shared_ptr<ZLTextStyleEntry> end() const;
 	shared_ptr<ZLTextStyleEntry> inherited() const;
 
 private:
@@ -112,11 +150,13 @@ private:
 	unsigned char mySupportedFontModifier;
 	unsigned char myFontModifier;
 	std::vector<std::string> myFontFamilies;
+	unsigned char myVerticalAlignCode;
+	DisplayCode myDisplayCode;
 
 	friend class ZLTextModel;
 };
 
-inline ZLTextStyleEntry::ZLTextStyleEntry(unsigned char entryKind) : myEntryKind(entryKind), myFeatureMask(0), myAlignmentType(ALIGN_UNDEFINED), mySupportedFontModifier(0), myFontModifier(0) {}
+inline ZLTextStyleEntry::ZLTextStyleEntry(unsigned char entryKind) : myEntryKind(entryKind), myFeatureMask(0), myAlignmentType(ALIGN_UNDEFINED), mySupportedFontModifier(0), myFontModifier(0), myDisplayCode(DC_NOT_DEFINED) {}
 inline ZLTextStyleEntry::~ZLTextStyleEntry() {}
 
 inline unsigned char ZLTextStyleEntry::entryKind() const { return myEntryKind; }
@@ -161,6 +201,20 @@ inline void ZLTextStyleEntry::setFontFamilies(const std::vector<std::string> &fo
 	if (!fontFamilies.empty()) {
 		myFeatureMask |= 1 << FONT_FAMILY;
 		myFontFamilies = fontFamilies;
+	}
+}
+
+inline unsigned char ZLTextStyleEntry::verticalAlignCode() const { return myVerticalAlignCode; }
+inline void ZLTextStyleEntry::setVerticalAlignCode(unsigned char code) {
+	myFeatureMask |= 1 << NON_LENGTH_VERTICAL_ALIGN;
+	myVerticalAlignCode = code;
+}
+
+inline ZLTextStyleEntry::DisplayCode ZLTextStyleEntry::displayCode() const { return myDisplayCode; }
+inline void ZLTextStyleEntry::setDisplayCode(DisplayCode code) {
+	if (code != DC_NOT_DEFINED) {
+		myFeatureMask |= 1 << DISPLAY;
+		myDisplayCode = code;
 	}
 }
 

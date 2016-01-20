@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -39,11 +39,11 @@ public:
 
 protected:
 	static ZLFSManager *ourInstance;
-	
+
 protected:
 	ZLFSManager();
 	virtual ~ZLFSManager();
-	
+
 public:
 	void normalize(std::string &path) const;
 	virtual std::string resolveSymlink(const std::string &path) const = 0;

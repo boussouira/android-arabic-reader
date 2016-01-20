@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 const std::string EncryptionMethod::UNSUPPORTED = "unsupported";
 const std::string EncryptionMethod::EMBEDDING = "embedding";
 const std::string EncryptionMethod::MARLIN = "marlin";
+const std::string EncryptionMethod::KINDLE = "kindle";
 
 FileEncryptionInfo::FileEncryptionInfo(const std::string &uri, const std::string &method, const std::string &algorithm, const std::string &contentId) : Uri(uri), Method(method), Algorithm(algorithm), ContentId(contentId) {
 }

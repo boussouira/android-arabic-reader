@@ -1,15 +1,13 @@
 #!/bin/sh
 
+version=`cat VERSION | sed 's/ //g'`
 git checkout master
-git tag `cat VERSION`
+git tag $version
 #git checkout ice-cream-sandwich
 git checkout yota2
-git tag `cat VERSION`-ics
+git tag $version-ics
 git checkout nook
-git tag `cat VERSION`-nst
+git tag $version-nst
 git checkout kindle
-git tag `cat VERSION`-kindlefire
-#git checkout beta
-#git tag `cat VERSION-BETA | sed "s/ //g"`
-#git checkout beta-ics
-#git tag `cat VERSION-BETA | sed "s/ //g"`-ics
+git tag $version-kindlefire
+git checkout master

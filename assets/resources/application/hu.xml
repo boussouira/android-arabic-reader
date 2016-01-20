@@ -23,8 +23,32 @@
 		<node name="favorites" value="Kedvencek">
 			<node name="summary" value="Kedvencnek jelölt könyveim"/>
 		</node>
+		<node name="chooseView" value="Choose view" toBeTranslated="true"/>
+		<node name="wideCardsView" value="Wide cards" toBeTranslated="true"/>
+		<node name="smallCardsView" value="Small cards" toBeTranslated="true"/>
+		<node name="tinyCardsView" value="Tiny cards" toBeTranslated="true"/>
+		<node name="coversView" value="Covers" toBeTranslated="true"/>
+		<node name="oldView" value="Classic" toBeTranslated="true"/>
+		<node name="bookshelfView" value="Bookshelf view" toBeTranslated="true">
+			<node name="summary" value="Switch to thumbnail view" toBeTranslated="true"/>
+		</node>
 		<node name="found" value="Találatok">
 			<node name="summary" value="Keresés: %s"/>
+		</node>
+		<node name="sync" value="Synchronisation" toBeTranslated="true">
+			<node name="summary" value="Books by synchronisation status" toBeTranslated="true"/>
+			<node name="sync-success" value="Synchronised" toBeTranslated="true">
+				<node name="summary" value="Books successfully uploaded to the server" toBeTranslated="true"/>
+			</node>
+			<node name="sync-failure" value="Synchronisation failed" toBeTranslated="true">
+				<node name="summary" value="Books not uploaded to the server due to errors" toBeTranslated="true"/>
+			</node>
+			<node name="sync-deleted" value="Deleted from server" toBeTranslated="true">
+				<node name="summary" value="Books no longer accessible from the server" toBeTranslated="true"/>
+			</node>
+			<node name="sync-tosync" value="Not synchronised yet" toBeTranslated="true">
+				<node name="summary" value="Books yet to be uploaded to the server" toBeTranslated="true"/>
+			</node>
 		</node>
 		<node name="fileTree" value="Könytárfa">
 			<node name="summary" value="Fájlrendszer tallózása"/>
@@ -33,15 +57,14 @@
 			<node name="summary" value="Az eszköz teljes fájlrendszere"/>
 		</node>
 		<node name="fileTreeCard" value="Memóriakártya">
+			<node name="withIndex" value="Memory card No %s" toBeTranslated="true"/>
 			<node name="summary" value="Az eszközbe illesztett memóriakártya"/>
 		</node>
 		<node name="fileTreeLibrary" value="FBReader mappa">
 			<node name="summary" value="Az FBReader e-könyvek mappája"/>
 		</node>
-		<node name="menu">
-			<node name="localSearch" value="Helyi keresés"/>
-			<node name="rescan" value="Újraindexel"/>
-		</node>
+		<node name="localSearch" value="Helyi keresés"/>
+		<node name="rescan" value="Újraindexel"/>
 		<node name="openBook" value="Könyv megnyitása"/>
 		<node name="showBookInfo" value="Információk a könyvről"/>
 		<node name="shareBook" value="Könyv megosztása"/>
@@ -51,8 +74,14 @@
 		<node name="removeFromRecents" value="Eltávolítás a legutóbbiak listájáról"/>
 		<node name="markAsRead" value="Megjelölés olvasottként"/>
 		<node name="markAsUnread" value="Megjelölés olvasatlanként"/>
+		<node name="deleteAll" value="Delete all" toBeTranslated="true"/>
+		<node name="uploadAgain" value="Upload again" toBeTranslated="true"/>
+		<node name="tryAgain" value="Try again" toBeTranslated="true"/>
 	</node>
 	<node name="networkLibrary" value="FBReader internetes könyvtár">
+		<node name="sync" value="FBReader® book network" toBeTranslated="true">
+			<node name="summary" value="My personal catalogue" toBeTranslated="true"/>
+		</node>
 		<node name="byAuthor" value="Szerző">
 			<node name="summary" value="Könyvek szerző szerint"/>
 		</node>
@@ -97,6 +126,8 @@
 		<node name="stopSearching" value="Keresés leállítása"/>
 		<node name="signIn" value="Bejelentkezés"/>
 		<node name="signOut" value="Kijelentkezés (%s)"/>
+		<node name="signUp" value="Sign up" toBeTranslated="true"/>
+		<node name="quickBuy" value="Quick buy" toBeTranslated="true"/>
 		<node name="topup" value="Számla feltöltése (Jelenleg: %s)"/>
 		<node name="topupTitle" value="Számla feltöltése"/>
 		<node name="topupViaBrowser" value="Oldal megnyitása böngészőben"/>
@@ -187,11 +218,11 @@
 		</node>
 	</node>
 	<node name="bookDownloader">
-		<node name="tickerSuccess" value="Könyv letöltve"/>
-		<node name="tickerError" value="Hiba a könyv letöltése közben"/>
-		<node name="contentSuccess" value="Letöltés kész"/>
-		<node name="contentError" value="Letöltés sikertelen"/>
-		<node name="downloadingStarted" value="Könyv letöltése elindítva"/>
+		<node name="downloadCompleteTicker" value="Könyv letöltve"/>
+		<node name="downloadFailedTicker" value="Hiba a könyv letöltése közben"/>
+		<node name="downloadComplete" value="Letöltés kész"/>
+		<node name="downloadFailed" value="Letöltés sikertelen"/>
+		<node name="downloadStarted" value="Könyv letöltése elindítva"/>
 		<node name="alreadyDownloading" value="A könyv már letöltés alatt"/>
 		<node name="cannotCreateDirectory" value="%s mappa létrehozása sikertelen"/>
 		<node name="cannotCreateFile" value="%s fájl létrehozása sikertelen"/>
@@ -204,14 +235,23 @@
 	<node name="bookmarksView">
 		<node name="thisBook" value="Ez a könyv"/>
 		<node name="allBooks" value="Minden könyv"/>
-		<node name="found" value="Találat"/>
 		<node name="new" value="Új könyvjelző"/>
-		<node name="open" value="Megnyitás"/>
-		<node name="edit" value="Könyvjelző szerkesztése"/>
-		<node name="delete" value="Könyvelző törlése"/>
-		<node name="menu">
-			<node name="search" value="Keresés"/>
-		</node>
+		<node name="openBook" value="Megnyitás"/>
+		<node name="editBookmark" value="Könyvjelző szerkesztése"/>
+		<node name="deleteBookmark" value="Könyvelző törlése"/>
+		<node name="search" value="Keresés"/>
+	</node>
+	<node name="editBookmark">
+		<node name="text" value="Text" toBeTranslated="true"/>
+		<node name="style" value="Style" toBeTranslated="true"/>
+		<node name="delete" value="Delete" toBeTranslated="true"/>
+		<node name="deleteBookmark" value="Könyvjelző törlése"/>
+		<node name="saveText" value="Save text" toBeTranslated="true"/>
+		<node name="editStyle" value="Stílus szerkesztése…"/>
+	</node>
+	<node name="toast">
+		<node name="more" value="More" toBeTranslated="true"/>
+		<node name="offline" value="Offline" toBeTranslated="true"/>
 	</node>
 	<node name="cancelMenu">
 		<node name="library" value="Könyvtár megnyitása"/>
@@ -223,11 +263,7 @@
 		<node name="close" value="FBReader bezárása"/>
 	</node>
 	<node name="style" value="Stílus %s"/>
-	<node name="highlightingStyleMenu">
-		<node name="editStyle" value="Stílus szerkesztése…"/>
-		<node name="deleteBookmark" value="Könyvjelző törlése"/>
-	</node>
-	<node name="editStyle">
+	<node name="editStyle" value="Edit style" toBeTranslated="true">
 		<node name="name" value="Stílus neve"/>
 		<node name="invisible" value="Láthatatlan">
 			<node name="summaryOn" value="Ne emelje ki a könyvjelzőket"/>
@@ -236,30 +272,31 @@
 		<node name="bgColor" value="Háttérszín"/>
 	</node>
 	<node name="selection" value="Kijelölés">
-		<node name="copyToClipboard" value="Vágólapra másol"/>
-		<node name="openInDictionary" value="Megnyitás szótárban"/>
 		<node name="quoteFrom" value="Idézet innen: %s"/>
 		<node name="textInBuffer" value="Vágólapra másolva:&#10;%s"/>
-		<node name="bookmarkCreated" value="Könyvjelző létrehozva:&#10;%s"/>
-		<node name="clearSelection" value="Kijelölés eltávolítása"/>
 	</node>
 	<node name="sharing">
-		<node name="sharedFrom" value="Shared from &lt;a href=&quot;http://arabicreader.sourceforge.net&quot;&gt;FBReader&lt;/a&gt;" toBeTranslated="true"/>
+		<node name="sharedFrom" value="Megosztva az &lt;a href=&quot;https://fbreader.org/&quot;&gt;FBReader&lt;/a&gt;ből"/>
 	</node>
 	<node name="menu">
+		<node name="installPremium" value="Upgrade to Premium" toBeTranslated="true"/>
+		<node name="openPremium" value="Open FBReader Premium" toBeTranslated="true"/>
+		<node name="premium" value="FBReader Premium dialog" toBeTranslated="true"/>
+		<node name="whatsnew" value="What's new" toBeTranslated="true"/>
+		<node name="openStartScreen" value="Start screen" toBeTranslated="true"/>
 		<node name="preferences" value="Beállítások"/>
 		<node name="bookInfo" value="Könyv adatai"/>
 		<node name="library" value="Könyvtár"/>
 		<node name="toc" value="Tartalom"/>
 		<node name="day" value="Nappali"/>
 		<node name="night" value="Éjjeli"/>
+		<node name="dayNight" value="Day/Night" toBeTranslated="true"/>
 		<node name="yotaSwitchToBackScreen" value="Váltás a hátsó képernyőre"/>
 		<node name="yotaSwitchToFrontScreen" value="Váltás az első képernyőre"/>
 		<node name="networkLibrary" value="Internetes könyvtár"/>
 		<node name="navigate" value="Navigáció">
 			<node name="toc" value="Tartalomjegyzék"/>
 			<node name="gotoHome" value="A dokumentum elejére"/>
-			<node name="gotoPageNumber" value="Ugrás oldalszámra…"/>
 			<node name="gotoSectionStart" value="Ugrás a szövegrész elejére"/>
 			<node name="gotoSectionEnd" value="Ugrás a szövegrész végére"/>
 			<node name="nextTOCSection" value="Ugrás a tartalomjegyzék következő elemére"/>
@@ -279,10 +316,12 @@
 		<node name="screenOrientationReverseLandscape" value="Fordított fekvő"/>
 		<node name="increaseFont" value="Nagyítás"/>
 		<node name="decreaseFont" value="Kicsinyítés"/>
+		<node name="changeFontSize" value="Zoom in/out" toBeTranslated="true"/>
 		<node name="toggleFullscreen" value="Teljes kijelző"/>
 		<node name="bookmarks" value="Könyvjelzők"/>
 		<node name="help" value="Súgó"/>
 		<node name="plugins" value="Bővítmények telepítése"/>
+		<node name="gotoPageNumber" value="Ugrás oldalszámra…"/>
 	</node>
 	<node name="BookInfo">
 		<node name="fileName" value="Fájlnév"/>
@@ -293,20 +332,44 @@
 		<node name="tags" value="Címkék"/>
 		<node name="series" value="Sorozat"/>
 	</node>
-	<node name="Preferences">
+	<node name="Preferences" value="FBReader settings" toBeTranslated="true">
+		<node name="sync" value="Synchronisation" toBeTranslated="true">
+			<node name="summary" value="Book network settings" toBeTranslated="true"/>
+			<node name="site" value="Read more about synchronisation" toBeTranslated="true">
+				<node name="url" value="https://books.fbreader.org/help.html" toBeTranslated="true"/>
+			</node>
+			<node name="enable" value="Enable synchronisation" toBeTranslated="true">
+				<node name="summaryOn" value="Synchronise my library with FBReader book network server" toBeTranslated="true"/>
+				<node name="summaryOnWithAccount" value="Synchronise my library as %s" toBeTranslated="true"/>
+				<node name="summaryOff" value="Do not synchronise my library with FBReader book network server" toBeTranslated="true"/>
+			</node>
+			<node name="values">
+				<node name="always" value="Always" toBeTranslated="true"/>
+				<node name="viaWifi" value="If device is connected via Wi-Fi" toBeTranslated="true"/>
+				<node name="never" value="Never" toBeTranslated="true"/>
+			</node>
+			<node name="uploadAllBooks" value="Upload all books to server" toBeTranslated="true"/>
+			<node name="downloadAllBooks" value="Download all books from server" toBeTranslated="true"/>
+			<node name="downloadCurrentBook" value="Download current book from server" toBeTranslated="true"/>
+			<node name="positions" value="Synchronise reading positions" toBeTranslated="true"/>
+			<node name="bookmarks" value="Synchronise bookmarks" toBeTranslated="true"/>
+			<node name="customShelves" value="Synchronise custom shelves" toBeTranslated="true"/>
+			<node name="metainfo" value="Synchronise metainfo (title, tags, etc.)" toBeTranslated="true"/>
+			<node name="changeCurrentBook" value="Change current book" toBeTranslated="true">
+				<node name="summaryOn" value="Open same book on all devices" toBeTranslated="true"/>
+				<node name="summaryOff" value="Synchronise reading positions, but do not open same book on all devices" toBeTranslated="true"/>
+			</node>
+		</node>
 		<node name="directories" value="Mappák">
 			<node name="summary" value="Mely mappákban keressen fájlokat"/>
-			<node name="bookPath" value="Where to seek for books" toBeTranslated="true">
+			<node name="bookPath" value="Where to search for books" toBeTranslated="true">
 				<node name="chooserTitle" value="Könyvek mappája"/>
 			</node>
 			<node name="downloadDir" value="Where to store downloaded books" toBeTranslated="true">
 				<node name="chooserTitle" value="Könyvek mappája"/>
 			</node>
-			<node name="fontPath" value="Where to seek for fonts" toBeTranslated="true">
+			<node name="fontPath" value="Where to search for fonts" toBeTranslated="true">
 				<node name="chooserTitle" value="Betűtípusok mappája"/>
-			</node>
-			<node name="wallpaperPath" value="Where to seek for background images" toBeTranslated="true">
-				<node name="chooserTitle" value="Háttérképek mappája"/>
 			</node>
 			<node name="tempDir" value="Where to store temporary files" toBeTranslated="true">
 				<node name="chooserTitle" value="Temp files folder" toBeTranslated="true"/>
@@ -364,6 +427,10 @@
 			<node name="dontTurnScreenOffDuringCharging" value="Kijelző kikapcsolása töltéskor">
 				<node name="summaryOn" value="Ne kapcsoljon ki a kijelző az akkumulátor töltésekor"/>
 				<node name="summaryOff" value="A kijelző automatikusan kikapcsol az akkumulátor töltésekor is"/>
+			</node>
+			<node name="enableBookMenuSwipeGesture" value="Enable swipe gesture for the book menu" toBeTranslated="true">
+				<node name="summaryOn" value="Swipe in from the left edge to open book menu" toBeTranslated="true"/>
+				<node name="summaryOff" value="Use three-line (“hamburger”) button to open book menu" toBeTranslated="true"/>
 			</node>
 		</node>
 		<node name="text" value="Szöveg">
@@ -548,6 +615,17 @@
 				</node>
 			</node>
 		</node>
+		<node name="toast" value="Pop-ups" toBeTranslated="true">
+			<node name="summary" value="Footnote windows, etc." toBeTranslated="true"/>
+			<node name="showFootnoteToast" value="Show linked text in a popup" toBeTranslated="true">
+				<node name="never" value="Never" toBeTranslated="true"/>
+				<node name="footnotesOnly" value="For footnotes only" toBeTranslated="true"/>
+				<node name="footnotesAndSuperscripts" value="For footnotes and superscript links" toBeTranslated="true"/>
+				<node name="allInternalLinks" value="For all internal links" toBeTranslated="true"/>
+			</node>
+			<node name="footnoteToastDuration" value="How long to display link popup" toBeTranslated="true"/>
+			<node name="fontSizePercent" value="Font size (percent from regular text)" toBeTranslated="true"/>
+		</node>
 		<node name="css" value="CSS">
 			<node name="summary" value="CSS-ben szereplő értékek alkalmazása"/>
 			<node name="fontFamily" value="Font family" toBeTranslated="true">
@@ -570,19 +648,37 @@
 		<node name="colors" value="Színek és háttérképek">
 			<node name="summary" value="Színbeállítások"/>
 			<node name="background" value="Háttér">
+				<node name="chooser">
+					<node name="solidColor" value="Solid colour…" toBeTranslated="true"/>
+					<node name="predefined" value="Predefined texture…" toBeTranslated="true"/>
+					<node name="selectFile" value="Select file…" toBeTranslated="true"/>
+				</node>
 				<node name="solidColor" value="Egyszínű"/>
 				<node name="leather" value="Bőr"/>
 				<node name="sepia" value="Szépia"/>
 				<node name="wood" value="Fa"/>
+				<node name="sand" value="Sand" toBeTranslated="true"/>
+				<node name="hardpaper" value="Hard paper" toBeTranslated="true"/>
 			</node>
-			<node name="backgroundColor" value="Háttérszín"/>
+			<node name="fillMode" value="Fill mode" toBeTranslated="true">
+				<node name="tile" value="Tile" toBeTranslated="true"/>
+				<node name="tileMirror" value="Mirrored tile" toBeTranslated="true"/>
+				<node name="fullscreen" value="Fullscreen" toBeTranslated="true"/>
+				<node name="stretch" value="Stretch to fill screen" toBeTranslated="true"/>
+				<node name="tileVertically" value="Stretch horizontally, tile vertically" toBeTranslated="true"/>
+				<node name="tileHorizontally" value="Stretch vertically, tile horizontally" toBeTranslated="true"/>
+			</node>
 			<node name="selectionBackground" value="Kijelölés háttere"/>
 			<node name="selectionForeground" value="Kijelölt szöveg"/>
 			<node name="text" value="Szöveg"/>
 			<node name="hyperlink" value="Link"/>
 			<node name="hyperlinkVisited" value="Meglátogatott link"/>
-			<node name="highlighting" value="Találatok kiemelése"/>
-			<node name="footer" value="Lábléc"/>
+			<node name="highlightingForeground" value="Search results" toBeTranslated="true"/>
+			<node name="highlightingBackground" value="Találatok kiemelése"/>
+			<node name="footerOldStyle" value="Footer (old style)" toBeTranslated="true"/>
+			<node name="footerBackground" value="Footer background" toBeTranslated="true"/>
+			<node name="footerForeground" value="Footer text" toBeTranslated="true"/>
+			<node name="footerForegroundUnread" value="Footer line" toBeTranslated="true"/>
 		</node>
 		<node name="margins" value="Margók">
 			<node name="summary" value="Szövegmargók"/>
@@ -599,16 +695,23 @@
 				<node name="show" value="Függőleges csúszka"/>
 				<node name="showAsProgress" value="Függőleges folyamatjelző"/>
 				<node name="showAsFooter" value="Vízszintes lábléc"/>
+				<node name="showAsFooterOldStyle" value="Horizontal footer (old style)" toBeTranslated="true"/>
 			</node>
 			<node name="footerHeight" value="Lábléc magassága"/>
-			<node name="footerColor" value="Lábléc színe"/>
+			<node name="footerOldStyleColor" value="Footer (old style) colour" toBeTranslated="true"/>
+			<node name="footerBackgroundColor" value="Footer background colour" toBeTranslated="true"/>
+			<node name="footerForegroundColor" value="Footer text colour" toBeTranslated="true"/>
+			<node name="footerForegroundUnreadColor" value="Footer line colour" toBeTranslated="true"/>
 			<node name="tocMarks" value="Tartalomjegyzék jelzése">
 				<node name="summaryOn" value="Mutassa a tartalomjegyzék elemeit a láblécen"/>
 				<node name="summaryOff" value="Ne mutassa a tartalomjegyzék elemeit a láblécen"/>
 			</node>
-			<node name="showProgress" value="Oldalszám">
-				<node name="summaryOn" value="Mutassa az oldalszámot a láblécben"/>
-				<node name="summaryOff" value="Ne mutassa az oldalszámot a láblécben"/>
+			<node name="tocMarksMaxNumber" value="Maximum number of TOC marks to display" toBeTranslated="true"/>
+			<node name="showProgress" value="Show reading progress" toBeTranslated="true">
+				<node name="dontDisplay" value="Do not show" toBeTranslated="true"/>
+				<node name="asPages" value="As page number" toBeTranslated="true"/>
+				<node name="asPercentage" value="As percentage" toBeTranslated="true"/>
+				<node name="asPagesAndPercentage" value="As page number and percentage" toBeTranslated="true"/>
 			</node>
 			<node name="showBattery" value="Akku töltöttség">
 				<node name="summaryOn" value="Mutassa az akkumulátor töltöttségét a láblécben"/>
@@ -643,6 +746,7 @@
 				<node name="none" value="Görgetés animáció nélkül"/>
 				<node name="curl" value="Hajlítás"/>
 				<node name="slide" value="Csúsztatás"/>
+				<node name="slideOldStyle" value="Slide animation (old style)" toBeTranslated="true"/>
 				<node name="shift" value="Eltolás"/>
 			</node>
 			<node name="animationSpeed" value="Animáció sebessége">
@@ -664,14 +768,25 @@
 				<node name="custom" value="Egyéni…"/>
 			</node>
 		</node>
-		<node name="dictionary" value="Szótár">
-			<node name="summary" value="Szótár beállításai"/>
-			<node name="dictionary" value="Szótár"/>
-			<node name="translator" value="Fordító"/>
+		<node name="dictionary" value="Dictionary &amp; translator" toBeTranslated="true">
+			<node name="summary" value="Translation settings" toBeTranslated="true"/>
+			<node name="dictionary" value="Look up single word in" toBeTranslated="true"/>
+			<node name="translator" value="Translate phrases via" toBeTranslated="true"/>
+			<node name="translateOffline" value="Google Translate: use offline translator (if installed)" toBeTranslated="true">
+				<node name="always" value="Always" toBeTranslated="true"/>
+				<node name="onError" value="Automatically, if online translation fails" toBeTranslated="true"/>
+				<node name="ask" value="Ask if online translation fails" toBeTranslated="true"/>
+				<node name="never" value="Never" toBeTranslated="true"/>
+			</node>
+			<node name="translationToastDuration" value="How long to show translation popup" toBeTranslated="true"/>
+			<node name="errorToastDuration" value="How long to show error message" toBeTranslated="true"/>
+			<node name="sourceLanguage" value="Translate from" toBeTranslated="true">
+				<node name="detect" value="Automatically detect language" toBeTranslated="true"/>
+			</node>
 			<node name="targetLanguage" value="Fordítás:">
 				<node name="any" value="minden nyelv"/>
 			</node>
-			<node name="tappingAction" value="Hosszú érintés">
+			<node name="longTapAction" value="Hosszú érintés">
 				<node name="doNothing" value="Nem történik semmi hosszú érintésre"/>
 				<node name="selectSingleWord" value="A hosszú érintés kijelöli a szót"/>
 				<node name="startSelecting" value="A hosszú érintés elindítja a kijelölést"/>
@@ -685,7 +800,7 @@
 		<node name="images" value="Képek">
 			<node name="summary" value="Képmegjelenítési beállítások"/>
 			<node name="backgroundColor" value="Képnéző háttérszíne"/>
-			<node name="tappingAction" value="Művelet hosszú érintésre">
+			<node name="longTapAction" value="Művelet hosszú érintésre">
 				<node name="doNothing" value="Nem történik semmi hosszú érintésre"/>
 				<node name="selectImage" value="A hosszú érintés kijelöli a képet"/>
 				<node name="openImageView" value="A hosszú érintés megnyitja a képnézőt"/>
@@ -698,6 +813,26 @@
 			<node name="matchBackground" value="Háttér intenzitásához igazítás">
 				<node name="summaryOn" value="Igazítsa a kép színeit a háttérhez"/>
 				<node name="summaryOff" value="Ne igazítsa a kép színeit"/>
+			</node>
+		</node>
+		<node name="menu" value="Menu" toBeTranslated="true">
+			<node name="summary" value="Configure main screen menu" toBeTranslated="true"/>
+			<node name="backgroundCover" value="Use book cover as background" toBeTranslated="true">
+				<node name="summaryOn" value="Show cover in the book menu" toBeTranslated="true"/>
+				<node name="summaryOff" value="Keep background clear" toBeTranslated="true"/>
+			</node>
+			<node name="bookMenuStatusItem" value="Status item" toBeTranslated="true">
+				<node name="summaryOn" value="Show status item in the book menu" toBeTranslated="true"/>
+				<node name="summaryOff" value="Hide status item" toBeTranslated="true"/>
+			</node>
+			<node name="items" value="Menu items" toBeTranslated="true">
+				<node name="summary" value="Change items order" toBeTranslated="true"/>
+				<node name="bookMenuUpperSection" value="Book menu (upper section)" toBeTranslated="true"/>
+				<node name="bookMenuLowerSection" value="Book menu (lower section)" toBeTranslated="true"/>
+				<node name="toolbarOrMainMenu" value="Toolbar or main menu" toBeTranslated="true"/>
+				<node name="mainMenu" value="Main menu" toBeTranslated="true"/>
+				<node name="enabled" value="Enabled" toBeTranslated="true"/>
+				<node name="disabled" value="Disabled" toBeTranslated="true"/>
 			</node>
 		</node>
 		<node name="cancelMenu" value="Vissza menü">
@@ -741,16 +876,19 @@
 			<node name="summary" value="Verziószám, kapcsolat"/>
 			<node name="version" value="Verzió"/>
 			<node name="site" value="Ugrás a weboldalunkra">
-				<node name="url" value="http://arabicreader.sourceforge.net"/>
+				<node name="url" value="https://fbreader.org/"/>
 			</node>
 			<node name="email" value="E-mail küldése">
-				<node name="url" value="mailto:ma7dev@gmail.com"/>
+				<node name="url" value="mailto:contact@fbreader.org"/>
+			</node>
+			<node name="googleplus" value="Join FBReader Google+ community" toBeTranslated="true">
+				<node name="url" value="https://plus.google.com/communities/115894899404862312312"/>
 			</node>
 			<node name="twitter" value="Kövessen Twitteren">
-				<node name="url" value="http://twitter.com/arabic_reader"/>
+				<node name="url" value="https://twitter.com/fbreader"/>
 			</node>
-			<node name="facebook" value="Arabic Reader on facebook" toBeTranslated="true">
-				<node name="url" value="https://www.facebook.com/ArabicReaderAndroid"/>
+			<node name="facebook" value="FBReader on Facebook" toBeTranslated="true">
+				<node name="url" value="https://facebook.com/fbreader"/>
 			</node>
 			<node name="thirdParty" value="Third-party libraries" toBeTranslated="true"/>
 		</node>
@@ -765,16 +903,18 @@
 	</node>
 	<node name="dialog">
 		<node name="button">
+			<node name="noThanks" value="No, thanks" toBeTranslated="true"/>
 			<node name="install" value="Telepítés"/>
 			<node name="update" value="Frissítés"/>
 			<node name="skip" value="Kihagyás"/>
 			<node name="buy" value="Vásárlás"/>
 			<node name="buyAndDownload" value="Vásárlás és letöltés"/>
+			<node name="download" value="Letöltés"/>
 			<node name="continue" value="Folytatás"/>
 			<node name="editUrl" value="URL szerkesztése"/>
 			<node name="tryAgain" value="Próbálja újra"/>
 			<node name="openBook" value="Olvasás"/>
-			<node name="editInfo" value="Szerkesztés"/>
+			<node name="edit" value="Szerkesztés"/>
 			<node name="reloadInfo" value="Újratöltés"/>
 			<node name="shareBook" value="Megosztás"/>
 			<node name="topup" value="Számla feltöltése"/>
@@ -787,11 +927,22 @@
 			<node name="removeFromFavorites" value="Eltávolítás a kedvencek közül"/>
 			<node name="markAsRead" value="Megjelölés olvasottként"/>
 			<node name="markAsUnread" value="Megjelölés olvasatlanként"/>
+			<node name="plugin" value="Plugin" toBeTranslated="true"/>
+			<node name="premium" value="Premium" toBeTranslated="true"/>
 		</node>
+		<node name="gotoPage" value="Ugrás oldalszámra"/>
 		<node name="plugin">
 			<node name="installTitle" value="Bővítmény telepítése"/>
 			<node name="updateTitle" value="Bővítmény frissítése"/>
 			<node name="dontAskAgain" value="Ne kérdezze megint"/>
+		</node>
+		<node name="backgroundAuthentication">
+			<node name="message" value="Authentication required" toBeTranslated="true"/>
+		</node>
+		<node name="missingDictionary" value="Missing %s" toBeTranslated="true">
+			<node name="install" value="Install %s" toBeTranslated="true"/>
+			<node name="configure" value="Configure translation" toBeTranslated="true"/>
+			<node name="skip" value="Skip" toBeTranslated="true"/>
 		</node>
 		<node name="installDictionary">
 			<node name="title" value="Telepítés helye"/>
@@ -800,11 +951,37 @@
 		<node name="deleteBookBox">
 			<node name="message" value="A fájl törlése nem visszavonható. Biztosan törli?"/>
 		</node>
+		<node name="deleteMultipleBookBox">
+			<node name="title" value="Delete books" toBeTranslated="true"/>
+			<node name="message" value="%s files will be removed permanently. Are you sure?" toBeTranslated="true"/>
+		</node>
 		<node name="redownloadFileBox">
 			<node name="message" value="A fájl már létezik. Újra letölti?"/>
 		</node>
+		<node name="litresUserRegistration">
+			<node name="title" value="Felhasználó létrehozása"/>
+			<node name="login" value="Felhasználónév"/>
+			<node name="password" value="Jelszó"/>
+			<node name="confirmPassword" value="Jelszó&#10;megerősítése"/>
+			<node name="email" value="E-mail"/>
+		</node>
+		<node name="litresAutoSignIn">
+			<node name="title" value="Signing in" toBeTranslated="true"/>
+			<node name="email" value="Email" toBeTranslated="true"/>
+			<node name="actions">
+				<node name="title" value="Unable to sign in with email&#10;%s" toBeTranslated="true"/>
+				<node name="recover" value="Recover account information" toBeTranslated="true"/>
+				<node name="signIn" value="Sign in manually" toBeTranslated="true"/>
+				<node name="anotherEmail" value="Select another email" toBeTranslated="true"/>
+			</node>
+			<node name="signedIn" value="You are signed in with email address %s." toBeTranslated="true"/>
+			<node name="registrationSuccessful" value="We created a LitRes account for you. Detailed information has been sent to %s." toBeTranslated="true"/>
+			<node name="passwordSent" value="Your account information was sent to %s. Please check your mailbox." toBeTranslated="true"/>
+		</node>
 		<node name="waitMessage">
-			<node name="downloadingFile" value="Könyv letöltése %s"/>
+			<node name="translating" value="Translation in progress…" toBeTranslated="true"/>
+			<node name="tryConnect" value="Trying to connect. Please wait…" toBeTranslated="true"/>
+			<node name="downloadingBook" value="Könyv letöltése %s"/>
 			<node name="search" value="Keresés. Egy kis türelmet…"/>
 			<node name="loadInfo" value="Információ letöltése. Egy kis türelmet…"/>
 			<node name="loadingBook" value="Könyv megnyitása. Egy kis türelmet…"/>
@@ -819,8 +996,11 @@
 			<node name="loadingNetworkBookInfo" value="Könyv információinak letöltése. Egy kis türelmet…"/>
 			<node name="updatingCatalogsList" value="Katalógus listák frissítése. Egy kis türelmet…"/>
 			<node name="updatingAccountInformation" value="Fiókadatok frissítése. Egy kis türelmet…"/>
-			<node name="initDRMEngine" value="Initialising DRM engine. Please, wait…" toBeTranslated="true"/>
-			<node name="acquireLicense" value="Acquiring license. Please, wait…" toBeTranslated="true"/>
+			<node name="initDRMEngine" value="Initialising DRM engine. Please wait…" toBeTranslated="true"/>
+			<node name="acquireLicence" value="Acquiring licence. Please wait…" toBeTranslated="true"/>
+			<node name="registerUser" value="Fiók létrehozása. Egy kis türelmet…"/>
+			<node name="autoSignIn" value="Signing in. Please wait…" toBeTranslated="true"/>
+			<node name="recoverPassword" value="Recovering password. Please wait…" toBeTranslated="true"/>
 		</node>
 		<node name="networkError">
 			<node name="internalError" value="Belső szerverhiba"/>
@@ -829,11 +1009,19 @@
 			<node name="purchaseAlreadyPurchased" value="Már megvásárolta a könyvet"/>
 			<node name="bookNotPurchased" value="A könyv nincs megvásárolva"/>
 			<node name="downloadLimitExceeded" value="Túllépte a letöltési korlátot"/>
-			<node name="noUserEmail" value="Nincs regisztrált felhasználónk&#10;ezzel az e-mail címmel"/>
+			<node name="noUserForEmail" value="Nincs regisztrált felhasználónk&#10;ezzel az e-mail címmel"/>
 			<node name="unsupportedOperation" value="Nem támogatott művelet"/>
 			<node name="notAnOPDS" value="Ez nem OPSD formátumú katalógus"/>
 			<node name="noRequiredInformation" value="Szükséges információ nincs megadva a katalógusban"/>
 			<node name="cacheDirectoryError" value="Gyorsítótár létrehozása sikertelen"/>
+			<node name="usernameAlreadyInUse" value="Ez a felhasználónév már foglalt"/>
+			<node name="usernameNotSpecified" value="Adjon meg felhasználónevet"/>
+			<node name="passwordNotSpecified" value="Adjon meg jelszót"/>
+			<node name="passwordsDoNotMatch" value="A két jelszónak meg kell egyeznie."/>
+			<node name="emailNotSpecified" value="Adjon meg egy érvényes e-mail címet"/>
+			<node name="emailAlreadyInUse" value="A megadott e-mail cím már regisztrálva van"/>
+			<node name="invalidEMail" value="Érvénytelen e-mail cím"/>
+			<node name="tooManyRegistrations" value="Túl sok regisztrációs kérés erről az IP-címről;&#10;próbálja meg pár perc múlva ismét!"/>
 		</node>
 		<node name="AuthenticationDialog">
 			<node name="title" value="Bejelentkezés"/>
@@ -867,8 +1055,8 @@
 			<node name="more" value="Következő"/>
 		</node>
 		<node name="screenHint">
-			<node name="message1" value="FBReader works in fullscreen mode by default. Tap center third of the screen to show controls. You can change this behaviour in “Appearance” section of the Settings dialog." toBeTranslated="true"/>
-			<node name="message2" value="Well done! Now tap the center third again to hide the controls and this hint. If you want to keep controls on the screen during reading, select “Show action bar” option in “Appearance” section of the Settings dialog." toBeTranslated="true"/>
+			<node name="message1" value="FBReader works in fullscreen mode by default. Tap the centre third of the screen now to show controls. You can change this in the “Appearance” section of the Settings dialog." toBeTranslated="true"/>
+			<node name="message2" value="Well done! Now tap the centre third of the screen again to hide the controls and this hint. If you want to keep controls on the screen while reading, select the “Show action bar” option in “Appearance” in Settings." toBeTranslated="true"/>
 		</node>
 		<node name="folderList">
 			<node name="addFolder" value="Add folder" toBeTranslated="true"/>
@@ -876,6 +1064,24 @@
 				<node name="message" value="Remove “%s” from the list?" toBeTranslated="true"/>
 			</node>
 			<node name="duplicate" value="“%s” is already in the list" toBeTranslated="true"/>
+		</node>
+		<node name="editList">
+			<node name="edit" value="Edit" toBeTranslated="true"/>
+			<node name="remove" value="Remove" toBeTranslated="true"/>
+		</node>
+		<node name="editTags" value="Tags" toBeTranslated="true">
+			<node name="addTag" value="Add tag" toBeTranslated="true"/>
+			<node name="editTag" value="Edit tag" toBeTranslated="true"/>
+			<node name="removeTag" value="Remove tag" toBeTranslated="true">
+				<node name="message" value="Remove tag “%s” from the list?" toBeTranslated="true"/>
+			</node>
+		</node>
+		<node name="editAuthors" value="Authors" toBeTranslated="true">
+			<node name="addAuthor" value="Add author" toBeTranslated="true"/>
+			<node name="editAuthor" value="Edit author" toBeTranslated="true"/>
+			<node name="removeAuthor" value="Remove author" toBeTranslated="true">
+				<node name="message" value="Remove author “%s” from the list?" toBeTranslated="true"/>
+			</node>
 		</node>
 		<node name="fileChooser">
 			<node name="root" value="Root" toBeTranslated="true"/>
@@ -892,6 +1098,15 @@
 			</node>
 			<node name="permissionDenied" value="Permission denied" toBeTranslated="true"/>
 		</node>
+		<node name="missingPlugin" value="Missing plugin" toBeTranslated="true">
+			<node name="message" value="Plugin for %s files is not installed. Install now?" toBeTranslated="true"/>
+		</node>
+		<node name="licensing" value="Not licensed" toBeTranslated="true">
+			<node name="message" value="%s is not licensed. Purchase on Google Play now?" toBeTranslated="true"/>
+		</node>
+		<node name="retryLicensing" value="Licence verification" toBeTranslated="true">
+			<node name="message" value="Cannot verify %s licence. Try again?" toBeTranslated="true"/>
+		</node>
 	</node>
 	<node name="errorMessage">
 		<node name="nativeCodeFailure" value="%s hiba a natív kódban '%s' olvasása közben"/>
@@ -900,7 +1115,7 @@
 		<node name="pluginNotFound" value="Nem található bővítmény '%s'"/>
 		<node name="unknownPluginType" value="Ismeretlen bővítmény típus: %s"/>
 		<node name="fileNotFound" value="A fájl nem található: %s"/>
-		<node name="unsupportedEncryptionMethod" value="File %s is encrypted with method that is not supported by FBReader. Some pages are not readable" toBeTranslated="true"/>
+		<node name="unsupportedEncryptionMethod" value="File %s encryption method is not supported by FBReader. Some pages are not readable" toBeTranslated="true"/>
 		<node name="opfFileNotFound" value="OPF inem található %s"/>
 		<node name="unsupportedFileFormat" value="Nem támogatott fájlformátum: '%s'"/>
 		<node name="errorParsingRtf" value="Rtf feldolgozási hiba: %s"/>
@@ -916,22 +1131,20 @@
 		<node name="emptyCatalog" value="A katalógus üres"/>
 		<node name="emptyBasket" value="A kosár sajnos üres"/>
 		<node name="emptyNetworkSearchResults" value="Nem található megfelelő könyv"/>
-		<node name="videoServiceNotWorking" value="Video service is not available, sorry" toBeTranslated="true"/>
-		<node name="videoPlayerNotFound" value="There is no installed video player on this device, sorry" toBeTranslated="true"/>
+		<node name="videoServiceNotWorking" value="Video service is not available" toBeTranslated="true"/>
+		<node name="videoPlayerNotFound" value="No video player installed on this device" toBeTranslated="true"/>
+		<node name="bookIsMissingTitle" value="Missing book" toBeTranslated="true"/>
+		<node name="bookIsMissing" value="Book '%s' is not found on the device" toBeTranslated="true"/>
+		<node name="downloadFailed" value="Letöltés sikertelen"/>
 	</node>
 	<node name="external">
 		<node name="browser" value="Böngésző"/>
 		<node name="defaultBrowser" value="Alapértelmezett böngésző"/>
 	</node>
-	<node name="mobipocketPlugin">
-		<node name="unknown" value="Ismeretlen hiba"/>
-		<node name="unsupportedCompressionMethod" value="Nem támogatott tömörítés"/>
-		<node name="encryptedFile" value="Másolásvédett fájl"/>
-	</node>
 	<node name="crash">
 		<node name="fixBooksDirectory">
 			<node name="title" value="FBReader probléma"/>
-			<node name="text" value="FBReader cache directory is not accessible for writing. May be you forget to insert or unmount your memory card. Please fix this issue or select another directory." toBeTranslated="true"/>
+			<node name="text" value="Cannot write to FBReader cache. Please check that your memory card is inserted correctly, or select another directory." toBeTranslated="true"/>
 		</node>
 		<node name="missingNativeLibrary">
 			<node name="title" value="FBReader probléma"/>
@@ -944,23 +1157,26 @@
 		</node>
 	</node>
 	<node name="links">
-		<node name="faqPage" value="http://fbreader.org/faq-page"/>
+		<node name="faqPage" value="https://fbreader.org/faq-page"/>
 	</node>
 	<node name="plugins" value="Bővítmények telepítése">
 		<node name="noMorePlugins" value="Jelenleg nincs új bővítmény"/>
 		<node name="litres" value="LitRes">
 			<node name="summary" value="Orosz könyváruház"/>
 		</node>
-		<node name="tts-plus" value="TTS+">
+		<node name="tts_plus" value="TTS+">
 			<node name="summary" value="Hangos felolvasás"/>
 		</node>
-		<node name="local-opds-scanner" value="Helyi OPDS kereső">
+		<node name="calibre_server_integration" value="Calibre connection" toBeTranslated="true">
+			<node name="summary" value="Connect to Calibre server in your local network" toBeTranslated="true"/>
+		</node>
+		<node name="local_opds_scanner" value="Helyi OPDS kereső">
 			<node name="summary" value="Könyvek keresése a helyi hálózaton"/>
 		</node>
 		<node name="bookshelf" value="Könyvespolc">
 			<node name="summary" value="Könyvtár előnézeti képes megjelenítése"/>
 		</node>
-		<node name="opds-server" value="OPDS szerver">
+		<node name="opds_server" value="OPDS szerver">
 			<node name="summary" value="Könyvmegosztó szerver indítása az eszközön"/>
 		</node>
 		<node name="widgets" value="Widgetek">
@@ -968,6 +1184,12 @@
 		</node>
 		<node name="pdf" value="PDF">
 			<node name="summary" value="PDF formátumú könyvek olvasása"/>
+		</node>
+		<node name="djvu" value="DjVu" toBeTranslated="true">
+			<node name="summary" value="Read books in DjVu format" toBeTranslated="true"/>
+		</node>
+		<node name="cbr" value="Comic Books" toBeTranslated="true">
+			<node name="summary" value="Read comic books (CBR, CBZ)" toBeTranslated="true"/>
 		</node>
 	</node>
 	<node name="drm">
@@ -978,8 +1200,50 @@
 		<node name="frontScreenButton" value="Váltás erre a kijelzőre"/>
 	</node>
 	<node name="hint">
-		<node name="positiveLength" value="E.g.: 20px, 10pt, 0.8em, 1ex, 120%%" toBeTranslated="true"/>
-		<node name="length" value="E.g.: -2px, 10pt, -0.8em, 1.1ex, -40%%" toBeTranslated="true"/>
-		<node name="percent" value="E.g.: 125%%" toBeTranslated="true"/>
+		<node name="positiveLength" value="E.g.: 20px, 10pt, 0.8em, 1ex, 120%" toBeTranslated="true"/>
+		<node name="length" value="E.g.: -2px, 10pt, -0.8em, 1.1ex, -40%" toBeTranslated="true"/>
+		<node name="percent" value="E.g.: 125%" toBeTranslated="true"/>
+	</node>
+	<node name="duration">
+		<node name="duration1" value="1 second" toBeTranslated="true"/>
+		<node name="duration3" value="3 seconds" toBeTranslated="true"/>
+		<node name="duration5" value="5 seconds" toBeTranslated="true"/>
+		<node name="duration10" value="10 seconds" toBeTranslated="true"/>
+		<node name="duration20" value="20 seconds" toBeTranslated="true"/>
+		<node name="duration40" value="40 seconds" toBeTranslated="true"/>
+		<node name="duration60" value="1 minute" toBeTranslated="true"/>
+		<node name="duration300" value="5 minutes" toBeTranslated="true"/>
+	</node>
+	<node name="textSearchPopup">
+		<node name="findPrevious" value="Previous occurence" toBeTranslated="true"/>
+		<node name="findNext" value="Next occurence" toBeTranslated="true"/>
+		<node name="close" value="Close" toBeTranslated="true"/>
+	</node>
+	<node name="selectionPopup">
+		<node name="copyToClipboard" value="Vágólapra másol"/>
+		<node name="share" value="Share text" toBeTranslated="true"/>
+		<node name="openInDictionary" value="Megnyitás szótárban"/>
+		<node name="translate" value="Translate" toBeTranslated="true"/>
+		<!-- this is a verb: make a bookmark -->
+		<node name="bookmark" value="Bookmark" toBeTranslated="true"/>
+		<node name="close" value="Close" toBeTranslated="true"/>
+	</node>
+	<node name="dictanErrors">
+		<node name="unknown" value="Unknown error" toBeTranslated="true"/>
+		<node name="noArticle" value="No article found for “%s”" toBeTranslated="true"/>
+		<node name="cannotOpenDictionary" value="Cannot open dictionary" toBeTranslated="true"/>
+		<node name="noDictionarySelected" value="Dictionary not selected; please adjust Dictan settings" toBeTranslated="true"/>
+	</node>
+	<node name="premium" value="FBReader Premium Edition" toBeTranslated="true">
+		<node name="shortTitle" value="FBReader Premium" toBeTranslated="true"/>
+		<node name="conflict" value="Both FBReader and FBReader Premium appear to be installed. Which one would you like to run?" toBeTranslated="true"/>
+	</node>
+	<node name="widget">
+		<node name="simple">
+			<node name="selectIcon" value="Select widget icon" toBeTranslated="true"/>
+			<node name="selectAction" value="Select action" toBeTranslated="true"/>
+			<node name="book" value="Read book" toBeTranslated="true"/>
+			<node name="library" value="Open library" toBeTranslated="true"/>
+		</node>
 	</node>
 </resources>
