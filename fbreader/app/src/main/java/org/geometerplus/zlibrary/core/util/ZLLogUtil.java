@@ -31,7 +31,7 @@ public class ZLLogUtil {
                 if(book != null) {
                     text = text + ": (" + book.getTitle() + ")"
                     			+ " [" + book.getLanguage()
-                    			+ "|" + book.getEncoding()
+                    			+ "|" + book.getEncodingNoDetection()
                     			+ "]";
                 }
 
