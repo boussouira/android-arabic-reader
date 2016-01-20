@@ -946,18 +946,13 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		int textAreaHeight = page.getTextHeight();
 		page.LineInfos.clear();
 		page.Column0Height = 0;
-		boolean nextParagraph = false;
+		boolean nextParagraph;
 		ZLTextLineInfo info = null;
 		do {
 			final ZLTextLineInfo previousInfo = info;
 			resetTextStyle();
 			final ZLTextParagraphCursor paragraphCursor = result.getParagraphCursor();
 			final int wordIndex = result.getElementIndex();
-
-			if(paragraphCursor == null) {
-				continue;
-			}
-
 			applyStyleChanges(paragraphCursor, 0, wordIndex);
 			info = new ZLTextLineInfo(paragraphCursor, wordIndex, result.getCharIndex(), getTextStyle());
 			final int endIndex = info.ParagraphCursorLength;
@@ -1326,7 +1321,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 							true, // is last in element
 							false, // add hyphenation sign
 							false, // changed style
-							getTextStyle(), element, (myRTLMode ? x-spaceLength : x), (myRTLMode ? x : x + spaceLength), y, y
+							getTextStyle(), element, (myRTLMode ? x-spaceLength : x), (myRTLMode ? x : x + spaceLength), y, y, columnIndex
 						);
 					} else {
 						spaceElement = null;
@@ -1355,7 +1350,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 					true, // is last in element
 					false, // add hyphenation sign
 					changeStyle, getTextStyle(), element,
-					(myRTLMode ? x-width : x), (myRTLMode ? x : x + width) - 1, y - height + 1, y + descent
+					(myRTLMode ? x-width : x), (myRTLMode ? x : x + width) - 1, y - height + 1, y + descent, columnIndex
 				));
 				changeStyle = false;
 				wordOccurred = true;
@@ -1384,7 +1379,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 						false, // is last in element
 						addHyphenationSign,
 						changeStyle, getTextStyle(), word,
-						(myRTLMode ? x-width : x), (myRTLMode ? (x + 1) : (x + width - 1)), y - height + 1, y + descent
+						(myRTLMode ? x-width : x), (myRTLMode ? (x + 1) : (x + width - 1)), y - height + 1, y + descent, columnIndex
 					)
 				);
 			}
@@ -1565,7 +1560,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		myCharWidth = -1;
 	}
 
-	protected void rebuildPaintInfo() {
+	protected synchronized void rebuildPaintInfo() {
 		myPreviousPage.reset();
 		myNextPage.reset();
 		if (myCursorManager != null) {

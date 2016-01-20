@@ -33,7 +33,7 @@ import com.mobeta.android.dslv.DragSortListView;
 import org.fbreader.util.android.ViewUtil;
 
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-import org.geometerplus.zlibrary.ui.android.R;
+import net.sourceforge.arabicReader.R;
 import org.geometerplus.android.fbreader.MenuData;
 
 public class ConfigurationActivity extends ListActivity {

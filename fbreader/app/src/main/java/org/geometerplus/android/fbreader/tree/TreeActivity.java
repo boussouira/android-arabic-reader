@@ -30,7 +30,7 @@ import android.view.*;
 
 import org.fbreader.util.Pair;
 
-import org.geometerplus.zlibrary.ui.android.R;
+import net.sourceforge.arabicReader.R;
 
 import org.geometerplus.android.util.UIMessageUtil;
 import org.geometerplus.android.util.UIUtil;

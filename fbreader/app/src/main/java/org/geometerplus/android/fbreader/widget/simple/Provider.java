@@ -28,7 +28,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.*;
 import android.widget.RemoteViews;
 
-import org.geometerplus.zlibrary.ui.android.R;
+import net.sourceforge.arabicReader.R;
 import org.geometerplus.android.fbreader.FBReader;
 import org.geometerplus.android.fbreader.library.LibraryActivity;
 

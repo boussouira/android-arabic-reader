@@ -28,7 +28,7 @@ import android.widget.NumberPicker;
 
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
-import org.geometerplus.zlibrary.ui.android.R;
+import net.sourceforge.arabicReader.R;
 
 public abstract class GotoPageDialogUtil {
 	public static interface PageSelector {

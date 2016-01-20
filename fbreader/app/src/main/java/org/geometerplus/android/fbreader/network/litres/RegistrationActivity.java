@@ -33,7 +33,7 @@ import android.widget.TextView;
 
 import org.geometerplus.zlibrary.core.network.ZLNetworkException;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-import org.geometerplus.zlibrary.ui.android.R;
+import net.sourceforge.arabicReader.R;
 
 import org.geometerplus.fbreader.network.authentication.litres.*;
 

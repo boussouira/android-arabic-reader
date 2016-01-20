@@ -35,7 +35,7 @@ import com.google.android.gms.common.Scopes;
 
 import org.geometerplus.zlibrary.core.resources.ZLResource;
 
-import org.geometerplus.zlibrary.ui.android.R;
+import net.sourceforge.arabicReader.R;
 
 public class ServiceNetworkContext extends AndroidNetworkContext {
 	private final Service myService;

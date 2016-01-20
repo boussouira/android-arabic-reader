@@ -19,7 +19,7 @@
 
 package org.geometerplus.android.fbreader;
 
-import org.geometerplus.zlibrary.ui.android.R;
+import net.sourceforge.arabicReader.R;
 import org.geometerplus.android.util.DeviceType;
 
 abstract class DeviceUtil {

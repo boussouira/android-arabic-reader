@@ -140,8 +140,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		ArabicScreen.addPreference(new ZLBooleanPreference(
 				this,
 				viewOptions.LTRBookSupport,
-				ArabicScreen.Resource,
-				"enableLTR"
+				ArabicScreen.Resource.getResource("enableLTR")
 			));
 		
 		final Screen directoriesScreen = createPreferenceScreen("directories");

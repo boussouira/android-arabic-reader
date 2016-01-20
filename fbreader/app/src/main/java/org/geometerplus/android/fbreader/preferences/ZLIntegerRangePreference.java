@@ -26,7 +26,7 @@ import android.widget.NumberPicker;
 
 import org.geometerplus.zlibrary.core.options.ZLIntegerRangeOption;
 import org.geometerplus.zlibrary.core.resources.ZLResource;
-import org.geometerplus.zlibrary.ui.android.R;
+import net.sourceforge.arabicReader.R;
 
 class ZLIntegerRangePreference extends DialogPreference {
 	private final ZLIntegerRangeOption myOption;
