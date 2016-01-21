@@ -1284,10 +1284,10 @@ public abstract class ZLTextView extends ZLTextViewBase {
 		final int maxWidth = page.getTextWidth();
 		switch (getTextStyle().getAlignment()) {
 			case ZLTextAlignmentType.ALIGN_LEFT:
-				x += maxWidth - getTextStyle().getRightIndent(metrics()) - info.Width;
+				x -= maxWidth - getTextStyle().getLeftIndent(metrics()) - info.Width;
 				break;
 			case ZLTextAlignmentType.ALIGN_CENTER:
-				x += (maxWidth - getTextStyle().getRightIndent(metrics()) - info.Width) / 2;
+				x -= (maxWidth - getTextStyle().getRightIndent(metrics()) - info.Width) / 2;
 				break;
 			case ZLTextAlignmentType.ALIGN_JUSTIFY:
 				if (!endOfParagraph && (paragraphCursor.getElement(info.EndElementIndex) != ZLTextElement.AfterParagraph)) {
