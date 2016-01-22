@@ -18,40 +18,47 @@ updateVersion() {
 		android-1.5)
 			variant=0
 			;;
-		ice-cream-sandwich|yota|yota2|lr-kindle|kindle|betayota|yotabeta|*-ics)
+		ice-cream-sandwich)
+			variant=2
+			;;
+		yota)
+			variant=2
+			;;
+		yota2)
+			variant=2
+			;;
+		kindle)
+			variant=2
+			;;
+		*-ics)
 			variant=2
 			;;
 		*)
 			variant=1
 			;;
 	esac
-
-	fixed=`echo $version | sed "s/ *beta */./"`
-
-	major=`echo $fixed | cut -d . -f 1`
-	minor=`echo $fixed | cut -d . -f 2`
-	micro=`echo $fixed | cut -d . -f 3`
-	local=`echo $fixed | cut -d . -f 4`
-	if [ "$branch" == "nook" -o "$branch" == "lr-nook" ]; then
-		readable_version=$version-nst
-	elif [ "$branch" == "kindle" -o "$branch" == "lr-kindle" ]; then
-		readable_version=$version-kindlehd
+		
+	if [ "$branch" == "beta-ics" -o "$branch" == "beta" ]; then
+		version=`cat VERSION-BETA`
+		major=1
+		minor=9
+		micro=`echo $version | cut -d " " -f 3`
 	else
-		readable_version=$version
+		major=`echo $version | cut -d . -f 1`
+		minor=`echo $version | cut -d . -f 2`
+		micro=`echo $version | cut -d . -f 3`
+		if [ "$branch" == "nook" ]; then
+			version=$version-nst
+		elif [ "$branch" == "kindle" ]; then
+			version=$version-kindlehd
+		fi
 	fi
 	
 	if [ "$micro" == "" ]; then
-    micro=0
+     micro=0
   fi
-	if [ "$version" != "$fixed" ]; then
-		minor=$(($minor - 1))
-		micro=$(($micro + 50))
-	fi
-	if [ "$local" == "" ]; then
-    local=0
-  fi
-	intversion=$((1000000*$major+10000*$minor+100*$micro+10*$variant+$local))
-	sed "s/@INTVERSION@/$intversion/" AndroidManifest.xml.pattern | sed "s/@VERSION@/$readable_version/" > AndroidManifest.xml
+	intversion=$((100000*$major+1000*$minor+10*$micro+$variant))
+	sed "s/@INTVERSION@/$intversion/" AndroidManifest.xml.pattern | sed "s/@VERSION@/$version/" > AndroidManifest.xml
 }
 
 buildSourceArchive() {

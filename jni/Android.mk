@@ -29,7 +29,7 @@ include $(BUILD_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE                  := NativeFormats-v4
+LOCAL_MODULE                  := NativeFormats-v3
 LOCAL_CFLAGS                  := -Wall
 LOCAL_LDLIBS                  := -lz -llog
 LOCAL_STATIC_LIBRARIES        := expat
@@ -41,7 +41,6 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/util/AndroidUtil.cpp \
 	NativeFormats/util/JniEnvelope.cpp \
 	NativeFormats/zlibrary/core/src/constants/ZLXMLNamespace.cpp \
-	NativeFormats/zlibrary/core/src/drm/FileEncryptionInfo.cpp \
 	NativeFormats/zlibrary/core/src/encoding/DummyEncodingConverter.cpp \
 	NativeFormats/zlibrary/core/src/encoding/Utf16EncodingConverters.cpp \
 	NativeFormats/zlibrary/core/src/encoding/Utf8EncodingConverter.cpp \
@@ -69,7 +68,6 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/zlibrary/core/src/library/ZLibrary.cpp \
 	NativeFormats/zlibrary/core/src/logger/ZLLogger.cpp \
 	NativeFormats/zlibrary/core/src/util/ZLFileUtil.cpp \
-	NativeFormats/zlibrary/core/src/util/ZLLanguageUtil.cpp \
 	NativeFormats/zlibrary/core/src/util/ZLStringUtil.cpp \
 	NativeFormats/zlibrary/core/src/util/ZLUnicodeUtil.cpp \
 	NativeFormats/zlibrary/core/src/xml/ZLAsynchronousInputStream.cpp \
@@ -84,10 +82,6 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/zlibrary/text/src/model/ZLCachedMemoryAllocator.cpp \
 	NativeFormats/zlibrary/text/src/model/ZLTextModel.cpp \
 	NativeFormats/zlibrary/text/src/model/ZLTextParagraph.cpp \
-	NativeFormats/zlibrary/text/src/model/ZLTextStyleEntry.cpp \
-	NativeFormats/zlibrary/text/src/model/ZLVideoEntry.cpp \
-	NativeFormats/zlibrary/text/src/fonts/FontManager.cpp \
-	NativeFormats/zlibrary/text/src/fonts/FontMap.cpp \
 	NativeFormats/zlibrary/ui/src/android/filesystem/JavaFSDir.cpp \
 	NativeFormats/zlibrary/ui/src/android/filesystem/JavaInputStream.cpp \
 	NativeFormats/zlibrary/ui/src/android/filesystem/ZLAndroidFSManager.cpp \
@@ -104,12 +98,8 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/fbreader/src/formats/fb2/FB2Reader.cpp \
 	NativeFormats/fbreader/src/formats/fb2/FB2TagManager.cpp \
 	NativeFormats/fbreader/src/formats/fb2/FB2UidReader.cpp \
-	NativeFormats/fbreader/src/formats/css/CSSInputStream.cpp \
-	NativeFormats/fbreader/src/formats/css/CSSSelector.cpp \
-	NativeFormats/fbreader/src/formats/css/StringInputStream.cpp \
 	NativeFormats/fbreader/src/formats/css/StyleSheetParser.cpp \
 	NativeFormats/fbreader/src/formats/css/StyleSheetTable.cpp \
-	NativeFormats/fbreader/src/formats/css/StyleSheetUtil.cpp \
 	NativeFormats/fbreader/src/formats/html/HtmlBookReader.cpp \
 	NativeFormats/fbreader/src/formats/html/HtmlDescriptionReader.cpp \
 	NativeFormats/fbreader/src/formats/html/HtmlEntityCollection.cpp \
@@ -119,27 +109,11 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/fbreader/src/formats/oeb/NCXReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBBookReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBCoverReader.cpp \
-	NativeFormats/fbreader/src/formats/oeb/OEBEncryptionReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBMetaInfoReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBPlugin.cpp \
-	NativeFormats/fbreader/src/formats/oeb/OEBSimpleIdReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBTextStream.cpp \
 	NativeFormats/fbreader/src/formats/oeb/OEBUidReader.cpp \
-	NativeFormats/fbreader/src/formats/oeb/OPFReader.cpp \
 	NativeFormats/fbreader/src/formats/oeb/XHTMLImageFinder.cpp \
-	NativeFormats/fbreader/src/formats/pdb/BitReader.cpp \
-	NativeFormats/fbreader/src/formats/pdb/DocDecompressor.cpp \
-	NativeFormats/fbreader/src/formats/pdb/HtmlMetainfoReader.cpp \
-	NativeFormats/fbreader/src/formats/pdb/HuffDecompressor.cpp \
-	NativeFormats/fbreader/src/formats/pdb/MobipocketHtmlBookReader.cpp \
-	NativeFormats/fbreader/src/formats/pdb/MobipocketPlugin.cpp \
-	NativeFormats/fbreader/src/formats/pdb/PalmDocLikePlugin.cpp \
-	NativeFormats/fbreader/src/formats/pdb/PalmDocLikeStream.cpp \
-	NativeFormats/fbreader/src/formats/pdb/PalmDocStream.cpp \
-	NativeFormats/fbreader/src/formats/pdb/PdbPlugin.cpp \
-	NativeFormats/fbreader/src/formats/pdb/PdbReader.cpp \
-	NativeFormats/fbreader/src/formats/pdb/PdbStream.cpp \
-	NativeFormats/fbreader/src/formats/pdb/SimplePdbPlugin.cpp \
 	NativeFormats/fbreader/src/formats/rtf/RtfBookReader.cpp \
 	NativeFormats/fbreader/src/formats/rtf/RtfDescriptionReader.cpp \
 	NativeFormats/fbreader/src/formats/rtf/RtfPlugin.cpp \
@@ -154,7 +128,6 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/fbreader/src/formats/util/MiscUtil.cpp \
 	NativeFormats/fbreader/src/formats/util/XMLTextStream.cpp \
 	NativeFormats/fbreader/src/formats/xhtml/XHTMLReader.cpp \
-	NativeFormats/fbreader/src/formats/xhtml/XHTMLTagInfo.cpp \
 	NativeFormats/fbreader/src/formats/doc/DocBookReader.cpp \
 	NativeFormats/fbreader/src/formats/doc/DocMetaInfoReader.cpp \
 	NativeFormats/fbreader/src/formats/doc/DocPlugin.cpp \
@@ -167,17 +140,16 @@ LOCAL_SRC_FILES               := \
 	NativeFormats/fbreader/src/formats/doc/OleUtil.cpp \
 	NativeFormats/fbreader/src/formats/doc/DocInlineImageReader.cpp \
 	NativeFormats/fbreader/src/formats/doc/DocFloatImageReader.cpp \
-	NativeFormats/fbreader/src/formats/doc/DocAnsiConverter.cpp \
 	NativeFormats/fbreader/src/library/Author.cpp \
 	NativeFormats/fbreader/src/library/Book.cpp \
 	NativeFormats/fbreader/src/library/Comparators.cpp \
+	NativeFormats/fbreader/src/library/Library.cpp \
 	NativeFormats/fbreader/src/library/Tag.cpp \
 	NativeFormats/fbreader/src/library/UID.cpp
 
 LOCAL_C_INCLUDES              := \
 	$(LOCAL_PATH)/NativeFormats/util \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/constants \
-	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/drm \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/encoding \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/filesystem \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/image \
@@ -186,7 +158,6 @@ LOCAL_C_INCLUDES              := \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/logger \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/util \
 	$(LOCAL_PATH)/NativeFormats/zlibrary/core/src/xml \
-	$(LOCAL_PATH)/NativeFormats/zlibrary/text/src/model \
-	$(LOCAL_PATH)/NativeFormats/zlibrary/text/src/fonts
+	$(LOCAL_PATH)/NativeFormats/zlibrary/text/src/model
 
 include $(BUILD_SHARED_LIBRARY)

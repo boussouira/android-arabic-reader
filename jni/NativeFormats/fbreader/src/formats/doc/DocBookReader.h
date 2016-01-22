@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,7 +31,6 @@
 
 #include "OleMainStream.h"
 #include "OleStreamParser.h"
-#include "DocAnsiConverter.h"
 
 class DocBookReader : public OleStreamParser {
 
@@ -96,7 +95,7 @@ private:
 	unsigned int myPictureCounter;
 
 	const std::string myEncoding;
-	DocAnsiConverter myConverter;
+	shared_ptr<ZLEncodingConverter> myConverter;
 };
 
 inline DocBookReader::~DocBookReader() {}

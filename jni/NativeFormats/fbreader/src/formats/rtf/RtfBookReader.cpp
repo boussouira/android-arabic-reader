@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -227,7 +227,6 @@ void RtfBookReader::setEncoding(int) {
 void RtfBookReader::setAlignment() {
 	ZLTextStyleEntry entry(ZLTextStyleEntry::STYLE_OTHER_ENTRY);
 	entry.setAlignmentType(myState.Alignment);
-	// TODO: replace 0 with depth?
-	myBookReader.addStyleEntry(entry, 0);
+	myBookReader.addStyleEntry(entry);
 	// TODO: call addStyleCloseEntry somewhere (?)
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -87,7 +87,7 @@ void DocBookReader::handleHardLinebreak() {
 	}
 	myModelReader.beginParagraph();
 	if (!myCurrentStyleEntry.isNull()) {
-		myModelReader.addStyleEntry(*myCurrentStyleEntry, 0);
+		myModelReader.addStyleEntry(*myCurrentStyleEntry);
 	}
 	for (std::size_t i = 0; i < myKindStack.size(); ++i) {
 		myModelReader.addControl(myKindStack.at(i), true);
@@ -153,21 +153,28 @@ void DocBookReader::handleSeparatorField() {
 	if (utf8String.empty()) {
 		return;
 	}
-	std::vector<std::string> split = ZLStringUtil::split(utf8String, SPACE_DELIMETER, true);
+	std::vector<std::string> result = ZLStringUtil::split(utf8String, SPACE_DELIMETER);
+	//TODO split function can returns empty string, maybe fix it
+	std::vector<std::string> splitted;
+	for (std::size_t i = 0; i < result.size(); ++i) {
+		if (!result.at(i).empty()) {
+			splitted.push_back(result.at(i));
+		}
+	}
 
-	if (!split.empty() && split.at(0) == SEQUENCE) {
+	if (!splitted.empty() && splitted.at(0) == SEQUENCE) {
 		myReadFieldState = READ_FIELD_TEXT;
 		myHyperlinkTypeState = NO_HYPERLINK;
 		return;
 	}
 
-	if (split.size() < 2 || split.at(0) != HYPERLINK) {
+	if (splitted.size() < 2 || splitted.at(0) != HYPERLINK) {
 		myReadFieldState = DONT_READ_FIELD_TEXT;
 		//to remove pagination from TOC and not hyperlink fields
 		return;
 	}
 
-	if (split.at(1) == LOCAL_LINK) {
+	if (splitted.at(1) == LOCAL_LINK) {
 		std::string link = parseLink(buffer);
 		if (!link.empty()) {
 			myModelReader.addHyperlinkControl(INTERNAL_HYPERLINK, link);
@@ -276,7 +283,7 @@ void DocBookReader::handleParagraphStyle(const OleMainStream::Style &styleInfo) 
 			break;
 	}
 	myCurrentStyleEntry = entry;
-	myModelReader.addStyleEntry(*myCurrentStyleEntry, 0);
+	myModelReader.addStyleEntry(*myCurrentStyleEntry);
 
 	// we should have the same font style, as for the previous paragraph,
 	// if it has the same StyleIdCurrent
@@ -354,8 +361,16 @@ void DocBookReader::footnotesStartHandler() {
 }
 
 void DocBookReader::ansiDataHandler(const char *buffer, std::size_t len) {
+	if (myConverter.isNull()) {
+		// lazy converter initialization
+		const ZLEncodingCollection &collection = ZLEncodingCollection::Instance();
+		myConverter = collection.converter(myEncoding);
+		if (myConverter.isNull()) {
+			myConverter = collection.defaultConverter();
+		}
+	}
 	std::string utf8String;
-	myConverter.convert(utf8String, buffer, buffer + len);
+	myConverter->convert(utf8String, buffer, buffer + len);
 	ZLUnicodeUtil::utf8ToUcs2(myBuffer, utf8String);
 }
 

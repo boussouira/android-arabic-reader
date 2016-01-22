@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2009-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,8 +21,8 @@
 #include <string>
 #include <map>
 
-#include <ZLFile.h>
-#include <ZLInputStream.h>
+#include <ZLFile.h> 
+#include <ZLInputStream.h> 
 
 #include "ZLCharSequence.h"
 #include "ZLStatistics.h"
@@ -64,5 +64,5 @@ shared_ptr<ZLArrayBasedStatistics> ZLStatisticsXMLReader::readStatistics(const s
 
 	statisticsMap.insert(std::make_pair(fileName, myStatisticsPtr));
 
-	return myStatisticsPtr;
+	return myStatisticsPtr; 
 }

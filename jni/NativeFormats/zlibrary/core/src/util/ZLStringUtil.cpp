@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,12 +63,6 @@ void ZLStringUtil::appendNumber(std::string &str, unsigned int n) {
 	}
 }
 
-std::string ZLStringUtil::numberToString(unsigned int n) {
-	std::string str;
-	appendNumber(str, n);
-	return str;
-}
-
 void ZLStringUtil::append(std::string &str, const std::vector<std::string> &text) {
 	std::size_t len = str.length();
 	for (std::vector<std::string>::const_iterator it = text.begin(); it != text.end(); ++it) {
@@ -96,36 +90,17 @@ void ZLStringUtil::stripWhiteSpaces(std::string &str) {
 	str.erase(r_counter, length - r_counter);
 }
 
-std::vector<std::string> ZLStringUtil::split(const std::string &str, const std::string &delimiter, bool skipEmpty) {
+std::vector<std::string> ZLStringUtil::split(const std::string &str, const std::string &delimiter) {
 	std::vector<std::string> result;
 	std::size_t start = 0;
 	std::size_t index = str.find(delimiter);
 	while (index != std::string::npos) {
-		const std::string sub = str.substr(start, index - start);
-		if (!skipEmpty || sub.size() > 0) {
-			result.push_back(sub);
-		}
+		result.push_back(str.substr(start, index - start));
 		start = index + delimiter.length();
 		index = str.find(delimiter, start);
 	}
-	const std::string sub = str.substr(start, index - start);
-	if (!skipEmpty || sub.size() > 0) {
-		result.push_back(sub);
-	}
+	result.push_back(str.substr(start, index - start));
 	return result;
-}
-
-std::string ZLStringUtil::join(const std::vector<std::string> &data, const std::string &delimiter) {
-	std::string joined;
-	bool addDelimiter = false;
-	for (std::vector<std::string>::const_iterator it = data.begin(); it != data.end(); ++it) {
-		if (addDelimiter) {
-			joined += delimiter;
-		}
-		joined += *it;
-		addDelimiter = true;
-	}
-	return joined;
 }
 
 std::string ZLStringUtil::printf(const std::string &format, const std::string &arg0) {
@@ -152,7 +127,7 @@ double ZLStringUtil::stringToDouble(const std::string &str, double defaultValue)
 	}
 }
 
-int ZLStringUtil::parseDecimal(const std::string &str, int defaultValue) {
+int ZLStringUtil::stringToInteger(const std::string &str, int defaultValue) {
 	if (str.empty()) {
 		return defaultValue;
 	}
@@ -167,25 +142,4 @@ int ZLStringUtil::parseDecimal(const std::string &str, int defaultValue) {
 	}
 
 	return std::atoi(str.c_str());
-}
-
-unsigned long ZLStringUtil::parseHex(const std::string &str, int defaultValue) {
-	if (str.empty()) {
-		return defaultValue;
-	}
-
-	for (std::size_t i = 0; i < str.length(); ++i) {
-		if (!std::isxdigit(str[i])) {
-			return defaultValue;
-		}
-	}
-
-	char *ptr;
-	return std::strtol(str.c_str(), &ptr, 16);
-}
-
-void ZLStringUtil::asciiToLowerInline(std::string &asciiString) {
-	for (int i = asciiString.size() - 1; i >= 0; --i) {
-		asciiString[i] = std::tolower(asciiString[i]);
-	}
 }

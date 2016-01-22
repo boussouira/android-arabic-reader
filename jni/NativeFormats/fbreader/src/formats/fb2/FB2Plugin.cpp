@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,8 +30,8 @@ const std::string FB2Plugin::supportedFileType() const {
 	return "fb2";
 }
 
-bool FB2Plugin::readMetainfo(Book &book) const {
-	return FB2MetaInfoReader(book).readMetainfo();
+bool FB2Plugin::readMetaInfo(Book &book) const {
+	return FB2MetaInfoReader(book).readMetaInfo();
 }
 
 bool FB2Plugin::readUids(Book &book) const {

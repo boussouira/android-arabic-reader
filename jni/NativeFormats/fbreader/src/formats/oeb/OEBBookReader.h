@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,15 +24,13 @@
 #include <vector>
 #include <string>
 
-#include <shared_ptr.h>
-#include <FileEncryptionInfo.h>
+#include <ZLXMLReader.h>
 
-#include "OPFReader.h"
 #include "../../bookmodel/BookReader.h"
 
 class XHTMLReader;
 
-class OEBBookReader : public OPFReader {
+class OEBBookReader : public ZLXMLReader {
 
 public:
 	OEBBookReader(BookModel &model);
@@ -41,6 +39,9 @@ public:
 private:
 	void startElementHandler(const char *tag, const char **attributes);
 	void endElementHandler(const char *tag);
+	bool processNamespaces() const;
+	bool isOPFTag(const std::string &expected, const std::string &tag) const;
+	const std::vector<std::string> &externalDTDs() const;
 
 	void generateTOC(const XHTMLReader &xhtmlReader);
 	bool coverIsSingleImage() const;
@@ -58,7 +59,6 @@ private:
 	BookReader myModelReader;
 	ReaderState myState;
 
-	shared_ptr<EncryptionMap> myEncryptionMap;
 	std::string myFilePrefix;
 	std::map<std::string,std::string> myIdToHref;
 	std::map<std::string,std::string> myHrefToMediatype;

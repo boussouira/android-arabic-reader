@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,6 @@
 
 #include <cstring>
 
-#include <ZLLogger.h>
 #include <ZLStringUtil.h>
 #include <ZLUnicodeUtil.h>
 
@@ -96,13 +95,7 @@ shared_ptr<ZLInputStream> ZLFile::envelopeCompressedStream(shared_ptr<ZLInputStr
 	return base;
 }
 
-shared_ptr<ZLInputStream> ZLFile::inputStream(shared_ptr<EncryptionMap> encryptionMap) const {
-	shared_ptr<FileEncryptionInfo> encryptionInfo =
-		encryptionMap.isNull() ? 0 : encryptionMap->info(myPath);
-	if (!encryptionInfo.isNull()) {
-		return 0;
-	}
-
+shared_ptr<ZLInputStream> ZLFile::inputStream() const {
 	shared_ptr<ZLInputStream> stream;
 
 	int index = ZLFSManager::Instance().findArchiveFileNameDelimiter(myPath);
@@ -111,6 +104,7 @@ shared_ptr<ZLInputStream> ZLFile::inputStream(shared_ptr<EncryptionMap> encrypti
 			return 0;
 		}
 		stream = ZLFSManager::Instance().createPlainInputStream(myPath);
+		stream = envelopeCompressedStream(stream);
 	} else {
 		const std::string baseName = myPath.substr(0, index);
 		const ZLFile baseFile(baseName);
@@ -118,17 +112,14 @@ shared_ptr<ZLInputStream> ZLFile::inputStream(shared_ptr<EncryptionMap> encrypti
 		if (!base.isNull()) {
 			if (baseFile.myArchiveType & ZIP) {
 				stream = new ZLZipInputStream(base, baseName, myPath.substr(index + 1));
-			/*} else if (baseFile.myArchiveType & TAR) {
-				stream = new ZLTarInputStream(base, myPath.substr(index + 1));*/
-			} else {
-				if (isDirectory()) {
-					return 0;
-				}
-				stream = ZLFSManager::Instance().createPlainInputStream(myPath);
-			}
+			} /*else if (baseFile.myArchiveType & TAR) {
+				stream = new ZLTarInputStream(base, myPath.substr(index + 1));
+			}*/
 		}
+		stream = envelopeCompressedStream(stream);
 	}
-	return envelopeCompressedStream(stream);
+
+	return stream;
 }
 
 shared_ptr<ZLOutputStream> ZLFile::outputStream(bool writeThrough) const {
@@ -166,30 +157,26 @@ void ZLFile::fillInfo() const {
 	} else {
 		const std::string archivePath = myPath.substr(0, index);
 		ZLFile archive(archivePath);
-		if (!archive.isArchive()) {
-			myInfo = ZLFSManager::Instance().fileInfo(myPath);
-		} else {
-			if (archive.exists()) {
-				shared_ptr<ZLDir> dir = archive.directory();
-				if (!dir.isNull()) {
-					std::string itemName = myPath.substr(index + 1);
-					myInfo = archive.myInfo;
-					myInfo.IsDirectory = false;
-					myInfo.Exists = false;
-					std::vector<std::string> items;
-					dir->collectFiles(items, true);
-					for (std::vector<std::string>::const_iterator it = items.begin(); it != items.end(); ++it) {
-						if (*it == itemName) {
-							myInfo.Exists = true;
-							break;
-						}
+		if (archive.exists()) {
+			shared_ptr<ZLDir> dir = archive.directory();
+			if (!dir.isNull()) {
+				std::string itemName = myPath.substr(index + 1);
+				myInfo = archive.myInfo;
+				myInfo.IsDirectory = false;
+				myInfo.Exists = false;
+				std::vector<std::string> items;
+				dir->collectFiles(items, true);
+				for (std::vector<std::string>::const_iterator it = items.begin(); it != items.end(); ++it) {
+					if (*it == itemName) {
+						myInfo.Exists = true;
+						break;
 					}
-				} else {
-					myInfo.Exists = false;
 				}
 			} else {
 				myInfo.Exists = false;
 			}
+		} else {
+			myInfo.Exists = false;
 		}
 	}
 }
@@ -244,26 +231,11 @@ std::size_t ZLFile::size() const {
 	return myInfo.Size;
 }
 
-std::size_t ZLFile::lastModified() const {
-	if (!myInfoIsFilled) {
-		fillInfo();
-	}
-	return myInfo.MTime;
-}
-
 bool ZLFile::isDirectory() const {
 	if (!myInfoIsFilled) {
 		fillInfo();
 	}
 	return myInfo.IsDirectory;
-}
-
-ZLFile ZLFile::getContainerArchive() const {
-	const int index = ZLFSManager::Instance().findArchiveFileNameDelimiter(myPath);
-	if (index == -1) {
-		return NO_FILE;
-	}
-	return ZLFile(myPath.substr(0, index));
 }
 
 const std::string &ZLFile::mimeType() const {

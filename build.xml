@@ -46,8 +46,8 @@
 					<srcfiles dir="jni/LineBreak" includes="**/*.cpp,**/*.c,**/*.h"/>
 				</uptodate>
 				<!-- Check if libNativeFormats exists and is up to date -->
-				<available file="./libs/armeabi/libNativeFormats-v4.so" />
-				<uptodate property="libNativeFormats-build-is-not-required" targetfile="libs/armeabi/libNativeFormats-v4.so">
+				<available file="./libs/armeabi/libNativeFormats-v3.so" />
+				<uptodate property="libNativeFormats-build-is-not-required" targetfile="libs/armeabi/libNativeFormats-v3.so">
 					<srcfiles dir="jni/NativeFormats" includes="**/*.cpp,**/*.c,**/*.h"/>
 				</uptodate>
 			</and>
@@ -55,15 +55,7 @@
 		<echo message="DONE (Checking if native libraries are up-to-date)"/>
 	</target>
 
-	<target name="genhelp">
-		<exec executable="./help/generate.py">
-			<arg value="help/proto"/>
-			<arg value="help/html"/>
-			<arg value="assets/data/intro"/>
-		</exec>
-	</target>
-
-	<target name="-pre-build" depends="init, native, genhelp">
+	<target name="-pre-build" depends="init, native">
 	</target>
 <!--
 	<target name="-pre-compile">
@@ -77,7 +69,6 @@
 		<delete dir="gen" />
 		<delete dir="bin" />
 		<delete dir="out" />
-		<delete dir="assets/data/intro" />
 		<echo message="DONE (Deleting temporary files)" />
 	</target>
 
@@ -86,11 +77,8 @@
 		<delete dir="obj" />
 		<delete dir="libs/armeabi" />
 		<delete dir="libs/armeabi-v7a" />
-		<delete dir="libs/arm64-v8a" />
-		<delete dir="libs/x86_64" />
 		<delete dir="libs/x86" />
 		<delete dir="libs/mips" />
-		<delete dir="libs/mips64" />
 		<delete dir="libs/mips-r2" />
 		<delete dir="libs/mips-r2-sf" />
 		<echo message="DONE (Deleting native libraries)" />

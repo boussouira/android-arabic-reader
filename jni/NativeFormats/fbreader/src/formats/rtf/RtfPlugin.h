@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,9 +25,9 @@
 class RtfPlugin : public FormatPlugin {
 
 public:
-	bool providesMetainfo() const;
+	bool providesMetaInfo() const;
 	const std::string supportedFileType() const;
-	bool readMetainfo(Book &book) const;
+	bool readMetaInfo(Book &book) const;
 	bool readUids(Book &book) const;
 	bool readLanguageAndEncoding(Book &book) const;
 	bool readModel(BookModel &model) const;

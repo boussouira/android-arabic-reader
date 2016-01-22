@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,11 +27,13 @@
 
 #include "../formats/FormatPlugin.h"
 #include "../library/Book.h"
+#include "../library/Library.h"
 
-BookModel::BookModel(const shared_ptr<Book> book, jobject javaModel, const std::string &cacheDir) : CacheDir(cacheDir), myBook(book) {
+BookModel::BookModel(const shared_ptr<Book> book, jobject javaModel) : myBook(book) {
 	myJavaModel = AndroidUtil::getEnv()->NewGlobalRef(javaModel);
 
-	myBookTextModel = new ZLTextPlainModel(std::string(), book->language(), 131072, CacheDir, "ncache", myFontManager);
+	const std::string cacheDirectory = Library::Instance().cacheDirectory();
+	myBookTextModel = new ZLTextPlainModel(std::string(), book->language(), 131072, cacheDirectory, "ncache");
 	myContentsTree = new ContentsTree();
 	/*shared_ptr<FormatPlugin> plugin = PluginCollection::Instance().plugin(book->file(), false);
 	if (!plugin.isNull()) {
@@ -46,7 +48,7 @@ BookModel::~BookModel() {
 void BookModel::setHyperlinkMatcher(shared_ptr<HyperlinkMatcher> matcher) {
 	myHyperlinkMatcher = matcher;
 }
-
+	
 BookModel::Label BookModel::label(const std::string &id) const {
 	if (!myHyperlinkMatcher.isNull()) {
 		return myHyperlinkMatcher->match(myInternalHyperlinks, id);

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2008-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,11 +40,6 @@ public:
 	static const std::string Opds;
 	static const std::string DaisyNCX;
 	static const std::string Svg;
-	static const std::string MarlinEpub;
-	static const std::string XMLEncryption;
-	static const std::string XMLDigitalSignature;
-	static const std::string EpubContainer;
-	static const std::string FBReaderXhtml;
 };
 
 #endif /* __ZLXMLNAMESPACE_H__ */

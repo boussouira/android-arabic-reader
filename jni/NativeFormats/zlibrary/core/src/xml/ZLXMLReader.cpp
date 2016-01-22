@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -100,11 +100,7 @@ bool ZLXMLReader::readDocument(shared_ptr<ZLInputStream> stream) {
 	stream->seek(0, true);
 	int index = stringBuffer.find('>');
 	if (index > 0) {
-		stringBuffer = stringBuffer.substr(0, index);
-		if (!ZLUnicodeUtil::isUtf8String(stringBuffer)) {
-			return false;
-		}
-		stringBuffer = ZLUnicodeUtil::toLower(stringBuffer);
+		stringBuffer = ZLUnicodeUtil::toLower(stringBuffer.substr(0, index));
 		int index = stringBuffer.find("\"iso-8859-1\"");
 		if (index > 0) {
 			useWindows1252 = true;
@@ -168,20 +164,6 @@ const char *ZLXMLReader::attributeValue(const char **xmlattributes, const char *
 	return 0;
 }
 
-std::map<std::string,std::string> ZLXMLReader::attributeMap(const char **xmlattributes) const {
-	std::map<std::string,std::string> map;
-	while (*xmlattributes != 0) {
-		std::string key = *xmlattributes;
-		++xmlattributes;
-		if (*xmlattributes == 0) {
-			break;
-		}
-		map[key] = *xmlattributes;
-		++xmlattributes;
-	}
-	return map;
-}
-
 ZLXMLReader::NamePredicate::~NamePredicate() {
 }
 
@@ -194,21 +176,6 @@ bool ZLXMLReader::SimpleNamePredicate::accepts(const ZLXMLReader&, const char *n
 
 bool ZLXMLReader::SimpleNamePredicate::accepts(const ZLXMLReader&, const std::string &name) const {
 	return myName == name;
-}
-
-ZLXMLReader::IgnoreCaseNamePredicate::IgnoreCaseNamePredicate(const std::string &lowerCaseName) : myLowerCaseName(lowerCaseName) {
-}
-
-bool ZLXMLReader::IgnoreCaseNamePredicate::accepts(const ZLXMLReader &reader, const char *name) const {
-	std::string lc = name;
-	ZLStringUtil::asciiToLowerInline(lc);
-	return myLowerCaseName == lc;
-}
-
-bool ZLXMLReader::IgnoreCaseNamePredicate::accepts(const ZLXMLReader&, const std::string &name) const {
-	std::string lc = name;
-	ZLStringUtil::asciiToLowerInline(lc);
-	return myLowerCaseName == lc;
 }
 
 ZLXMLReader::FullNamePredicate::FullNamePredicate(const std::string &ns, const std::string &name) : myNamespaceName(ns), myName(name) {

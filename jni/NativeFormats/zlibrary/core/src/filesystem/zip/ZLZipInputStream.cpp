@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@
 #include "ZLZDecompressor.h"
 #include "../ZLFSManager.h"
 
-ZLZipInputStream::ZLZipInputStream(shared_ptr<ZLInputStream> base, const std::string &baseName, const std::string &entryName) : myBaseStream(new ZLInputStreamDecorator(base)), myBaseName(baseName), myEntryName(entryName), myIsOpen(false), myUncompressedSize(0) {
+ZLZipInputStream::ZLZipInputStream(shared_ptr<ZLInputStream> base, const std::string &baseName, const std::string &entryName) : myBaseStream(new ZLInputStreamDecorator(base)), myBaseName(baseName), myEntryName(entryName), myUncompressedSize(0) {
 }
 
 ZLZipInputStream::~ZLZipInputStream() {
@@ -65,15 +65,10 @@ bool ZLZipInputStream::open() {
 	}
 
 	myOffset = 0;
-	myIsOpen = true;
 	return true;
 }
 
 std::size_t ZLZipInputStream::read(char *buffer, std::size_t maxSize) {
-	if (!myIsOpen) {
-		return 0;
-	}
-
 	std::size_t realSize = 0;
 	if (myIsDeflated) {
 		realSize = myDecompressor->decompress(*myBaseStream, buffer, maxSize);
@@ -87,7 +82,6 @@ std::size_t ZLZipInputStream::read(char *buffer, std::size_t maxSize) {
 }
 
 void ZLZipInputStream::close() {
-	myIsOpen = false;
 	myDecompressor = 0;
 	if (!myBaseStream.isNull()) {
 		myBaseStream->close();
@@ -102,7 +96,8 @@ void ZLZipInputStream::seek(int offset, bool absoluteOffset) {
 		read(0, offset);
 	} else if (offset < 0) {
 		offset += this->offset();
-		if (open() && offset > 0) {
+		open();
+		if (offset >= 0) {
 			read(0, offset);
 		}
 	}

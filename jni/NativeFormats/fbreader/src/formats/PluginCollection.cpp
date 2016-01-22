@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@
 #include "fb2/FB2Plugin.h"
 #include "html/HtmlPlugin.h"
 #include "txt/TxtPlugin.h"
-#include "pdb/PdbPlugin.h"
+//#include "pdb/PdbPlugin.h"
 //#include "tcr/TcrPlugin.h"
 #include "oeb/OEBPlugin.h"
 //#include "chm/CHMPlugin.h"
@@ -48,7 +48,7 @@ PluginCollection &PluginCollection::Instance() {
 		ourInstance->myPlugins.push_back(new TxtPlugin());
 //		ourInstance->myPlugins.push_back(new PluckerPlugin());
 //		ourInstance->myPlugins.push_back(new PalmDocPlugin());
-		ourInstance->myPlugins.push_back(new MobipocketPlugin());
+//		ourInstance->myPlugins.push_back(new MobipocketPlugin());
 //		ourInstance->myPlugins.push_back(new EReaderPlugin());
 //		ourInstance->myPlugins.push_back(new ZTXTPlugin());
 //		ourInstance->myPlugins.push_back(new TcrPlugin());
@@ -69,15 +69,15 @@ void PluginCollection::deleteInstance() {
 }
 
 PluginCollection::PluginCollection() {
-	//JNIEnv *env = AndroidUtil::getEnv();
-	//jobject instance = AndroidUtil::StaticMethod_PluginCollection_Instance->call();
-	//myJavaInstance = env->NewGlobalRef(instance);
-	//env->DeleteLocalRef(instance);
+	JNIEnv *env = AndroidUtil::getEnv();
+	jobject instance = AndroidUtil::StaticMethod_PluginCollection_Instance->call();
+	myJavaInstance = env->NewGlobalRef(instance);
+	env->DeleteLocalRef(instance);
 }
 
 PluginCollection::~PluginCollection() {
-	//JNIEnv *env = AndroidUtil::getEnv();
-	//env->DeleteGlobalRef(myJavaInstance);
+	JNIEnv *env = AndroidUtil::getEnv();
+	env->DeleteGlobalRef(myJavaInstance);
 }
 
 shared_ptr<FormatPlugin> PluginCollection::pluginByType(const std::string &fileType) const {

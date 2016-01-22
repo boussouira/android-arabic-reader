@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@
 
 class Book;
 class BookModel;
-class FileEncryptionInfo;
 //class ZLOptionsDialog;
 //class ZLOptionsDialogTab;
 class ZLFile;
@@ -53,18 +52,16 @@ protected:
 public:
 	virtual ~FormatPlugin();
 
-	virtual bool providesMetainfo() const = 0;
+	virtual bool providesMetaInfo() const = 0;
 	virtual const std::string supportedFileType() const = 0;
 	//virtual FormatInfoPage *createInfoPage(ZLOptionsDialog &dialog, const ZLFile &file);
 
-	//virtual const std::string &tryOpen(const ZLFile &file) const;
-	virtual bool readMetainfo(Book &book) const = 0;
-	virtual std::vector<shared_ptr<FileEncryptionInfo> > readEncryptionInfos(Book &book) const;
+	virtual const std::string &tryOpen(const ZLFile &file) const;
+	virtual bool readMetaInfo(Book &book) const = 0;
 	virtual bool readUids(Book &book) const = 0;
 	virtual bool readLanguageAndEncoding(Book &book) const = 0;
 	virtual bool readModel(BookModel &model) const = 0;
 	virtual shared_ptr<const ZLImage> coverImage(const ZLFile &file) const;
-	virtual std::string readAnnotation(const ZLFile &file) const;
 
 protected:
 	static bool detectEncodingAndLanguage(Book &book, ZLInputStream &stream, bool force = false);
@@ -92,7 +89,7 @@ public:
 private:
 	static PluginCollection *ourInstance;
 
-	//jobject myJavaInstance;
+	jobject myJavaInstance;
 
 	std::vector<shared_ptr<FormatPlugin> > myPlugins;
 };

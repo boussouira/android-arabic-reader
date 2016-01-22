@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ DocMetaInfoReader::DocMetaInfoReader(Book &book) : myBook(book) {
 	myBook.removeAllTags();
 }
 
-bool DocMetaInfoReader::readMetainfo() {
+bool DocMetaInfoReader::readMetaInfo() {
 	myBook.removeAllAuthors();
 	myBook.setTitle(myBook.file().name(true));
 	myBook.removeAllTags();

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ ZLZDecompressor::~ZLZDecompressor() {
 }
 
 std::size_t ZLZDecompressor::decompress(ZLInputStream &stream, char *buffer, std::size_t maxSize) {
-	while (myBuffer.length() < maxSize && myAvailableSize > 0) {
+	while ((myBuffer.length() < maxSize) && (myAvailableSize > 0)) {
 		std::size_t size = std::min(myAvailableSize, (std::size_t)IN_BUFFER_SIZE);
 
 		myZStream->next_in = (Bytef*)myInBuffer;

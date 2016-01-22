@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ public:
 		BREAKABLE_BEFORE,
 		BREAKABLE_AFTER
 	};
-
+	
 	static bool isUtf8String(const char *str, int len);
 	static bool isUtf8String(const std::string &str);
 	static void cleanUtf8String(std::string &str);

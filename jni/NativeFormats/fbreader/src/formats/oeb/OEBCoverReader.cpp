@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2009-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ shared_ptr<const ZLImage> OEBCoverReader::readCover(const ZLFile &file) {
 	if (myImage.isNull() && !myCoverXHTML.empty()) {
 		const ZLFile coverFile(myCoverXHTML);
 		const std::string ext = coverFile.extension();
-		if (ext == "gif" || ext == "jpeg" || ext == "jpg" || ext == "png") {
+		if (ext == "gif" || ext == "jpeg" || ext == "jpg") {
 			myImage = new ZLFileImage(coverFile, "", 0);
 		} else {
 			myImage = XHTMLImageFinder().readImage(coverFile);
@@ -65,7 +65,7 @@ void OEBCoverReader::startElementHandler(const char *tag, const char **attribute
 		case READ_NOTHING:
 			if (GUIDE == tag) {
 				myReadState = READ_GUIDE;
-			} else if (MANIFEST == tag) {
+			} else if (MANIFEST == tag && !myCoverId.empty()) {
 				myReadState = READ_MANIFEST;
 			} else if (testTag(ZLXMLNamespace::OpenPackagingFormat, METADATA, tag)) {
 				myReadState = READ_METADATA;
@@ -91,27 +91,15 @@ void OEBCoverReader::startElementHandler(const char *tag, const char **attribute
 			if (testTag(ZLXMLNamespace::OpenPackagingFormat, META, tag)) {
 				const char *name = attributeValue(attributes, "name");
 				if (name != 0 && COVER == name) {
-					const char *coverId = attributeValue(attributes, "content");
-					if (coverId != 0) {
-						myCoverId = coverId;
-					}
+					myCoverId = attributeValue(attributes, "content");
 				}
 			}
 			break;
 		case READ_MANIFEST:
 			if (ITEM == tag) {
-				const char *href = attributeValue(attributes, "href");
-				if (href == 0) {
-					break;
-				}
-				const char *prop = attributeValue(attributes, "properties");
-				if (prop != 0 && std::string("cover-image") == prop) {
-					createImage(href);
-					break;
-				}
 				const char *id = attributeValue(attributes, "id");
-				if (id != 0 && !myCoverId.empty() && myCoverId == id) {
-					createImage(href);
+				if (id != 0 && myCoverId == id) {
+					createImage(attributeValue(attributes, "href"));
 				}
 			}
 			break;

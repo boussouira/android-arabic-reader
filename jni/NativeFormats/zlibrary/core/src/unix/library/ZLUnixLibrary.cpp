@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,7 +35,7 @@ const std::string ZLibrary::PathDelimiter(":");
 const std::string ZLibrary::EndOfLine("\n");
 
 /*void ZLibrary::initLocale() {
-	const char *locale = setlocale(LC_MESSAGES, "");
+	const char *locale = setlocale(LC_MESSAGES, ""); 
 	if (locale != 0) {
 		std::string sLocale = locale;
 		const int dotIndex = sLocale.find('.');

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009-2015 FBReader.ORG Limited <contact@fbreader.org>
+ * Copyright (C) 2009-2014 Geometer Plus <contact@geometerplus.com>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ public:
 
 private:
 	shared_ptr<ZLArrayBasedStatistics> myStatisticsPtr;
-
+	
 private:
 	static const std::string ITEM_TAG;
 	static const std::string STATISTICS_TAG;
