@@ -169,6 +169,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 			directoriesScreen.Resource, "tempDir", Paths.TempDirectoryOption(this), null
 		));
 
+        /*
 		final Screen syncScreen = createPreferenceScreen("sync");
 		final PreferenceSet syncPreferences = new PreferenceSet.Enabler() {
 			@Override
@@ -255,6 +256,7 @@ public class PreferenceActivity extends ZLPreferenceActivity {
 		//syncPreferences.add(syncScreen.addOption(syncOptions.Metainfo, "metainfo", "values"));
 		syncPreferences.add(syncScreen.addOption(syncOptions.Bookmarks, "bookmarks", "values"));
 		syncPreferences.run();
+        */
 
 		final Screen appearanceScreen = createPreferenceScreen("appearance");
 		appearanceScreen.addPreference(new LanguagePreference(
