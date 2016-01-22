@@ -201,20 +201,20 @@
 		<node name="description" value="الوصف"/>
 		<node name="noDescription" value="لا يوجد أي وصف."/>
 		<node name="annotation" value="ملاحظة"/>
-		<node name="title" value="العنوان:"/>
-		<node name="authors" value="المؤلفين:">
-			<node condition="value 1" value="المؤلف:"/>
+		<node name="title" value="العنوان"/>
+		<node name="authors" value="المؤلفين">
+			<node condition="value 1" value="المؤلف"/>
 		</node>
-		<node name="series" value="السلسة:"/>
+		<node name="series" value="السلسة"/>
 		<node name="indexInSeries" value="Number in series:" toBeTranslated="true"/>
-		<node name="tags" value="الوسوم:">
-			<node condition="value 1" value="الوسم:"/>
+		<node name="tags" value="الوسوم">
+			<node condition="value 1" value="الوسم"/>
 		</node>
-		<node name="language" value="اللغة:"/>
-		<node name="name" value="الاسم:"/>
-		<node name="type" value="النوع:"/>
-		<node name="size" value="الحجم:"/>
-		<node name="time" value="آخر تحديث:"/>
+		<node name="language" value="اللغة"/>
+		<node name="name" value="الاسم"/>
+		<node name="type" value="النوع"/>
+		<node name="size" value="الحجم"/>
+		<node name="time" value="آخر تحديث"/>
 		<node name="sizeInBytes" value="%s bytes" toBeTranslated="true">
 			<node condition="value 1" value="%s byte" toBeTranslated="true"/>
 		</node>
