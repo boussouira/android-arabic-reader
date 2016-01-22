@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@ FB2BookReader::FB2BookReader(BookModel &model) : myModelReader(model) {
 	mySectionDepth = 0;
 	myBodyCounter = 0;
 	myReadMainText = false;
+	myFootnoteTagDepth = 0;
 	myCurrentImageStart = -1;
 	mySectionStarted = false;
 	myInsideTitle = false;
@@ -44,7 +45,7 @@ FB2BookReader::FB2BookReader(BookModel &model) : myModelReader(model) {
 }
 
 void FB2BookReader::characterDataHandler(const char *text, std::size_t len) {
-	if ((len > 0) && (!myCurrentImageId.empty() || myModelReader.paragraphIsOpen())) {
+	if (len > 0 && (!myCurrentImageId.empty() || myModelReader.paragraphIsOpen())) {
 		std::string str(text, len);
 		if (!myCurrentImageId.empty()) {
 			if (myCurrentImageStart == -1) {
@@ -64,10 +65,15 @@ bool FB2BookReader::processNamespaces() const {
 }
 
 void FB2BookReader::startElementHandler(int tag, const char **xmlattributes) {
+	if (!myReadMainText && myFootnoteTagDepth > 0) {
+		++myFootnoteTagDepth;
+	}
+
 	const char *id = attributeValue(xmlattributes, "id");
 	if (id != 0 && tag != _BINARY) {
-		if (!myReadMainText) {
+		if (!myReadMainText && myFootnoteTagDepth == 0) {
 			myModelReader.setFootnoteTextModel(id);
+			myFootnoteTagDepth = 1;
 		}
 		myModelReader.addHyperlinkLabel(id);
 	}
@@ -189,7 +195,7 @@ void FB2BookReader::startElementHandler(int tag, const char **xmlattributes) {
 				if (ref[0] == '#') {
 					const char *type = attributeValue(xmlattributes, "type");
 					static const std::string NOTE = "note";
-					if ((type != 0) && (NOTE == type)) {
+					if (type != 0 && NOTE == type) {
 						myHyperlinkType = FOOTNOTE;
 					} else {
 						myHyperlinkType = INTERNAL_HYPERLINK;
@@ -231,7 +237,7 @@ void FB2BookReader::startElementHandler(int tag, const char **xmlattributes) {
 		{
 			static const std::string STRANGE_MIME_TYPE = "text/xml";
 			const char *contentType = attributeValue(xmlattributes, "content-type");
-			if ((contentType != 0) && (id != 0) && (STRANGE_MIME_TYPE != contentType)) {
+			if (contentType != 0 && id != 0 && STRANGE_MIME_TYPE != contentType) {
 				myCurrentImageId.assign(id);
 			}
 			break;
@@ -255,6 +261,10 @@ void FB2BookReader::startElementHandler(int tag, const char **xmlattributes) {
 }
 
 void FB2BookReader::endElementHandler(int tag) {
+	if (!myReadMainText && myFootnoteTagDepth > 0) {
+		--myFootnoteTagDepth;
+	}
+
 	switch (tag) {
 		case _P:
 		case _LI:

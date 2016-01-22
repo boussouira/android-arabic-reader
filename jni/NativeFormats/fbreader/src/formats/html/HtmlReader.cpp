@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,10 +50,7 @@ void HtmlReader::setTag(HtmlTag &tag, const std::string &name) {
 		tag.Name = name.substr(1);
 	}
 
-	const std::size_t len = tag.Name.length();
-	for (std::size_t i = 0; i < len; ++i) {
-		tag.Name[i] = toupper(tag.Name[i]);
-	}
+	ZLStringUtil::asciiToLowerInline(tag.Name);
 }
 
 enum ParseState {
@@ -79,9 +76,9 @@ enum SpecialType {
 
 static bool allowSymbol(SpecialType type, char ch) {
 	return
-		((type == ST_NAME) && isalpha(ch)) ||
-		((type == ST_DEC) && isdigit(ch)) ||
-		((type == ST_HEX) && isxdigit(ch));
+		(type == ST_NAME && std::isalpha(ch)) ||
+		(type == ST_DEC && std::isdigit(ch)) ||
+		(type == ST_HEX && std::isxdigit(ch));
 }
 
 static int specialSymbolNumber(SpecialType type, const std::string &txt) {
@@ -90,9 +87,9 @@ static int specialSymbolNumber(SpecialType type, const std::string &txt) {
 		case ST_NAME:
 			return HtmlEntityCollection::symbolNumber(txt);
 		case ST_DEC:
-			return strtol(txt.c_str() + 1, &end, 10);
+			return std::strtol(txt.c_str() + 1, &end, 10);
 		case ST_HEX:
-			return strtol(txt.c_str() + 2, &end, 16);
+			return std::strtol(txt.c_str() + 2, &end, 16);
 		default:
 			return 0;
 	}
@@ -123,7 +120,7 @@ void HtmlReader::readDocument(ZLInputStream &stream) {
 	int quotationCounter = 0;
 	HtmlTag currentTag;
 	char endOfComment[2] = "\0";
-	
+
 	const std::size_t BUFSIZE = 2048;
 	char *buffer = new char[BUFSIZE];
 	std::size_t length;
@@ -157,7 +154,7 @@ void HtmlReader::readDocument(ZLInputStream &stream) {
 					if (state_special == ST_UNKNOWN) {
 						if (*ptr == '#') {
 							state_special = ST_NUM;
-						} else if (isalpha(*ptr)) {
+						} else if (std::isalpha(*ptr)) {
 							state_special = ST_NAME;
 						} else {
 							start = ptr;
@@ -166,7 +163,7 @@ void HtmlReader::readDocument(ZLInputStream &stream) {
 					} else if (state_special == ST_NUM) {
 						if (*ptr == 'x') {
 							state_special = ST_HEX;
-						} else if (isdigit(*ptr)) {
+						} else if (std::isdigit(*ptr)) {
 							state_special = ST_DEC;
 						} else {
 							start = ptr;
@@ -175,8 +172,8 @@ void HtmlReader::readDocument(ZLInputStream &stream) {
 					} else {
 						if (*ptr == ';') {
 							specialString.append(start, ptr - start);
-							int number = specialSymbolNumber(state_special, specialString);
-							if ((128 <= number) && (number <= 159)) {
+							const int number = specialSymbolNumber(state_special, specialString);
+							if (128 <= number && number <= 159) {
 								char ch = number;
 								if (state == PS_SPECIAL) {
 									characterDataHandler(&ch, 1, true);
@@ -209,12 +206,12 @@ void HtmlReader::readDocument(ZLInputStream &stream) {
 					}
 					break;
 				case PS_TAGSTART:
-					state = (*ptr == '!') ? PS_COMMENT : PS_TAGNAME;
+					state = *ptr == '!' ? PS_COMMENT : PS_TAGNAME;
 					break;
 				case PS_COMMENT:
-					if ((endOfComment[0] == '\0') && (*ptr != '-')) {
+					if (endOfComment[0] == '\0' && *ptr != '-') {
 						state = PS_TAGNAME;
-					} else if ((endOfComment[0] == '-') && (endOfComment[1] == '-') && (*ptr == '>')) {
+					} else if (endOfComment[0] == '-' && endOfComment[1] == '-' && *ptr == '>') {
 						start = ptr + 1;
 						state = PS_TEXT;
 						endOfComment[0] = '\0';
@@ -231,13 +228,13 @@ void HtmlReader::readDocument(ZLInputStream &stream) {
 					}
 					break;
 				case PS_TAGNAME:
-					if ((*ptr == '>') || (*ptr == '/') || isspace((unsigned char)*ptr)) {
+					if (*ptr == '>' || *ptr == '/' || std::isspace((unsigned char)*ptr)) {
 						currentString.append(start, ptr - start);
 						start = ptr + 1;
 						setTag(currentTag, currentString);
 						currentString.erase();
 						if (currentTag.Name == "") {
-							state = (*ptr == '>') ? PS_TEXT : PS_SKIPTAG;
+							state = *ptr == '>' ? PS_TEXT : PS_SKIPTAG;
 						} else {
 							if (*ptr == '>') {
 								if (!tagHandler(currentTag)) {
@@ -260,12 +257,10 @@ void HtmlReader::readDocument(ZLInputStream &stream) {
 					}
 					break;
 				case PS_ATTRIBUTENAME:
-					if ((*ptr == '>') || (*ptr == '/') || (*ptr == '=') || isspace((unsigned char)*ptr)) {
-						if ((ptr != start) || !currentString.empty()) {
+					if (*ptr == '>' || *ptr == '/' || *ptr == '=' || std::isspace((unsigned char)*ptr)) {
+						if (ptr != start || !currentString.empty()) {
 							currentString.append(start, ptr - start);
-							for (unsigned int i = 0; i < currentString.length(); ++i) {
-								currentString[i] = toupper(currentString[i]);
-							}
+							ZLStringUtil::asciiToLowerInline(currentString);
 							currentTag.addAttribute(currentString);
 							currentString.erase();
 						}
@@ -300,8 +295,8 @@ void HtmlReader::readDocument(ZLInputStream &stream) {
 						appendString(attributeValueString, currentString);
 						state = PS_SPECIAL_IN_ATTRIBUTEVALUE;
 						state_special = ST_UNKNOWN;
-					} else if ((quotationCounter != 1) && ((*ptr == '>') || (*ptr == '/') || isspace((unsigned char)*ptr))) {
-						if ((ptr != start) || !currentString.empty()) {
+					} else if (quotationCounter != 1 && (*ptr == '>' || *ptr == '/' || std::isspace((unsigned char)*ptr))) {
+						if (ptr != start || !currentString.empty()) {
 							currentString.append(start, ptr - start);
 							appendString(attributeValueString, currentString);
 							if (attributeValueString[0] == '"') {
@@ -362,7 +357,7 @@ void HtmlReader::readDocument(ZLInputStream &stream) {
 					break;
 			}
 		}
-		offset += length; 
+		offset += length;
 	} while (length == BUFSIZE);
 endOfProcessing:
 	delete[] buffer;
@@ -370,4 +365,13 @@ endOfProcessing:
 	endDocumentHandler();
 
 	stream.close();
+}
+
+const std::string *HtmlReader::HtmlTag::find(const std::string &name) const {
+	for (unsigned int i = 0; i < Attributes.size(); ++i) {
+		if (Attributes[i].Name == name) {
+			return &Attributes[i].Value;
+		}
+	}
+	return 0;
 }

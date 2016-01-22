@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -213,7 +213,7 @@ void FB2MetaInfoReader::endElementHandler(int tag) {
 	}
 }
 
-bool FB2MetaInfoReader::readMetaInfo() {
+bool FB2MetaInfoReader::readMetainfo() {
 	myReadState = READ_NOTHING;
 	myBuffer.erase();
 	for (int i = 0; i < 3; ++i) {

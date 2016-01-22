@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Dutch zlibrary resources, by Frank Fesevur 07-Jan-2011, Last update 10-Jan-2014 -->
+<!-- Dutch zlibrary resources, by Frank Fesevur 07-Jan-2011, Last update 02-Dec-2015 -->
 <resources>
 	<node name="dialog">
 		<node name="button">
@@ -16,7 +16,6 @@
 			<node name="somethingWrongMessage" value="Er gaat iets mis bij&#10;%s"/>
 			<node name="couldntCreateDirectoryMessage" value="Kan geen map %s niet maken"/>
 			<node name="couldntCreateFileMessage" value="Kan bestand %s niet maken"/>
-			<node name="couldntConnectToNetworkMessage" value="Kan geen verbinding met het netwerk maken"/>
 			<node name="couldntConnectMessage" value="Kan geen verbinding met host %s maken"/>
 			<node name="couldntResolveHostMessage" value="Hostnaam %s niet gevonden"/>
 			<node name="authenticationFailed" value="Authenticatie mislukt"/>
@@ -24,6 +23,7 @@
 			<node name="invalidURL" value="Ongeldige URL"/>
 			<node name="hostCantBeReached" value="Host %s is onbereikbaar"/>
 			<node name="connectionRefused" value="Verbinding was geweigerd door&#10;%s"/>
+			<node name="networkNotAvailable" value="Netwerk is niet beschikbaar"/>
 		</node>
 	</node>
 	<node name="color">
@@ -42,6 +42,7 @@
 		<node name="de-traditional" value="Duits (traditionele spelling)"/>
 		<node name="el" value="Grieks"/>
 		<node name="en" value="Engels"/>
+		<node name="en_US" value="Engels (VS)"/>
 		<node name="eo" value="Esperanto"/>
 		<node name="es" value="Spaans"/>
 		<node name="eu" value="Baskisch"/>
@@ -54,10 +55,12 @@
 		<node name="hy" value="Armeens"/>
 		<node name="id" value="Indonesisch"/>
 		<node name="it" value="Italiaans"/>
+		<node name="ja" value="Japans"/>
 		<node name="ka" value="Georgisch"/>
+		<node name="ko" value="Koreaans"/>
 		<node name="lt" value="Litouws"/>
-		<node name="nl" value="Nederlands"/>
 		<node name="nb" value="Noors"/>
+		<node name="nl" value="Nederlands"/>
 		<node name="pl" value="Pools"/>
 		<node name="pt" value="Portugees"/>
 		<node name="ro" value="Roemeens"/>

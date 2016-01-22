@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,23 +20,13 @@
 #ifndef __ENTITYFILESCOLLECTOR_H__
 #define __ENTITYFILESCOLLECTOR_H__
 
-#include <map>
 #include <vector>
 #include <string>
 
 class EntityFilesCollector {
 
 public:
-	static EntityFilesCollector &Instance();
-
-	const std::vector<std::string> &externalDTDs(const std::string &format);
-
-private:
-	EntityFilesCollector();
-
-private:
-	static EntityFilesCollector *ourInstance;
-	std::map<std::string,std::vector<std::string> > myCollections;
+	static const std::vector<std::string> &xhtmlDTDs();
 };
 
 #endif /* __ENTITYFILESCOLLECTOR_H__ */

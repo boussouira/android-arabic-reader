@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,42 +22,46 @@
 #include <ZLStringUtil.h>
 
 #include "StyleSheetTable.h"
+#include "StyleSheetUtil.h"
+#include "CSSSelector.h"
 
 bool StyleSheetTable::isEmpty() const {
 	return myControlMap.empty() && myPageBreakBeforeMap.empty() && myPageBreakAfterMap.empty();
 }
 
-void StyleSheetTable::addMap(const std::string &tag, const std::string &aClass, const AttributeMap &map) {
-	if ((!tag.empty() || !aClass.empty()) && !map.empty()) {
-		Key key(tag, aClass);
-		myControlMap[key] = createControl(map);
-		const std::vector<std::string> &pbb = values(map, "page-break-before");
-		if (!pbb.empty()) {
-			if ((pbb[0] == "always") ||
-					(pbb[0] == "left") ||
-					(pbb[0] == "right")) {
-				myPageBreakBeforeMap[key] = true;
-			} else if (pbb[0] == "avoid") {
-				myPageBreakBeforeMap[key] = false;
-			}
+void StyleSheetTable::addMap(shared_ptr<CSSSelector> selectorPtr, const AttributeMap &map) {
+	if (!selectorPtr.isNull() && !map.empty()) {
+		const CSSSelector &selector = *selectorPtr;
+		myControlMap[selector] = createOrUpdateControl(map, myControlMap[selector]);
+
+		const std::string &pbb = value(map, "page-break-before");
+		if (pbb == "always" || pbb == "left" || pbb == "right") {
+			myPageBreakBeforeMap[selector] = true;
+		} else if (pbb == "avoid") {
+			myPageBreakBeforeMap[selector] = false;
 		}
-		const std::vector<std::string> &pba = values(map, "page-break-after");
-		if (!pba.empty()) {
-			if ((pba[0] == "always") ||
-					(pba[0] == "left") ||
-					(pba[0] == "right")) {
-				myPageBreakAfterMap[key] = true;
-			} else if (pba[0] == "avoid") {
-				myPageBreakAfterMap[key] = false;
-			}
+
+		const std::string &pba = value(map, "page-break-after");
+		if (pba == "always" || pba == "left" || pba == "right") {
+			myPageBreakAfterMap[selector] = true;
+		} else if (pba == "avoid") {
+			myPageBreakAfterMap[selector] = false;
 		}
 	}
 }
 
 static bool parseLength(const std::string &toParse, short &size, ZLTextStyleEntry::SizeUnit &unit) {
-	if (ZLStringUtil::stringEndsWith(toParse, "%")) {
+	if (toParse == "0") {
+		unit = ZLTextStyleEntry::SIZE_UNIT_PIXEL;
+		size = 0;
+		return true;
+	} else if (ZLStringUtil::stringEndsWith(toParse, "%")) {
 		unit = ZLTextStyleEntry::SIZE_UNIT_PERCENT;
-		size = atoi(toParse.c_str());
+		size = std::atoi(toParse.c_str());
+		return true;
+	} else if (ZLStringUtil::stringEndsWith(toParse, "rem")) {
+		unit = ZLTextStyleEntry::SIZE_UNIT_REM_100;
+		size = (short)(100 * ZLStringUtil::stringToDouble(toParse, 0));
 		return true;
 	} else if (ZLStringUtil::stringEndsWith(toParse, "em")) {
 		unit = ZLTextStyleEntry::SIZE_UNIT_EM_100;
@@ -69,11 +73,21 @@ static bool parseLength(const std::string &toParse, short &size, ZLTextStyleEntr
 		return true;
 	} else if (ZLStringUtil::stringEndsWith(toParse, "px")) {
 		unit = ZLTextStyleEntry::SIZE_UNIT_PIXEL;
-		size = atoi(toParse.c_str());
+		size = std::atoi(toParse.c_str());
 		return true;
 	} else if (ZLStringUtil::stringEndsWith(toParse, "pt")) {
 		unit = ZLTextStyleEntry::SIZE_UNIT_POINT;
-		size = atoi(toParse.c_str());
+		size = std::atoi(toParse.c_str());
+		return true;
+	}
+	return false;
+}
+
+static bool trySetLength(ZLTextStyleEntry &entry, ZLTextStyleEntry::Feature featureId, const std::string &value) {
+	short size;
+	ZLTextStyleEntry::SizeUnit unit;
+	if (::parseLength(value, size, unit)) {
+		entry.setLength(featureId, size, unit);
 		return true;
 	}
 	return false;
@@ -81,163 +95,166 @@ static bool parseLength(const std::string &toParse, short &size, ZLTextStyleEntr
 
 void StyleSheetTable::setLength(ZLTextStyleEntry &entry, ZLTextStyleEntry::Feature featureId, const AttributeMap &map, const std::string &attributeName) {
 	StyleSheetTable::AttributeMap::const_iterator it = map.find(attributeName);
-	if (it == map.end()) {
+	if (it != map.end()) {
+		::trySetLength(entry, featureId, it->second);
 		return;
 	}
-	const std::vector<std::string> &values = it->second;
-	if (!values.empty() && !values[0].empty()) {
-		short size;
-		ZLTextStyleEntry::SizeUnit unit;
-		if (parseLength(values[0], size, unit)) {
-			entry.setLength(featureId, size, unit);
-		}
-	}
 }
 
-bool StyleSheetTable::doBreakBefore(const std::string &tag, const std::string &aClass) const {
-	std::map<Key,bool>::const_iterator it = myPageBreakBeforeMap.find(Key(tag, aClass));
+ZLBoolean3 StyleSheetTable::doBreakBefore(const std::string &tag, const std::string &aClass) const {
+	std::map<CSSSelector,bool>::const_iterator it = myPageBreakBeforeMap.find(CSSSelector(tag, aClass));
 	if (it != myPageBreakBeforeMap.end()) {
-		return it->second;
+		return b3Value(it->second);
 	}
 
-	it = myPageBreakBeforeMap.find(Key("", aClass));
+	it = myPageBreakBeforeMap.find(CSSSelector("", aClass));
 	if (it != myPageBreakBeforeMap.end()) {
-		return it->second;
+		return b3Value(it->second);
 	}
 
-	it = myPageBreakBeforeMap.find(Key(tag, ""));
+	it = myPageBreakBeforeMap.find(CSSSelector(tag, ""));
 	if (it != myPageBreakBeforeMap.end()) {
-		return it->second;
+		return b3Value(it->second);
 	}
 
-	return false;
+	return B3_UNDEFINED;
 }
 
-bool StyleSheetTable::doBreakAfter(const std::string &tag, const std::string &aClass) const {
-	std::map<Key,bool>::const_iterator it = myPageBreakAfterMap.find(Key(tag, aClass));
+ZLBoolean3 StyleSheetTable::doBreakAfter(const std::string &tag, const std::string &aClass) const {
+	std::map<CSSSelector,bool>::const_iterator it = myPageBreakAfterMap.find(CSSSelector(tag, aClass));
 	if (it != myPageBreakAfterMap.end()) {
-		return it->second;
+		return b3Value(it->second);
 	}
 
-	it = myPageBreakAfterMap.find(Key("", aClass));
+	it = myPageBreakAfterMap.find(CSSSelector("", aClass));
 	if (it != myPageBreakAfterMap.end()) {
-		return it->second;
+		return b3Value(it->second);
 	}
 
-	it = myPageBreakAfterMap.find(Key(tag, ""));
+	it = myPageBreakAfterMap.find(CSSSelector(tag, ""));
 	if (it != myPageBreakAfterMap.end()) {
-		return it->second;
+		return b3Value(it->second);
 	}
 
-	return false;
+	return B3_UNDEFINED;
 }
 
 shared_ptr<ZLTextStyleEntry> StyleSheetTable::control(const std::string &tag, const std::string &aClass) const {
-	std::map<Key,shared_ptr<ZLTextStyleEntry> >::const_iterator it =
-		myControlMap.find(Key(tag, aClass));
-	return (it != myControlMap.end()) ? it->second : 0;
+	std::map<CSSSelector,shared_ptr<ZLTextStyleEntry> >::const_iterator it =
+		myControlMap.find(CSSSelector(tag, aClass));
+	return it != myControlMap.end() ? it->second : 0;
 }
 
-const std::vector<std::string> &StyleSheetTable::values(const AttributeMap &map, const std::string &name) {
+std::vector<std::pair<CSSSelector,shared_ptr<ZLTextStyleEntry> > > StyleSheetTable::allControls(const std::string &tag, const std::string &aClass) const {
+	const CSSSelector key(tag, aClass);
+	std::vector<std::pair<CSSSelector,shared_ptr<ZLTextStyleEntry> > > pairs;
+
+	std::map<CSSSelector,shared_ptr<ZLTextStyleEntry> >::const_iterator it =
+		myControlMap.lower_bound(key);
+	for (std::map<CSSSelector,shared_ptr<ZLTextStyleEntry> >::const_iterator jt = it; jt != myControlMap.end() && key.weakEquals(jt->first); ++jt) {
+		pairs.push_back(*jt);
+	}
+	return pairs;
+}
+
+const std::string &StyleSheetTable::value(const AttributeMap &map, const std::string &name) {
 	const AttributeMap::const_iterator it = map.find(name);
 	if (it != map.end()) {
 		return it->second;
 	}
-	static const std::vector<std::string> emptyVector;
-	return emptyVector;
+	static const std::string emptyString;
+	return emptyString;
 }
 
-shared_ptr<ZLTextStyleEntry> StyleSheetTable::createControl(const AttributeMap &styles) {
-	shared_ptr<ZLTextStyleEntry> entry = new ZLTextStyleEntry(ZLTextStyleEntry::STYLE_CSS_ENTRY);
-
-	const std::vector<std::string> &alignment = values(styles, "text-align");
-	if (!alignment.empty()) {
-		if (alignment[0] == "justify") {
-			entry->setAlignmentType(ALIGN_JUSTIFY);
-		} else if (alignment[0] == "left") {
-			entry->setAlignmentType(ALIGN_LEFT);
-		} else if (alignment[0] == "right") {
-			entry->setAlignmentType(ALIGN_RIGHT);
-		} else if (alignment[0] == "center") {
-			entry->setAlignmentType(ALIGN_CENTER);
-		}
+shared_ptr<ZLTextStyleEntry> StyleSheetTable::createOrUpdateControl(const AttributeMap &styles, shared_ptr<ZLTextStyleEntry> entry) {
+	if (entry.isNull()) {
+		entry = new ZLTextStyleEntry(ZLTextStyleEntry::STYLE_CSS_ENTRY);
 	}
 
-	const std::vector<std::string> &deco = values(styles, "text-decoration");
-	for (std::vector<std::string>::const_iterator it = deco.begin(); it != deco.end(); ++it) {
-		if (*it == "underline") {
-			entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_UNDERLINED, true);
-		} else if (*it == "line-through") {
-			entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_STRIKEDTHROUGH, true);
-		} else if (*it == "none") {
-			entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_UNDERLINED, false);
-			entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_STRIKEDTHROUGH, false);
-		}
+	const std::string &alignment = value(styles, "text-align");
+	if (alignment == "justify") {
+		entry->setAlignmentType(ALIGN_JUSTIFY);
+	} else if (alignment == "left") {
+		entry->setAlignmentType(ALIGN_LEFT);
+	} else if (alignment == "right") {
+		entry->setAlignmentType(ALIGN_RIGHT);
+	} else if (alignment == "center") {
+		entry->setAlignmentType(ALIGN_CENTER);
 	}
 
-	const std::vector<std::string> &bold = values(styles, "font-weight");
+	const std::string &deco = value(styles, "text-decoration");
+	if (deco == "underline") {
+		entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_UNDERLINED, true);
+	} else if (deco == "line-through") {
+		entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_STRIKEDTHROUGH, true);
+	} else if (deco == "none") {
+		entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_UNDERLINED, false);
+		entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_STRIKEDTHROUGH, false);
+	}
+
+	const std::string bold = value(styles, "font-weight");
 	if (!bold.empty()) {
 		int num = -1;
-		if (bold[0] == "bold") {
+		if (bold == "bold") {
 			num = 700;
-		} else if (bold[0] == "normal") {
+		} else if (bold == "normal") {
 			num = 400;
-		} else if (bold[0] == "bolder") {
+		} else if (bold == "bolder") {
 			// TODO: implement
-		} else if (bold[0] == "lighter") {
+		} else if (bold == "lighter") {
 			// TODO: implement
 		} else {
-			num = ZLStringUtil::stringToInteger(bold[0], -1);
+			num = ZLStringUtil::parseDecimal(bold, -1);
 		}
 		if (num != -1) {
 			entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_BOLD, num >= 600);
 		}
 	}
 
-	const std::vector<std::string> &italic = values(styles, "font-style");
+	const std::string &italic = value(styles, "font-style");
 	if (!italic.empty()) {
-		entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_ITALIC, italic[0] == "italic");
+		entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_ITALIC, italic == "italic" || italic == "oblique");
 	}
 
-	const std::vector<std::string> &variant = values(styles, "font-variant");
+	const std::string &variant = value(styles, "font-variant");
 	if (!variant.empty()) {
-		entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_SMALLCAPS, variant[0] == "small-caps");
+		entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_SMALLCAPS, variant == "small-caps");
 	}
 
-	const std::vector<std::string> &fontFamily = values(styles, "font-family");
-	if (!fontFamily.empty() && !fontFamily[0].empty()) {
-		entry->setFontFamily(fontFamily[0]);
+	const std::string &fontFamily = value(styles, "font-family");
+	if (!fontFamily.empty()) {
+		entry->setFontFamilies(StyleSheetUtil::splitCommaSeparatedList(fontFamily));
 	}
 
-	const std::vector<std::string> &fontSize = values(styles, "font-size");
+	const std::string &fontSize = value(styles, "font-size");
 	if (!fontSize.empty()) {
-		bool doSetFontSize = true; 
+		bool doSetFontSize = true;
 		short size = 100;
 		ZLTextStyleEntry::SizeUnit unit = ZLTextStyleEntry::SIZE_UNIT_PERCENT;
-		if (fontSize[0] == "xx-small") {
+		if (fontSize == "xx-small") {
 			size = 58;
-		} else if (fontSize[0] == "x-small") {
+		} else if (fontSize == "x-small") {
 			size = 69;
-		} else if (fontSize[0] == "small") {
+		} else if (fontSize == "small") {
 			size = 83;
-		} else if (fontSize[0] == "medium") {
+		} else if (fontSize == "medium") {
 			size = 100;
-		} else if (fontSize[0] == "large") {
+		} else if (fontSize == "large") {
 			size = 120;
-		} else if (fontSize[0] == "x-large") {
+		} else if (fontSize == "x-large") {
 			size = 144;
-		} else if (fontSize[0] == "xx-large") {
+		} else if (fontSize == "xx-large") {
 			size = 173;
-		} else if (fontSize[0] == "inherit") {
+		} else if (fontSize == "inherit") {
 			entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_INHERIT, true);
 			doSetFontSize = false;
-		} else if (fontSize[0] == "smaller") {
+		} else if (fontSize == "smaller") {
 			entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_SMALLER, true);
 			doSetFontSize = false;
-		} else if (fontSize[0] == "larger") {
+		} else if (fontSize == "larger") {
 			entry->setFontModifier(ZLTextStyleEntry::FONT_MODIFIER_LARGER, true);
 			doSetFontSize = false;
-		} else if (!parseLength(fontSize[0], size, unit)) {
+		} else if (!::parseLength(fontSize, size, unit)) {
 			doSetFontSize = false;
 		}
 		if (doSetFontSize) {
@@ -245,13 +262,75 @@ shared_ptr<ZLTextStyleEntry> StyleSheetTable::createControl(const AttributeMap &
 		}
 	}
 
-	setLength(*entry, ZLTextStyleEntry::LENGTH_LEFT_INDENT, styles, "margin-left");
-	setLength(*entry, ZLTextStyleEntry::LENGTH_RIGHT_INDENT, styles, "margin-right");
-	setLength(*entry, ZLTextStyleEntry::LENGTH_FIRST_LINE_INDENT_DELTA, styles, "text-indent");
+	const std::string margin = value(styles, "margin");
+	if (!margin.empty()) {
+		std::vector<std::string> split = ZLStringUtil::split(margin, " ", true);
+		if (split.size() > 0) {
+			switch (split.size()) {
+				case 1:
+					split.push_back(split[0]);
+					// go through
+				case 2:
+					split.push_back(split[0]);
+					// go through
+				case 3:
+					split.push_back(split[1]);
+					break;
+			}
+		}
+		::trySetLength(*entry, ZLTextStyleEntry::LENGTH_SPACE_BEFORE, split[0]);
+		::trySetLength(*entry, ZLTextStyleEntry::LENGTH_MARGIN_RIGHT, split[1]);
+		::trySetLength(*entry, ZLTextStyleEntry::LENGTH_SPACE_AFTER, split[2]);
+		::trySetLength(*entry, ZLTextStyleEntry::LENGTH_MARGIN_LEFT, split[3]);
+	}
+	const std::string padding = value(styles, "padding");
+	if (!padding.empty()) {
+		std::vector<std::string> split = ZLStringUtil::split(padding, " ", true);
+		if (split.size() > 0) {
+			switch (split.size()) {
+				case 1:
+					split.push_back(split[0]);
+					// go through
+				case 2:
+					split.push_back(split[0]);
+					// go through
+				case 3:
+					split.push_back(split[1]);
+					break;
+			}
+		}
+		::trySetLength(*entry, ZLTextStyleEntry::LENGTH_SPACE_BEFORE, split[0]);
+		::trySetLength(*entry, ZLTextStyleEntry::LENGTH_PADDING_RIGHT, split[1]);
+		::trySetLength(*entry, ZLTextStyleEntry::LENGTH_SPACE_AFTER, split[2]);
+		::trySetLength(*entry, ZLTextStyleEntry::LENGTH_PADDING_LEFT, split[3]);
+	}
+	setLength(*entry, ZLTextStyleEntry::LENGTH_MARGIN_LEFT, styles, "margin-left");
+	setLength(*entry, ZLTextStyleEntry::LENGTH_MARGIN_RIGHT, styles, "margin-right");
+	setLength(*entry, ZLTextStyleEntry::LENGTH_PADDING_LEFT, styles, "padding-left");
+	setLength(*entry, ZLTextStyleEntry::LENGTH_PADDING_RIGHT, styles, "padding-right");
+	setLength(*entry, ZLTextStyleEntry::LENGTH_FIRST_LINE_INDENT, styles, "text-indent");
 	setLength(*entry, ZLTextStyleEntry::LENGTH_SPACE_BEFORE, styles, "margin-top");
 	setLength(*entry, ZLTextStyleEntry::LENGTH_SPACE_BEFORE, styles, "padding-top");
 	setLength(*entry, ZLTextStyleEntry::LENGTH_SPACE_AFTER, styles, "margin-bottom");
 	setLength(*entry, ZLTextStyleEntry::LENGTH_SPACE_AFTER, styles, "padding-bottom");
+
+	const std::string verticalAlign = value(styles, "vertical-align");
+	if (!verticalAlign.empty()) {
+		static const char* values[] = { "sub", "super", "top", "text-top", "middle", "bottom", "text-bottom", "initial", "inherit" };
+		int index = sizeof(values) / sizeof(const char*) - 1;
+		for (; index >= 0; --index) {
+			if (verticalAlign == values[index]) {
+				break;
+			}
+		}
+		if (index >= 0) {
+			entry->setVerticalAlignCode((unsigned char)index);
+		} else {
+			::trySetLength(*entry, ZLTextStyleEntry::LENGTH_VERTICAL_ALIGN, verticalAlign);
+		}
+	}
+
+	entry->setDisplayCode(StyleSheetUtil::displayCode(value(styles, "display")));
 
 	return entry;
 }

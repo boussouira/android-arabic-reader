@@ -15,7 +15,6 @@
 			<node name="somethingWrongMessage" value="Wystąplił błąd dla&#10;%s"/>
 			<node name="couldntCreateDirectoryMessage" value="Nie udało się stworzyć katalogu&#10;%s"/>
 			<node name="couldntCreateFileMessage" value="Nie udało się stworzyć pliku&#10;%s"/>
-			<node name="couldntConnectToNetworkMessage" value="Nie udało się połączyć z siecią"/>
 			<node name="couldntConnectMessage" value="Nie udało się połączyć z serwerem&#10;%s"/>
 			<node name="couldntResolveHostMessage" value="Nie udało się odnaleźć serwera&#10;%s"/>
 			<node name="authenticationFailed" value="Nieudane uwierzytelnianie"/>
@@ -23,6 +22,7 @@
 			<node name="invalidURL" value="Nieprawidłowy URL"/>
 			<node name="hostCantBeReached" value="Serwer %s&#10;jest niedostępny"/>
 			<node name="connectionRefused" value="Połączenie zostało odrzucone przez&#10;%s"/>
+			<node name="networkNotAvailable" value="Network is not available" toBeTranslated="true"/>
 		</node>
 	</node>
 	<node name="color">
@@ -41,6 +41,7 @@
 		<node name="de-traditional" value="Niemiecki (ortografia tradycyjna)"/>
 		<node name="el" value="Grecki"/>
 		<node name="en" value="Angielski"/>
+		<node name="en_US" value="English (US)" toBeTranslated="true"/>
 		<node name="eo" value="Esperanto"/>
 		<node name="es" value="Hiszpański"/>
 		<node name="eu" value="Basque" toBeTranslated="true"/>
@@ -53,10 +54,12 @@
 		<node name="hy" value="Armenian" toBeTranslated="true"/>
 		<node name="id" value="Indonezyjski"/>
 		<node name="it" value="Włoski"/>
+		<node name="ja" value="Japanese" toBeTranslated="true"/>
 		<node name="ka" value="Georgian" toBeTranslated="true"/>
+		<node name="ko" value="Korean" toBeTranslated="true"/>
 		<node name="lt" value="Litewski"/>
-		<node name="nl" value="Niderlandzki"/>
 		<node name="nb" value="Norweski"/>
+		<node name="nl" value="Niderlandzki"/>
 		<node name="pl" value="Polski"/>
 		<node name="pt" value="Portugalski"/>
 		<node name="ro" value="Romanian" toBeTranslated="true"/>

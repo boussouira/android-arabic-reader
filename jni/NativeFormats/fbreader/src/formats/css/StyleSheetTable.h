@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,52 +25,41 @@
 #include <vector>
 
 #include <shared_ptr.h>
+#include <ZLBoolean3.h>
 
 #include <ZLTextParagraph.h>
 #include <ZLTextStyleEntry.h>
 
+#include "CSSSelector.h"
+
 class StyleSheetTable {
 
 public:
-	typedef std::map<std::string,std::vector<std::string> > AttributeMap;
-	static shared_ptr<ZLTextStyleEntry> createControl(const AttributeMap &map);
+	typedef std::map<std::string,std::string> AttributeMap;
+	static shared_ptr<ZLTextStyleEntry> createOrUpdateControl(const AttributeMap &map, shared_ptr<ZLTextStyleEntry> entry = 0);
 
 private:
-	void addMap(const std::string &tag, const std::string &aClass, const AttributeMap &map);
+	void addMap(shared_ptr<CSSSelector> selector, const AttributeMap &map);
 
 	static void setLength(ZLTextStyleEntry &entry, ZLTextStyleEntry::Feature featureId, const AttributeMap &map, const std::string &attributeName);
-	static const std::vector<std::string> &values(const AttributeMap &map, const std::string &name);
+	static const std::string &value(const AttributeMap &map, const std::string &name);
 
 public:
 	bool isEmpty() const;
-	bool doBreakBefore(const std::string &tag, const std::string &aClass) const;
-	bool doBreakAfter(const std::string &tag, const std::string &aClass) const;
+	ZLBoolean3 doBreakBefore(const std::string &tag, const std::string &aClass) const;
+	ZLBoolean3 doBreakAfter(const std::string &tag, const std::string &aClass) const;
 	shared_ptr<ZLTextStyleEntry> control(const std::string &tag, const std::string &aClass) const;
+	std::vector<std::pair<CSSSelector,shared_ptr<ZLTextStyleEntry> > > allControls(const std::string &tag, const std::string &aClass) const;
 
 	void clear();
 
 private:
-	struct Key {
-		Key(const std::string &tag, const std::string &aClass);
-
-		const std::string TagName;
-		const std::string ClassName;
-
-		bool operator < (const Key &key) const;
-	};
-
-	std::map<Key,shared_ptr<ZLTextStyleEntry> > myControlMap;
-	std::map<Key,bool> myPageBreakBeforeMap;
-	std::map<Key,bool> myPageBreakAfterMap;
+	std::map<CSSSelector,shared_ptr<ZLTextStyleEntry> > myControlMap;
+	std::map<CSSSelector,bool> myPageBreakBeforeMap;
+	std::map<CSSSelector,bool> myPageBreakAfterMap;
 
 friend class StyleSheetTableParser;
+friend class StyleSheetParserWithCache;
 };
-
-inline StyleSheetTable::Key::Key(const std::string &tag, const std::string &aClass) : TagName(tag), ClassName(aClass) {
-}
-
-inline bool StyleSheetTable::Key::operator < (const StyleSheetTable::Key &key) const {
-	return (TagName < key.TagName) || ((TagName == key.TagName) && (ClassName < key.ClassName));
-}
 
 #endif /* __STYLESHEETTABLE_H__ */

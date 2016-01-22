@@ -16,7 +16,6 @@
 			<node name="somethingWrongMessage" value="พบข้อผิดพลาดเกี่ยวกับ&#10;%s"/>
 			<node name="couldntCreateDirectoryMessage" value=" ไม่สามารถสร้างไดเรคทอรี&#10;%s"/>
 			<node name="couldntCreateFileMessage" value="ไม่สามารถสร้างไฟล์&#10;%s"/>
-			<node name="couldntConnectToNetworkMessage" value="ไม่สามารถเชื่อมต่อไปยังเครือข่าย"/>
 			<node name="couldntConnectMessage" value="ไม่สามารถเชื่อมต่อไปยังโฮสต์&#10;%s"/>
 			<node name="couldntResolveHostMessage" value="ไม่สามารถตรวจเจอโฮสต์&#10;%s"/>
 			<node name="authenticationFailed" value="ไม่ผ่านการตรวจสอบสิทธิ์"/>
@@ -24,6 +23,7 @@
 			<node name="invalidURL" value="URL ไมถูกต้องุ"/>
 			<node name="hostCantBeReached" value="โฮสต์ %s&#10;ไม่สามารถเข้าถึงได้"/>
 			<node name="connectionRefused" value="การเชื่อมต่อถูกปฏิเสธโดย&#10;%s"/>
+			<node name="networkNotAvailable" value="Network is not available" toBeTranslated="true"/>
 		</node>
 	</node>
 	<node name="color">
@@ -42,6 +42,7 @@
 		<node name="de-traditional" value="เยอรมัน (เทรดิชัน ออโทกราฟี)"/>
 		<node name="el" value="กรีก"/>
 		<node name="en" value="อังกฤษ"/>
+		<node name="en_US" value="English (US)" toBeTranslated="true"/>
 		<node name="eo" value="เอสเพอรานโท"/>
 		<node name="es" value="เสปน"/>
 		<node name="eu" value="Basque" toBeTranslated="true"/>
@@ -54,10 +55,12 @@
 		<node name="hy" value="Armenian" toBeTranslated="true"/>
 		<node name="id" value="อินโดนีเซีย"/>
 		<node name="it" value="อิตาลี"/>
+		<node name="ja" value="Japanese" toBeTranslated="true"/>
 		<node name="ka" value="Georgian" toBeTranslated="true"/>
+		<node name="ko" value="Korean" toBeTranslated="true"/>
 		<node name="lt" value="ลิทัวเนีย"/>
-		<node name="nl" value="ดัตช์"/>
 		<node name="nb" value="นอร์เวย์"/>
+		<node name="nl" value="ดัตช์"/>
 		<node name="pl" value="โปแลนด์"/>
 		<node name="pt" value="โปรตุเกส"/>
 		<node name="ro" value="Romanian" toBeTranslated="true"/>

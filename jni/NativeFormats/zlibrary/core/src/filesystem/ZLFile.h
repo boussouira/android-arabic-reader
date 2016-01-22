@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 
 #include <shared_ptr.h>
 #include <ZLFileInfo.h>
+#include <FileEncryptionInfo.h>
 
 class ZLDir;
 class ZLInputStream;
@@ -48,7 +49,7 @@ public:
 		//TAR = 0x0200,
 		ARCHIVE = 0xff00,
 	};
-	
+
 private:
 	ZLFile();
 
@@ -57,13 +58,16 @@ public:
 	~ZLFile();
 
 	bool exists() const;
-	std::size_t size() const;	
+	std::size_t size() const;
+	std::size_t lastModified() const;
 
 	void forceArchiveType(ArchiveType type) const;
 
 	bool isCompressed() const;
 	bool isDirectory() const;
 	bool isArchive() const;
+
+	ZLFile getContainerArchive() const;
 
 	bool remove() const;
 	bool canRemove() const;
@@ -77,7 +81,7 @@ public:
 	std::string physicalFilePath() const;
 	std::string resolvedPath() const;
 
-	shared_ptr<ZLInputStream> inputStream() const;
+	shared_ptr<ZLInputStream> inputStream(shared_ptr<EncryptionMap> encryptionMap = 0) const;
 	shared_ptr<ZLOutputStream> outputStream(bool writeThrough = false) const;
 	shared_ptr<ZLDir> directory(bool createUnexisting = false) const;
 

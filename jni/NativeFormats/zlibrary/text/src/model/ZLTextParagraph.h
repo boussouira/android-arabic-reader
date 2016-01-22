@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -46,6 +46,9 @@ public:
 		STYLE_CLOSE_ENTRY = 7,
 		FIXED_HSPACE_ENTRY = 8,
 		RESET_BIDI_ENTRY = 9,
+		AUDIO_ENTRY = 10,
+		VIDEO_ENTRY = 11,
+		EXTENSION_ENTRY = 12,
 	};
 
 protected:
@@ -151,6 +154,18 @@ private:
 	ResetBidiEntry();
 };
 
+class ExtensionEntry : public ZLTextParagraphEntry {
+
+public:
+	~ExtensionEntry();
+	const std::string &action() const;
+	const std::string &data() const;
+
+private:
+	std::string myAction;
+	std::string myData;
+};
+
 class ZLTextParagraph {
 
 public:
@@ -175,13 +190,15 @@ public:
 */
 
 	enum Kind {
-		TEXT_PARAGRAPH,
-		TREE_PARAGRAPH,
-		EMPTY_LINE_PARAGRAPH,
-		BEFORE_SKIP_PARAGRAPH,
-		AFTER_SKIP_PARAGRAPH,
-		END_OF_SECTION_PARAGRAPH,
-		END_OF_TEXT_PARAGRAPH,
+		TEXT_PARAGRAPH = 0,
+		TREE_PARAGRAPH = 1,
+		EMPTY_LINE_PARAGRAPH = 2,
+		BEFORE_SKIP_PARAGRAPH = 3,
+		AFTER_SKIP_PARAGRAPH = 4,
+		END_OF_SECTION_PARAGRAPH = 5,
+		PSEUDO_END_OF_SECTION_PARAGRAPH = 6,
+		END_OF_TEXT_PARAGRAPH = 7,
+		ENCRYPTED_SECTION_PARAGRAPH = 8,
 	};
 
 protected:
@@ -252,6 +269,10 @@ inline const std::string &ImageEntry::id() const { return myId; }
 inline short ImageEntry::vOffset() const { return myVOffset; }
 
 inline ResetBidiEntry::ResetBidiEntry() {}
+
+inline ExtensionEntry::~ExtensionEntry() {}
+inline const std::string &ExtensionEntry::action() const { return myAction; }
+inline const std::string &ExtensionEntry::data() const { return myData; }
 
 inline ZLTextParagraph::ZLTextParagraph() : myEntryNumber(0) {}
 inline ZLTextParagraph::~ZLTextParagraph() {}

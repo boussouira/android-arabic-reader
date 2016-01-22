@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -93,6 +93,7 @@ ZLFileInfo ZLAndroidFSManager::fileInfo(const std::string &path) const {
 	if (exists) {
 		info.Exists = true;
 		info.Size = AndroidUtil::Method_ZLFile_size->call(javaFile);
+		info.MTime = AndroidUtil::Method_ZLFile_lastModified->call(javaFile);
 	}
 	env->DeleteLocalRef(javaFile);
 

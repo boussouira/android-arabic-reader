@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-    French zlibrary resources, by Pierre Senellart 
+<!--
+    French zlibrary resources, by Pierre Senellart
     Updated by Sébastien Rodriguez
     Current maintainer: Mathias Monnerville <mathias@monnerville.com>
 -->
@@ -20,7 +20,6 @@
 			<node name="somethingWrongMessage" value="Il y a un problème avec&#10;%s"/>
 			<node name="couldntCreateDirectoryMessage" value="Impossible de créer un répertoire&#10;%s"/>
 			<node name="couldntCreateFileMessage" value="Impossible de créer un fichier&#10;%s"/>
-			<node name="couldntConnectToNetworkMessage" value="Connexion au réseau impossible"/>
 			<node name="couldntConnectMessage" value="Impossible de se connecter à l'hôte %s"/>
 			<node name="couldntResolveHostMessage" value="Résolution du nom %s impossible"/>
 			<node name="authenticationFailed" value="Authentification échouée"/>
@@ -28,6 +27,7 @@
 			<node name="invalidURL" value="URL invalide"/>
 			<node name="hostCantBeReached" value="L'hôte %s&#10;ne peut être joint"/>
 			<node name="connectionRefused" value="La connexion a été refusée par&#10;%s"/>
+			<node name="networkNotAvailable" value="Network is not available" toBeTranslated="true"/>
 		</node>
 	</node>
 	<node name="color">
@@ -37,36 +37,39 @@
 	</node>
 	<node name="language">
 		<node name="ar" value="Arabe"/>
-		<node name="be" value="Belarusian" toBeTranslated="true"/>
-		<node name="bg" value="Bulgarian" toBeTranslated="true"/>
-		<node name="ca" value="Catalan" toBeTranslated="true"/>
+		<node name="be" value="Biélorusse"/>
+		<node name="bg" value="Bulgare"/>
+		<node name="ca" value="Catalan"/>
 		<node name="cs" value="Tchèque"/>
-		<node name="da" value="Danish" toBeTranslated="true"/>
+		<node name="da" value="Danois"/>
 		<node name="de" value="Allemand"/>
 		<node name="de-traditional" value="Allemand (orthographe traditionnelle)"/>
 		<node name="el" value="Grec"/>
 		<node name="en" value="Anglais"/>
+		<node name="en_US" value="English (US)" toBeTranslated="true"/>
 		<node name="eo" value="Espéranto"/>
 		<node name="es" value="Espagnol"/>
-		<node name="eu" value="Basque" toBeTranslated="true"/>
-		<node name="fa" value="Persian" toBeTranslated="true"/>
+		<node name="eu" value="Basque"/>
+		<node name="fa" value="Persan"/>
 		<node name="fi" value="Finnois"/>
 		<node name="fr" value="Français"/>
 		<node name="gl" value="Galique"/>
 		<node name="he" value="Hébreu"/>
 		<node name="hu" value="Hongrois"/>
-		<node name="hy" value="Armenian" toBeTranslated="true"/>
+		<node name="hy" value="Armenien"/>
 		<node name="id" value="Indonésien"/>
 		<node name="it" value="Italien"/>
-		<node name="ka" value="Georgian" toBeTranslated="true"/>
+		<node name="ja" value="Japonais"/>
+		<node name="ka" value="Géorgien"/>
+		<node name="ko" value="Korean" toBeTranslated="true"/>
 		<node name="lt" value="Lithuanien"/>
-		<node name="nl" value="Néerlandais"/>
 		<node name="nb" value="Norvégien"/>
+		<node name="nl" value="Néerlandais"/>
 		<node name="pl" value="Polonais"/>
 		<node name="pt" value="Portugais"/>
 		<node name="ro" value="Roumain"/>
 		<node name="ru" value="Russe"/>
-		<node name="sr" value="Serbian" toBeTranslated="true"/>
+		<node name="sr" value="Serbe"/>
 		<node name="sv" value="Suédois"/>
 		<node name="ta" value="Tamil"/>
 		<node name="th" value="Thailandais"/>
@@ -74,11 +77,11 @@
 		<node name="uk" value="Ukrainien"/>
 		<node name="vi" value="Vietnamien"/>
 		<node name="zh" value="Chinois"/>
-		<node name="zh_TW" value="Chinese (traditional)" toBeTranslated="true"/>
-		<node name="any" value="Any" toBeTranslated="true"/>
+		<node name="zh_TW" value="Chinois traditionnel"/>
+		<node name="any" value="Quelconque"/>
 		<node name="other" value="Autre"/>
 		<node name="multi" value="Multi-langage"/>
-		<node name="system" value="System" toBeTranslated="true"/>
+		<node name="system" value="Système"/>
 	</node>
 	<node name="boolean3">
 		<node name="on" value="activé"/>

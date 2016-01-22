@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,6 +28,7 @@
 
 #include "OEBPlugin.h"
 #include "OEBMetaInfoReader.h"
+#include "OEBEncryptionReader.h"
 #include "OEBUidReader.h"
 #include "OEBBookReader.h"
 #include "OEBCoverReader.h"
@@ -69,12 +70,18 @@ void ContainerFileReader::startElementHandler(const char *tag, const char **attr
 OEBPlugin::~OEBPlugin() {
 }
 
-bool OEBPlugin::providesMetaInfo() const {
+bool OEBPlugin::providesMetainfo() const {
 	return true;
 }
 
 const std::string OEBPlugin::supportedFileType() const {
 	return "ePub";
+}
+
+ZLFile OEBPlugin::epubFile(const ZLFile &oebFile) {
+	const ZLFile epub = oebFile.extension() == OPF ? oebFile.getContainerArchive() : oebFile;
+	epub.forceArchiveType(ZLFile::ZIP);
+	return epub;
 }
 
 ZLFile OEBPlugin::opfFile(const ZLFile &oebFile) {
@@ -86,27 +93,25 @@ ZLFile OEBPlugin::opfFile(const ZLFile &oebFile) {
 
 	ZLLogger::Instance().println("epub", "Looking for opf file in " + oebFile.path());
 
-	shared_ptr<ZLDir> oebDir = oebFile.directory();
-	if (!oebDir.isNull()) {
-		const ZLFile containerInfoFile(oebDir->itemPath("META-INF/container.xml"));
-		if (containerInfoFile.exists()) {
-			ZLLogger::Instance().println("epub", "Found container file " + containerInfoFile.path());
-			ContainerFileReader reader;
-			reader.readDocument(containerInfoFile);
-			const std::string &opfPath = reader.rootPath();
-			ZLLogger::Instance().println("epub", "opf path = " + opfPath);
-			if (!opfPath.empty()) {
-				return ZLFile(oebDir->itemPath(opfPath));
-			}
-		}
-	}
-
 	oebFile.forceArchiveType(ZLFile::ZIP);
 	shared_ptr<ZLDir> zipDir = oebFile.directory(false);
 	if (zipDir.isNull()) {
 		ZLLogger::Instance().println("epub", "Couldn't open zip archive");
 		return ZLFile::NO_FILE;
 	}
+
+	const ZLFile containerInfoFile(zipDir->itemPath("META-INF/container.xml"));
+	if (containerInfoFile.exists()) {
+		ZLLogger::Instance().println("epub", "Found container file " + containerInfoFile.path());
+		ContainerFileReader reader;
+		reader.readDocument(containerInfoFile);
+		const std::string &opfPath = reader.rootPath();
+		ZLLogger::Instance().println("epub", "opf path = " + opfPath);
+		if (!opfPath.empty()) {
+			return ZLFile(zipDir->itemPath(opfPath));
+		}
+	}
+
 	std::vector<std::string> fileNames;
 	zipDir->collectFiles(fileNames, false);
 	for (std::vector<std::string>::const_iterator it = fileNames.begin(); it != fileNames.end(); ++it) {
@@ -119,9 +124,14 @@ ZLFile OEBPlugin::opfFile(const ZLFile &oebFile) {
 	return ZLFile::NO_FILE;
 }
 
-bool OEBPlugin::readMetaInfo(Book &book) const {
+bool OEBPlugin::readMetainfo(Book &book) const {
 	const ZLFile &file = book.file();
-	return OEBMetaInfoReader(book).readMetaInfo(opfFile(file));
+	return OEBMetaInfoReader(book).readMetainfo(opfFile(file));
+}
+
+std::vector<shared_ptr<FileEncryptionInfo> > OEBPlugin::readEncryptionInfos(Book &book) const {
+	const ZLFile &opf = opfFile(book.file());
+	return OEBEncryptionReader().readEncryptionInfos(epubFile(opf), opf);
 }
 
 bool OEBPlugin::readUids(Book &book) const {

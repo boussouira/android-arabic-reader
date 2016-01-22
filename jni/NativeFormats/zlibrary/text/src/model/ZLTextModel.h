@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2004-2014 Geometer Plus <contact@geometerplus.com>
+ * Copyright (C) 2004-2015 FBReader.ORG Limited <contact@fbreader.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,10 @@
 
 #include <jni.h>
 
-#include <vector>
-#include <string>
 #include <algorithm>
+#include <string>
+#include <vector>
+#include <map>
 
 #include <ZLHyperlinkType.h>
 #include <ZLTextParagraph.h>
@@ -33,14 +34,16 @@
 #include <ZLCachedMemoryAllocator.h>
 
 class ZLTextStyleEntry;
+class ZLVideoEntry;
+class FontManager;
 
 class ZLTextModel {
 
 protected:
 	ZLTextModel(const std::string &id, const std::string &language, const std::size_t rowSize,
-		const std::string &directoryName, const std::string &fileExtension);
+		const std::string &directoryName, const std::string &fileExtension, FontManager &fontManager);
 	ZLTextModel(const std::string &id, const std::string &language,
-		shared_ptr<ZLCachedMemoryAllocator> allocator);
+		shared_ptr<ZLCachedMemoryAllocator> allocator, FontManager &fontManager);
 
 public:
 	virtual ~ZLTextModel();
@@ -65,7 +68,8 @@ public:
 	ZLTextMark previousMark(ZLTextMark position) const;
 */
 	void addControl(ZLTextKind textKind, bool isStart);
-	void addStyleEntry(const ZLTextStyleEntry &entry);
+	void addStyleEntry(const ZLTextStyleEntry &entry, unsigned char depth);
+	void addStyleEntry(const ZLTextStyleEntry &entry, const std::vector<std::string> &fontFamilies, unsigned char depth);
 	void addStyleCloseEntry();
 	void addHyperlinkControl(ZLTextKind textKind, ZLHyperlinkType hyperlinkType, const std::string &label);
 	void addText(const std::string &text);
@@ -73,6 +77,8 @@ public:
 	void addImage(const std::string &id, short vOffset, bool isCover);
 	void addFixedHSpace(unsigned char length);
 	void addBidiReset();
+	void addVideoEntry(const ZLVideoEntry &entry);
+	void addExtensionEntry(const std::string &action, const std::map<std::string,std::string> &data);
 
 	void flush();
 
@@ -102,6 +108,8 @@ private:
 	std::vector<jint> myTextSizes;
 	std::vector<jbyte> myParagraphKinds;
 
+	FontManager &myFontManager;
+
 private:
 	ZLTextModel(const ZLTextModel&);
 	const ZLTextModel &operator = (const ZLTextModel&);
@@ -111,9 +119,9 @@ class ZLTextPlainModel : public ZLTextModel {
 
 public:
 	ZLTextPlainModel(const std::string &id, const std::string &language, const std::size_t rowSize,
-			const std::string &directoryName, const std::string &fileExtension);
+			const std::string &directoryName, const std::string &fileExtension, FontManager &fontManager);
 	ZLTextPlainModel(const std::string &id, const std::string &language,
-		shared_ptr<ZLCachedMemoryAllocator> allocator);
+		shared_ptr<ZLCachedMemoryAllocator> allocator, FontManager &fontManager);
 	void createParagraph(ZLTextParagraph::Kind kind);
 };
 
