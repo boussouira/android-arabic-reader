@@ -152,7 +152,7 @@ public abstract class AnimationProvider {
 		}
 		myDrawInfos.clear();
 
-		if (getPageToScrollTo() == ZLViewEnums.PageIndex.previous) {
+		if (getPageToScrollTo() != ZLViewEnums.PageIndex.previous) {
 			forward = !forward;
 		}
 

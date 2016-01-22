@@ -214,9 +214,9 @@ public final class CurlAnimationProvider extends AnimationProvider {
 		}
 
 		switch (myDirection) {
-			case leftToRight:
-				return myStartX < myWidth / 2 ? ZLViewEnums.PageIndex.next : ZLViewEnums.PageIndex.previous;
 			case rightToLeft:
+				return myStartX < myWidth / 2 ? ZLViewEnums.PageIndex.next : ZLViewEnums.PageIndex.previous;
+			case leftToRight:
 				return myStartX < myWidth / 2 ? ZLViewEnums.PageIndex.previous : ZLViewEnums.PageIndex.next;
 			case up:
 				return myStartY < myHeight / 2 ? ZLViewEnums.PageIndex.previous : ZLViewEnums.PageIndex.next;

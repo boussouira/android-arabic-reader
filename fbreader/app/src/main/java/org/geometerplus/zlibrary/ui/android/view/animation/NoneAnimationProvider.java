@@ -68,9 +68,9 @@ public final class NoneAnimationProvider extends AnimationProvider {
 		}
 
 		switch (myDirection) {
-			case rightToLeft:
-				return myStartX < x ? ZLViewEnums.PageIndex.previous : ZLViewEnums.PageIndex.next;
 			case leftToRight:
+				return myStartX < x ? ZLViewEnums.PageIndex.previous : ZLViewEnums.PageIndex.next;
+			case rightToLeft:
 				return myStartX < x ? ZLViewEnums.PageIndex.next : ZLViewEnums.PageIndex.previous;
 			case up:
 				return myStartY < y ? ZLViewEnums.PageIndex.previous : ZLViewEnums.PageIndex.next;
