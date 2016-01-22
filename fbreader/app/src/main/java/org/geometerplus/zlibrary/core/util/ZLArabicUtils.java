@@ -163,9 +163,9 @@ public class ZLArabicUtils {
 		if(!wordIsArabic && numberCount > 0 && (haveMark || arabicCount < 0)) {
 			reshape(text, offset, length);
 		} else {
-			for(int i=offset; i<offset+length; i++) {
-				text[i] = reverseForArabic(text[i]);
-			}
+//			for(int i=offset; i<offset+length; i++) {
+//				text[i] = reverseForArabic(text[i]);
+//			}
 		}
     }
     
