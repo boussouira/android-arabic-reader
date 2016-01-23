@@ -364,7 +364,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 			}
 			final ZLTextElementArea area = mySelection.getStartArea(page);
 			if (area != null) {
-				return new ZLTextSelection.Point(area.XStart, (area.YStart + area.YEnd) / 2);
+				return new ZLTextSelection.Point(area.XEnd, (area.YStart + area.YEnd) / 2);
 			}
 		} else {
 			if (mySelection.hasPartAfterPage(page)) {
@@ -372,7 +372,7 @@ public abstract class ZLTextView extends ZLTextViewBase {
 			}
 			final ZLTextElementArea area = mySelection.getEndArea(page);
 			if (area != null) {
-				return new ZLTextSelection.Point(area.XEnd, (area.YStart + area.YEnd) / 2);
+				return new ZLTextSelection.Point(area.XStart, (area.YStart + area.YEnd) / 2);
 			}
 		}
 		return null;
