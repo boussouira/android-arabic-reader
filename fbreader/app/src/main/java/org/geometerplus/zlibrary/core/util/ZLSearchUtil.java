@@ -102,41 +102,51 @@ public abstract class ZLSearchUtil {
 		return null;
 	}
 
-    public static int arabicFind(char[] text, int offset, int length, final ZLSearchPattern pattern, int pos) {
-        if (pos < 0) {
-            pos = 0;
-        }
-
-        final char[] lower = pattern.LowerCasePattern;
-        final int patternLength = lower.length;
-        final int last = offset + length - patternLength;
-        final char firstChar = lower[0];
-
-        for (int i = offset + pos; i <= last; i++) {
-        	if (ZLArabicUtils.compare(text[i], firstChar)) {
-                int j = 1;
-                for (int k = i + 1; j < patternLength; ++j, ++k) {
+    public static Result arabicFind(char[] text, int offset, int length, final ZLSearchPattern pattern, int pos) {
+		if (pos < 0) {
+			pos = 0;
+		}
+		final char[] lower = pattern.LowerCasePattern;
+		final int patternLength = lower.length;
+		final int end = offset + length;
+		final int lastStart = end - patternLength;
+			
+		final char firstChar = lower[0];
+		for (int i = offset + pos; i <= lastStart; i++) {
+			if (ZLArabicUtils.compare(text[i], firstChar)) {
+				int j = 1;
+				int k = i + 1;
+				for (; j < patternLength; ++k) {
+					final char symbol = text[k];
+					if (symbol == '\u200b') {
+						if (patternLength - j > end - k) {
+							break;
+						} else {
+							continue;
+						}
+					}
+					
                     if(ZLArabicUtils.isTashekil(lower[j])) {
                         --k;
-                        continue;
+                        ++j;
+                    	continue;
                     }
 
                     if(ZLArabicUtils.isTashekil(text[k])) {
-                        --j;
                         continue;
                     }
-
+                    
 					if (!ZLArabicUtils.compare(lower[j], text[k])) {
 						break;
 					}
+					++j;
 				}
-
-                if (j >= patternLength) {
-                    return i - offset;
-                }
-            }
-        }
-
-        return -1;
-    }
+				if (j >= patternLength) {
+					return new Result(i - offset, k - i);
+				}
+			}
+		}
+	
+		return null;
+	}
 }

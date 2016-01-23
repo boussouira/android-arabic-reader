@@ -395,9 +395,9 @@ public final class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Fea
 					int textOffset = it.getTextOffset();
 					int textLength = it.getTextLength();
 					if(arabicSearch) {
-						for (int pos = ZLSearchUtil.arabicFind(textData, textOffset, textLength, pattern, 0); pos != -1;
-							pos = ZLSearchUtil.arabicFind(textData, textOffset, textLength, pattern, pos + 1)) {
-							myMarks.add(new ZLTextMark(index, offset + pos, pattern.getLength()));
+						for (ZLSearchUtil.Result res = ZLSearchUtil.arabicFind(textData, textOffset, textLength, pattern, 0); res != null;
+							res = ZLSearchUtil.arabicFind(textData, textOffset, textLength, pattern, res.Start + 1)) {
+							myMarks.add(new ZLTextMark(index, offset + res.Start, res.Length));
 							++count;
 						}
 					} else {
