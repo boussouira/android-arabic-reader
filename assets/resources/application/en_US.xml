@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- English FBReaderJ resources, by FBReader.ORG Limited -->
 <resources>
-	<node name="library" value="FBReader library">
+	<node name="library" value="Arabic Reader library">
 		<node name="unknownAuthor" value="Unknown author"/>
 		<node name="booksWithNoTags" value="Books with no tags"/>
 		<node name="demo" value="sample"/>
@@ -60,8 +60,8 @@
 			<node name="withIndex" value="Memory card #%s"/>
 			<node name="summary" value="Files on memory card, external or built-in"/>
 		</node>
-		<node name="fileTreeLibrary" value="FBReader library">
-			<node name="summary" value="FBReader books directory"/>
+		<node name="fileTreeLibrary" value="Arabic Reader library">
+			<node name="summary" value="Arabic Reader books directory"/>
 		</node>
 		<node name="localSearch" value="Search"/>
 		<node name="rescan" value="Rescan"/>
@@ -78,7 +78,7 @@
 		<node name="uploadAgain" value="Upload again"/>
 		<node name="tryAgain" value="Try again"/>
 	</node>
-	<node name="networkLibrary" value="FBReader network library">
+	<node name="networkLibrary" value="Arabic Reader network library">
 		<node name="sync" value="FBReader® book network">
 			<node name="summary" value="My personal catalog"/>
 		</node>
@@ -270,7 +270,7 @@
 		<node name="returnTo" value="Return to …"/>
 		<node name="back" value="Back"/>
 		<node name="forward" value="Forward"/>
-		<node name="close" value="Close FBReader"/>
+		<node name="close" value="Close Arabic Reader"/>
 	</node>
 	<node name="style" value="Style %s"/>
 	<node name="editStyle" value="Edit style">
@@ -286,7 +286,7 @@
 		<node name="textInBuffer" value="Copied to clipboard:&#10;%s"/>
 	</node>
 	<node name="sharing">
-		<node name="sharedFrom" value="Shared from &lt;a href=&quot;https://fbreader.org/&quot;&gt;FBReader&lt;/a&gt;"/>
+		<node name="sharedFrom" value="Shared from &lt;a href=&quot;http://arabicreader.sourceforge.net&quot;&gt;FBReader&lt;/a&gt;"/>
 	</node>
 	<node name="menu">
 		<node name="installPremium" value="Upgrade to Premium"/>
@@ -342,7 +342,14 @@
 		<node name="tags" value="Tag(s)"/>
 		<node name="series" value="Series"/>
 	</node>
-	<node name="Preferences" value="FBReader settings">
+	<node name="Preferences" value="Arabic Reader settings">
+		<node name="arabic" value="Arabic">
+			<node name="summary" value="Arabic specific options" />
+			<node name="enableLTR" value="LTR books suuport">
+				<node name="summaryOn" value="Left To Right books will be supported" />
+				<node name="summaryOff" value="Left To Right books won't be supported" />
+			</node>
+		</node>
 		<node name="sync" value="Synchronization">
 			<node name="summary" value="Book network settings"/>
 			<node name="site" value="Read more about synchronization">
@@ -864,12 +871,12 @@
 				<node name="summaryOff" value="Don't show items for last 3 positions in the book"/>
 			</node>
 			<node name="backKeyAction" value="Back key action">
-				<node name="exit" value="Close FBReader"/>
+				<node name="exit" value="Close Arabic Reader"/>
 				<node name="goBack" value="Navigate back"/>
 				<node name="cancelMenu" value="Show cancel menu"/>
 			</node>
 			<node name="backKeyLongPressAction" value="Back key long press action">
-				<node name="exit" value="Close FBReader"/>
+				<node name="exit" value="Close Arabic Reader"/>
 				<node name="goBack" value="Navigate back"/>
 				<node name="cancelMenu" value="Show cancel menu"/>
 				<node name="none" value="No action"/>
@@ -882,23 +889,20 @@
 				<node name="summaryOff" value="Do not show daily tips"/>
 			</node>
 		</node>
-		<node name="about" value="About FBReader">
+		<node name="about" value="About Arabic Reader">
 			<node name="summary" value="Version info, contacts, etc."/>
 			<node name="version" value="Version"/>
 			<node name="site" value="Visit our website">
-				<node name="url" value="https://fbreader.org/"/>
+				<node name="url" value="http://arabicreader.sourceforge.net"/>
 			</node>
 			<node name="email" value="Send us an email">
-				<node name="url" value="mailto:contact@fbreader.org"/>
+				<node name="url" value="mailto:ma7dev@gmail.com"/>
 			</node>
-			<node name="googleplus" value="Join FBReader Google+ community">
-				<node name="url" value="https://plus.google.com/communities/115894899404862312312"/>
+			<node name="twitter" value="Follow us on twitter">
+				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
-			<node name="twitter" value="Follow us on Twitter">
-				<node name="url" value="https://twitter.com/fbreader"/>
-			</node>
-			<node name="facebook" value="FBReader on Facebook">
-				<node name="url" value="https://facebook.com/fbreader"/>
+			<node name="facebook" value="Arabic Reader on Facebook">
+				<node name="url" value="https://www.facebook.com/ArabicReaderAndroid"/>
 			</node>
 			<node name="thirdParty" value="Third-party libraries"/>
 		</node>
@@ -1042,7 +1046,7 @@
 			<node name="register" value="Sign up"/>
 		</node>
 		<node name="CustomCatalogDialog">
-			<node name="title" value="FBReader: add custom catalog"/>
+			<node name="title" value="Arabic Reader: add custom catalog"/>
 			<node name="catalogTitle" value="Title"/>
 			<node name="catalogUrl" value="URL"/>
 			<node name="catalogSummary" value="Summary"/>
@@ -1065,7 +1069,7 @@
 			<node name="more" value="Next tip"/>
 		</node>
 		<node name="screenHint">
-			<node name="message1" value="FBReader works in fullscreen mode by default. Tap the center third of the screen now to show controls. You can change this in the “Appearance” section of the Settings dialog."/>
+			<node name="message1" value="Arabic Reader works in fullscreen mode by default. Tap the center third of the screen now to show controls. You can change this in the “Appearance” section of the Settings dialog."/>
 			<node name="message2" value="Well done! Now tap the center third of the screen again to hide the controls and this hint. If you want to keep controls on the screen while reading, select the “Show action bar” option in “Appearance” in Settings."/>
 		</node>
 		<node name="folderList">
@@ -1153,17 +1157,17 @@
 	</node>
 	<node name="crash">
 		<node name="fixBooksDirectory">
-			<node name="title" value="FBReader issue"/>
-			<node name="text" value="Cannot write to FBReader cache. Please check that your memory card is inserted correctly, or select another directory."/>
+			<node name="title" value="Arabic Reader issue"/>
+			<node name="text" value="Cannot write to Arabic Reader cache. Please check that your memory card is inserted correctly, or select another directory."/>
 		</node>
 		<node name="missingNativeLibrary">
-			<node name="title" value="FBReader issue"/>
-			<node name="text" value="FBReader cannot load native library. If the issue persists, please reinstall FBReader."/>
+			<node name="title" value="Arabic Reader issue"/>
+			<node name="text" value="Arabic Reader cannot load native library. If the issue persists, please reinstall Arabic Reader."/>
 		</node>
 	</node>
 	<node name="error">
 		<node name="bookReading">
-			<node name="title" value="FBReader issue"/>
+			<node name="title" value="Arabic Reader issue"/>
 		</node>
 	</node>
 	<node name="links">
