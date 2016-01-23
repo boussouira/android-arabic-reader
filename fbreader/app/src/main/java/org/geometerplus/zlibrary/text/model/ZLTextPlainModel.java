@@ -386,7 +386,7 @@ public final class ZLTextPlainModel implements ZLTextModel, ZLTextStyleEntry.Fea
 		}
 		int index = startIndex;
 		final EntryIteratorImpl it = new EntryIteratorImpl(index);
-		final boolean arabicSearch = myLanguage.equals("ar");
+		final boolean arabicSearch = true;
 		while (true) {
 			int offset = 0;
 			while (it.next()) {
