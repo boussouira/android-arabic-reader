@@ -162,6 +162,8 @@ public class ZLArabicUtils {
 		boolean wordIsArabic = (arabicCount == length); // The word contains only Arabic chars
 		if(!wordIsArabic && numberCount > 0 && (haveMark || arabicCount < 0)) {
 			reshape(text, offset, length);
+		} else if (length == 1 && haveMark) {
+			text[offset] = reverseForArabic(text[offset]);
 		} else {
 //			for(int i=offset; i<offset+length; i++) {
 //				text[i] = reverseForArabic(text[i]);
