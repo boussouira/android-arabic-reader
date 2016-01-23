@@ -21,7 +21,7 @@ package org.geometerplus.android.fbreader;
 
 import java.io.*;
 import java.util.*;
-
+import android.annotation.SuppressLint;
 import android.app.*;
 import android.content.*;
 import android.net.Uri;
@@ -345,11 +345,11 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 		myFBReaderApp.addAction(ActionCode.YOTA_SWITCH_TO_BACK_SCREEN, new YotaSwitchScreenAction(this, myFBReaderApp, true));
 		myFBReaderApp.addAction(ActionCode.YOTA_SWITCH_TO_FRONT_SCREEN, new YotaSwitchScreenAction(this, myFBReaderApp, false));
 
-		Config.Instance().runOnConnect(new Runnable() {
-			public void run() {
-				showPremiumDialog();
-			}
-		});
+//		Config.Instance().runOnConnect(new Runnable() {
+//			public void run() {
+//				showPremiumDialog();
+//			}
+//		});
 
 		final Intent intent = getIntent();
 		final String action = intent.getAction();
@@ -1265,6 +1265,7 @@ public final class FBReader extends FBReaderMainActivity implements ZLApplicatio
 		builder.create().show();
 	}
 
+	@SuppressLint("NewApi")
 	void ensureFullscreenOnDismiss(AlertDialog.Builder builder) {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
 			builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
