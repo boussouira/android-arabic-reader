@@ -901,9 +901,6 @@
 			<node name="twitter" value="Follow us at twitter">
 				<node name="url" value="http://twitter.com/arabic_reader"/>
 			</node>
-			<node name="twitter" value="Follow us on Twitter">
-				<node name="url" value="https://twitter.com/fbreader"/>
-			</node>
 			<node name="facebook" value="Arabic Reader on facebook">
 				<node name="url" value="https://www.facebook.com/ArabicReaderAndroid"/>
 			</node>
