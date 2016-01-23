@@ -22,10 +22,10 @@
 		android:paddingBottom="8dp"
 	>
 		<ImageView
-			android:id="@+id/search_panel_next"
+			android:id="@+id/search_panel_previous"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:src="@drawable/popup_back"
+			android:src="@drawable/popup_forward"
 			android:layout_marginLeft="8dp"
 			android:layout_marginRight="8dp"
 		/>
@@ -38,10 +38,10 @@
 			android:layout_marginRight="8dp"
 		/>
 		<ImageView
-			android:id="@+id/search_panel_previous"
+			android:id="@+id/search_panel_next"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:src="@drawable/popup_forward"
+			android:src="@drawable/popup_back"
 			android:layout_marginLeft="8dp"
 			android:layout_marginRight="8dp"
 		/>
