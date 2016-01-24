@@ -379,7 +379,7 @@ public class LibraryActivity extends TreeActivity<LibraryTree> implements MenuIt
 				return true;
 			}
 			case OptionsItemId.ExternalView:
-				runOrInstallExternalView(true);
+				//runOrInstallExternalView(true);
 				return true;
 			default:
 				return true;
