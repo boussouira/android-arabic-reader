@@ -3,7 +3,7 @@
 		xmlns:android="http://schemas.android.com/apk/res/android"
 		package="net.sourceforge.arabicReader"
 		android:versionCode="2055920"
-		android:versionName="2.6 beta 9"
+		android:versionName="2.6 beta 1"
 		android:installLocation="auto"
 >
 	<uses-sdk
