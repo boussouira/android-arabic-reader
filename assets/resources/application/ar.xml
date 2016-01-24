@@ -23,31 +23,31 @@
 		<node name="favorites" value="المفضلة">
 			<node name="summary" value="الكتب المفضلة"/>
 		</node>
-		<node name="chooseView" value="Choose view" toBeTranslated="true"/>
-		<node name="wideCardsView" value="Wide cards" toBeTranslated="true"/>
-		<node name="smallCardsView" value="Small cards" toBeTranslated="true"/>
-		<node name="tinyCardsView" value="Tiny cards" toBeTranslated="true"/>
-		<node name="coversView" value="Covers" toBeTranslated="true"/>
-		<node name="oldView" value="Classic" toBeTranslated="true"/>
-		<node name="bookshelfView" value="Bookshelf view" toBeTranslated="true">
-			<node name="summary" value="Switch to thumbnail view" toBeTranslated="true"/>
+		<node name="chooseView" value="طريقة العرض" />
+		<node name="wideCardsView" value="بطاقات كبيرة"/>
+		<node name="smallCardsView" value="بطاقات صغيرة"/>
+		<node name="tinyCardsView" value="بطاقات دقيقة"/>
+		<node name="coversView" value="الغلاف"/>
+		<node name="oldView" value="القديمة"/>
+		<node name="bookshelfView" value="الرفوف">
+			<node name="summary" value="انتقل الى عرض المصغرات"/>
 		</node>
 		<node name="found" value="نتائج">
 			<node name="summary" value="نتائج البحث: %s"/>
 		</node>
-		<node name="sync" value="Synchronisation" toBeTranslated="true">
-			<node name="summary" value="Books by synchronisation status" toBeTranslated="true"/>
-			<node name="sync-success" value="Synchronised" toBeTranslated="true">
-				<node name="summary" value="Books successfully uploaded to the server" toBeTranslated="true"/>
+		<node name="sync" value="المزامنة">
+			<node name="summary" value="الكتب حسب وضعية المزامنة"/>
+			<node name="sync-success" value="متزامن">
+				<node name="summary" value="تم رفع الكتاب الى السيرفور"/>
 			</node>
-			<node name="sync-failure" value="Synchronisation failed" toBeTranslated="true">
-				<node name="summary" value="Books not uploaded to the server due to errors" toBeTranslated="true"/>
+			<node name="sync-failure" value="فشل المزامنة">
+				<node name="summary" value="لم يتم رفع الكتاب الى السيرفور"/>
 			</node>
-			<node name="sync-deleted" value="Deleted from server" toBeTranslated="true">
-				<node name="summary" value="Books no longer accessible from the server" toBeTranslated="true"/>
+			<node name="sync-deleted" value="خذف من السيرفور">
+				<node name="summary" value="تم حذف المتاب من السيرفور"/>
 			</node>
-			<node name="sync-tosync" value="Not synchronised yet" toBeTranslated="true">
-				<node name="summary" value="Books yet to be uploaded to the server" toBeTranslated="true"/>
+			<node name="sync-tosync" value="غير متزامن">
+				<node name="summary" value="الكتاب لم يرفع الى السيرفور بعد"/>
 			</node>
 		</node>
 		<node name="fileTree" value="ملفات النظام">
@@ -57,7 +57,7 @@
 			<node name="summary" value="جميع ملفات الجهاز"/>
 		</node>
 		<node name="fileTreeCard" value="بطاقة الذاكرة">
-			<node name="withIndex" value="Memory card No %s" toBeTranslated="true"/>
+			<node name="withIndex" value="بطاقة الذاكرة رقم %s"/>
 			<node name="summary" value="بطاقة الذاكرة الموضوعة في الجهاز"/>
 		</node>
 		<node name="fileTreeLibrary" value="مجلد المكتبة">
@@ -74,13 +74,13 @@
 		<node name="removeFromRecents" value="حذف من لائحة أحدث الكتب"/>
 		<node name="markAsRead" value="تعليم كمقروء"/>
 		<node name="markAsUnread" value="تعليم كغير مقروء"/>
-		<node name="deleteAll" value="Delete all" toBeTranslated="true"/>
-		<node name="uploadAgain" value="Upload again" toBeTranslated="true"/>
-		<node name="tryAgain" value="Try again" toBeTranslated="true"/>
+		<node name="deleteAll" value="حذف الكل"/>
+		<node name="uploadAgain" value="اعادة الرفع"/>
+		<node name="tryAgain" value="اعادة المحاولة"/>
 	</node>
 	<node name="networkLibrary" value="مكتبة الشبكة">
 		<node name="sync" value="FBReader® book network" toBeTranslated="true">
-			<node name="summary" value="My personal catalogue" toBeTranslated="true"/>
+			<node name="summary" value="مكتبتي الشخصية"/>
 		</node>
 		<node name="byAuthor" value="حسب المؤلف">
 			<node name="summary" value="ترتيب الكتب حسب المؤلف"/>
@@ -125,14 +125,14 @@
 		<node name="stopLoading" value="إيقاف التحميل"/>
 		<node name="stopSearching" value="إيقاف البحث"/>
 		<node name="signIn" value="تسجيل الدخول"/>
-		<node name="signOut" value="تسجي الخروج (%s)"/>
-		<node name="signUp" value="Sign up" toBeTranslated="true"/>
-		<node name="quickBuy" value="Quick buy" toBeTranslated="true"/>
-		<node name="topup" value="Top up account (currently: %s)" toBeTranslated="true"/>
-		<node name="topupTitle" value="Top up account" toBeTranslated="true"/>
+		<node name="signOut" value="تسجيل الخروج (%s)"/>
+		<node name="signUp" value="التسجيل"/>
+		<node name="quickBuy" value="شراء سريع"/>
+		<node name="topup" value="تعبئة الرصيد (الرصيد: %s)"/>
+		<node name="topupTitle" value="تعبئة الرصيد"/>
 		<node name="topupViaBrowser" value="فتح الصفحة في المتصفح"/>
-		<node name="authorisationMenuTitle" value="Select action" toBeTranslated="true"/>
-		<node name="topupSummary" value="Currently: %s" toBeTranslated="true"/>
+		<node name="authorisationMenuTitle" value="اختر مهمة"/>
+		<node name="topupSummary" value="حاليا: %s"/>
 		<node name="basket" value="السلة"/>
 		<node name="basketSummaryEmpty" value="لا كتب"/>
 		<node name="basketSummaryCountOnly" value="%0 كتاب">
@@ -165,21 +165,21 @@
 			<node name="editUrl" value="إضافة رابط يجوي"/>
 		</node>
 		<node name="manageCatalogs" value="تعديل الكتالوجات">
-			<node name="summary" value="Configure your catalogues" toBeTranslated="true"/>
+			<node name="summary" value="تعديل الكتالوج الخاص بك"/>
 			<node name="enabled" value="تفعيل"/>
 			<node name="disabled" value="الغاء"/>
 		</node>
 		<node name="menu">
-			<node name="openRoot" value="Root catalogue" toBeTranslated="true"/>
+			<node name="openRoot" value="الكتالوج الرئيسي"/>
 			<node name="networkSearch" value="بحث"/>
 			<node name="reload" value="إعادة تحميل"/>
 			<node name="signIn" value="تسجي الدخول"/>
 			<node name="signUp" value="التسجيل"/>
 			<node name="signOut" value="تسجيل الخروج (%s)"/>
-			<node name="topup" value="Top up account" toBeTranslated="true"/>
+			<node name="topup" value="تعبئة الرصيد"/>
 			<node name="addCustomCatalog" value="إضافة كتالوج"/>
 			<node name="refreshCatalogsList" value="إعادة تحميل الكتالوج"/>
-			<node name="manageCatalogs" value="Manage catalogues" toBeTranslated="true"/>
+			<node name="manageCatalogs" value="تعديل الكتالوج"/>
 			<node name="clearBasket" value="تفريغ السلة"/>
 			<node name="buyAllBooks" value="شراء كل الكتب"/>
 		</node>
@@ -206,7 +206,7 @@
 			<node condition="value 1" value="المؤلف"/>
 		</node>
 		<node name="series" value="السلسة"/>
-		<node name="indexInSeries" value="Number in series:" toBeTranslated="true"/>
+		<node name="indexInSeries" value="الرقم في السلسل:"/>
 		<node name="tags" value="الوسوم">
 			<node condition="value 1" value="الوسم"/>
 		</node>
@@ -215,10 +215,10 @@
 		<node name="type" value="النوع"/>
 		<node name="size" value="الحجم"/>
 		<node name="time" value="آخر تحديث"/>
-		<node name="sizeInBytes" value="%s bytes" toBeTranslated="true">
-			<node condition="value 1" value="%s byte" toBeTranslated="true"/>
+		<node name="sizeInBytes" value="%s بايت">
+			<node condition="value 1" value="%s بايت"/>
 		</node>
-		<node name="sizeInKiloBytes" value="%s kB" toBeTranslated="true"/>
+		<node name="sizeInKiloBytes" value="%s كيلوبايت"/>
 		<node name="catalog" value="الكتالوج"/>
 		<node name="extraLinks" value="روابط ذات صلة"/>
 		<node name="menu">
@@ -250,16 +250,16 @@
 		<node name="search" value="بحث"/>
 	</node>
 	<node name="editBookmark">
-		<node name="text" value="Text" toBeTranslated="true"/>
-		<node name="style" value="Style" toBeTranslated="true"/>
-		<node name="delete" value="Delete" toBeTranslated="true"/>
+		<node name="text" value="النص"/>
+		<node name="style" value="التنسيق"/>
+		<node name="delete" value="حذف"/>
 		<node name="deleteBookmark" value="حذف العلامة المرجعية"/>
-		<node name="saveText" value="Save text" toBeTranslated="true"/>
+		<node name="saveText" value="حفظ النص"/>
 		<node name="editStyle" value="تعديل الستايل…"/>
 	</node>
 	<node name="toast">
-		<node name="more" value="More" toBeTranslated="true"/>
-		<node name="offline" value="Offline" toBeTranslated="true"/>
+		<node name="more" value="المزيد"/>
+		<node name="offline" value="غير متصل"/>
 	</node>
 	<node name="cancelMenu">
 		<node name="library" value="فتح المكتبة"/>
@@ -271,7 +271,7 @@
 		<node name="close" value="اغلاق البرنامج"/>
 	</node>
 	<node name="style" value="الستايل %s"/>
-	<node name="editStyle" value="Edit style" toBeTranslated="true">
+	<node name="editStyle" value="تعديل التنسيق">
 		<node name="name" value="اسم الستايل"/>
 		<node name="invisible" value="غير مرئي">
 			<node name="summaryOn" value="لا تميز العلامة المرجعية"/>
@@ -290,17 +290,17 @@
 		<node name="installPremium" value="Upgrade to Premium" toBeTranslated="true"/>
 		<node name="openPremium" value="Open FBReader Premium" toBeTranslated="true"/>
 		<node name="premium" value="FBReader Premium dialog" toBeTranslated="true"/>
-		<node name="whatsnew" value="What's new" toBeTranslated="true"/>
-		<node name="openStartScreen" value="Start screen" toBeTranslated="true"/>
+		<node name="whatsnew" value="ما الجديد"/>
+		<node name="openStartScreen" value="صفحة البداية"/>
 		<node name="preferences" value="اعدادات"/>
 		<node name="bookInfo" value="معلومات حول الكتاب"/>
 		<node name="library" value="المكتبة"/>
 		<node name="toc" value="الفهرس"/>
 		<node name="day" value="مضيء"/>
 		<node name="night" value="مظلم"/>
-		<node name="dayNight" value="Day/Night" toBeTranslated="true"/>
-		<node name="yotaSwitchToBackScreen" value="Switch to back screen" toBeTranslated="true"/>
-		<node name="yotaSwitchToFrontScreen" value="Switch to front screen" toBeTranslated="true"/>
+		<node name="dayNight" value="مضيء/مظلم"/>
+		<node name="yotaSwitchToBackScreen" value="انتقل الى الشاشة الخلفية"/>
+		<node name="yotaSwitchToFrontScreen" value="انتقل الى الشاشة الأمامية"/>
 		<node name="networkLibrary" value="مكتبة الشبكة"/>
 		<node name="navigate" value="التنقل بين الصفحات">
 			<node name="toc" value="فهرس الكتاب"/>
@@ -324,7 +324,7 @@
 		<node name="screenOrientationReverseLandscape" value="عرض معكوس"/>
 		<node name="increaseFont" value="تكبير الخط"/>
 		<node name="decreaseFont" value="تصغير الخط"/>
-		<node name="changeFontSize" value="Zoom in/out" toBeTranslated="true"/>
+		<node name="changeFontSize" value="تكبير/تصغير الخط"/>
 		<node name="toggleFullscreen" value="كل الشاشة"/>
 		<node name="bookmarks" value="العلامات المرجعية"/>
 		<node name="help" value="مساعدة"/>
@@ -340,7 +340,7 @@
 		<node name="tags" value="الوسوم"/>
 		<node name="series" value="السلسة"/>
 	</node>
-	<node name="Preferences" value="FBReader settings" toBeTranslated="true">
+	<node name="Preferences" value="اعدادات البرنامج">
 		<node name="arabic" value="اللغة العربية">
 			<node name="summary" value="اعدادات خاصة باللغة العربية" />
 			<node name="enableLTR" value="دعم عرض الكتب غير العربية">
@@ -348,20 +348,20 @@
 				<node name="summaryOff" value="لن يتم عرض الكتب التي تقرأ من اليسار الى اليمين بشكل صحيح" />
 			</node>
 		</node>	
-		<node name="sync" value="Synchronisation" toBeTranslated="true">
-			<node name="summary" value="Book network settings" toBeTranslated="true"/>
-			<node name="site" value="Read more about synchronisation" toBeTranslated="true">
-				<node name="url" value="https://books.fbreader.org/help.html" toBeTranslated="true"/>
+		<node name="sync" value="المزامنة">
+			<node name="summary" value="اعادة الشبكة"/>
+			<node name="site" value="قراءة المزيد حول المزامنة">
+				<node name="url" value="https://books.fbreader.org/help.html"/>
 			</node>
-			<node name="enable" value="Enable synchronisation" toBeTranslated="true">
+			<node name="enable" value="تشغيل المزامنة">
 				<node name="summaryOn" value="Synchronise my library with FBReader book network server" toBeTranslated="true"/>
 				<node name="summaryOnWithAccount" value="Synchronise my library as %s" toBeTranslated="true"/>
 				<node name="summaryOff" value="Do not synchronise my library with FBReader book network server" toBeTranslated="true"/>
 			</node>
 			<node name="values">
-				<node name="always" value="Always" toBeTranslated="true"/>
-				<node name="viaWifi" value="If device is connected via Wi-Fi" toBeTranslated="true"/>
-				<node name="never" value="Never" toBeTranslated="true"/>
+				<node name="always" value="دائما"/>
+				<node name="viaWifi" value="عند الاتصال بالواي-فاي"/>
+				<node name="never" value="أبدأ"/>
 			</node>
 			<node name="uploadAllBooks" value="Upload all books to server" toBeTranslated="true"/>
 			<node name="downloadAllBooks" value="Download all books from server" toBeTranslated="true"/>
@@ -493,9 +493,9 @@
 				<node name="normal" value="عادي"/>
 				<node name="inherit" value="&lt;بدون تغيير&gt;"/>
 			</node>
-			<node name="textDecoration" value="Text decoration" toBeTranslated="true">
-				<node name="inherit" value="&lt;unchanged&gt;" toBeTranslated="true"/>
-				<node name="none" value="no decorations" toBeTranslated="true"/>
+			<node name="textDecoration" value="تزيين النص">
+				<node name="inherit" value="&lt;بدون تغيير&gt;"/>
+				<node name="none" value="لا تزيين"/>
 				<node name="underline" value="مسطر"/>
 				<node name="line-through" value="مشطوب"/>
 			</node>
