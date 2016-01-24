@@ -39,6 +39,7 @@ public abstract class BookUtil {
 	}
 
 	public static ZLResourceFile getHelpFile() {
+		/*
 		final Locale locale = Locale.getDefault();
 
 		ZLResourceFile file = ZLResourceFile.createResourceFile(
@@ -54,8 +55,9 @@ public abstract class BookUtil {
 		if (file.exists()) {
 			return file;
 		}
+		*/
 
-		return ZLResourceFile.createResourceFile("data/intro/intro-en.epub");
+		return ZLResourceFile.createResourceFile("data/intro/intro-ar.epub");
 	}
 
 	public static UID createUid(AbstractBook book, String algorithm) {
